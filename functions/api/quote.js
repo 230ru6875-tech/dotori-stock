@@ -23,9 +23,16 @@ function cleanName(value, symbol) {
   const escaped = symbol.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   return text
     .replace(/\s*:\s*\uB124\uC774\uBC84\uD398\uC774\s*\uC99D\uAD8C.*$/i, "")
+    .replace(/\s*:\s*Npay\s*\uC99D\uAD8C.*$/i, "")
     .replace(/\s*-\s*Yahoo Finance.*$/i, "")
     .replace(new RegExp(`\\s*\\(?${escaped}\\)?\\s*$`, "i"), "")
     .trim();
+}
+
+function naverCompanyName(html, symbol) {
+  const wrapMatch = String(html || "").match(/<div[^>]+class=["']wrap_company["'][\s\S]*?<\/div>\s*<\/div>/i);
+  const h2Match = (wrapMatch?.[0] || "").match(/<h2[^>]*>([\s\S]*?)<\/h2>/i);
+  return cleanName(h2Match?.[1] || "", symbol);
 }
 
 async function fetchText(url) {
@@ -49,11 +56,10 @@ async function fetchText(url) {
 async function quoteDomestic(symbol) {
   const html = await fetchText(`https://finance.naver.com/item/main.naver?code=${symbol}`);
   const titleMatch = html.match(/<title[^>]*>([^<]+)<\/title>/i);
-  const h2Match = html.match(/<div[^>]+class=["']wrap_company["'][\s\S]*?<h2[^>]*>([^<]+)<\/h2>/i);
   const priceMatch = html.match(/<p[^>]+class=["']no_today["'][\s\S]*?<span[^>]+class=["']blind["']>([^<]+)<\/span>/i);
   return {
     symbol,
-    name: cleanName(h2Match?.[1] || titleMatch?.[1], symbol) || symbol,
+    name: naverCompanyName(html, symbol) || cleanName(titleMatch?.[1], symbol) || symbol,
     market: "\uAD6D\uB0B4",
     currentPrice: cleanHtml(priceMatch?.[1] || ""),
     source: "Naver Finance"

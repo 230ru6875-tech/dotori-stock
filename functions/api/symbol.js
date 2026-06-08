@@ -57,6 +57,7 @@ async function lookupTursoSymbol(env, symbol) {
 
 function cleanName(value, symbol) {
   let text = String(value || "")
+    .replace(/<[^>]+>/g, " ")
     .replace(/\s+/g, " ")
     .replace(/&amp;/g, "&")
     .replace(/&quot;/g, "\"")
@@ -65,12 +66,19 @@ function cleanName(value, symbol) {
   if (!text) return "";
   text = text
     .replace(/\s*:\s*\uB124\uC774\uBC84\uD398\uC774\s*\uC99D\uAD8C.*$/i, "")
+    .replace(/\s*:\s*Npay\s*\uC99D\uAD8C.*$/i, "")
     .replace(/\s*-\s*Toss Invest.*$/i, "")
     .replace(/\s*\|\s*Toss Invest.*$/i, "")
     .replace(/\s*\|\s*\uD1A0\uC2A4\uC99D\uAD8C.*$/i, "")
     .trim();
   const escaped = symbol.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   return text.replace(new RegExp(`\\s*\\(?${escaped}\\)?\\s*$`, "i"), "").trim();
+}
+
+function naverCompanyName(html, symbol) {
+  const wrapMatch = String(html || "").match(/<div[^>]+class=["']wrap_company["'][\s\S]*?<\/div>\s*<\/div>/i);
+  const h2Match = (wrapMatch?.[0] || "").match(/<h2[^>]*>([\s\S]*?)<\/h2>/i);
+  return cleanName(h2Match?.[1] || "", symbol);
 }
 
 async function lookupNaverDomestic(symbol) {
@@ -85,8 +93,7 @@ async function lookupNaverDomestic(symbol) {
   if (!response.ok) return null;
   const html = await response.text();
   const titleMatch = html.match(/<title[^>]*>([^<]+)<\/title>/i);
-  const h2Match = html.match(/<div[^>]+class=["']wrap_company["'][\s\S]*?<h2[^>]*>([^<]+)<\/h2>/i);
-  const name = cleanName(h2Match?.[1] || titleMatch?.[1], symbol);
+  const name = naverCompanyName(html, symbol) || cleanName(titleMatch?.[1], symbol);
   return name ? { symbol, name, market: "\uAD6D\uB0B4", source: "Naver Finance" } : null;
 }
 
