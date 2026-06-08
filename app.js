@@ -494,8 +494,9 @@ function userStockToWatchlist(item) {
   if (base) {
     const current = String(base.currentPrice || "").startsWith(T.basis) ? "\uc870\ud68c \uc911" : (base.currentPrice || "\uc870\ud68c \uc911");
     const resolvedName = stripSymbolFromName(base.name || item.name, item.symbol) || nameLookup().get(item.symbol) || item.symbol;
-    const purchaseMemo = hasPrice ? ` \uad6c\uc785\uac00 ${price.toLocaleString()}\uc744 \uae30\uc900\uc73c\ub85c \uac80\ud1a0\ud569\ub2c8\ub2e4.` : "";
-    return { ...base, name: resolvedName, currentPrice: current, memo: `${base.memo || ""}${purchaseMemo}`.trim(), userAdded: true };
+    const memoParts = [base.memo || ""];
+    if (hasPrice) memoParts.push(`\uad6c\uc785\uac00 ${price.toLocaleString()}\uc744 \uae30\uc900\uc73c\ub85c \uac80\ud1a0\ud569\ub2c8\ub2e4.`);
+    return { ...base, name: resolvedName, currentPrice: current, memo: memoParts.filter(Boolean).join(" / "), userAdded: true };
   }
   const resolvedName = stripSymbolFromName(item.name, item.symbol) || nameLookup().get(item.symbol) || item.symbol;
   return {
@@ -644,7 +645,7 @@ function renderDashboard() {
     grid.innerHTML = renderCards(active, (item) => {
       const displayName = !item.name || item.name === item.symbol ? item.symbol : `${item.name} <span>(${item.symbol})</span>`;
       const priceLine = item.currentPrice ? `<p class="price">${T.currentPrice}: ${item.currentPrice}</p>` : "";
-      return `<article class="data-card clickable-card watch-card" data-chart-symbol="${item.symbol}"><div class="card-top"><strong>${displayName}</strong><em>${item.market}</em></div>${priceLine}<p><b class="${signalClass(item.signal)}">${item.signal}</b>${item.movingAverage ? ` - ${item.movingAverage}` : ""}</p><p>${item.memo}</p><div class="watch-chart-popover">${watchlistMiniChartSvg(item)}</div>${item.userAdded ? `<button class="small-button" data-remove-symbol="${item.symbol}" type="button">${T.remove}</button>` : ""}</article>`;
+      return `<article class="data-card clickable-card watch-card" data-chart-symbol="${item.symbol}"><div class="card-top"><strong>${displayName}</strong><em>${item.market}</em></div>${priceLine}<p><b class="${signalClass(item.signal)}">${item.signal}</b>${item.movingAverage ? ` / ${item.movingAverage}` : ""}</p><p>${item.memo}</p><div class="watch-chart-popover">${watchlistMiniChartSvg(item)}</div>${item.userAdded ? `<button class="small-button" data-remove-symbol="${item.symbol}" type="button">${T.remove}</button>` : ""}</article>`;
     });
   } else if (state.activeSection === "scanner") {
     const marketRows = (marketLabel) => active.filter((item) => (item.market || marketName(item.symbol)) === marketLabel);
