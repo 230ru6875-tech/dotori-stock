@@ -1,0 +1,254 @@
+from __future__ import annotations
+
+import html
+import json
+import re
+from datetime import datetime
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parent
+DATA_PATH = ROOT / "data" / "public-snapshot.json"
+REPORT_DIR = ROOT / "reports"
+SITE_URL = "https://dotoristock.com"
+
+
+def clean_text(value: object) -> str:
+    text = "" if value is None else str(value)
+    text = re.sub(r"\s+", " ", text).strip()
+    return text
+
+
+def esc(value: object) -> str:
+    return html.escape(clean_text(value), quote=True)
+
+
+def slug(symbol: object) -> str:
+    text = clean_text(symbol).upper()
+    text = re.sub(r"[^0-9A-Z._-]+", "-", text)
+    return text.strip("-") or "UNKNOWN"
+
+
+def is_excluded_product(name: str) -> bool:
+    lowered = name.lower()
+    banned = [
+        "tiger",
+        "kodex",
+        "sol ",
+        "ace ",
+        "etf",
+        "etn",
+        "레버리지",
+        "인버스",
+        "선물",
+        "합성",
+    ]
+    return any(word in lowered for word in banned)
+
+
+def normalize_name(item: dict) -> str:
+    name = clean_text(item.get("name") or item.get("symbol") or "종목")
+    symbol = clean_text(item.get("symbol"))
+    if symbol and symbol not in name:
+        return f"{name} ({symbol})"
+    return name
+
+
+def collect_items(data: dict) -> list[dict]:
+    merged: dict[str, dict] = {}
+    for section in ("watchlist", "movingAverages", "spikes", "scanner"):
+        for item in data.get(section, []) or []:
+            symbol = slug(item.get("symbol"))
+            if not symbol or symbol == "UNKNOWN":
+                continue
+            target = merged.setdefault(symbol, {"symbol": symbol, "sections": set()})
+            target.update({k: v for k, v in item.items() if v not in (None, "")})
+            target["sections"].add(section)
+
+    rows = []
+    for item in merged.values():
+        name = normalize_name(item)
+        if is_excluded_product(name):
+            continue
+        item["displayName"] = name
+        item["sectionList"] = ", ".join(sorted(item.pop("sections", [])))
+        rows.append(item)
+
+    def score(item: dict) -> tuple[int, str]:
+        section_score = 0
+        if "watchlist" in item.get("sectionList", ""):
+            section_score += 100
+        if "movingAverages" in item.get("sectionList", ""):
+            section_score += 30
+        if "spikes" in item.get("sectionList", ""):
+            section_score += 20
+        return (-section_score, item["displayName"])
+
+    return sorted(rows, key=score)[:24]
+
+
+def page_shell(title: str, description: str, canonical: str, body: str) -> str:
+    return f"""<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{esc(title)}</title>
+  <meta name="description" content="{esc(description)}">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="{esc(canonical)}">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="../">도토리 주식분석</a>
+      <div class="nav-links">
+        <a href="../">홈</a>
+        <a href="./">종목 리포트</a>
+        <a href="../about.html">사이트 정보</a>
+        <a href="../disclaimer.html">투자 고지</a>
+      </div>
+    </nav>
+  </header>
+  <main class="plain-page">
+    {body}
+  </main>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p>(c) 2026 도토리 주식분석</p>
+      <div><a href="../privacy.html">개인정보처리방침</a><a href="../terms.html">이용약관</a><a href="../disclaimer.html">투자 고지</a></div>
+    </div>
+  </footer>
+</body>
+</html>
+"""
+
+
+def report_body(item: dict, data: dict) -> str:
+    name = item["displayName"]
+    symbol = item["symbol"]
+    current = clean_text(item.get("currentPrice") or "-")
+    signal = clean_text(item.get("signal") or item.get("decision") or "-")
+    summary = clean_text(item.get("summary") or item.get("memo") or item.get("note") or "-")
+    market = clean_text(item.get("market") or "-")
+    pred = clean_text(item.get("predRange") or "-")
+    ma20 = clean_text(item.get("ma20") or "-")
+    ma60 = clean_text(item.get("ma60") or "-")
+    risk = clean_text(item.get("risk") or item.get("movingAverage") or "-")
+    updated = clean_text(data.get("updatedAt") or "-")
+    exchange = data.get("exchangeRate") or {}
+    related_news = (data.get("newsList") or [])[:5]
+
+    news_html = "".join(
+        f"""<li><a href="{esc(news.get('url'))}" rel="nofollow noopener" target="_blank">{esc(news.get('title'))}</a><br><span>{esc(news.get('summary'))}</span></li>"""
+        for news in related_news
+    )
+    if not news_html:
+        news_html = "<li>표시할 공개 뉴스가 없습니다.</li>"
+
+    return f"""<article>
+      <p class="breadcrumb"><a href="./">종목 리포트</a> / {esc(symbol)}</p>
+      <h1>{esc(name)} 리포트</h1>
+      <p class="notice">이 페이지는 정보 제공 목적의 공개 리포트입니다. 특정 종목의 매수나 매도를 권유하지 않습니다.</p>
+
+      <h2>요약</h2>
+      <table class="plain-table">
+        <tbody>
+          <tr><th>종목</th><td>{esc(name)}</td></tr>
+          <tr><th>시장</th><td>{esc(market)}</td></tr>
+          <tr><th>현재가</th><td>{esc(current)}</td></tr>
+          <tr><th>상태 표시</th><td>{esc(signal)}</td></tr>
+          <tr><th>예상 범위</th><td>{esc(pred)}</td></tr>
+          <tr><th>갱신 시각</th><td>{esc(updated)}</td></tr>
+        </tbody>
+      </table>
+
+      <h2>가격과 추세 점검</h2>
+      <p>{esc(summary)}</p>
+      <ul>
+        <li>20일선: {esc(ma20)}</li>
+        <li>60일선: {esc(ma60)}</li>
+        <li>위험 또는 확인 요소: {esc(risk)}</li>
+      </ul>
+
+      <h2>시장 참고 지표</h2>
+      <p>오늘의 환율은 {esc(exchange.get("value") or "-")}이며, 변동 표시는 {esc(exchange.get("change") or "-")}입니다. 환율은 국내 투자자가 미국 주식과 수출주를 함께 볼 때 확인해야 하는 핵심 변수입니다.</p>
+
+      <h2>관련 뉴스</h2>
+      <ul>{news_html}</ul>
+
+      <h2>읽는 방법</h2>
+      <p>상태 표시는 가격, 이평선, 뉴스 흐름을 함께 보도록 돕는 참고 정보입니다. 실제 매매 전에는 증권사 현재가, 공시, 기업 실적, 환율, 시장 전체 흐름을 다시 확인해야 합니다.</p>
+    </article>"""
+
+
+def build_reports() -> list[str]:
+    data = json.loads(DATA_PATH.read_text(encoding="utf-8"))
+    REPORT_DIR.mkdir(exist_ok=True)
+    items = collect_items(data)
+    generated = []
+    cards = []
+
+    for item in items:
+        symbol = slug(item["symbol"])
+        filename = f"{symbol}.html"
+        title = f"{item['displayName']} 주식 리포트 | 도토리 주식분석"
+        description = f"{item['displayName']}의 현재가, 이평선, 상태 표시, 관련 뉴스를 정리한 공개 주식 리포트입니다."
+        html_text = page_shell(
+            title,
+            description,
+            f"{SITE_URL}/reports/{filename}",
+            report_body(item, data),
+        )
+        (REPORT_DIR / filename).write_text(html_text, encoding="utf-8", newline="\n")
+        generated.append(filename)
+        cards.append(
+            f"""<article class="info-card"><h2><a href="./{esc(filename)}">{esc(item['displayName'])}</a></h2><p>현재가: {esc(item.get('currentPrice') or '-')}</p><p>상태 표시: {esc(item.get('signal') or item.get('decision') or '-')}</p></article>"""
+        )
+
+    index_body = f"""<article>
+      <h1>종목 리포트</h1>
+      <p>도토리 주식분석에서 공개 가능한 종목 데이터를 기준으로 생성한 색인용 리포트입니다. 각 페이지는 정보 제공 목적이며 특정 종목의 매매를 권유하지 않습니다.</p>
+      <div class="info-grid report-index-grid">{''.join(cards)}</div>
+    </article>"""
+    (REPORT_DIR / "index.html").write_text(
+        page_shell(
+            "종목 리포트 | 도토리 주식분석",
+            "관심종목과 주요 후보의 공개 주식 리포트 목록입니다.",
+            f"{SITE_URL}/reports/",
+            index_body,
+        ),
+        encoding="utf-8",
+        newline="\n",
+    )
+    return generated
+
+
+def update_sitemap(generated: list[str]) -> None:
+    urls = [
+        (f"{SITE_URL}/", "1.0"),
+        (f"{SITE_URL}/reports/", "0.8"),
+        (f"{SITE_URL}/about.html", "0.7"),
+        (f"{SITE_URL}/seo.html", "0.7"),
+        (f"{SITE_URL}/privacy.html", "0.5"),
+        (f"{SITE_URL}/terms.html", "0.5"),
+        (f"{SITE_URL}/disclaimer.html", "0.5"),
+    ]
+    urls.extend((f"{SITE_URL}/reports/{name}", "0.6") for name in generated)
+    body = "\n".join(f'  <url><loc>{loc}</loc><priority>{priority}</priority></url>' for loc, priority in urls)
+    (ROOT / "sitemap.xml").write_text(
+        f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{body}\n</urlset>\n',
+        encoding="utf-8",
+        newline="\n",
+    )
+
+
+def main() -> None:
+    generated = build_reports()
+    update_sitemap(generated)
+    print(json.dumps({"generated": len(generated), "updatedAt": datetime.now().isoformat(timespec="seconds")}, ensure_ascii=False))
+
+
+if __name__ == "__main__":
+    main()

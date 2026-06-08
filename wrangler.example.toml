@@ -1,0 +1,7 @@
+name = "dotori-web"
+compatibility_date = "2026-06-08"
+pages_build_output_dir = "."
+
+[vars]
+TURSO_DATABASE_URL = "libsql://replace-with-your-database.turso.io"
+# Set TURSO_AUTH_TOKEN in Cloudflare Pages dashboard as a secret.
