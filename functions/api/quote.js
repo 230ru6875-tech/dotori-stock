@@ -80,6 +80,46 @@ async function quoteYahoo(symbol) {
   };
 }
 
+function parseDollar(value) {
+  const text = String(value || "").replace(/[^0-9.\-]/g, "");
+  const parsed = Number(text);
+  return Number.isFinite(parsed) ? parsed : 0;
+}
+
+async function quoteNasdaq(symbol) {
+  const response = await fetch(`https://api.nasdaq.com/api/quote/${encodeURIComponent(symbol)}/info?assetclass=stocks`, {
+    headers: {
+      "user-agent": "Mozilla/5.0 DotoriWeb/1.0",
+      "accept": "application/json",
+      "origin": "https://www.nasdaq.com",
+      "referer": "https://www.nasdaq.com/"
+    }
+  });
+  if (!response.ok) throw new Error(`HTTP ${response.status}`);
+  const payload = await response.json();
+  const data = payload?.data || {};
+  const primary = data.primaryData || {};
+  const secondary = data.secondaryData || {};
+  const priceText = primary.lastSalePrice || secondary.lastSalePrice || "";
+  const price = parseDollar(priceText);
+  if (!price) throw new Error("nasdaq_price_missing");
+  return {
+    symbol,
+    name: cleanName(data.companyName || symbol, symbol) || symbol,
+    market: "\uBBF8\uAD6D",
+    currentPrice: `$${price.toFixed(2)}`,
+    source: primary.isRealTime ? "Nasdaq Real-Time" : "Nasdaq"
+  };
+}
+
+async function quoteUs(symbol) {
+  try {
+    return await quoteNasdaq(symbol);
+  } catch (_) {
+    return await quoteYahoo(symbol);
+  }
+}
+
 export async function onRequestGet(context) {
   const url = new URL(context.request.url);
   const symbol = normalizeSymbol(url.searchParams.get("symbol"));
@@ -87,7 +127,7 @@ export async function onRequestGet(context) {
     return new Response(JSON.stringify({ ok: false, error: "symbol_required" }), { status: 400, headers: JSON_HEADERS });
   }
   try {
-    const quote = /^\d{6}$/.test(symbol) ? await quoteDomestic(symbol) : await quoteYahoo(symbol);
+    const quote = /^\d{6}$/.test(symbol) ? await quoteDomestic(symbol) : await quoteUs(symbol);
     return new Response(JSON.stringify({ ok: true, ...quote, quotedAt: new Date().toISOString() }), { headers: JSON_HEADERS });
   } catch (error) {
     return new Response(JSON.stringify({ ok: false, symbol, error: String(error?.message || error) }), { status: 502, headers: JSON_HEADERS });
