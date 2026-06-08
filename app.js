@@ -12,7 +12,7 @@ const T = {
   added: "\uc885\ubaa9\uc744 \uad00\uc2ec\uc885\ubaa9\uc5d0 \ucd94\uac00\ud588\uc2b5\ub2c8\ub2e4.",
   removed: "\uc885\ubaa9\uc744 \uad00\uc2ec\uc885\ubaa9\uc5d0\uc11c \uc0ad\uc81c\ud588\uc2b5\ub2c8\ub2e4.",
   domestic: "\uad6d\ub0b4",
-  us: "\ubbf8\uad6d",
+  us: "\ud574\uc678",
   basis: "\uae30\uc900",
   waiting: "\ub370\uc774\ud130 \ub300\uae30",
   noPurchasePrice: "\uad6c\uc785\uac00 \ubbf8\uc785\ub825",
@@ -29,7 +29,7 @@ const T = {
   priceHistory: "\uac00\uaca9 \uc774\ub825 \ub300\uae30",
   analysisPreview: "\ubd84\uc11d",
   domesticTop: "\uad6d\ub0b4 \uc0c1\uc704 \uc885\ubaa9",
-  usTop: "\ubbf8\uad6d \uc0c1\uc704 \uc885\ubaa9",
+  usTop: "\ud574\uc678 \uc0c1\uc704 \uc885\ubaa9",
   predictionRange: "\uc608\uce21 \ubc94\uc704",
   source: "\ucd9c\ucc98",
   chartTitle: "\ucc28\ud2b8",
@@ -407,6 +407,17 @@ function parseNumber(value) {
   const number = Number(String(value || "").replace(/[^0-9.-]/g, ""));
   return Number.isFinite(number) ? number : 0;
 }
+function displayMarket(value) {
+  return String(value || "") === "\ubbf8\uad6d" ? T.us : (value || "");
+}
+function priceClassForItem(item) {
+  const purchase = Number(item?.purchasePrice || 0);
+  const current = parseNumber(item?.currentPrice);
+  if (purchase <= 0 || current <= 0) return "neutral";
+  if (current > purchase) return "up";
+  if (current < purchase) return "down";
+  return "neutral";
+}
 function chartSourceForSymbol(symbol) {
   const normalized = normalizeSymbol(symbol);
   const report = loadReportFromBrowser(normalized) || directoryReport(normalized);
@@ -496,7 +507,7 @@ function userStockToWatchlist(item) {
     const resolvedName = stripSymbolFromName(base.name || item.name, item.symbol) || nameLookup().get(item.symbol) || item.symbol;
     const memoParts = [base.memo || ""];
     if (hasPrice) memoParts.push(`\uad6c\uc785\uac00 ${price.toLocaleString()}\uc744 \uae30\uc900\uc73c\ub85c \uac80\ud1a0\ud569\ub2c8\ub2e4.`);
-    return { ...base, name: resolvedName, currentPrice: current, memo: memoParts.filter(Boolean).join(" / "), userAdded: true };
+    return { ...base, name: resolvedName, market: displayMarket(base.market || marketName(item.symbol)), currentPrice: current, purchasePrice: price, memo: memoParts.filter(Boolean).join(" / "), userAdded: true };
   }
   const resolvedName = stripSymbolFromName(item.name, item.symbol) || nameLookup().get(item.symbol) || item.symbol;
   return {
@@ -504,6 +515,7 @@ function userStockToWatchlist(item) {
     name: resolvedName,
     market: marketName(item.symbol),
     currentPrice: "\uc870\ud68c \uc911",
+    purchasePrice: price,
     signal: hasPrice ? T.mockReview : T.dataNeeded,
     movingAverage: "",
     memo: hasPrice ? `\uad6c\uc785\uac00 ${price.toLocaleString()}\uc744 \uae30\uc900\uc73c\ub85c \ud604\uc7ac\uac00\ub97c \uc870\ud68c\ud558\ub294 \uc911\uc785\ub2c8\ub2e4.` : "\uc885\ubaa9\uba85\uacfc \uc6f9 \uc790\ub8cc\ub97c \uc870\ud68c\ud558\ub294 \uc911\uc785\ub2c8\ub2e4.",
@@ -644,11 +656,11 @@ function renderDashboard() {
   if (state.activeSection === "watchlist") {
     grid.innerHTML = renderCards(active, (item) => {
       const displayName = !item.name || item.name === item.symbol ? item.symbol : `${item.name} <span>(${item.symbol})</span>`;
-      const priceLine = item.currentPrice ? `<p class="price">${T.currentPrice}: ${item.currentPrice}</p>` : "";
-      return `<article class="data-card clickable-card watch-card" data-chart-symbol="${item.symbol}"><div class="card-top"><strong>${displayName}</strong><em>${item.market}</em></div>${priceLine}<p><b class="${signalClass(item.signal)}">${item.signal}</b>${item.movingAverage ? ` / ${item.movingAverage}` : ""}</p><p>${item.memo}</p><div class="watch-chart-popover">${watchlistMiniChartSvg(item)}</div>${item.userAdded ? `<button class="small-button" data-remove-symbol="${item.symbol}" type="button">${T.remove}</button>` : ""}</article>`;
+      const priceLine = item.currentPrice ? `<p class="price ${priceClassForItem(item)}"><span>${T.currentPrice}:</span> ${item.currentPrice}</p>` : "";
+      return `<article class="data-card clickable-card watch-card" data-chart-symbol="${item.symbol}"><div class="card-top"><strong>${displayName}</strong><em>${displayMarket(item.market)}</em></div>${priceLine}<p><b class="${signalClass(item.signal)}">${item.signal}</b>${item.movingAverage ? ` / ${item.movingAverage}` : ""}</p><p>${item.memo}</p><div class="watch-chart-popover">${watchlistMiniChartSvg(item)}</div>${item.userAdded ? `<button class="small-button" data-remove-symbol="${item.symbol}" type="button">${T.remove}</button>` : ""}</article>`;
     });
   } else if (state.activeSection === "scanner") {
-    const marketRows = (marketLabel) => active.filter((item) => (item.market || marketName(item.symbol)) === marketLabel);
+    const marketRows = (marketLabel) => active.filter((item) => displayMarket(item.market || marketName(item.symbol)) === marketLabel);
     const rowHtml = (item) => `<tr><td>${item.rank || "-"}</td><td><strong>${item.name || item.title || item.symbol}</strong> <span>(${item.symbol || "-"})</span></td><td>${item.currentPrice || "-"}</td><td><b class="${signalClass(item.signal || item.sentiment || "")}">${item.signal || item.sentiment || "-"}</b></td><td>${item.predRange || "-"}</td><td>${item.summary || ""}</td></tr>`;
     const groupHtml = (marketLabel) => {
       const rows = marketRows(marketLabel).slice(0, 50);
@@ -661,7 +673,7 @@ function renderDashboard() {
   } else if (state.activeSection === "learning") {
     grid.innerHTML = renderCards(active, (item) => `<article class="data-card"><div class="card-top"><strong>${item.topic}</strong><em>${T.learning}</em></div><p>${item.lesson}</p></article>`);
   } else if (state.activeSection === "spikes") {
-    const marketRows = (marketLabel) => active.filter((item) => (item.market || marketName(item.symbol)) === marketLabel);
+    const marketRows = (marketLabel) => active.filter((item) => displayMarket(item.market || marketName(item.symbol)) === marketLabel);
     const rowHtml = (item, index) => `<tr><td>${index + 1}</td><td><strong>${item.name || item.symbol}</strong> <span>(${item.symbol || "-"})</span></td><td>${item.range || "-"}</td><td><b class="up">${item.change || "-"}</b></td><td>${item.currentPrice || "-"}</td><td><b class="${signalClass(item.signal || "")}">${item.signal || "-"}</b></td><td>${item.note || ""}</td></tr>`;
     const groupHtml = (marketLabel) => {
       const rows = marketRows(marketLabel).slice(0, 25);

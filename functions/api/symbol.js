@@ -116,7 +116,7 @@ async function lookupTossUs(symbol) {
       const titleMatch = html.match(/<title[^>]*>([^<]+)<\/title>/i);
       const ogMatch = html.match(/<meta[^>]+property=["']og:title["'][^>]+content=["']([^"']+)["']/i);
       const name = cleanName(ogMatch?.[1] || titleMatch?.[1], symbol);
-      if (name) return { symbol, name, market: "\uBBF8\uAD6D", source: "Toss Invest" };
+      if (name) return { symbol, name, market: "\uD574\uC678", source: "Toss Invest" };
     } catch (_) {
       continue;
     }

@@ -613,6 +613,11 @@ button:hover {
   font-size: 22px;
   font-weight: 800;
   margin: 10px 0;
+  white-space: nowrap;
+}
+
+.price span {
+  color: var(--text);
 }
 
 .up {

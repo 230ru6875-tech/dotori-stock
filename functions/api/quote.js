@@ -80,7 +80,7 @@ async function quoteYahoo(symbol) {
   return {
     symbol,
     name: cleanName(meta.longName || meta.shortName || symbol, symbol) || symbol,
-    market: "\uBBF8\uAD6D",
+    market: "\uD574\uC678",
     currentPrice: current > 0 ? `$${current.toFixed(2)}` : "",
     source: "Yahoo Finance"
   };
@@ -112,7 +112,7 @@ async function quoteNasdaq(symbol) {
   return {
     symbol,
     name: cleanName(data.companyName || symbol, symbol) || symbol,
-    market: "\uBBF8\uAD6D",
+    market: "\uD574\uC678",
     currentPrice: `$${price.toFixed(2)}`,
     source: primary.isRealTime ? "Nasdaq Real-Time" : "Nasdaq"
   };
