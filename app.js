@@ -473,8 +473,14 @@ function signalLabelForItem(item, fallback = "\ub9e4\uc218") {
   if (/\ub9e4\uc218/.test(signal)) return "\ub9e4\uc218";
   if (/\uac15\ud55c\s*\ub9e4\ub3c4/.test(signal)) return "\uac15\ud55c \ub9e4\ub3c4";
   if (/\ub9e4\ub3c4|\uc704\ud5d8|\uc774\ud0c8|\uc190\uc808|\uc8fc\uc758/.test(signal)) return "\ub9e4\ub3c4/\uc8fc\uc758";
-  if (/\ubcf4\uc720/.test(signal)) return "";
+  if (/\ubcf4\uc720/.test(signal)) return "\uad00\uc2ec\uad00\ucc30";
   return fallback;
+}
+function signalFeedType(label) {
+  const text = String(label || "");
+  if (/\ub9e4\ub3c4|\uc704\ud5d8|\uc774\ud0c8|\uc190\uc808|\uc8fc\uc758/.test(text)) return "sell";
+  if (/\ubcf4\uc720|\uad00\uc2ec|\uad00\ucc30/.test(text)) return "hold";
+  return "buy";
 }
 function kstParts(date = new Date()) {
   const parts = new Intl.DateTimeFormat("en-US", {
@@ -545,10 +551,18 @@ function signalFeedRows() {
     const start = slot;
     const count = Math.min(3, deduped.length);
     const items = Array.from({ length: count }, (_, index) => deduped[(start + index) % deduped.length]);
-    const buyItems = items.filter((item) => signalSide(item.feedLabel) !== "sell");
-    const sellItems = items.filter((item) => signalSide(item.feedLabel) === "sell");
-    const label = sellItems.length && !buyItems.length ? "\uc2ec\uce35\ubd84\uc11d \ub9e4\ub3c4/\uc8fc\uc758\uc2e0\ud638 \uc804\ub2ec" : "\uc2ec\uce35\ubd84\uc11d \ub9e4\uc218\uc2e0\ud638 \uc804\ub2ec";
-    const bodyItems = sellItems.length && !buyItems.length ? sellItems : items;
+    const buyItems = items.filter((item) => signalFeedType(item.feedLabel) === "buy");
+    const holdItems = items.filter((item) => signalFeedType(item.feedLabel) === "hold");
+    const sellItems = items.filter((item) => signalFeedType(item.feedLabel) === "sell");
+    let label = "\uc2ec\uce35\ubd84\uc11d \ub9e4\uc218\uc2e0\ud638 \uc804\ub2ec";
+    if (sellItems.length && !buyItems.length && !holdItems.length) {
+      label = "\uc2ec\uce35\ubd84\uc11d \ub9e4\ub3c4/\uc8fc\uc758\uc2e0\ud638 \uc804\ub2ec";
+    } else if (holdItems.length && !buyItems.length) {
+      label = "\uc2ec\uce35\ubd84\uc11d \uad00\uc2ec\uad00\ucc30\uc2e0\ud638 \uc804\ub2ec";
+    } else if (holdItems.length) {
+      label = "\uc2ec\uce35\ubd84\uc11d \ub9e4\uc218/\uad00\uc2ec\uc2e0\ud638 \uc804\ub2ec";
+    }
+    const bodyItems = sellItems.length && !buyItems.length && !holdItems.length ? sellItems : items;
     const body = bodyItems.map((item) => [normalizedDisplayName(item), item.feedLabel].filter(Boolean).join(" ")).join(", ");
     return `[${fmtClock(time)}] ${label}: ${body}`;
   });
