@@ -640,6 +640,12 @@ function priceBackgroundClassForItem(item) {
   if (priceClass === "down") return "watch-card-loss";
   return "";
 }
+function spikeDirection(item) {
+  const text = `${item?.change || ""} ${item?.range || ""} ${item?.signal || ""} ${item?.note || ""}`;
+  const change = parseNumber(item?.change);
+  if (change < 0 || /급락|하락|폭락|하한|약세|매도|위험|이탈/.test(text)) return "down";
+  return "up";
+}
 function signalSide(value) {
   const text = String(value || "");
   if (/\ub9e4\ub3c4|\uc704\ud5d8|\uc774\ud0c8|\uc190\uc808|\uc8fc\uc758|\ud3ed\ub77d|\uae09\ub77d/i.test(text)) return "sell";
@@ -1089,14 +1095,19 @@ function renderDashboard() {
   } else if (state.activeSection === "learning") {
     grid.innerHTML = renderCards(active, (item) => `<article class="data-card"><div class="card-top"><strong>${item.topic}</strong><em>${T.learning}</em></div><p>${item.lesson}</p></article>`);
   } else if (state.activeSection === "spikes") {
-    const marketRows = (marketLabel) => active.filter((item) => displayMarket(item.market || marketName(item.symbol)) === marketLabel);
-    const rowHtml = (item, index) => `<tr><td>${index + 1}</td><td><strong>${item.name || item.symbol}</strong> <span>(${item.symbol || "-"})</span></td><td>${item.range || "-"}</td><td><b class="up">${item.change || "-"}</b></td><td>${formatDisplayPrice(item.currentPrice, item) || "-"}</td><td><b class="${signalClass(item.signal || "")}">${item.signal || "-"}</b></td><td>${item.note || ""}</td></tr>`;
-    const groupHtml = (marketLabel) => {
-      const rows = marketRows(marketLabel).slice(0, 25);
-      const body = rows.length ? rows.map(rowHtml).join("") : `<tr><td colspan="7">\ud45c\uc2dc\ud560 \uc885\ubaa9\uc774 \uc5c6\uc2b5\ub2c8\ub2e4.</td></tr>`;
-      return `<tr class="market-group-row"><td colspan="7">${marketLabel}</td></tr>${body}`;
+    const directionRows = (direction) => active
+      .filter((item) => spikeDirection(item) === direction)
+      .sort((a, b) => direction === "down" ? parseNumber(a.change) - parseNumber(b.change) : parseNumber(b.change) - parseNumber(a.change));
+    const rowHtml = (item, index, direction) => {
+      const changeClass = direction === "down" ? "down" : "up";
+      const label = direction === "down" ? "급락" : "급등";
+      return `<tr><td>${index + 1}</td><td>${label}</td><td><strong>${item.name || item.symbol}</strong> <span>(${item.symbol || "-"})</span></td><td>${displayMarket(item.market || marketName(item.symbol))}</td><td>${item.range || "-"}</td><td><b class="${changeClass}">${item.change || "-"}</b></td><td>${formatDisplayPrice(item.currentPrice, item) || "-"}</td><td><b class="${signalClass(item.signal || "")}">${item.signal || "-"}</b></td><td>${item.note || ""}</td></tr>`;
     };
-    grid.innerHTML = `<div class="table-card"><table class="data-table"><thead><tr><th>\uc21c\uc704</th><th>\uc885\ubaa9</th><th>\uad6c\uac04</th><th>\ub4f1\ub77d\ub960</th><th>\ud604\uc7ac\uac00</th><th>\uc2e0\ud638</th><th>\uadfc\uac70</th></tr></thead><tbody>${groupHtml(T.domestic)}${groupHtml(T.us)}</tbody></table></div>`;
+    const groupHtml = (direction, title) => {
+      const rows = directionRows(direction).slice(0, 50);
+      return `<tr class="market-group-row"><td colspan="9">${title}</td></tr>${rows.length ? rows.map((item, index) => rowHtml(item, index, direction)).join("") : `<tr><td colspan="9">\ud45c\uc2dc\ud560 \uc885\ubaa9\uc774 \uc5c6\uc2b5\ub2c8\ub2e4.</td></tr>`}`;
+    };
+    grid.innerHTML = `<div class="table-card"><table class="data-table"><thead><tr><th>\uc21c\uc704</th><th>\uad6c\ubd84</th><th>\uc885\ubaa9</th><th>\uc2dc\uc7a5</th><th>\uad6c\uac04</th><th>\ub4f1\ub77d\ub960</th><th>\ud604\uc7ac\uac00</th><th>\uc2e0\ud638</th><th>\uadfc\uac70</th></tr></thead><tbody>${groupHtml("up", "\uae09\ub4f1")}${groupHtml("down", "\uae09\ub77d")}</tbody></table></div>`;
   } else if (state.activeSection === "moving") {
     const selectedSymbol = normalizeSymbol(state.selectedMovingSymbol);
     const rows = active.map((item) => {
