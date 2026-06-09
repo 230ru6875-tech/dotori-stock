@@ -240,6 +240,91 @@ function emptyValuation(source = "") {
   };
 }
 
+function formatPriceByMarket(value, market) {
+  const number = Number(value || 0);
+  if (!Number.isFinite(number) || number <= 0) return "";
+  return market === TXT.us ? `$${number.toFixed(2)}` : `${Math.round(number).toLocaleString()}원`;
+}
+
+function fairValueAnalysis(currentPrice, valuation, market) {
+  const current = Number(String(currentPrice || "").replace(/[^0-9.]/g, ""));
+  const pbr = Number(String(valuation?.pbr || "").replace(/,/g, ""));
+  if (!current || !pbr) {
+    return {
+      method: "PBR 기준 적정주가",
+      summary: "PBR 또는 현재가 확인 필요",
+      conservative: "",
+      neutral: "",
+      growth: "",
+      note: "매수 판단은 PBR을 우선 보되, 업종 평균과 실적 훼손 여부를 함께 확인합니다."
+    };
+  }
+  const bps = current / pbr;
+  const conservative = bps * 1.0;
+  const neutral = bps * 1.5;
+  const growth = bps * 2.5;
+  let summary = "현재가가 PBR 중립 범위 안에 있습니다.";
+  if (current <= conservative) summary = "현재가가 PBR 보수 기준 아래입니다.";
+  else if (current >= growth) summary = "현재가가 PBR 성장 기준 위라 과열 확인이 필요합니다.";
+  else if (current >= neutral) summary = "현재가가 PBR 중립 기준 위입니다.";
+  return {
+    method: "PBR 기준 적정주가",
+    bps: formatPriceByMarket(bps, market),
+    conservative: formatPriceByMarket(conservative, market),
+    neutral: formatPriceByMarket(neutral, market),
+    growth: formatPriceByMarket(growth, market),
+    summary,
+    note: "보수 PBR 1.0배, 중립 1.5배, 성장 2.5배를 적용한 참고 범위입니다."
+  };
+}
+
+function technicalAnalysis(series) {
+  const closes = Array.isArray(series?.closes) ? series.closes : [];
+  const highs = Array.isArray(series?.highs) ? series.highs : [];
+  const lows = Array.isArray(series?.lows) ? series.lows : [];
+  const volumes = Array.isArray(series?.volumes) ? series.volumes : [];
+  if (closes.length < 14 || highs.length < 14 || lows.length < 14) {
+    return {
+      stochastic: { k: "", d: "", signal: "스토캐스틱 확인 필요" },
+      volume: { latest: "", average20: "", ratio: "", signal: "거래량 확인 필요" },
+      summary: "스토캐스틱과 거래량 이력 확인 필요"
+    };
+  }
+  const recentHigh = Math.max(...highs.slice(-14));
+  const recentLow = Math.min(...lows.slice(-14));
+  const lastClose = closes[closes.length - 1];
+  const kValues = closes.slice(-3).map((close, index) => {
+    const end = closes.length - 3 + index + 1;
+    const windowHigh = Math.max(...highs.slice(Math.max(0, end - 14), end));
+    const windowLow = Math.min(...lows.slice(Math.max(0, end - 14), end));
+    return windowHigh > windowLow ? ((close - windowLow) / (windowHigh - windowLow)) * 100 : 50;
+  });
+  const k = recentHigh > recentLow ? ((lastClose - recentLow) / (recentHigh - recentLow)) * 100 : 50;
+  const d = average(kValues);
+  let stochasticSignal = "중립";
+  if (k >= 80 && d >= 80) stochasticSignal = "과열권";
+  else if (k <= 20 && d <= 20) stochasticSignal = "침체권";
+  else if (k > d) stochasticSignal = "단기 반등";
+  else if (k < d) stochasticSignal = "단기 둔화";
+  const latestVolume = Number(volumes[volumes.length - 1] || 0);
+  const avgVolume = average(volumes.slice(-20).filter((value) => typeof value === "number" && value > 0));
+  const ratio = latestVolume > 0 && avgVolume > 0 ? latestVolume / avgVolume : 0;
+  let volumeSignal = "거래량 중립";
+  if (ratio >= 2) volumeSignal = "거래량 급증";
+  else if (ratio >= 1.3) volumeSignal = "거래량 증가";
+  else if (ratio > 0 && ratio <= 0.7) volumeSignal = "거래량 부족";
+  return {
+    stochastic: { k: k.toFixed(1), d: d.toFixed(1), signal: stochasticSignal },
+    volume: {
+      latest: latestVolume ? Math.round(latestVolume).toLocaleString() : "",
+      average20: avgVolume ? Math.round(avgVolume).toLocaleString() : "",
+      ratio: ratio ? `${ratio.toFixed(2)}배` : "",
+      signal: volumeSignal
+    },
+    summary: `스토캐스틱 ${stochasticSignal} / 거래량 ${volumeSignal}`
+  };
+}
+
 function oilRiskJudgment(current, previous) {
   const currentNumber = Number(current || 0);
   const previousNumber = Number(previous || 0);
@@ -376,7 +461,11 @@ async function lookupYahoo(symbol) {
   const intradayPayload = intradayResponse.ok ? await intradayResponse.json() : null;
   const dailyResult = dailyPayload?.chart?.result?.[0];
   const intradayResult = intradayPayload?.chart?.result?.[0];
-  const dailyCloses = (dailyResult?.indicators?.quote?.[0]?.close || []).filter((value) => typeof value === "number");
+  const dailyQuote = dailyResult?.indicators?.quote?.[0] || {};
+  const dailyCloses = (dailyQuote.close || []).filter((value) => typeof value === "number");
+  const dailyHighs = (dailyQuote.high || []).filter((value) => typeof value === "number");
+  const dailyLows = (dailyQuote.low || []).filter((value) => typeof value === "number");
+  const dailyVolumes = (dailyQuote.volume || []).filter((value) => typeof value === "number");
   const intradayQuote = intradayResult?.indicators?.quote?.[0] || {};
   const intradayCloses = (intradayQuote.close || []).filter((value) => typeof value === "number");
   const intradayHighs = (intradayQuote.high || []).filter((value) => typeof value === "number");
@@ -388,7 +477,18 @@ async function lookupYahoo(symbol) {
   const dayLow = Number(meta.regularMarketDayLow || (lowCandidates.length ? Math.min(...lowCandidates) : 0));
   const changePct = current > 0 && previousClose > 0 ? ((current / previousClose) - 1) * 100 : 0;
   const fromHighPct = current > 0 && dayHigh > 0 ? ((current / dayHigh) - 1) * 100 : 0;
-  return { current, closes: dailyCloses, previousClose, dayHigh, dayLow, changePct, fromHighPct };
+  return {
+    current,
+    closes: dailyCloses,
+    highs: dailyHighs,
+    lows: dailyLows,
+    volumes: dailyVolumes,
+    previousClose,
+    dayHigh,
+    dayLow,
+    changePct,
+    fromHighPct
+  };
 }
 
 function crashWarning(base, moving, valuation, oilRisk) {
@@ -473,6 +573,9 @@ async function lookupUs(symbol) {
     market: TXT.us,
     source: "Toss/Yahoo",
     closes: yahoo.closes,
+    highs: yahoo.highs,
+    lows: yahoo.lows,
+    volumes: yahoo.volumes,
     marketStats: {
       previousClose: yahoo.previousClose || 0,
       dayHigh: yahoo.dayHigh || 0,
@@ -539,9 +642,14 @@ export async function onRequestGet(context) {
     const oilRisk = await lookupOilMarketRisk();
     const news = await lookupNews(`${base.name || symbol} ${symbol}`);
     const moving = isDomestic ? { ma20: "", ma60: "", decision: TXT.wait } : movingSignal(base.closes || []);
+    const valuation = base.valuation || emptyValuation(base.source);
+    const fairValue = fairValueAnalysis(base.currentPrice, valuation, base.market);
+    const technical = isDomestic
+      ? technicalAnalysis({})
+      : technicalAnalysis({ closes: base.closes || [], highs: base.highs || [], lows: base.lows || [], volumes: base.volumes || [] });
     const crashRisk = isDomestic
-      ? crashWarning({}, moving, base.valuation || emptyValuation(base.source), oilRisk)
-      : crashWarning({ current: Number(String(base.currentPrice || "").replace(/[^0-9.]/g, "")), ...(base.marketStats || {}) }, moving, base.valuation || emptyValuation(base.source), oilRisk);
+      ? crashWarning({}, moving, valuation, oilRisk)
+      : crashWarning({ current: Number(String(base.currentPrice || "").replace(/[^0-9.]/g, "")), ...(base.marketStats || {}) }, moving, valuation, oilRisk);
     const watchSignal = /폭락주의보|급락경계/.test(crashRisk.level) ? crashRisk.level : TXT.observe;
     const currentNumber = Number(String(base.currentPrice || "").replace(/[^0-9.]/g, ""));
     const mock = purchasePrice > 0 && currentNumber > 0
@@ -553,7 +661,9 @@ export async function onRequestGet(context) {
       name: base.name || symbol,
       market: base.market,
       currentPrice: base.currentPrice || "-",
-      valuation: base.valuation || emptyValuation(base.source),
+      valuation,
+      fairValue,
+      technical,
       marketRisk: oilRisk,
       crashRisk,
       savedAt: new Date().toISOString(),
@@ -571,7 +681,9 @@ export async function onRequestGet(context) {
         signal: watchSignal,
         movingAverage: moving.decision,
         memo: news[0] || TXT.wait,
-        valuation: base.valuation || emptyValuation(base.source),
+        valuation,
+        fairValue,
+        technical,
         marketRisk: oilRisk,
         crashRisk
       },
@@ -589,7 +701,9 @@ export async function onRequestGet(context) {
       analysis: {
         title: `${TXT.analysis} - ${base.name || symbol}`,
         body: news.length ? news.join(" / ") : TXT.wait,
-        valuation: base.valuation || emptyValuation(base.source),
+        valuation,
+        fairValue,
+        technical,
         marketRisk: oilRisk,
         crashRisk
       },

@@ -46,6 +46,19 @@ def valuation_focus_text(item: dict, key: str, fallback: str) -> str:
     return clean_text(valuation.get(key) or fallback)
 
 
+def nested_text(item: dict, section: str, key: str, fallback: str = "확인 필요") -> str:
+    data = item.get(section) if isinstance(item.get(section), dict) else {}
+    value = clean_text(data.get(key) or "")
+    return value or fallback
+
+
+def nested_nested_text(item: dict, section: str, subsection: str, key: str, fallback: str = "확인 필요") -> str:
+    data = item.get(section) if isinstance(item.get(section), dict) else {}
+    sub = data.get(subsection) if isinstance(data.get(subsection), dict) else {}
+    value = clean_text(sub.get(key) or "")
+    return value or fallback
+
+
 def market_risk_summary(item: dict) -> str:
     risk = item.get("marketRisk") if isinstance(item.get("marketRisk"), dict) else {}
     current = clean_text(risk.get("current") or "")
@@ -232,6 +245,10 @@ def report_body(item: dict, data: dict) -> str:
       <h2>밸류에이션 점검</h2>
       <table class="plain-table">
         <tbody>
+          <tr><th>적정주가 방식</th><td>{esc(nested_text(item, "fairValue", "method", "PBR 기준 적정주가"))}</td></tr>
+          <tr><th>적정주가 보수</th><td>{esc(nested_text(item, "fairValue", "conservative"))}</td></tr>
+          <tr><th>적정주가 중립</th><td>{esc(nested_text(item, "fairValue", "neutral"))}</td></tr>
+          <tr><th>적정주가 성장</th><td>{esc(nested_text(item, "fairValue", "growth"))}</td></tr>
           <tr><th>매수 판단</th><td>{esc(valuation_focus_text(item, "buyFocus", "PBR 확인 필요"))}</td></tr>
           <tr><th>매도 판단</th><td>{esc(valuation_focus_text(item, "sellFocus", "PSR 확인 필요"))}</td></tr>
           <tr><th>PBR</th><td>{esc(valuation_text(item, "pbr"))}</td></tr>
@@ -243,6 +260,17 @@ def report_body(item: dict, data: dict) -> str:
         </tbody>
       </table>
       <p>{esc(valuation_summary(item))}</p>
+
+      <h2>스토캐스틱과 거래량</h2>
+      <table class="plain-table">
+        <tbody>
+          <tr><th>스토캐스틱 판단</th><td>{esc(nested_nested_text(item, "technical", "stochastic", "signal"))}</td></tr>
+          <tr><th>%K</th><td>{esc(nested_nested_text(item, "technical", "stochastic", "k"))}</td></tr>
+          <tr><th>%D</th><td>{esc(nested_nested_text(item, "technical", "stochastic", "d"))}</td></tr>
+          <tr><th>거래량 판단</th><td>{esc(nested_nested_text(item, "technical", "volume", "signal"))}</td></tr>
+          <tr><th>20일 평균 대비</th><td>{esc(nested_nested_text(item, "technical", "volume", "ratio"))}</td></tr>
+        </tbody>
+      </table>
 
       <h2>시장 참고 지표</h2>
       <p>오늘의 환율은 {esc(exchange.get("value") or "-")}이며, 변동 표시는 {esc(exchange.get("change") or "-")}입니다. 환율은 국내 투자자가 미국 주식과 수출주를 함께 볼 때 확인해야 하는 핵심 변수입니다.</p>

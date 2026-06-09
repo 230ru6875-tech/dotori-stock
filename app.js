@@ -513,6 +513,45 @@ function valuationSummaryHtml(item) {
   const text = valuationSummaryText(item);
   return text ? `<p class="valuation-line">밸류에이션: ${escapeHtml(text)}</p>` : "";
 }
+function fairValueFromItem(item) {
+  return item?.fairValue || item?.analysis?.fairValue || item?.watchlist?.fairValue || item?.report?.fairValue || item?.report?.watchlist?.fairValue || item?.report?.analysis?.fairValue || null;
+}
+function fairValueSummaryText(item) {
+  const fair = fairValueFromItem(item);
+  if (!fair) return "";
+  const parts = [
+    fair.summary || "",
+    fair.conservative ? `보수 ${fair.conservative}` : "",
+    fair.neutral ? `중립 ${fair.neutral}` : "",
+    fair.growth ? `성장 ${fair.growth}` : ""
+  ].filter(Boolean);
+  return parts.join(" / ");
+}
+function fairValueSummaryHtml(item) {
+  const text = fairValueSummaryText(item);
+  return text ? `<p class="fair-line">적정주가: ${escapeHtml(text)}</p>` : "";
+}
+function technicalFromItem(item) {
+  return item?.technical || item?.analysis?.technical || item?.watchlist?.technical || item?.report?.technical || item?.report?.watchlist?.technical || item?.report?.analysis?.technical || null;
+}
+function technicalSummaryText(item) {
+  const tech = technicalFromItem(item);
+  if (!tech) return "";
+  const stochastic = tech.stochastic || {};
+  const volume = tech.volume || {};
+  const parts = [
+    stochastic.signal ? `스토캐스틱 ${stochastic.signal}` : "",
+    stochastic.k ? `%K ${stochastic.k}` : "",
+    stochastic.d ? `%D ${stochastic.d}` : "",
+    volume.signal ? `거래량 ${volume.signal}` : "",
+    volume.ratio ? `20일평균 대비 ${volume.ratio}` : ""
+  ].filter(Boolean);
+  return parts.join(" / ");
+}
+function technicalSummaryHtml(item) {
+  const text = technicalSummaryText(item);
+  return text ? `<p class="technical-line">기술지표: ${escapeHtml(text)}</p>` : "";
+}
 function marketRiskFromItem(item) {
   return item?.marketRisk || item?.analysis?.marketRisk || item?.watchlist?.marketRisk || item?.report?.marketRisk || item?.report?.watchlist?.marketRisk || item?.report?.analysis?.marketRisk || null;
 }
@@ -995,7 +1034,7 @@ function renderDashboard() {
       const displayName = !item.name || item.name === item.symbol ? item.symbol : `${item.name} <span>(${item.symbol})</span>`;
       const priceLine = item.currentPrice ? `<p class="price ${priceClassForItem(item)}"><span>${T.currentPrice}:</span> ${formatDisplayPrice(item.currentPrice, item)}</p>` : "";
       const marketLinks = item.symbol ? ` <a class="market-link" href="${tossStockUrl(item.symbol)}" target="_blank" rel="noopener">토스증권</a> <a class="market-link" href="${naverStockUrl(item)}" target="_blank" rel="noopener">네이버증권</a>` : "";
-      return `<article class="data-card clickable-card watch-card ${priceBackgroundClassForItem(item)}" data-chart-symbol="${item.symbol}"><div class="card-top"><strong>${displayName}</strong><em>${displayMarket(item.market)}</em></div>${priceLine}<p><b class="${signalClass(item.signal)}">${item.signal}</b>${item.movingAverage ? ` / ${item.movingAverage}` : ""}</p>${crashRiskSummaryHtml(item)}${valuationSummaryHtml(item)}${marketRiskSummaryHtml(item)}<p>${item.memo}${marketLinks}</p><div class="watch-chart-popover">${watchlistMiniChartSvg(item)}</div>${item.userAdded ? `<button class="small-button" data-remove-symbol="${item.symbol}" type="button">${T.remove}</button>` : ""}</article>`;
+      return `<article class="data-card clickable-card watch-card ${priceBackgroundClassForItem(item)}" data-chart-symbol="${item.symbol}"><div class="card-top"><strong>${displayName}</strong><em>${displayMarket(item.market)}</em></div>${priceLine}<p><b class="${signalClass(item.signal)}">${item.signal}</b>${item.movingAverage ? ` / ${item.movingAverage}` : ""}</p>${crashRiskSummaryHtml(item)}${fairValueSummaryHtml(item)}${technicalSummaryHtml(item)}${valuationSummaryHtml(item)}${marketRiskSummaryHtml(item)}<p>${item.memo}${marketLinks}</p><div class="watch-chart-popover">${watchlistMiniChartSvg(item)}</div>${item.userAdded ? `<button class="small-button" data-remove-symbol="${item.symbol}" type="button">${T.remove}</button>` : ""}</article>`;
     });
   } else if (state.activeSection === "scanner") {
     const marketRows = (marketLabel) => active.filter((item) => displayMarket(item.market || marketName(item.symbol)) === marketLabel);
@@ -1035,9 +1074,9 @@ function renderDashboard() {
       if (Array.isArray(item.sections)) {
         const sections = Array.isArray(item.sections) ? item.sections : [];
         const sectionHtml = sections.map((section) => `<section class="report-section"><h3>${section.heading}</h3><ul>${(section.items || []).map((line) => `<li>${line}</li>`).join("")}</ul></section>`).join("");
-        return `<article class="report-card"><div class="report-head"><div><strong>${item.title}</strong><p>${item.updatedAt || ""}</p></div><em>${T.report}</em></div><p class="report-summary">${item.summary || item.body || ""}</p>${crashRiskSummaryHtml(item)}${valuationSummaryHtml(item)}${marketRiskSummaryHtml(item)}${sectionHtml}</article>`;
+        return `<article class="report-card"><div class="report-head"><div><strong>${item.title}</strong><p>${item.updatedAt || ""}</p></div><em>${T.report}</em></div><p class="report-summary">${item.summary || item.body || ""}</p>${crashRiskSummaryHtml(item)}${fairValueSummaryHtml(item)}${technicalSummaryHtml(item)}${valuationSummaryHtml(item)}${marketRiskSummaryHtml(item)}${sectionHtml}</article>`;
       }
-      return `<article class="data-card"><div class="card-top"><strong>${item.title}</strong><em>${T.report}</em></div>${crashRiskSummaryHtml(item)}${valuationSummaryHtml(item)}${marketRiskSummaryHtml(item)}<p>${item.body}</p></article>`;
+      return `<article class="data-card"><div class="card-top"><strong>${item.title}</strong><em>${T.report}</em></div>${crashRiskSummaryHtml(item)}${fairValueSummaryHtml(item)}${technicalSummaryHtml(item)}${valuationSummaryHtml(item)}${marketRiskSummaryHtml(item)}<p>${item.body}</p></article>`;
     });
   } else {
     grid.innerHTML = renderCards(active, (item) => `<article class="data-card"><div class="card-top"><strong>${item.title || "-"}</strong><em>${T.report}</em></div><p>${item.body || ""}</p></article>`);
