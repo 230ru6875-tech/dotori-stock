@@ -519,7 +519,7 @@ function signalFeedRows() {
     const items = Array.from({ length: count }, (_, index) => deduped[(start + index) % deduped.length]);
     const buyItems = items.filter((item) => signalSide(item.feedLabel) !== "sell");
     const sellItems = items.filter((item) => signalSide(item.feedLabel) === "sell");
-    const label = sellItems.length && !buyItems.length ? "8\ud30c\ud2b8 \ub9e4\ub3c4/\uc8fc\uc758\uc2e0\ud638 \uc804\ub2ec" : "8\ud30c\ud2b8 \ub9e4\uc218\uc2e0\ud638 \uc804\ub2ec";
+    const label = sellItems.length && !buyItems.length ? "\uc2ec\uce35\ubd84\uc11d \ub9e4\ub3c4/\uc8fc\uc758\uc2e0\ud638 \uc804\ub2ec" : "\uc2ec\uce35\ubd84\uc11d \ub9e4\uc218\uc2e0\ud638 \uc804\ub2ec";
     const bodyItems = sellItems.length && !buyItems.length ? sellItems : items;
     const body = bodyItems.map((item) => `${normalizedDisplayName(item)} ${item.feedLabel}`).join(", ");
     return `[${fmtClock(time)}] ${label}: ${body}`;
