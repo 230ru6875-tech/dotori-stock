@@ -720,13 +720,34 @@ function signalFeedType(label) {
   if (/\ubcf4\uc720|\uad00\uc2ec|\uad00\ucc30/.test(text)) return "hold";
   return "buy";
 }
+function holdingReturnPct(item) {
+  const purchase = Number(item?.purchasePrice || 0);
+  const current = parseNumber(item?.currentPrice);
+  if (purchase <= 0 || current <= 0) return null;
+  return ((current - purchase) / purchase) * 100;
+}
+function holdingSignalFeedActionLabel(item) {
+  const pct = holdingReturnPct(item);
+  const crashRisk = crashRiskFromItem(item);
+  const riskLevel = String(crashRisk?.level || "");
+  if (pct === null) return "";
+  if (pct >= 12) return "매도/관찰";
+  if (pct >= 5) return "부분매도/관찰";
+  if (/폭락주의보|급락경계/.test(riskLevel)) return "보유/관찰";
+  if (pct <= -10) return "보유/관찰";
+  if (pct <= -4) return "보유/관찰";
+  if (Math.abs(pct) <= 2) return "보유/변동성확대";
+  return "보유/관찰";
+}
 function signalFeedActionLabel(item) {
   const crashRisk = crashRiskFromItem(item);
+  const holdingLabel = holdingSignalFeedActionLabel(item);
+  if (holdingLabel) return holdingLabel;
   if (crashRisk?.level === "폭락주의보") return "폭락주의보";
   if (crashRisk?.level === "급락경계") return "급락경계";
   const type = signalFeedType(item?.feedLabel);
   if (type === "sell") return "\ub9e4\ub3c4/\uc8fc\uc758";
-  if (type === "hold") return "\ub9e4\uc218/\uad00\uc2ec";
+  if (type === "hold") return "\ubcf4\uc720/\uad00\uc2ec";
   return "\ub9e4\uc218";
 }
 function loadSignalFeedHistory() {
