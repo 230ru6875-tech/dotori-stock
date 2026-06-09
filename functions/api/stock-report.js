@@ -210,6 +210,42 @@ function emptyValuation(source = "") {
   };
 }
 
+function oilRiskJudgment(current, previous) {
+  const currentNumber = Number(current || 0);
+  const previousNumber = Number(previous || 0);
+  const changePct = currentNumber > 0 && previousNumber > 0 ? ((currentNumber / previousNumber) - 1) * 100 : 0;
+  let direction = "유가 확인 필요";
+  if (changePct >= 2) direction = "유가 상승 압력";
+  else if (changePct <= -2) direction = "유가 하락 완화";
+  else if (currentNumber > 0) direction = "유가 보합권";
+  return {
+    current: currentNumber > 0 ? `$${currentNumber.toFixed(2)}` : "",
+    changePct: currentNumber > 0 && previousNumber > 0 ? `${changePct >= 0 ? "+" : ""}${changePct.toFixed(2)}%` : "",
+    direction,
+    chain: "유가상승 > 인플레이션 우려 > 금리상승 > 주가부담",
+    summary: `${direction} / 유가상승은 인플레이션 우려와 금리상승 부담을 통해 주식 밸류에이션을 낮출 수 있습니다.`,
+    source: currentNumber > 0 ? "Yahoo Finance CL=F" : ""
+  };
+}
+
+async function lookupOilMarketRisk() {
+  try {
+    const response = await fetch("https://query1.finance.yahoo.com/v8/finance/chart/CL=F?range=5d&interval=1d", {
+      headers: { "user-agent": "Mozilla/5.0 DotoriWeb/1.0" }
+    });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const payload = await response.json();
+    const result = payload?.chart?.result?.[0];
+    const closes = (result?.indicators?.quote?.[0]?.close || []).filter((value) => typeof value === "number");
+    const meta = result?.meta || {};
+    const current = Number(meta.regularMarketPrice || closes[closes.length - 1] || 0);
+    const previous = Number(closes[closes.length - 2] || 0);
+    return oilRiskJudgment(current, previous);
+  } catch (_) {
+    return oilRiskJudgment(0, 0);
+  }
+}
+
 async function fetchText(url) {
   const response = await fetch(url, {
     headers: {
@@ -376,6 +412,7 @@ export async function onRequestGet(context) {
     }
     const isDomestic = /^\d{6}$/.test(symbol);
     const base = isDomestic ? await lookupDomestic(symbol) : await lookupUs(symbol);
+    const oilRisk = await lookupOilMarketRisk();
     const news = await lookupNews(`${base.name || symbol} ${symbol}`);
     const moving = isDomestic ? { ma20: "", ma60: "", decision: TXT.wait } : movingSignal(base.closes || []);
     const currentNumber = Number(String(base.currentPrice || "").replace(/[^0-9.]/g, ""));
@@ -389,6 +426,7 @@ export async function onRequestGet(context) {
       market: base.market,
       currentPrice: base.currentPrice || "-",
       valuation: base.valuation || emptyValuation(base.source),
+      marketRisk: oilRisk,
       savedAt: new Date().toISOString(),
       scanner: {
         title: base.name || symbol,
@@ -404,7 +442,8 @@ export async function onRequestGet(context) {
         signal: TXT.observe,
         movingAverage: moving.decision,
         memo: news[0] || TXT.wait,
-        valuation: base.valuation || emptyValuation(base.source)
+        valuation: base.valuation || emptyValuation(base.source),
+        marketRisk: oilRisk
       },
       learning: {
         topic: `${TXT.mockInvestment} - ${symbol}`,
@@ -420,9 +459,10 @@ export async function onRequestGet(context) {
       analysis: {
         title: `${TXT.analysis} - ${base.name || symbol}`,
         body: news.length ? news.join(" / ") : TXT.wait,
-        valuation: base.valuation || emptyValuation(base.source)
+        valuation: base.valuation || emptyValuation(base.source),
+        marketRisk: oilRisk
       },
-      sources: [base.source, "Naver News Search"].filter(Boolean)
+      sources: [base.source, oilRisk.source, "Naver News Search"].filter(Boolean)
     };
     if (!localOnly) {
       await saveTursoReport(context.env, symbol, payload).catch((error) => {

@@ -625,6 +625,16 @@ button:hover {
   padding: 6px 8px;
 }
 
+.macro-line {
+  color: #5f3217;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  border-radius: 6px;
+  padding: 6px 8px;
+}
+
 .watch-chart-popover {
   background: #ffffff;
   border: 1px solid var(--line);

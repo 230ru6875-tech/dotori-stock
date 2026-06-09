@@ -41,6 +41,16 @@ def valuation_summary(item: dict) -> str:
     return clean_text(valuation.get("summary") or valuation.get("note") or "PER, PBR, FCF, 부채비율, EV/EBITDA를 함께 확인합니다.")
 
 
+def market_risk_summary(item: dict) -> str:
+    risk = item.get("marketRisk") if isinstance(item.get("marketRisk"), dict) else {}
+    current = clean_text(risk.get("current") or "")
+    change = clean_text(risk.get("changePct") or "")
+    chain = clean_text(risk.get("chain") or "유가상승 > 인플레이션 우려 > 금리상승 > 주가부담")
+    summary = clean_text(risk.get("summary") or "유가 상승은 인플레이션 우려와 금리상승 부담을 통해 주식 밸류에이션을 낮출 수 있습니다.")
+    parts = [part for part in (f"WTI {current}" if current else "", change, chain, summary) if part]
+    return " / ".join(parts)
+
+
 def is_excluded_product(name: str) -> bool:
     lowered = name.lower()
     banned = [
@@ -212,6 +222,7 @@ def report_body(item: dict, data: dict) -> str:
 
       <h2>시장 참고 지표</h2>
       <p>오늘의 환율은 {esc(exchange.get("value") or "-")}이며, 변동 표시는 {esc(exchange.get("change") or "-")}입니다. 환율은 국내 투자자가 미국 주식과 수출주를 함께 볼 때 확인해야 하는 핵심 변수입니다.</p>
+      <p>유가 변수는 {esc(market_risk_summary(item))}</p>
 
       <h2>관련 뉴스</h2>
       <ul>{news_html}</ul>

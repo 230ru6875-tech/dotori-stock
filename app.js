@@ -508,6 +508,24 @@ function valuationSummaryHtml(item) {
   const text = valuationSummaryText(item);
   return text ? `<p class="valuation-line">밸류에이션: ${escapeHtml(text)}</p>` : "";
 }
+function marketRiskFromItem(item) {
+  return item?.marketRisk || item?.analysis?.marketRisk || item?.watchlist?.marketRisk || item?.report?.marketRisk || item?.report?.watchlist?.marketRisk || item?.report?.analysis?.marketRisk || null;
+}
+function marketRiskSummaryText(item) {
+  const risk = marketRiskFromItem(item);
+  if (!risk) return "";
+  const parts = [
+    risk.current ? `WTI ${risk.current}` : "",
+    risk.changePct ? risk.changePct : "",
+    risk.chain || "유가상승 > 인플레이션 우려 > 금리상승 > 주가부담",
+    risk.summary || ""
+  ].filter(Boolean);
+  return parts.join(" / ");
+}
+function marketRiskSummaryHtml(item) {
+  const text = marketRiskSummaryText(item);
+  return text ? `<p class="macro-line">유가 변수: ${escapeHtml(text)}</p>` : "";
+}
 function priceClassForItem(item) {
   const purchase = Number(item?.purchasePrice || 0);
   const current = parseNumber(item?.currentPrice);
@@ -944,7 +962,7 @@ function renderDashboard() {
       const displayName = !item.name || item.name === item.symbol ? item.symbol : `${item.name} <span>(${item.symbol})</span>`;
       const priceLine = item.currentPrice ? `<p class="price ${priceClassForItem(item)}"><span>${T.currentPrice}:</span> ${formatDisplayPrice(item.currentPrice, item)}</p>` : "";
       const marketLinks = item.symbol ? ` <a class="market-link" href="${tossStockUrl(item.symbol)}" target="_blank" rel="noopener">토스증권</a> <a class="market-link" href="${naverStockUrl(item)}" target="_blank" rel="noopener">네이버증권</a>` : "";
-      return `<article class="data-card clickable-card watch-card ${priceBackgroundClassForItem(item)}" data-chart-symbol="${item.symbol}"><div class="card-top"><strong>${displayName}</strong><em>${displayMarket(item.market)}</em></div>${priceLine}<p><b class="${signalClass(item.signal)}">${item.signal}</b>${item.movingAverage ? ` / ${item.movingAverage}` : ""}</p>${valuationSummaryHtml(item)}<p>${item.memo}${marketLinks}</p><div class="watch-chart-popover">${watchlistMiniChartSvg(item)}</div>${item.userAdded ? `<button class="small-button" data-remove-symbol="${item.symbol}" type="button">${T.remove}</button>` : ""}</article>`;
+      return `<article class="data-card clickable-card watch-card ${priceBackgroundClassForItem(item)}" data-chart-symbol="${item.symbol}"><div class="card-top"><strong>${displayName}</strong><em>${displayMarket(item.market)}</em></div>${priceLine}<p><b class="${signalClass(item.signal)}">${item.signal}</b>${item.movingAverage ? ` / ${item.movingAverage}` : ""}</p>${valuationSummaryHtml(item)}${marketRiskSummaryHtml(item)}<p>${item.memo}${marketLinks}</p><div class="watch-chart-popover">${watchlistMiniChartSvg(item)}</div>${item.userAdded ? `<button class="small-button" data-remove-symbol="${item.symbol}" type="button">${T.remove}</button>` : ""}</article>`;
     });
   } else if (state.activeSection === "scanner") {
     const marketRows = (marketLabel) => active.filter((item) => displayMarket(item.market || marketName(item.symbol)) === marketLabel);
@@ -984,9 +1002,9 @@ function renderDashboard() {
       if (Array.isArray(item.sections)) {
         const sections = Array.isArray(item.sections) ? item.sections : [];
         const sectionHtml = sections.map((section) => `<section class="report-section"><h3>${section.heading}</h3><ul>${(section.items || []).map((line) => `<li>${line}</li>`).join("")}</ul></section>`).join("");
-        return `<article class="report-card"><div class="report-head"><div><strong>${item.title}</strong><p>${item.updatedAt || ""}</p></div><em>${T.report}</em></div><p class="report-summary">${item.summary || item.body || ""}</p>${valuationSummaryHtml(item)}${sectionHtml}</article>`;
+        return `<article class="report-card"><div class="report-head"><div><strong>${item.title}</strong><p>${item.updatedAt || ""}</p></div><em>${T.report}</em></div><p class="report-summary">${item.summary || item.body || ""}</p>${valuationSummaryHtml(item)}${marketRiskSummaryHtml(item)}${sectionHtml}</article>`;
       }
-      return `<article class="data-card"><div class="card-top"><strong>${item.title}</strong><em>${T.report}</em></div>${valuationSummaryHtml(item)}<p>${item.body}</p></article>`;
+      return `<article class="data-card"><div class="card-top"><strong>${item.title}</strong><em>${T.report}</em></div>${valuationSummaryHtml(item)}${marketRiskSummaryHtml(item)}<p>${item.body}</p></article>`;
     });
   } else {
     grid.innerHTML = renderCards(active, (item) => `<article class="data-card"><div class="card-top"><strong>${item.title || "-"}</strong><em>${T.report}</em></div><p>${item.body || ""}</p></article>`);
