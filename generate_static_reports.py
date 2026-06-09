@@ -4,6 +4,7 @@ import html
 import json
 import re
 from datetime import datetime
+from datetime import timezone
 from pathlib import Path
 
 
@@ -87,7 +88,10 @@ def collect_items(data: dict) -> list[dict]:
     return sorted(rows, key=score)[:24]
 
 
-def page_shell(title: str, description: str, canonical: str, body: str) -> str:
+def page_shell(title: str, description: str, canonical: str, body: str, schema: dict | None = None) -> str:
+    schema_html = ""
+    if schema:
+        schema_html = "\n  <script type=\"application/ld+json\">\n  " + json.dumps(schema, ensure_ascii=False, indent=2).replace("\n", "\n  ") + "\n  </script>"
     return f"""<!doctype html>
 <html lang="ko">
 <head>
@@ -95,9 +99,20 @@ def page_shell(title: str, description: str, canonical: str, body: str) -> str:
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{esc(title)}</title>
   <meta name="description" content="{esc(description)}">
-  <meta name="robots" content="index, follow">
+  <meta name="robots" content="index, follow, max-image-preview:large">
   <link rel="canonical" href="{esc(canonical)}">
+  <link rel="alternate" type="application/rss+xml" title="도토리 주식분석 RSS" href="{SITE_URL}/rss.xml">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="도토리 주식분석">
+  <meta property="og:title" content="{esc(title)}">
+  <meta property="og:description" content="{esc(description)}">
+  <meta property="og:url" content="{esc(canonical)}">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="{esc(title)}">
+  <meta name="twitter:description" content="{esc(description)}">
   <link rel="stylesheet" href="../styles.css">
+  {schema_html}
 </head>
 <body>
   <header class="site-header">
@@ -195,11 +210,25 @@ def build_reports() -> list[str]:
         filename = f"{symbol}.html"
         title = f"{item['displayName']} 주식 리포트 | 도토리 주식분석"
         description = f"{item['displayName']}의 현재가, 이평선, 상태 표시, 관련 뉴스를 정리한 공개 주식 리포트입니다."
+        schema = {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": title,
+            "description": description,
+            "mainEntityOfPage": f"{SITE_URL}/reports/{filename}",
+            "author": {"@type": "Organization", "name": "도토리 주식분석"},
+            "publisher": {"@type": "Organization", "name": "도토리 주식분석"},
+            "about": item["displayName"],
+            "inLanguage": "ko-KR",
+            "datePublished": "2026-06-08",
+            "dateModified": datetime.now(timezone.utc).date().isoformat(),
+        }
         html_text = page_shell(
             title,
             description,
             f"{SITE_URL}/reports/{filename}",
             report_body(item, data),
+            schema,
         )
         (REPORT_DIR / filename).write_text(html_text, encoding="utf-8", newline="\n")
         generated.append(filename)
@@ -212,12 +241,21 @@ def build_reports() -> list[str]:
       <p>도토리 주식분석에서 공개 가능한 종목 데이터를 기준으로 생성한 색인용 리포트입니다. 각 페이지는 정보 제공 목적이며 특정 종목의 매매를 권유하지 않습니다.</p>
       <div class="info-grid report-index-grid">{''.join(cards)}</div>
     </article>"""
+    index_schema = {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "종목 리포트",
+        "description": "도토리 주식분석 공개 종목 리포트 목록",
+        "url": f"{SITE_URL}/reports/",
+        "inLanguage": "ko-KR",
+    }
     (REPORT_DIR / "index.html").write_text(
         page_shell(
             "종목 리포트 | 도토리 주식분석",
             "관심종목과 주요 후보의 공개 주식 리포트 목록입니다.",
             f"{SITE_URL}/reports/",
             index_body,
+            index_schema,
         ),
         encoding="utf-8",
         newline="\n",
@@ -226,17 +264,22 @@ def build_reports() -> list[str]:
 
 
 def update_sitemap(generated: list[str]) -> None:
+    today = datetime.now(timezone.utc).date().isoformat()
     urls = [
-        (f"{SITE_URL}/", "1.0"),
-        (f"{SITE_URL}/reports/", "0.8"),
-        (f"{SITE_URL}/about.html", "0.7"),
-        (f"{SITE_URL}/seo.html", "0.7"),
-        (f"{SITE_URL}/privacy.html", "0.5"),
-        (f"{SITE_URL}/terms.html", "0.5"),
-        (f"{SITE_URL}/disclaimer.html", "0.5"),
+        (f"{SITE_URL}/", "daily", "1.0"),
+        (f"{SITE_URL}/stock-analysis.html", "weekly", "0.8"),
+        (f"{SITE_URL}/reports/", "daily", "0.8"),
+        (f"{SITE_URL}/about.html", "monthly", "0.7"),
+        (f"{SITE_URL}/seo.html", "monthly", "0.7"),
+        (f"{SITE_URL}/privacy.html", "monthly", "0.5"),
+        (f"{SITE_URL}/terms.html", "monthly", "0.5"),
+        (f"{SITE_URL}/disclaimer.html", "monthly", "0.5"),
     ]
-    urls.extend((f"{SITE_URL}/reports/{name}", "0.6") for name in generated)
-    body = "\n".join(f'  <url><loc>{loc}</loc><priority>{priority}</priority></url>' for loc, priority in urls)
+    urls.extend((f"{SITE_URL}/reports/{name}", "daily", "0.6") for name in generated)
+    body = "\n".join(
+        f"  <url><loc>{loc}</loc><lastmod>{today}</lastmod><changefreq>{changefreq}</changefreq><priority>{priority}</priority></url>"
+        for loc, changefreq, priority in urls
+    )
     (ROOT / "sitemap.xml").write_text(
         f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{body}\n</urlset>\n',
         encoding="utf-8",
