@@ -473,7 +473,7 @@ function signalLabelForItem(item, fallback = "\ub9e4\uc218") {
   if (/\ub9e4\uc218/.test(signal)) return "\ub9e4\uc218";
   if (/\uac15\ud55c\s*\ub9e4\ub3c4/.test(signal)) return "\uac15\ud55c \ub9e4\ub3c4";
   if (/\ub9e4\ub3c4|\uc704\ud5d8|\uc774\ud0c8|\uc190\uc808|\uc8fc\uc758/.test(signal)) return "\ub9e4\ub3c4/\uc8fc\uc758";
-  if (/\ubcf4\uc720/.test(signal)) return "\ubcf4\uc720";
+  if (/\ubcf4\uc720/.test(signal)) return "";
   return fallback;
 }
 function kstParts(date = new Date()) {
@@ -533,7 +533,7 @@ function signalFeedRows() {
   const deduped = [];
   selected.forEach((item) => {
     const symbol = normalizeSymbol(item.symbol);
-    const key = `${symbol}:${item.feedLabel}`;
+    const key = `${symbol}:${item.feedLabel || "hold"}`;
     if (!symbol || seen.has(key)) return;
     seen.add(key);
     deduped.push(item);
@@ -550,7 +550,7 @@ function signalFeedRows() {
     const sellItems = items.filter((item) => signalSide(item.feedLabel) === "sell");
     const label = sellItems.length && !buyItems.length ? "\uc2ec\uce35\ubd84\uc11d \ub9e4\ub3c4/\uc8fc\uc758\uc2e0\ud638 \uc804\ub2ec" : "\uc2ec\uce35\ubd84\uc11d \ub9e4\uc218\uc2e0\ud638 \uc804\ub2ec";
     const bodyItems = sellItems.length && !buyItems.length ? sellItems : items;
-    const body = bodyItems.map((item) => `${normalizedDisplayName(item)} ${item.feedLabel}`).join(", ");
+    const body = bodyItems.map((item) => [normalizedDisplayName(item), item.feedLabel].filter(Boolean).join(" ")).join(", ");
     return `[${fmtClock(time)}] ${label}: ${body}`;
   });
 }
