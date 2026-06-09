@@ -487,6 +487,27 @@ function formatDisplayPrice(value, item) {
   const hasDecimal = /\.\d+/.test(raw);
   return `$${price.toLocaleString(undefined, { minimumFractionDigits: hasDecimal ? 2 : 0, maximumFractionDigits: 2 })}`;
 }
+function valuationFromItem(item) {
+  return item?.valuation || item?.analysis?.valuation || item?.watchlist?.valuation || item?.report?.valuation || item?.report?.watchlist?.valuation || item?.report?.analysis?.valuation || null;
+}
+function valuationSummaryText(item) {
+  const valuation = valuationFromItem(item);
+  if (!valuation) return "";
+  const parts = [
+    valuation.per ? `PER ${valuation.per}` : "",
+    valuation.pbr ? `PBR ${valuation.pbr}` : "",
+    valuation.fcf ? `FCF ${valuation.fcf}` : "",
+    valuation.debtRatio ? `부채비율 ${valuation.debtRatio}%` : "",
+    valuation.evEbitda ? `EV/EBITDA ${valuation.evEbitda}` : ""
+  ].filter(Boolean);
+  const summary = valuation.summary || valuation.note || "";
+  if (!parts.length && !summary) return "";
+  return `${parts.join(" / ")}${parts.length && summary ? " / " : ""}${summary}`;
+}
+function valuationSummaryHtml(item) {
+  const text = valuationSummaryText(item);
+  return text ? `<p class="valuation-line">밸류에이션: ${escapeHtml(text)}</p>` : "";
+}
 function priceClassForItem(item) {
   const purchase = Number(item?.purchasePrice || 0);
   const current = parseNumber(item?.currentPrice);
@@ -923,7 +944,7 @@ function renderDashboard() {
       const displayName = !item.name || item.name === item.symbol ? item.symbol : `${item.name} <span>(${item.symbol})</span>`;
       const priceLine = item.currentPrice ? `<p class="price ${priceClassForItem(item)}"><span>${T.currentPrice}:</span> ${formatDisplayPrice(item.currentPrice, item)}</p>` : "";
       const marketLinks = item.symbol ? ` <a class="market-link" href="${tossStockUrl(item.symbol)}" target="_blank" rel="noopener">토스증권</a> <a class="market-link" href="${naverStockUrl(item)}" target="_blank" rel="noopener">네이버증권</a>` : "";
-      return `<article class="data-card clickable-card watch-card ${priceBackgroundClassForItem(item)}" data-chart-symbol="${item.symbol}"><div class="card-top"><strong>${displayName}</strong><em>${displayMarket(item.market)}</em></div>${priceLine}<p><b class="${signalClass(item.signal)}">${item.signal}</b>${item.movingAverage ? ` / ${item.movingAverage}` : ""}</p><p>${item.memo}${marketLinks}</p><div class="watch-chart-popover">${watchlistMiniChartSvg(item)}</div>${item.userAdded ? `<button class="small-button" data-remove-symbol="${item.symbol}" type="button">${T.remove}</button>` : ""}</article>`;
+      return `<article class="data-card clickable-card watch-card ${priceBackgroundClassForItem(item)}" data-chart-symbol="${item.symbol}"><div class="card-top"><strong>${displayName}</strong><em>${displayMarket(item.market)}</em></div>${priceLine}<p><b class="${signalClass(item.signal)}">${item.signal}</b>${item.movingAverage ? ` / ${item.movingAverage}` : ""}</p>${valuationSummaryHtml(item)}<p>${item.memo}${marketLinks}</p><div class="watch-chart-popover">${watchlistMiniChartSvg(item)}</div>${item.userAdded ? `<button class="small-button" data-remove-symbol="${item.symbol}" type="button">${T.remove}</button>` : ""}</article>`;
     });
   } else if (state.activeSection === "scanner") {
     const marketRows = (marketLabel) => active.filter((item) => displayMarket(item.market || marketName(item.symbol)) === marketLabel);
@@ -963,9 +984,9 @@ function renderDashboard() {
       if (Array.isArray(item.sections)) {
         const sections = Array.isArray(item.sections) ? item.sections : [];
         const sectionHtml = sections.map((section) => `<section class="report-section"><h3>${section.heading}</h3><ul>${(section.items || []).map((line) => `<li>${line}</li>`).join("")}</ul></section>`).join("");
-        return `<article class="report-card"><div class="report-head"><div><strong>${item.title}</strong><p>${item.updatedAt || ""}</p></div><em>${T.report}</em></div><p class="report-summary">${item.summary || item.body || ""}</p>${sectionHtml}</article>`;
+        return `<article class="report-card"><div class="report-head"><div><strong>${item.title}</strong><p>${item.updatedAt || ""}</p></div><em>${T.report}</em></div><p class="report-summary">${item.summary || item.body || ""}</p>${valuationSummaryHtml(item)}${sectionHtml}</article>`;
       }
-      return `<article class="data-card"><div class="card-top"><strong>${item.title}</strong><em>${T.report}</em></div><p>${item.body}</p></article>`;
+      return `<article class="data-card"><div class="card-top"><strong>${item.title}</strong><em>${T.report}</em></div>${valuationSummaryHtml(item)}<p>${item.body}</p></article>`;
     });
   } else {
     grid.innerHTML = renderCards(active, (item) => `<article class="data-card"><div class="card-top"><strong>${item.title || "-"}</strong><em>${T.report}</em></div><p>${item.body || ""}</p></article>`);

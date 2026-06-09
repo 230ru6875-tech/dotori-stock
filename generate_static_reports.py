@@ -30,6 +30,17 @@ def slug(symbol: object) -> str:
     return text.strip("-") or "UNKNOWN"
 
 
+def valuation_text(item: dict, key: str) -> str:
+    valuation = item.get("valuation") if isinstance(item.get("valuation"), dict) else {}
+    value = clean_text(valuation.get(key) or "")
+    return value or "확인 필요"
+
+
+def valuation_summary(item: dict) -> str:
+    valuation = item.get("valuation") if isinstance(item.get("valuation"), dict) else {}
+    return clean_text(valuation.get("summary") or valuation.get("note") or "PER, PBR, FCF, 부채비율, EV/EBITDA를 함께 확인합니다.")
+
+
 def is_excluded_product(name: str) -> bool:
     lowered = name.lower()
     banned = [
@@ -186,6 +197,18 @@ def report_body(item: dict, data: dict) -> str:
         <li>60일선: {esc(ma60)}</li>
         <li>위험 또는 확인 요소: {esc(risk)}</li>
       </ul>
+
+      <h2>밸류에이션 점검</h2>
+      <table class="plain-table">
+        <tbody>
+          <tr><th>PER</th><td>{esc(valuation_text(item, "per"))}</td></tr>
+          <tr><th>PBR</th><td>{esc(valuation_text(item, "pbr"))}</td></tr>
+          <tr><th>FCF</th><td>{esc(valuation_text(item, "fcf"))}</td></tr>
+          <tr><th>부채비율</th><td>{esc(valuation_text(item, "debtRatio"))}</td></tr>
+          <tr><th>EV/EBITDA</th><td>{esc(valuation_text(item, "evEbitda"))}</td></tr>
+        </tbody>
+      </table>
+      <p>{esc(valuation_summary(item))}</p>
 
       <h2>시장 참고 지표</h2>
       <p>오늘의 환율은 {esc(exchange.get("value") or "-")}이며, 변동 표시는 {esc(exchange.get("change") or "-")}입니다. 환율은 국내 투자자가 미국 주식과 수출주를 함께 볼 때 확인해야 하는 핵심 변수입니다.</p>

@@ -120,6 +120,16 @@ function cleanHtml(value) {
     .trim();
 }
 
+function textValue(value) {
+  const text = cleanHtml(value);
+  return text && text !== "N/A" && text !== "&nbsp;" ? text : "";
+}
+
+function matchHtmlValue(html, pattern) {
+  const match = String(html || "").match(pattern);
+  return textValue(match?.[1] || "");
+}
+
 function cleanName(value, symbol) {
   let text = cleanHtml(value);
   if (!text) return "";
@@ -131,6 +141,73 @@ function cleanName(value, symbol) {
     .trim();
   const escaped = symbol.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   return text.replace(new RegExp(`\\s*\\(?${escaped}\\)?\\s*$`, "i"), "").trim();
+}
+
+function valuationJudgment(metrics) {
+  const per = Number(String(metrics?.per || "").replace(/,/g, ""));
+  const pbr = Number(String(metrics?.pbr || "").replace(/,/g, ""));
+  const debt = Number(String(metrics?.debtRatio || "").replace(/,/g, ""));
+  const flags = [];
+  if (Number.isFinite(per) && per > 0) {
+    if (per >= 25) flags.push("PER 높음");
+    else if (per <= 10) flags.push("PER 낮음");
+  }
+  if (Number.isFinite(pbr) && pbr > 0) {
+    if (pbr >= 3) flags.push("PBR 높음");
+    else if (pbr <= 1) flags.push("PBR 낮음");
+  }
+  if (Number.isFinite(debt) && debt > 0) {
+    if (debt >= 150) flags.push("부채비율 주의");
+    else if (debt <= 50) flags.push("재무부담 낮음");
+  }
+  if (!flags.length) return "PER/PBR/FCF/부채비율을 함께 확인";
+  return flags.join(" / ");
+}
+
+function extractLatestAnalystRowValue(html, rowLabel) {
+  const escaped = rowLabel.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const rowMatch = String(html || "").match(new RegExp(`<tr[^>]*>[\\s\\S]*?<strong>${escaped}<\\/strong>[\\s\\S]*?<\\/tr>`, "i"));
+  if (!rowMatch) return "";
+  const cells = [...rowMatch[0].matchAll(/<td[^>]*>([\s\S]*?)<\/td>/gi)]
+    .map((match) => textValue(match[1]))
+    .filter(Boolean);
+  return cells[cells.length - 1] || "";
+}
+
+function lookupDomesticValuationFromHtml(html) {
+  const metrics = {
+    per: matchHtmlValue(html, /<em[^>]+id=["']_per["'][^>]*>([^<]+)<\/em>/i),
+    estimatedPer: matchHtmlValue(html, /<em[^>]+id=["']_cns_per["'][^>]*>([^<]+)<\/em>/i),
+    pbr: matchHtmlValue(html, /<em[^>]+id=["']_pbr["'][^>]*>([^<]+)<\/em>/i),
+    industryPer: matchHtmlValue(html, /동일업종 PER[\s\S]*?<em>([^<]+)<\/em>\s*배/i),
+    debtRatio: extractLatestAnalystRowValue(html, "부채비율"),
+    fcf: "",
+    evEbitda: "",
+    source: "Naver Finance",
+  };
+  return {
+    ...metrics,
+    summary: valuationJudgment(metrics),
+    note: "PER, PBR, 부채비율은 네이버 금융 공개값 기준입니다. FCF와 EV/EBITDA는 별도 재무 API 연결 후 확정합니다."
+  };
+}
+
+function emptyValuation(source = "") {
+  const metrics = {
+    per: "",
+    estimatedPer: "",
+    pbr: "",
+    industryPer: "",
+    fcf: "",
+    debtRatio: "",
+    evEbitda: "",
+    source,
+  };
+  return {
+    ...metrics,
+    summary: valuationJudgment(metrics),
+    note: "PER, PBR, FCF, 부채비율, EV/EBITDA 확인 필요"
+  };
 }
 
 async function fetchText(url) {
@@ -189,6 +266,7 @@ async function lookupDomestic(symbol) {
     realtime = await lookupDomesticRealtime(symbol);
   } catch (_) {}
   const html = realtime.currentPrice && realtime.name ? "" : await fetchText(`https://finance.naver.com/item/main.naver?code=${symbol}`);
+  const valuationHtml = html || await fetchText(`https://finance.naver.com/item/main.naver?code=${symbol}`);
   const titleMatch = html.match(/<title[^>]*>([^<]+)<\/title>/i);
   const h2Match = html.match(/<div[^>]+class=["']wrap_company["'][\s\S]*?<h2[^>]*>([^<]+)<\/h2>/i);
   const priceMatch = html.match(/<p[^>]+class=["']no_today["'][\s\S]*?<span[^>]+class=["']blind["']>([^<]+)<\/span>/i);
@@ -196,7 +274,8 @@ async function lookupDomestic(symbol) {
     name: realtime.name || cleanName(h2Match?.[1] || titleMatch?.[1], symbol),
     currentPrice: realtime.currentPrice || cleanHtml(priceMatch?.[1] || ""),
     market: TXT.domestic,
-    source: realtime.currentPrice ? (realtime.source || "Naver Finance Realtime") : "Naver Finance"
+    source: realtime.currentPrice ? (realtime.source || "Naver Finance Realtime") : "Naver Finance",
+    valuation: lookupDomesticValuationFromHtml(valuationHtml)
   };
 }
 
@@ -240,7 +319,8 @@ async function lookupUs(symbol) {
     currentPrice: yahoo.current > 0 ? `$${yahoo.current.toFixed(2)}` : "",
     market: TXT.us,
     source: "Toss/Yahoo",
-    closes: yahoo.closes
+    closes: yahoo.closes,
+    valuation: emptyValuation("Yahoo Finance")
   };
 }
 
@@ -308,6 +388,7 @@ export async function onRequestGet(context) {
       name: base.name || symbol,
       market: base.market,
       currentPrice: base.currentPrice || "-",
+      valuation: base.valuation || emptyValuation(base.source),
       savedAt: new Date().toISOString(),
       scanner: {
         title: base.name || symbol,
@@ -322,7 +403,8 @@ export async function onRequestGet(context) {
         currentPrice: base.currentPrice || "-",
         signal: TXT.observe,
         movingAverage: moving.decision,
-        memo: news[0] || TXT.wait
+        memo: news[0] || TXT.wait,
+        valuation: base.valuation || emptyValuation(base.source)
       },
       learning: {
         topic: `${TXT.mockInvestment} - ${symbol}`,
@@ -337,7 +419,8 @@ export async function onRequestGet(context) {
       },
       analysis: {
         title: `${TXT.analysis} - ${base.name || symbol}`,
-        body: news.length ? news.join(" / ") : TXT.wait
+        body: news.length ? news.join(" / ") : TXT.wait,
+        valuation: base.valuation || emptyValuation(base.source)
       },
       sources: [base.source, "Naver News Search"].filter(Boolean)
     };
