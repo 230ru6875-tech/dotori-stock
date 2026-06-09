@@ -568,12 +568,12 @@ function renderSignalFeed() {
   if (!feed) return;
   const rows = signalFeedRows();
   if (!rows.length) {
-    feed.innerHTML = "";
-    feed.hidden = true;
+    feed.hidden = state.activeSection !== "watchlist";
+    feed.innerHTML = `<div class="signal-feed-head">\uc2ec\uce35\ubd84\uc11d \ub85c\uadf8</div><div class="signal-feed-lines"><p>\ud604\uc7ac \uac70\ub798\uc2dc\uac04\uc5d0 \ud45c\uc2dc\ud560 \uc2ec\uce35\ubd84\uc11d \uc2e0\ud638\uac00 \uc5c6\uc2b5\ub2c8\ub2e4.</p></div>`;
     return;
   }
-  feed.hidden = false;
-  feed.innerHTML = `<div class="signal-feed-head">\uc2e0\ud638 \uc804\ub2ec \ub85c\uadf8</div><div class="signal-feed-lines">${rows.map((row) => `<p>${escapeHtml(row)}</p>`).join("")}</div>`;
+  feed.hidden = state.activeSection !== "watchlist";
+  feed.innerHTML = `<div class="signal-feed-head">\uc2ec\uce35\ubd84\uc11d \ub85c\uadf8</div><div class="signal-feed-lines">${rows.map((row) => `<p>${escapeHtml(row)}</p>`).join("")}</div>`;
 }
 function chartSourceForSymbol(symbol) {
   const normalized = normalizeSymbol(symbol);
