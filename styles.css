@@ -238,6 +238,35 @@ h3 {
   gap: 8px;
 }
 
+.signal-feed {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  margin: 0 0 16px;
+  padding: 12px 14px;
+}
+
+.signal-feed-head {
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.signal-feed-lines {
+  display: grid;
+  gap: 4px;
+}
+
+.signal-feed-lines p {
+  color: #273244;
+  font-family: Consolas, "Noto Sans KR", monospace;
+  font-size: 14px;
+  line-height: 1.45;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
 button {
   background: #ffffff;
   border: 1px solid var(--line);

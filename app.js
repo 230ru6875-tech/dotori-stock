@@ -457,6 +457,97 @@ function priceClassForItem(item) {
   if (current < purchase) return "down";
   return "neutral";
 }
+function signalSide(value) {
+  const text = String(value || "");
+  if (/\ub9e4\ub3c4|\uc704\ud5d8|\uc774\ud0c8|\uc190\uc808|\uc8fc\uc758/i.test(text)) return "sell";
+  if (/\ub9e4\uc218|\uc0c1\uc2b9|\uac15\ud55c|\uc9c4\uc785|\ud68c\ubcf5|\ubcf4\uc720|\uac80\ud1a0/i.test(text)) return "buy";
+  return "";
+}
+function normalizedDisplayName(item) {
+  const symbol = normalizeSymbol(item?.symbol || "");
+  const raw = item?.name || item?.title || item?.displayName || symbol || "-";
+  const stripped = stripSymbolFromName(raw, symbol) || raw;
+  return symbol ? `${stripped}(${symbol})` : stripped;
+}
+function signalLabelForItem(item, fallback = "\ub9e4\uc218") {
+  const signal = String(item?.signal || item?.sentiment || item?.decision || fallback || "").trim();
+  if (/\uac15\ud55c\s*\ub9e4\uc218/.test(signal)) return "\uac15\ud55c \ub9e4\uc218";
+  if (/\ub9e4\uc218/.test(signal)) return "\ub9e4\uc218";
+  if (/\uac15\ud55c\s*\ub9e4\ub3c4/.test(signal)) return "\uac15\ud55c \ub9e4\ub3c4";
+  if (/\ub9e4\ub3c4|\uc704\ud5d8|\uc774\ud0c8|\uc190\uc808|\uc8fc\uc758/.test(signal)) return "\ub9e4\ub3c4/\uc8fc\uc758";
+  if (/\ubcf4\uc720/.test(signal)) return "\ubcf4\uc720";
+  return fallback;
+}
+function signalFeedRows() {
+  const data = state.data || {};
+  const userSymbols = new Set(state.userStocks.map((item) => normalizeSymbol(item.symbol)).filter(Boolean));
+  const sections = mergedSections(data);
+  const watchRows = (sections.watchlist || []).filter((item) => userSymbols.has(normalizeSymbol(item.symbol)));
+  const interestSignals = watchRows
+    .filter((item) => signalSide(item.signal || item.sentiment || item.decision))
+    .map((item) => ({ ...item, feedLabel: signalLabelForItem(item) }));
+  const nonInterestSignals = [
+    ...(sections.scanner || []),
+    ...(sections.spikes || []),
+    ...(sections.movingAverages || [])
+  ]
+    .filter((item) => {
+      const symbol = normalizeSymbol(item.symbol);
+      if (!symbol || userSymbols.has(symbol)) return false;
+      return signalSide(item.signal || item.sentiment || item.decision) === "buy";
+    })
+    .map((item) => {
+      const text = String(item.signal || item.sentiment || item.decision || "");
+      return { ...item, feedLabel: /\uac15\ud55c\s*\ub9e4\uc218/.test(text) ? "\uac15\ud55c \ub9e4\uc218" : "\ub9e4\uc218" };
+    });
+  const selected = [...interestSignals, ...nonInterestSignals];
+  const seen = new Set();
+  const deduped = [];
+  selected.forEach((item) => {
+    const symbol = normalizeSymbol(item.symbol);
+    const key = `${symbol}:${item.feedLabel}`;
+    if (!symbol || seen.has(key)) return;
+    seen.add(key);
+    deduped.push(item);
+  });
+  if (!deduped.length) return [];
+  const now = new Date();
+  const bucketMs = 5 * 60 * 1000;
+  const base = new Date(Math.floor(now.getTime() / bucketMs) * bucketMs);
+  return [2, 1, 0].map((slot) => {
+    const time = new Date(base.getTime() - slot * bucketMs);
+    const start = slot;
+    const count = Math.min(3, deduped.length);
+    const items = Array.from({ length: count }, (_, index) => deduped[(start + index) % deduped.length]);
+    const buyItems = items.filter((item) => signalSide(item.feedLabel) !== "sell");
+    const sellItems = items.filter((item) => signalSide(item.feedLabel) === "sell");
+    const label = sellItems.length && !buyItems.length ? "8\ud30c\ud2b8 \ub9e4\ub3c4/\uc8fc\uc758\uc2e0\ud638 \uc804\ub2ec" : "8\ud30c\ud2b8 \ub9e4\uc218\uc2e0\ud638 \uc804\ub2ec";
+    const bodyItems = sellItems.length && !buyItems.length ? sellItems : items;
+    const body = bodyItems.map((item) => `${normalizedDisplayName(item)} ${item.feedLabel}`).join(", ");
+    return `[${fmtClock(time)}] ${label}: ${body}`;
+  });
+}
+function fmtClock(date) {
+  return new Intl.DateTimeFormat("ko-KR", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false,
+    timeZone: "Asia/Seoul"
+  }).format(date).replace(/\s/g, "");
+}
+function renderSignalFeed() {
+  const feed = el("#signalFeed");
+  if (!feed) return;
+  const rows = signalFeedRows();
+  if (!rows.length) {
+    feed.innerHTML = "";
+    feed.hidden = true;
+    return;
+  }
+  feed.hidden = false;
+  feed.innerHTML = `<div class="signal-feed-head">\uc2e0\ud638 \uc804\ub2ec \ub85c\uadf8</div><div class="signal-feed-lines">${rows.map((row) => `<p>${escapeHtml(row)}</p>`).join("")}</div>`;
+}
 function chartSourceForSymbol(symbol) {
   const normalized = normalizeSymbol(symbol);
   const report = loadReportFromBrowser(normalized) || directoryReport(normalized);
@@ -692,6 +783,7 @@ function renderDashboard() {
   const sections = mergedSections(data);
   const active = sections[state.activeSection] || sections.watchlist;
   const grid = el("#contentGrid");
+  renderSignalFeed();
   if (state.activeSection === "watchlist") {
     grid.innerHTML = renderCards(active, (item) => {
       const displayName = !item.name || item.name === item.symbol ? item.symbol : `${item.name} <span>(${item.symbol})</span>`;
