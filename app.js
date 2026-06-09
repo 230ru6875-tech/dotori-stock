@@ -615,7 +615,7 @@ function signalFeedRows() {
   const count = Math.min(itemCount, deduped.length);
   const items = deduped.slice(0, count);
   const body = items.map((item) => `${normalizedDisplayName(item)} ${signalFeedActionLabel(item)}`).join(", ");
-  const currentRow = `[${fmtClock(base)}] \uc2ec\uce35\ubd84\uc11d: ${body}`;
+  const currentRow = `[${fmtClock(base)}] ${body}`;
   const history = loadSignalFeedHistory();
   const rows = [currentRow, ...history.filter((row) => row !== currentRow)].slice(0, 10);
   saveSignalFeedHistory(rows);
