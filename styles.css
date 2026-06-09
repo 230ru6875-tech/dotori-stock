@@ -256,7 +256,10 @@ h3 {
 .signal-feed-lines {
   display: grid;
   gap: 4px;
+  max-height: 270px;
+  min-height: 270px;
   overflow-x: auto;
+  overflow-y: auto;
   padding-bottom: 4px;
 }
 
