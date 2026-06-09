@@ -76,16 +76,28 @@ function cleanPrice(value) {
   return String(value || "").replace(/,/g, "").trim();
 }
 
+function formatWon(value) {
+  const number = Number(cleanPrice(String(value || "").replace(/[^0-9.\-]/g, "")));
+  if (!Number.isFinite(number) || number <= 0) return "";
+  return `${Math.round(number).toLocaleString("ko-KR")}원`;
+}
+
+function formatDollar(value) {
+  const number = Number(String(value || "").replace(/[^0-9.\-]/g, ""));
+  if (!Number.isFinite(number) || number <= 0) return "";
+  return `$${number.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+}
+
 function naverRealtimePrice(payload) {
   const rows = Array.isArray(payload?.datas) ? payload.datas : [];
   const item = rows.find((row) => row && typeof row === "object") || {};
   const overInfo = item.overMarketPriceInfo && typeof item.overMarketPriceInfo === "object" ? item.overMarketPriceInfo : {};
   if (String(overInfo.overMarketStatus || "").toUpperCase() === "OPEN") {
     const overPrice = Number(cleanPrice(overInfo.overPrice));
-    if (overPrice > 0) return String(Math.round(overPrice));
+    if (overPrice > 0) return formatWon(overPrice);
   }
   const closePrice = Number(cleanPrice(item.closePriceRaw || item.closePrice));
-  return closePrice > 0 ? String(Math.round(closePrice)) : "";
+  return closePrice > 0 ? formatWon(closePrice) : "";
 }
 
 async function quoteDomesticRealtime(symbol) {
@@ -110,7 +122,7 @@ async function quoteDomestic(symbol) {
     symbol,
     name: realtime.name || naverCompanyName(html, symbol) || cleanName(titleMatch?.[1], symbol) || symbol,
     market: "\uAD6D\uB0B4",
-    currentPrice: realtime.currentPrice || cleanHtml(priceMatch?.[1] || ""),
+    currentPrice: realtime.currentPrice || formatWon(cleanHtml(priceMatch?.[1] || "")),
     source: realtime.currentPrice ? (realtime.source || "Naver Finance Realtime") : "Naver Finance"
   };
 }
@@ -135,10 +147,10 @@ async function quoteYahoo(symbol) {
     symbol,
     name: cleanName(meta.longName || meta.shortName || symbol, symbol) || symbol,
     market: "\uD574\uC678",
-    currentPrice: current > 0 ? `$${current.toFixed(2)}` : "",
-    previousClose: previousClose > 0 ? `$${previousClose.toFixed(2)}` : "",
-    dayHigh: dayHigh > 0 ? `$${dayHigh.toFixed(2)}` : "",
-    dayLow: dayLow > 0 ? `$${dayLow.toFixed(2)}` : "",
+    currentPrice: formatDollar(current),
+    previousClose: formatDollar(previousClose),
+    dayHigh: formatDollar(dayHigh),
+    dayLow: formatDollar(dayLow),
     crashRisk: crashRiskFromQuote({ current, previousClose, dayHigh, dayLow }),
     source: "Yahoo Finance"
   };
@@ -179,9 +191,9 @@ function crashRiskFromQuote(stats) {
   return {
     level,
     score,
-    previousClose: previousClose > 0 ? `$${previousClose.toFixed(2)}` : "",
-    dayHigh: dayHigh > 0 ? `$${dayHigh.toFixed(2)}` : "",
-    dayLow: Number(stats?.dayLow || 0) > 0 ? `$${Number(stats.dayLow).toFixed(2)}` : "",
+    previousClose: formatDollar(previousClose),
+    dayHigh: formatDollar(dayHigh),
+    dayLow: formatDollar(stats?.dayLow),
     changePct: current > 0 && previousClose > 0 ? `${changePct >= 0 ? "+" : ""}${changePct.toFixed(2)}%` : "",
     fromHighPct: current > 0 && dayHigh > 0 ? `${fromHighPct >= 0 ? "+" : ""}${fromHighPct.toFixed(2)}%` : "",
     reasons,
@@ -215,8 +227,8 @@ async function quoteNasdaq(symbol) {
     symbol,
     name: cleanName(data.companyName || symbol, symbol) || symbol,
     market: "\uD574\uC678",
-    currentPrice: `$${price.toFixed(2)}`,
-    previousClose: previousClose > 0 ? `$${previousClose.toFixed(2)}` : "",
+    currentPrice: formatDollar(price),
+    previousClose: formatDollar(previousClose),
     changePct: Number.isFinite(changePct) ? `${changePct >= 0 ? "+" : ""}${changePct.toFixed(2)}%` : "",
     crashRisk,
     source: primary.isRealTime ? "Nasdaq Real-Time" : "Nasdaq"

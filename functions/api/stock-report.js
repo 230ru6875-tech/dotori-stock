@@ -241,9 +241,7 @@ function emptyValuation(source = "") {
 }
 
 function formatPriceByMarket(value, market) {
-  const number = Number(value || 0);
-  if (!Number.isFinite(number) || number <= 0) return "";
-  return market === TXT.us ? `$${number.toFixed(2)}` : `${Math.round(number).toLocaleString()}원`;
+  return market === TXT.us ? formatDollar(value) : formatWon(value);
 }
 
 function fairValueAnalysis(currentPrice, valuation, market) {
@@ -334,7 +332,7 @@ function oilRiskJudgment(current, previous) {
   else if (changePct <= -2) direction = "유가 하락 완화";
   else if (currentNumber > 0) direction = "유가 보합권";
   return {
-    current: currentNumber > 0 ? `$${currentNumber.toFixed(2)}` : "",
+    current: formatDollar(currentNumber),
     changePct: currentNumber > 0 && previousNumber > 0 ? `${changePct >= 0 ? "+" : ""}${changePct.toFixed(2)}%` : "",
     direction,
     chain: "유가상승 > 인플레이션 우려 > 금리상승 > 주가부담",
@@ -388,16 +386,33 @@ function cleanPrice(value) {
   return String(value || "").replace(/,/g, "").trim();
 }
 
+function numericPrice(value) {
+  const number = Number(String(value || "").replace(/[^0-9.\-]/g, ""));
+  return Number.isFinite(number) ? number : 0;
+}
+
+function formatWon(value) {
+  const number = numericPrice(value);
+  if (number <= 0) return "";
+  return `${Math.round(number).toLocaleString("ko-KR")}원`;
+}
+
+function formatDollar(value) {
+  const number = numericPrice(value);
+  if (number <= 0) return "";
+  return `$${number.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+}
+
 function naverRealtimePrice(payload) {
   const rows = Array.isArray(payload?.datas) ? payload.datas : [];
   const item = rows.find((row) => row && typeof row === "object") || {};
   const overInfo = item.overMarketPriceInfo && typeof item.overMarketPriceInfo === "object" ? item.overMarketPriceInfo : {};
   if (String(overInfo.overMarketStatus || "").toUpperCase() === "OPEN") {
     const overPrice = Number(cleanPrice(overInfo.overPrice));
-    if (overPrice > 0) return String(Math.round(overPrice));
+    if (overPrice > 0) return formatWon(overPrice);
   }
   const closePrice = Number(cleanPrice(item.closePriceRaw || item.closePrice));
-  return closePrice > 0 ? String(Math.round(closePrice)) : "";
+  return closePrice > 0 ? formatWon(closePrice) : "";
 }
 
 async function lookupDomesticRealtime(symbol) {
@@ -423,7 +438,7 @@ async function lookupDomestic(symbol) {
   const priceMatch = html.match(/<p[^>]+class=["']no_today["'][\s\S]*?<span[^>]+class=["']blind["']>([^<]+)<\/span>/i);
   return {
     name: realtime.name || cleanName(h2Match?.[1] || titleMatch?.[1], symbol),
-    currentPrice: realtime.currentPrice || cleanHtml(priceMatch?.[1] || ""),
+    currentPrice: realtime.currentPrice || formatWon(cleanHtml(priceMatch?.[1] || "")),
     market: TXT.domestic,
     source: realtime.currentPrice ? (realtime.source || "Naver Finance Realtime") : "Naver Finance",
     valuation: lookupDomesticValuationFromHtml(valuationHtml)
@@ -538,10 +553,10 @@ function crashWarning(base, moving, valuation, oilRisk) {
   return {
     level,
     score,
-    current: current > 0 ? `$${current.toFixed(2)}` : "",
-    previousClose: previousClose > 0 ? `$${previousClose.toFixed(2)}` : "",
-    dayHigh: dayHigh > 0 ? `$${dayHigh.toFixed(2)}` : "",
-    dayLow: Number(base?.dayLow || 0) > 0 ? `$${Number(base.dayLow).toFixed(2)}` : "",
+    current: formatDollar(current),
+    previousClose: formatDollar(previousClose),
+    dayHigh: formatDollar(dayHigh),
+    dayLow: formatDollar(base?.dayLow),
     changePct: current > 0 && previousClose > 0 ? `${changePct >= 0 ? "+" : ""}${changePct.toFixed(2)}%` : "",
     fromHighPct: current > 0 && dayHigh > 0 ? `${fromHighPct >= 0 ? "+" : ""}${fromHighPct.toFixed(2)}%` : "",
     reasons,
@@ -569,7 +584,7 @@ async function lookupUs(symbol) {
   ]);
   return {
     name: name || symbol,
-    currentPrice: yahoo.current > 0 ? `$${yahoo.current.toFixed(2)}` : "",
+    currentPrice: formatDollar(yahoo.current),
     market: TXT.us,
     source: "Toss/Yahoo",
     closes: yahoo.closes,
@@ -649,9 +664,9 @@ export async function onRequestGet(context) {
       : technicalAnalysis({ closes: base.closes || [], highs: base.highs || [], lows: base.lows || [], volumes: base.volumes || [] });
     const crashRisk = isDomestic
       ? crashWarning({}, moving, valuation, oilRisk)
-      : crashWarning({ current: Number(String(base.currentPrice || "").replace(/[^0-9.]/g, "")), ...(base.marketStats || {}) }, moving, valuation, oilRisk);
+      : crashWarning({ current: numericPrice(base.currentPrice), ...(base.marketStats || {}) }, moving, valuation, oilRisk);
     const watchSignal = /폭락주의보|급락경계/.test(crashRisk.level) ? crashRisk.level : TXT.observe;
-    const currentNumber = Number(String(base.currentPrice || "").replace(/[^0-9.]/g, ""));
+    const currentNumber = numericPrice(base.currentPrice);
     const mock = purchasePrice > 0 && currentNumber > 0
       ? `${TXT.mockInvestment}: ${(((currentNumber / purchasePrice) - 1) * 100).toFixed(2)}%`
       : `${TXT.mockInvestment}: ${TXT.noPurchase}`;
@@ -694,8 +709,8 @@ export async function onRequestGet(context) {
       moving: {
         name: base.name || symbol,
         symbol,
-        ma20: moving.ma20 || TXT.wait,
-        ma60: moving.ma60 || TXT.wait,
+        ma20: formatPriceByMarket(moving.ma20, base.market) || TXT.wait,
+        ma60: formatPriceByMarket(moving.ma60, base.market) || TXT.wait,
         decision: moving.decision
       },
       analysis: {

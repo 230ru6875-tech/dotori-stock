@@ -59,6 +59,41 @@ def nested_nested_text(item: dict, section: str, subsection: str, key: str, fall
     return value or fallback
 
 
+def numeric_price(value: object) -> float:
+    text = re.sub(r"[^0-9.\-]", "", clean_text(value))
+    try:
+        return float(text)
+    except ValueError:
+        return 0.0
+
+
+def is_domestic_market(item: dict) -> bool:
+    market = clean_text(item.get("market"))
+    symbol = clean_text(item.get("symbol"))
+    return market == "국내" or bool(re.fullmatch(r"\d{6}", symbol))
+
+
+def display_price(value: object, item: dict) -> str:
+    raw = clean_text(value)
+    if not raw or raw in {"-", "조회 중", "데이터 대기"}:
+        return raw
+    price = numeric_price(raw)
+    if price <= 0:
+        return raw
+    if is_domestic_market(item):
+        return f"{round(price):,}원"
+    decimals = 2 if "." in raw else 0
+    return f"${price:,.{decimals}f}"
+
+
+def display_price_range(value: object, item: dict) -> str:
+    raw = clean_text(value)
+    parts = [part.strip() for part in raw.split("~") if part.strip()]
+    if len(parts) != 2:
+        return display_price(raw, item) if raw else raw
+    return f"{display_price(parts[0], item)} ~ {display_price(parts[1], item)}"
+
+
 def market_risk_summary(item: dict) -> str:
     risk = item.get("marketRisk") if isinstance(item.get("marketRisk"), dict) else {}
     current = clean_text(risk.get("current") or "")
@@ -195,13 +230,13 @@ def page_shell(title: str, description: str, canonical: str, body: str, schema: 
 def report_body(item: dict, data: dict) -> str:
     name = item["displayName"]
     symbol = item["symbol"]
-    current = clean_text(item.get("currentPrice") or "-")
+    current = display_price(item.get("currentPrice") or "-", item)
     signal = clean_text(item.get("signal") or item.get("decision") or "-")
     summary = clean_text(item.get("summary") or item.get("memo") or item.get("note") or "-")
     market = clean_text(item.get("market") or "-")
-    pred = clean_text(item.get("predRange") or "-")
-    ma20 = clean_text(item.get("ma20") or "-")
-    ma60 = clean_text(item.get("ma60") or "-")
+    pred = display_price_range(item.get("predRange") or "-", item)
+    ma20 = display_price(item.get("ma20") or "-", item)
+    ma60 = display_price(item.get("ma60") or "-", item)
     risk = clean_text(item.get("risk") or item.get("movingAverage") or "-")
     updated = clean_text(data.get("updatedAt") or "-")
     exchange = data.get("exchangeRate") or {}
@@ -319,7 +354,7 @@ def build_reports() -> list[str]:
         (REPORT_DIR / filename).write_text(html_text, encoding="utf-8", newline="\n")
         generated.append(filename)
         cards.append(
-            f"""<article class="info-card"><h2><a href="./{esc(filename)}">{esc(item['displayName'])}</a></h2><p>현재가: {esc(item.get('currentPrice') or '-')}</p><p>상태 표시: {esc(item.get('signal') or item.get('decision') or '-')}</p></article>"""
+            f"""<article class="info-card"><h2><a href="./{esc(filename)}">{esc(item['displayName'])}</a></h2><p>현재가: {esc(display_price(item.get('currentPrice') or '-', item))}</p><p>상태 표시: {esc(item.get('signal') or item.get('decision') or '-')}</p></article>"""
         )
 
     index_body = f"""<article>

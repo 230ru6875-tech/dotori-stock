@@ -451,6 +451,17 @@ function parseNumber(value) {
   const number = Number(String(value || "").replace(/[^0-9.-]/g, ""));
   return Number.isFinite(number) ? number : 0;
 }
+function formatWon(value) {
+  const price = parseNumber(value);
+  return price > 0 ? `${Math.round(price).toLocaleString("ko-KR")}원` : String(value || "").trim();
+}
+function formatDollar(value) {
+  const price = parseNumber(value);
+  if (price <= 0) return String(value || "").trim();
+  const raw = String(value || "").trim();
+  const hasDecimal = /\.\d+/.test(raw);
+  return `$${price.toLocaleString("en-US", { minimumFractionDigits: hasDecimal ? 2 : 0, maximumFractionDigits: 2 })}`;
+}
 function setupBrowserStorageNotice() {
   const card = el("#browserPrivacyCard");
   if (card) {
@@ -478,16 +489,15 @@ function formatDisplayPrice(value, item) {
   const raw = String(value || "").trim();
   if (!raw || /조회|대기|-/.test(raw)) return raw;
   const market = displayMarket(item?.market || marketName(item?.symbol || ""));
-  if (market === T.domestic) {
-    if (/원/.test(raw)) return raw;
-    const price = parseNumber(raw);
-    return price > 0 ? `${Math.round(price).toLocaleString()}원` : raw;
-  }
-  if (/^\$/.test(raw)) return raw;
-  const price = parseNumber(raw);
-  if (price <= 0) return raw;
-  const hasDecimal = /\.\d+/.test(raw);
-  return `$${price.toLocaleString(undefined, { minimumFractionDigits: hasDecimal ? 2 : 0, maximumFractionDigits: 2 })}`;
+  if (market === T.domestic) return formatWon(raw);
+  return formatDollar(raw);
+}
+function formatDisplayPriceRange(value, item) {
+  const raw = String(value || "").trim();
+  if (!raw || /조회|대기|-/.test(raw)) return raw;
+  const parts = raw.split("~").map((part) => part.trim()).filter(Boolean);
+  if (parts.length !== 2) return formatDisplayPrice(raw, item);
+  return `${formatDisplayPrice(parts[0], item)} ~ ${formatDisplayPrice(parts[1], item)}`;
 }
 function valuationFromItem(item) {
   return item?.valuation || item?.analysis?.valuation || item?.watchlist?.valuation || item?.report?.valuation || item?.report?.watchlist?.valuation || item?.report?.analysis?.valuation || null;
@@ -807,7 +817,7 @@ function chartSourceForSymbol(symbol) {
       low = parseNumber(parts[0]);
       high = parseNumber(parts[1]);
     }
-    return { symbol: normalized, name, current, low, high, signal: report.watchlist.signal || report.scanner?.signal || "" };
+    return { symbol: normalized, name, market: report.watchlist.market || report.market || marketName(normalized), current, low, high, signal: report.watchlist.signal || report.scanner?.signal || "" };
   }
   const data = state.data || {};
   const rows = [...(data.scanner || []), ...(data.watchlist || []), ...(data.movingAverages || [])];
@@ -817,6 +827,7 @@ function chartSourceForSymbol(symbol) {
   return {
     symbol: normalized,
     name: item.name || item.title || normalized,
+    market: item.market || marketName(normalized),
     current: parseNumber(item.currentPrice),
     low: parts.length >= 2 ? parseNumber(parts[0]) : 0,
     high: parts.length >= 2 ? parseNumber(parts[1]) : 0,
@@ -881,7 +892,7 @@ function userStockToWatchlist(item) {
     const current = String(base.currentPrice || "").startsWith(T.basis) ? "\uc870\ud68c \uc911" : (base.currentPrice || "\uc870\ud68c \uc911");
     const resolvedName = stripSymbolFromName(base.name || item.name, item.symbol) || nameLookup().get(item.symbol) || item.symbol;
     const memoParts = [base.memo || ""];
-    if (hasPrice) memoParts.push(`\uad6c\uc785\uac00 ${price.toLocaleString()}\uc744 \uae30\uc900\uc73c\ub85c \uac80\ud1a0\ud569\ub2c8\ub2e4.`);
+    if (hasPrice) memoParts.push(`\uad6c\uc785\uac00 ${formatDisplayPrice(price, item)}\uc744 \uae30\uc900\uc73c\ub85c \uac80\ud1a0\ud569\ub2c8\ub2e4.`);
     return { ...base, name: resolvedName, market: displayMarket(base.market || marketName(item.symbol)), currentPrice: current, purchasePrice: price, crashRisk: base.crashRisk || directory?.crashRisk || report?.crashRisk, memo: memoParts.filter(Boolean).join(" / "), userAdded: true };
   }
   const resolvedName = stripSymbolFromName(item.name, item.symbol) || nameLookup().get(item.symbol) || item.symbol;
@@ -893,7 +904,7 @@ function userStockToWatchlist(item) {
     purchasePrice: price,
     signal: hasPrice ? T.mockReview : T.dataNeeded,
     movingAverage: "",
-    memo: hasPrice ? `\uad6c\uc785\uac00 ${price.toLocaleString()}\uc744 \uae30\uc900\uc73c\ub85c \ud604\uc7ac\uac00\ub97c \uc870\ud68c\ud558\ub294 \uc911\uc785\ub2c8\ub2e4.` : "\uc885\ubaa9\uba85\uacfc \uc6f9 \uc790\ub8cc\ub97c \uc870\ud68c\ud558\ub294 \uc911\uc785\ub2c8\ub2e4.",
+    memo: hasPrice ? `\uad6c\uc785\uac00 ${formatDisplayPrice(price, item)}\uc744 \uae30\uc900\uc73c\ub85c \ud604\uc7ac\uac00\ub97c \uc870\ud68c\ud558\ub294 \uc911\uc785\ub2c8\ub2e4.` : "\uc885\ubaa9\uba85\uacfc \uc6f9 \uc790\ub8cc\ub97c \uc870\ud68c\ud558\ub294 \uc911\uc785\ub2c8\ub2e4.",
     hasPrice,
     userAdded: true
   };
@@ -903,7 +914,7 @@ function userStockToLearning(item) {
   if (directory && directory.learning) return directory.learning;
   if (item.report && item.report.learning) return item.report.learning;
   const price = Number(item.purchasePrice || 0);
-  const base = price > 0 ? `${T.basis} ${price.toLocaleString()}` : T.noPurchasePrice;
+  const base = price > 0 ? `${T.basis} ${formatDisplayPrice(price, item)}` : T.noPurchasePrice;
   const resolvedName = stripSymbolFromName(item.name, item.symbol) || nameLookup().get(item.symbol) || item.symbol;
   return { topic: `${T.learning} - ${item.symbol}`, lesson: `${resolvedName} ${base}. \uad00\uc2ec\uc885\ubaa9\uc5d0 \ucd94\uac00\ub418\uc5c8\uc73c\uba70 \uc2e4\uc81c \uc6b4\uc601\uc5d0\uc11c\ub294 \ud604\uc7ac\uac00\uc640 \ube44\uad50\ud574 \uac80\ud1a0 \uacb0\uacfc\ub97c \ubcf4\uc5ec\uc90d\ub2c8\ub2e4.` };
 }
@@ -929,7 +940,7 @@ function userStockToMoving(item) {
     name: resolvedName,
     symbol: item.symbol,
     market: marketName(item.symbol),
-    currentPrice: price > 0 ? `${T.basis} ${price.toLocaleString()}` : "",
+    currentPrice: price > 0 ? `${T.basis} ${formatDisplayPrice(price, item)}` : "",
     ma20: T.priceHistory,
     ma60: T.priceHistory,
     decision: T.preview,
@@ -963,7 +974,7 @@ function watchlistMiniChartSvg(item) {
   const toX = (index) => 16 + (268 / Math.max(values.length - 1, 1)) * index;
   const toY = (value) => 122 - ((value - min) / Math.max(max - min, 1)) * 92;
   const points = values.map((value, index) => `${toX(index).toFixed(1)},${toY(value).toFixed(1)}`).join(" ");
-  const current = item.currentPrice || "-";
+  const current = formatDisplayPrice(item.currentPrice, item) || "-";
   return `<svg class="watch-mini-svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="watchlist chart"><text x="14" y="20" class="watch-mini-title">${escapeHtml(item.name || item.symbol)}(${escapeHtml(symbol)})</text><line x1="16" y1="42" x2="284" y2="42" class="watch-mini-grid"/><line x1="16" y1="76" x2="284" y2="76" class="watch-mini-grid"/><line x1="16" y1="110" x2="284" y2="110" class="watch-mini-grid"/><polyline points="${points}" class="watch-mini-line"/><circle cx="${toX(values.length - 1).toFixed(1)}" cy="${toY(values[values.length - 1]).toFixed(1)}" r="4" class="watch-mini-dot"/><text x="14" y="142" class="watch-mini-price">\ud604\uc7ac\uac00: ${escapeHtml(current)}</text></svg>`;
 }
 function movingChartSvg(item) {
@@ -987,15 +998,15 @@ function movingChartSvg(item) {
   }).join(" ");
   const labels = [high, current * 1.06, current, current * 0.94, low].map((value, index) => {
     const y = top + (plotHeight / 4) * index;
-    return `<text x="12" y="${(y + 4).toFixed(1)}" class="ma-axis">${Math.round(value).toLocaleString()}</text><line x1="${left}" y1="${y.toFixed(1)}" x2="${left + plotWidth}" y2="${y.toFixed(1)}" class="ma-grid"/>`;
+    return `<text x="12" y="${(y + 4).toFixed(1)}" class="ma-axis">${escapeHtml(formatDisplayPrice(value, item))}</text><line x1="${left}" y1="${y.toFixed(1)}" x2="${left + plotWidth}" y2="${y.toFixed(1)}" class="ma-grid"/>`;
   }).join("");
   return `<svg class="ma-svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="moving average chart"><text x="54" y="18" class="ma-title">${escapeHtml(item.name || item.symbol)}(${escapeHtml(item.symbol || "")}) \uc774\ub3d9\ud3c9\uade0\uc120 \ucc28\ud2b8</text><g class="ma-legend"><text x="238" y="18">\uc885\uac00</text><text x="286" y="18">5\uc77c</text><text x="336" y="18">20\uc77c</text><text x="392" y="18">60\uc77c</text><text x="452" y="18">\ub3d9\uc801</text><text x="510" y="18">\ub370\ub4dc</text></g>${labels}<line x1="${left}" y1="${top}" x2="${left}" y2="${top + plotHeight}" class="ma-border"/><line x1="${left}" y1="${top + plotHeight}" x2="${left + plotWidth}" y2="${top + plotHeight}" class="ma-border"/><polyline points="${line(0, current * 0.032, -current * 0.0012)}" class="ma-close"/><polyline points="${line(current * 0.01, current * 0.022, -current * 0.0008)}" class="ma-line ma-fast"/><polyline points="${line(current * 0.025, current * 0.016, -current * 0.0004)}" class="ma-line ma-mid"/><polyline points="${line(current * 0.055, current * 0.010, current * 0.0001)}" class="ma-line ma-slow"/><line x1="${(left + plotWidth * 0.38).toFixed(1)}" y1="${top}" x2="${(left + plotWidth * 0.38).toFixed(1)}" y2="${top + plotHeight}" class="ma-dead"/><line x1="${(left + plotWidth * 0.90).toFixed(1)}" y1="${top}" x2="${(left + plotWidth * 0.90).toFixed(1)}" y2="${top + plotHeight}" class="ma-dead"/><circle cx="${(left + plotWidth * 0.38).toFixed(1)}" cy="${toY(current * 1.03).toFixed(1)}" r="4" class="ma-dot"/><text x="${(left + plotWidth * 0.39).toFixed(1)}" y="${toY(current * 1.04).toFixed(1)}" class="ma-dead-label">\ub370\ub4dc</text></svg>`;
 }
 function movingDetailHtml(item) {
   if (!item) return "";
-  const current = item.currentPrice || "-";
-  const ma20 = item.ma20 || "-";
-  const ma60 = item.ma60 || "-";
+  const current = formatDisplayPrice(item.currentPrice, item) || "-";
+  const ma20 = formatDisplayPrice(item.ma20, item) || "-";
+  const ma60 = formatDisplayPrice(item.ma60, item) || "-";
   const decision = item.decision || "-";
   const note = item.note || item.movingAverage || "-";
   const strategy = /\ub9e4\ub3c4|\uc704\ud5d8|\ubcf4\ub958|\ubcc0\ub3d9/.test(`${decision} ${note}`)
@@ -1038,7 +1049,7 @@ function renderDashboard() {
     });
   } else if (state.activeSection === "scanner") {
     const marketRows = (marketLabel) => active.filter((item) => displayMarket(item.market || marketName(item.symbol)) === marketLabel);
-    const rowHtml = (item) => `<tr><td>${item.rank || "-"}</td><td><strong>${item.name || item.title || item.symbol}</strong> <span>(${item.symbol || "-"})</span></td><td>${item.currentPrice || "-"}</td><td><b class="${signalClass(item.signal || item.sentiment || "")}">${item.signal || item.sentiment || "-"}</b></td><td>${item.predRange || "-"}</td><td>${item.summary || ""}</td></tr>`;
+    const rowHtml = (item) => `<tr><td>${item.rank || "-"}</td><td><strong>${item.name || item.title || item.symbol}</strong> <span>(${item.symbol || "-"})</span></td><td>${formatDisplayPrice(item.currentPrice, item) || "-"}</td><td><b class="${signalClass(item.signal || item.sentiment || "")}">${item.signal || item.sentiment || "-"}</b></td><td>${formatDisplayPriceRange(item.predRange, item) || "-"}</td><td>${item.summary || ""}</td></tr>`;
     const groupHtml = (marketLabel) => {
       const rows = marketRows(marketLabel).slice(0, 50);
       const body = rows.length ? rows.map(rowHtml).join("") : `<tr><td colspan="6">\ud45c\uc2dc\ud560 \uc885\ubaa9\uc774 \uc5c6\uc2b5\ub2c8\ub2e4.</td></tr>`;
@@ -1051,7 +1062,7 @@ function renderDashboard() {
     grid.innerHTML = renderCards(active, (item) => `<article class="data-card"><div class="card-top"><strong>${item.topic}</strong><em>${T.learning}</em></div><p>${item.lesson}</p></article>`);
   } else if (state.activeSection === "spikes") {
     const marketRows = (marketLabel) => active.filter((item) => displayMarket(item.market || marketName(item.symbol)) === marketLabel);
-    const rowHtml = (item, index) => `<tr><td>${index + 1}</td><td><strong>${item.name || item.symbol}</strong> <span>(${item.symbol || "-"})</span></td><td>${item.range || "-"}</td><td><b class="up">${item.change || "-"}</b></td><td>${item.currentPrice || "-"}</td><td><b class="${signalClass(item.signal || "")}">${item.signal || "-"}</b></td><td>${item.note || ""}</td></tr>`;
+    const rowHtml = (item, index) => `<tr><td>${index + 1}</td><td><strong>${item.name || item.symbol}</strong> <span>(${item.symbol || "-"})</span></td><td>${item.range || "-"}</td><td><b class="up">${item.change || "-"}</b></td><td>${formatDisplayPrice(item.currentPrice, item) || "-"}</td><td><b class="${signalClass(item.signal || "")}">${item.signal || "-"}</b></td><td>${item.note || ""}</td></tr>`;
     const groupHtml = (marketLabel) => {
       const rows = marketRows(marketLabel).slice(0, 25);
       const body = rows.length ? rows.map(rowHtml).join("") : `<tr><td colspan="7">\ud45c\uc2dc\ud560 \uc885\ubaa9\uc774 \uc5c6\uc2b5\ub2c8\ub2e4.</td></tr>`;
@@ -1064,7 +1075,7 @@ function renderDashboard() {
       const symbol = normalizeSymbol(item.symbol);
       const selected = symbol && symbol === selectedSymbol;
       const detailRow = selected ? `<tr class="moving-detail-row"><td colspan="6">${movingDetailHtml(item)}</td></tr>` : "";
-      return `<tr class="clickable-row ${selected ? "selected-row" : ""}" data-moving-symbol="${item.symbol || ""}" data-chart-symbol="${item.symbol || ""}"><td><strong>${item.name || item.symbol}</strong> <span>(${item.symbol || "-"})</span></td><td>${item.currentPrice || "-"}</td><td>${item.ma20 || "-"}</td><td>${item.ma60 || "-"}</td><td><b class="${signalClass(item.decision || "")}">${item.decision || "-"}</b></td><td>${item.note || item.movingAverage || ""}</td></tr>${detailRow}`;
+      return `<tr class="clickable-row ${selected ? "selected-row" : ""}" data-moving-symbol="${item.symbol || ""}" data-chart-symbol="${item.symbol || ""}"><td><strong>${item.name || item.symbol}</strong> <span>(${item.symbol || "-"})</span></td><td>${formatDisplayPrice(item.currentPrice, item) || "-"}</td><td>${formatDisplayPrice(item.ma20, item) || "-"}</td><td>${formatDisplayPrice(item.ma60, item) || "-"}</td><td><b class="${signalClass(item.decision || "")}">${item.decision || "-"}</b></td><td>${item.note || item.movingAverage || ""}</td></tr>${detailRow}`;
     }).join("");
     grid.innerHTML = `<div class="table-card"><table class="data-table"><thead><tr><th>\uc885\ubaa9</th><th>\ud604\uc7ac\uac00</th><th>20\uc77c\uc120</th><th>60\uc77c\uc120</th><th>\ud310\ub2e8</th><th>\uadfc\uac70</th></tr></thead><tbody>${rows}</tbody></table></div>`;
   } else if (state.activeSection === "newsList") {
@@ -1120,10 +1131,11 @@ function updateTopChart(symbol) {
   const exchangeRate = el("#exchangeRate");
   const exchangeNote = el("#exchangeNote");
   if (updatedAt) updatedAt.textContent = title;
-  if (exchangeRate) exchangeRate.textContent = source.current > 0 ? `${T.currentPrice} ${source.current.toLocaleString()}` : T.chartTitle;
+  const chartItem = { symbol: source.symbol, market: source.market };
+  if (exchangeRate) exchangeRate.textContent = source.current > 0 ? `${T.currentPrice} ${formatDisplayPrice(source.current, chartItem)}` : T.chartTitle;
   if (exchangeNote) {
-    const low = source.low > 0 ? `${T.predictedLow} ${source.low.toLocaleString()}` : "";
-    const high = source.high > 0 ? `${T.predictedHigh} ${source.high.toLocaleString()}` : "";
+    const low = source.low > 0 ? `${T.predictedLow} ${formatDisplayPrice(source.low, chartItem)}` : "";
+    const high = source.high > 0 ? `${T.predictedHigh} ${formatDisplayPrice(source.high, chartItem)}` : "";
     exchangeNote.textContent = [source.signal, low, high].filter(Boolean).join(" | ");
   }
   drawChart(source);
