@@ -331,6 +331,22 @@ button:hover {
   margin: 0 0 20px;
 }
 
+.symbol-candidate {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--accent-2);
+  font-size: 14px;
+  margin: 3px 4px 3px 0;
+  padding: 4px 9px;
+}
+
+.symbol-candidate:hover {
+  background: #eef6ff;
+  border-color: #bfdbfe;
+  color: #0f3f73;
+}
+
 .status {
   color: var(--muted);
   font-size: 14px;

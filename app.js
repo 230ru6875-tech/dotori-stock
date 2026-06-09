@@ -160,6 +160,10 @@ function symbolLookupByName(name) {
     ["hyundai", "005380"],
     ["\uae30\uc544", "000270"],
     ["kia", "000270"],
+    ["\ub9c8\ubca8", "MRVL"],
+    ["\ub9c8\ubca8\ud14c\ud06c\ub180\ub85c\uc9c0", "MRVL"],
+    ["marvell", "MRVL"],
+    ["marvelltechnology", "MRVL"],
   ]);
   if (aliases.has(query)) return aliases.get(query);
   const candidates = [];
@@ -203,6 +207,10 @@ function symbolMatchesByName(name) {
     { name: "LG\uc5d0\ub108\uc9c0\uc194\ub8e8\uc158", symbol: "373220" },
     { name: "\ud604\ub300\ucc28", symbol: "005380" },
     { name: "\uae30\uc544", symbol: "000270" },
+    { name: "\ub9c8\ubca8", symbol: "MRVL" },
+    { name: "\ub9c8\ubca8 \ud14c\ud06c\ub180\ub85c\uc9c0", symbol: "MRVL" },
+    { name: "Marvell Technology", symbol: "MRVL" },
+    { name: "Marvell Technology, Inc.", symbol: "MRVL" },
   ];
   aliases.forEach((item) => candidates.push(item));
   Object.values(symbolDirectory || {}).forEach((item) => {
@@ -220,7 +228,7 @@ function symbolMatchesByName(name) {
       seen.add(key);
       return true;
     })
-    .slice(0, 12);
+    .slice(0, 30);
 }
 function currentPriceForSymbol(symbol) {
   const normalized = normalizeSymbol(symbol);
@@ -286,9 +294,9 @@ function updateSymbolHint() {
       const pct = ((price.value - purchasePrice) / purchasePrice) * 100;
       returnText = ` / ${T.returnRate} ${pct >= 0 ? "+" : ""}${pct.toFixed(2)}%`;
     }
-    return `${item.name || item.symbol}(${item.symbol})${returnText}`;
+    return `<button class="symbol-candidate" data-candidate-symbol="${escapeHtml(item.symbol)}" data-candidate-name="${escapeHtml(item.name || item.symbol)}" type="button">${escapeHtml(item.name || item.symbol)}(${escapeHtml(item.symbol)})${escapeHtml(returnText)}</button>`;
   });
-  hint.textContent = `${T.codeCandidates}: ${parts.join(" | ")}`;
+  hint.innerHTML = `<span>${T.codeCandidates}:</span> ${parts.join(" ")}`;
 }
 async function lookupNameFromWeb(symbol) {
   try {
@@ -1080,6 +1088,7 @@ function setupSymbolForm() {
   const symbolInput = el("#symbolInput");
   const nameInput = el("#nameInput");
   const priceInput = el("#priceInput");
+  const hint = el("#symbolHint");
   symbolInput.addEventListener("input", () => {
     if (String(nameInput.value || "").trim()) { updateSymbolHint(); return; }
     const symbol = normalizeSymbol(symbolInput.value);
@@ -1089,6 +1098,16 @@ function setupSymbolForm() {
   });
   nameInput.addEventListener("input", updateSymbolHint);
   if (priceInput) priceInput.addEventListener("input", updateSymbolHint);
+  if (hint) {
+    hint.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-candidate-symbol]");
+      if (!button) return;
+      symbolInput.value = button.dataset.candidateSymbol || "";
+      nameInput.value = button.dataset.candidateName || "";
+      updateSymbolHint();
+      symbolInput.focus();
+    });
+  }
   symbolInput.addEventListener("blur", async () => {
     if (String(nameInput.value || "").trim()) return;
     const symbol = normalizeSymbol(symbolInput.value);
