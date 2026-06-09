@@ -523,6 +523,21 @@ function isMarketOpenForItem(item, date = new Date()) {
   const usEarlyOpen = ["Tue", "Wed", "Thu", "Fri", "Sat"].includes(weekday) && minutes <= 9 * 60;
   return usEveningOpen || usEarlyOpen;
 }
+function marketSignalWindowForItem(item, date = new Date()) {
+  const market = displayMarket(item?.market || marketName(item?.symbol || ""));
+  const { weekday, minutes } = kstParts(date);
+  const isWeekday = ["Mon", "Tue", "Wed", "Thu", "Fri"].includes(weekday);
+  if (market === T.domestic) {
+    return {
+      open: isWeekday && minutes >= 8 * 60 + 30 && minutes <= 18 * 60,
+      preOpen: isWeekday && minutes >= 8 * 60 + 20 && minutes < 8 * 60 + 30
+    };
+  }
+  return {
+    open: isMarketOpenForItem(item, date),
+    preOpen: isWeekday && minutes >= 16 * 60 + 50 && minutes < 17 * 60
+  };
+}
 function signalFeedRows() {
   const data = state.data || {};
   const now = new Date();
@@ -540,12 +555,17 @@ function signalFeedRows() {
     .filter((item) => {
       const symbol = normalizeSymbol(item.symbol);
       if (!symbol || userSymbols.has(symbol)) return false;
-      if (!isMarketOpenForItem(item, now)) return false;
+      const window = marketSignalWindowForItem(item, now);
+      if (!window.open && !window.preOpen) return false;
       return signalSide(item.signal || item.sentiment || item.decision) === "buy";
     })
     .map((item) => {
       const text = String(item.signal || item.sentiment || item.decision || "");
-      return { ...item, feedLabel: /\uac15\ud55c\s*\ub9e4\uc218/.test(text) ? "\uac15\ud55c \ub9e4\uc218" : "\ub9e4\uc218" };
+      return {
+        ...item,
+        feedLabel: /\uac15\ud55c\s*\ub9e4\uc218/.test(text) ? "\uac15\ud55c \ub9e4\uc218" : "\ub9e4\uc218",
+        preOpenSignal: marketSignalWindowForItem(item, now).preOpen
+      };
     });
   const selected = [...interestSignals, ...nonInterestSignals];
   const seen = new Set();
@@ -558,12 +578,13 @@ function signalFeedRows() {
     deduped.push(item);
   });
   if (!deduped.length) return [];
+  const itemCount = deduped.some((item) => item.preOpenSignal) ? 10 : 3;
   const bucketMs = 5 * 60 * 1000;
   const base = new Date(Math.floor(now.getTime() / bucketMs) * bucketMs);
   return [0, 1, 2].map((slot) => {
     const time = new Date(base.getTime() - slot * bucketMs);
     const start = slot;
-    const count = Math.min(3, deduped.length);
+    const count = Math.min(itemCount, deduped.length);
     const items = Array.from({ length: count }, (_, index) => deduped[(start + index) % deduped.length]);
     const body = items.map((item) => `${normalizedDisplayName(item)} ${signalFeedActionLabel(item)}`).join(", ");
     return `[${fmtClock(time)}] \uc2ec\uce35\ubd84\uc11d: ${body}`;
