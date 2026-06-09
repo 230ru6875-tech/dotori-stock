@@ -104,6 +104,15 @@ def market_risk_summary(item: dict) -> str:
     return " / ".join(parts)
 
 
+def macro_event_summary(item: dict) -> str:
+    risk = item.get("macroEventRisk") if isinstance(item.get("macroEventRisk"), dict) else {}
+    level = clean_text(risk.get("level") or "")
+    summary = clean_text(risk.get("summary") or "")
+    if not summary or level == "대기":
+        return "PPI 이벤트 감시 시간 외 구간입니다."
+    return summary
+
+
 def crash_risk_summary(item: dict) -> str:
     risk = item.get("crashRisk") if isinstance(item.get("crashRisk"), dict) else {}
     level = clean_text(risk.get("level") or "주의보 없음")
@@ -276,6 +285,9 @@ def report_body(item: dict, data: dict) -> str:
 
       <h2>폭락주의보</h2>
       <p>{esc(crash_risk_summary(item))}</p>
+
+      <h2>PPI 반도체 이벤트</h2>
+      <p>{esc(macro_event_summary(item))}</p>
 
       <h2>밸류에이션 점검</h2>
       <table class="plain-table">

@@ -359,6 +359,69 @@ async function lookupOilMarketRisk() {
   }
 }
 
+async function lookupMacroQuote(symbol) {
+  const yahoo = await lookupYahoo(symbol).catch(() => null);
+  const current = Number(yahoo?.current || 0);
+  const previousClose = Number(yahoo?.previousClose || 0);
+  const changePct = current > 0 && previousClose > 0 ? ((current / previousClose) - 1) * 100 : 0;
+  return {
+    symbol,
+    current,
+    previousClose,
+    changePct,
+    text: current > 0 ? `${symbol} ${formatDollar(current)} ${changePct >= 0 ? "+" : ""}${changePct.toFixed(2)}%` : `${symbol} 확인필요`
+  };
+}
+
+async function ppiSemiconductorRisk() {
+  const nowMs = Date.now();
+  const releaseMs = Date.parse("2026-06-11T12:30:00Z");
+  const usOpenMs = Date.parse("2026-06-11T13:30:00Z");
+  const dangerCheckEndMs = Date.parse("2026-06-11T14:10:00Z");
+  const watchStartMs = releaseMs - 24 * 60 * 60 * 1000;
+  const symbols = ["SOXX", "SMH", "NVDA", "AVGO", "MU", "QQQ"];
+  if (nowMs < watchStartMs || nowMs > dangerCheckEndMs + 12 * 60 * 60 * 1000) {
+    return {
+      level: "대기",
+      title: "PPI 반도체 이벤트 대기",
+      summary: "다음 PPI 이벤트 감시 시간이 아닙니다.",
+      active: false,
+      source: "BLS/Yahoo Finance"
+    };
+  }
+  const quotes = await Promise.all(symbols.map((symbol) => lookupMacroQuote(symbol)));
+  const bySymbol = Object.fromEntries(quotes.map((quote) => [quote.symbol, quote]));
+  const etfWeak = (bySymbol.SOXX?.changePct || 0) <= -1.5 || (bySymbol.SMH?.changePct || 0) <= -1.5;
+  const chipsWeak = ["NVDA", "AVGO", "MU"].every((symbol) => (bySymbol[symbol]?.changePct || 0) < 0);
+  const qqqWeak = (bySymbol.QQQ?.changePct || 0) <= -0.8;
+  const afterRelease = nowMs >= releaseMs;
+  const afterOpen = nowMs >= usOpenMs;
+  const inDangerWindow = nowMs >= releaseMs && nowMs <= dangerCheckEndMs;
+  let level = "PPI 발표 대기";
+  if (afterRelease) level = "PPI 반응 감시";
+  if (inDangerWindow && etfWeak && chipsWeak && qqqWeak) level = "23시 추가 급락주의";
+  else if (inDangerWindow && afterOpen && [etfWeak, chipsWeak, qqqWeak].filter(Boolean).length >= 2) level = "반도체 변동성 경계";
+  const conditionText = [
+    `SOXX/SMH -1.5% 조건 ${etfWeak ? "충족" : "미충족"}`,
+    `NVDA·AVGO·MU 동반 약세 ${chipsWeak ? "충족" : "미충족"}`,
+    `QQQ -1% 근처 조건 ${qqqWeak ? "충족" : "미충족"}`
+  ].join(" / ");
+  return {
+    level,
+    title: "PPI 반도체 급락주의",
+    eventTimeKst: "2026-06-11 21:30 KST",
+    usOpenKst: "2026-06-11 22:30 KST",
+    checkUntilKst: "2026-06-11 23:10 KST",
+    active: inDangerWindow,
+    afterRelease,
+    afterOpen,
+    conditions: { etfWeak, chipsWeak, qqqWeak },
+    quotes: Object.fromEntries(quotes.map((quote) => [quote.symbol, { current: formatDollar(quote.current), changePct: `${quote.changePct >= 0 ? "+" : ""}${quote.changePct.toFixed(2)}%` }])),
+    summary: `${level} / ${conditionText} / ${quotes.map((quote) => quote.text).join(" / ")}`,
+    source: "BLS/Yahoo Finance"
+  };
+}
+
 async function fetchText(url) {
   const response = await fetch(url, {
     headers: {
@@ -655,6 +718,7 @@ export async function onRequestGet(context) {
     const isDomestic = /^\d{6}$/.test(symbol);
     const base = isDomestic ? await lookupDomestic(symbol) : await lookupUs(symbol);
     const oilRisk = await lookupOilMarketRisk();
+    const macroEventRisk = await ppiSemiconductorRisk();
     const news = await lookupNews(`${base.name || symbol} ${symbol}`);
     const moving = isDomestic ? { ma20: "", ma60: "", decision: TXT.wait } : movingSignal(base.closes || []);
     const valuation = base.valuation || emptyValuation(base.source);
@@ -680,6 +744,7 @@ export async function onRequestGet(context) {
       fairValue,
       technical,
       marketRisk: oilRisk,
+      macroEventRisk,
       crashRisk,
       savedAt: new Date().toISOString(),
       scanner: {
@@ -700,6 +765,7 @@ export async function onRequestGet(context) {
         fairValue,
         technical,
         marketRisk: oilRisk,
+        macroEventRisk,
         crashRisk
       },
       learning: {
@@ -720,6 +786,7 @@ export async function onRequestGet(context) {
         fairValue,
         technical,
         marketRisk: oilRisk,
+        macroEventRisk,
         crashRisk
       },
       sources: [base.source, oilRisk.source, "Naver News Search"].filter(Boolean)
