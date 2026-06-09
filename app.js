@@ -497,10 +497,10 @@ function isMarketOpenForItem(item, date = new Date()) {
   const { weekday, minutes } = kstParts(date);
   const isWeekday = ["Mon", "Tue", "Wed", "Thu", "Fri"].includes(weekday);
   if (market === T.domestic) {
-    return isWeekday && minutes >= 9 * 60 && minutes <= 15 * 60 + 30;
+    return isWeekday && minutes >= 8 * 60 + 30 && minutes <= 18 * 60;
   }
-  const usEveningOpen = isWeekday && minutes >= 22 * 60 + 30;
-  const usEarlyOpen = ["Tue", "Wed", "Thu", "Fri", "Sat"].includes(weekday) && minutes < 5 * 60;
+  const usEveningOpen = isWeekday && minutes >= 17 * 60;
+  const usEarlyOpen = ["Tue", "Wed", "Thu", "Fri", "Sat"].includes(weekday) && minutes <= 9 * 60;
   return usEveningOpen || usEarlyOpen;
 }
 function signalFeedRows() {
