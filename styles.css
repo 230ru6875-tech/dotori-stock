@@ -272,6 +272,69 @@ h3 {
   white-space: nowrap;
 }
 
+.market-brief {
+  background: #fff7ed;
+  border: 1px solid #fdba74;
+  border-radius: 8px;
+  margin: 0 0 16px;
+  padding: 14px;
+}
+
+.market-brief-head {
+  align-items: flex-start;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.market-brief-head strong {
+  color: #7c2d12;
+  display: block;
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+
+.market-brief-head p,
+.market-brief-head em {
+  color: #7c2d12;
+  font-size: 14px;
+  font-style: normal;
+  margin: 0;
+}
+
+.market-brief-grid {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.market-brief article {
+  background: #ffffff;
+  border: 1px solid #fed7aa;
+  border-radius: 6px;
+  padding: 10px;
+}
+
+.market-brief span {
+  color: #9a3412;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.market-brief h3 {
+  color: #111827;
+  font-size: 15px;
+  margin: 4px 0 6px;
+}
+
+.market-brief article p {
+  color: #334155;
+  font-size: 14px;
+  line-height: 1.45;
+  margin: 0;
+}
+
 button {
   background: #ffffff;
   border: 1px solid var(--line);
@@ -889,8 +952,13 @@ button:hover {
   .content-grid,
   .info-grid,
   .moving-detail,
+  .market-brief-grid,
   .symbol-form {
     grid-template-columns: 1fr;
+  }
+
+  .market-brief-head {
+    display: block;
   }
 
   h1 {

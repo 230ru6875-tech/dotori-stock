@@ -781,6 +781,60 @@ function kstParts(date = new Date()) {
     minutes: Number(parts.hour || 0) * 60 + Number(parts.minute || 0)
   };
 }
+function kstDateKey(date = new Date()) {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "Asia/Seoul",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  }).formatToParts(date).reduce((acc, part) => {
+    acc[part.type] = part.value;
+    return acc;
+  }, {});
+  return `${parts.year}-${parts.month}-${parts.day}`;
+}
+function koreaMarketResponseBrief(date = new Date()) {
+  if (kstDateKey(date) !== "2026-06-10") return null;
+  return {
+    title: "수요일(6/10) 한국시장 대응 참고",
+    disclaimer: "매도를 권유하는 것이 아니라 손실을 키우지 않기 위한 리스크 관리 참고용입니다.",
+    source: "BLS CPI 2026-06-10 08:30 ET / 한국시간 21:30",
+    points: [
+      {
+        time: "08:00~09:00",
+        title: "반도체 프리마켓 충격 확인",
+        body: "삼성전자·SK하이닉스처럼 전일 급등한 반도체 대형주는 갭다운을 패닉으로 보지 말고 신용·레버리지 담보 여유부터 확인합니다."
+      },
+      {
+        time: "09:00~10:00",
+        title: "차익 실현 매물 구간",
+        body: "첫 1시간은 단타 차익 실현과 미국 반도체 약세 영향이 겹칠 수 있어 추격 매수보다 관찰을 우선합니다."
+      },
+      {
+        time: "10:00 이후",
+        title: "CPI 전 보수적 대응",
+        body: "미국 CPI 발표 전까지 방향성이 약할 수 있으므로 물타기·추가매수는 보류하고, 필요 시 오후 기술적 반등에서 현금 비중을 점검합니다."
+      },
+      {
+        time: "관심 섹터",
+        title: "독자 모멘텀 확인",
+        body: "한화솔루션·태양광처럼 반도체와 분리된 재료가 있는 섹터는 급등 추격보다 눌림목 여부만 관심종목으로 확인합니다."
+      }
+    ]
+  };
+}
+function renderMarketBrief() {
+  const box = el("#marketBrief");
+  if (!box) return;
+  const brief = koreaMarketResponseBrief();
+  if (!brief) {
+    box.hidden = true;
+    box.innerHTML = "";
+    return;
+  }
+  box.hidden = false;
+  box.innerHTML = `<div class="market-brief-head"><div><strong>${escapeHtml(brief.title)}</strong><p>${escapeHtml(brief.disclaimer)}</p></div><em>${escapeHtml(brief.source)}</em></div><div class="market-brief-grid">${brief.points.map((point) => `<article><span>${escapeHtml(point.time)}</span><h3>${escapeHtml(point.title)}</h3><p>${escapeHtml(point.body)}</p></article>`).join("")}</div>`;
+}
 function etParts(date = new Date()) {
   const parts = new Intl.DateTimeFormat("en-US", {
     timeZone: "America/New_York",
@@ -1136,6 +1190,7 @@ function renderDashboard() {
   const active = sections[state.activeSection] || sections.watchlist;
   const grid = el("#contentGrid");
   renderSignalFeed();
+  renderMarketBrief();
   if (state.activeSection === "watchlist") {
     grid.innerHTML = renderCards(active, (item) => {
       const displayName = !item.name || item.name === item.symbol ? item.symbol : `${item.name} <span>(${item.symbol})</span>`;
