@@ -482,6 +482,12 @@ function signalFeedType(label) {
   if (/\ubcf4\uc720|\uad00\uc2ec|\uad00\ucc30/.test(text)) return "hold";
   return "buy";
 }
+function signalFeedActionLabel(item) {
+  const type = signalFeedType(item?.feedLabel);
+  if (type === "sell") return "\ub9e4\ub3c4/\uc8fc\uc758\uc2e0\ud638";
+  if (type === "hold") return "\ub9e4\uc218/\uad00\uc2ec\uc2e0\ud638";
+  return "\ub9e4\uc218\uc2e0\ud638";
+}
 function kstParts(date = new Date()) {
   const parts = new Intl.DateTimeFormat("en-US", {
     timeZone: "Asia/Seoul",
@@ -551,7 +557,7 @@ function signalFeedRows() {
     const start = slot;
     const count = Math.min(3, deduped.length);
     const items = Array.from({ length: count }, (_, index) => deduped[(start + index) % deduped.length]);
-    const body = items.map((item) => [normalizedDisplayName(item), item.feedLabel].filter(Boolean).join(" ")).join(", ");
+    const body = items.map((item) => `${normalizedDisplayName(item)} ${signalFeedActionLabel(item)}`).join(", ");
     return `[${fmtClock(time)}] \uc2ec\uce35\ubd84\uc11d: ${body}`;
   });
 }
