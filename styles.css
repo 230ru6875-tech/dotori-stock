@@ -598,6 +598,16 @@ button:hover {
   position: relative;
 }
 
+.watch-card-profit {
+  background: #fff1f2;
+  border-color: #fecdd3;
+}
+
+.watch-card-loss {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+}
+
 .watch-chart-popover {
   background: #ffffff;
   border: 1px solid var(--line);
