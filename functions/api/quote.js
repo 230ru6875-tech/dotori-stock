@@ -72,6 +72,24 @@ async function fetchJson(url) {
   }
 }
 
+async function fetchJsonWithTimeout(url, options = {}, timeoutMs = 3500) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const response = await fetch(url, {
+      ...options,
+      signal: controller.signal,
+      headers: {
+        ...(options.headers || {})
+      }
+    });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return await response.json();
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 function cleanPrice(value) {
   return String(value || "").replace(/,/g, "").trim();
 }
@@ -128,11 +146,10 @@ async function quoteDomestic(symbol) {
 }
 
 async function quoteYahoo(symbol) {
-  const response = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?range=1d&interval=1m`, {
-    headers: { "user-agent": "Mozilla/5.0 DotoriWeb/1.0" }
-  });
-  if (!response.ok) throw new Error(`HTTP ${response.status}`);
-  const payload = await response.json();
+  const payload = await fetchJsonWithTimeout(
+    `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?range=1d&interval=1m`,
+    { headers: { "user-agent": "Mozilla/5.0 DotoriWeb/1.0" } }
+  );
   const result = payload?.chart?.result?.[0];
   const meta = result?.meta || {};
   const quote = result?.indicators?.quote?.[0] || {};
@@ -202,16 +219,17 @@ function crashRiskFromQuote(stats) {
 }
 
 async function quoteNasdaq(symbol) {
-  const response = await fetch(`https://api.nasdaq.com/api/quote/${encodeURIComponent(symbol)}/info?assetclass=stocks`, {
-    headers: {
-      "user-agent": "Mozilla/5.0 DotoriWeb/1.0",
-      "accept": "application/json",
-      "origin": "https://www.nasdaq.com",
-      "referer": "https://www.nasdaq.com/"
+  const payload = await fetchJsonWithTimeout(
+    `https://api.nasdaq.com/api/quote/${encodeURIComponent(symbol)}/info?assetclass=stocks`,
+    {
+      headers: {
+        "user-agent": "Mozilla/5.0 DotoriWeb/1.0",
+        "accept": "application/json",
+        "origin": "https://www.nasdaq.com",
+        "referer": "https://www.nasdaq.com/"
+      }
     }
-  });
-  if (!response.ok) throw new Error(`HTTP ${response.status}`);
-  const payload = await response.json();
+  );
   const data = payload?.data || {};
   const primary = data.primaryData || {};
   const secondary = data.secondaryData || {};

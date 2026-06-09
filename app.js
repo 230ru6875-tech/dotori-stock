@@ -1057,7 +1057,7 @@ function mergedSections(data) {
     moving: [...state.userStocks.map(userStockToMoving), ...data.movingAverages].map(applyLiveQuote),
     morningNote: data.morningNote || data.analysis || [],
     sectorOverview: data.sectorOverview || [],
-    deepAnalysis: data.deepAnalysis || [],
+    deepAnalysis: (data.deepAnalysis || []).map(applyLiveQuote),
     newsList: data.newsList || []
   };
 }
@@ -1121,12 +1121,13 @@ function renderDashboard() {
     grid.innerHTML = `<div class="table-card"><table class="data-table"><thead><tr><th>\uc2dc\uac04</th><th>\uc81c\ubaa9</th><th>\uc694\uc57d</th><th>\ub9c1\ud06c</th></tr></thead><tbody>${active.map((item) => `<tr><td>${item.asOf || "-"}</td><td><strong>${item.title || "-"}</strong></td><td>${item.summary || ""}</td><td>${item.url ? `<a href="${item.url}" target="_blank" rel="noopener">\uc5f4\uae30</a>` : "-"}</td></tr>`).join("")}</tbody></table></div>`;
   } else if (["morningNote", "sectorOverview", "deepAnalysis"].includes(state.activeSection)) {
     grid.innerHTML = renderCards(active, (item) => {
+      const livePriceLine = item.currentPrice ? `<p class="price ${priceClassForItem(item)}"><span>${T.currentPrice}:</span> ${formatDisplayPrice(item.currentPrice, item)}${item.quotedAt ? ` <small>${fmtDateTimeSeconds(item.quotedAt)}</small>` : ""}</p>` : "";
       if (Array.isArray(item.sections)) {
         const sections = Array.isArray(item.sections) ? item.sections : [];
         const sectionHtml = sections.map((section) => `<section class="report-section"><h3>${section.heading}</h3><ul>${(section.items || []).map((line) => `<li>${line}</li>`).join("")}</ul></section>`).join("");
-        return `<article class="report-card"><div class="report-head"><div><strong>${item.title}</strong><p>${item.updatedAt || ""}</p></div><em>${T.report}</em></div><p class="report-summary">${item.summary || item.body || ""}</p>${crashRiskSummaryHtml(item)}${macroEventRiskSummaryHtml(item)}${fairValueSummaryHtml(item)}${technicalSummaryHtml(item)}${valuationSummaryHtml(item)}${marketRiskSummaryHtml(item)}${sectionHtml}</article>`;
+        return `<article class="report-card"><div class="report-head"><div><strong>${item.title}</strong><p>${item.updatedAt || ""}</p></div><em>${T.report}</em></div>${livePriceLine}<p class="report-summary">${item.summary || item.body || ""}</p>${crashRiskSummaryHtml(item)}${macroEventRiskSummaryHtml(item)}${fairValueSummaryHtml(item)}${technicalSummaryHtml(item)}${valuationSummaryHtml(item)}${marketRiskSummaryHtml(item)}${sectionHtml}</article>`;
       }
-      return `<article class="data-card"><div class="card-top"><strong>${item.title}</strong><em>${T.report}</em></div>${crashRiskSummaryHtml(item)}${macroEventRiskSummaryHtml(item)}${fairValueSummaryHtml(item)}${technicalSummaryHtml(item)}${valuationSummaryHtml(item)}${marketRiskSummaryHtml(item)}<p>${item.body}</p></article>`;
+      return `<article class="data-card"><div class="card-top"><strong>${item.title}</strong><em>${T.report}</em></div>${livePriceLine}${crashRiskSummaryHtml(item)}${macroEventRiskSummaryHtml(item)}${fairValueSummaryHtml(item)}${technicalSummaryHtml(item)}${valuationSummaryHtml(item)}${marketRiskSummaryHtml(item)}<p>${item.body}</p></article>`;
     });
   } else {
     grid.innerHTML = renderCards(active, (item) => `<article class="data-card"><div class="card-top"><strong>${item.title || "-"}</strong><em>${T.report}</em></div><p>${item.body || ""}</p></article>`);
@@ -1322,6 +1323,7 @@ async function loadData(options = {}) {
     state.data = await response.json();
     setStatus(T.connected);
     renderDashboard();
+    if (!options.silent) refreshVisibleQuotes();
   } catch (error) {
     if (!options.silent) setStatus(T.loadFail);
     console.error(error);
@@ -1427,6 +1429,7 @@ document.querySelectorAll("[data-section]").forEach((button) => {
     button.classList.add("active");
     state.activeSection = button.dataset.section;
     renderDashboard();
+    refreshVisibleQuotes();
   });
 });
 setupBrowserStorageNotice();
