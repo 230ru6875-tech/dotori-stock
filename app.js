@@ -510,7 +510,6 @@ function signalFeedRows() {
   const sections = mergedSections(data);
   const watchRows = (sections.watchlist || []).filter((item) => userSymbols.has(normalizeSymbol(item.symbol)));
   const interestSignals = watchRows
-    .filter((item) => isMarketOpenForItem(item, now))
     .filter((item) => signalSide(item.signal || item.sentiment || item.decision))
     .map((item) => ({ ...item, feedLabel: signalLabelForItem(item) }));
   const nonInterestSignals = [
