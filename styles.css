@@ -255,9 +255,8 @@ h3 {
 
 .signal-feed-lines {
   display: grid;
-  gap: 4px;
-  max-height: 270px;
-  min-height: 270px;
+  gap: 2px;
+  max-height: 260px;
   overflow-x: auto;
   overflow-y: auto;
   padding-bottom: 4px;
@@ -267,7 +266,7 @@ h3 {
   color: #273244;
   font-family: Consolas, "Noto Sans KR", monospace;
   font-size: 17px;
-  line-height: 1.5;
+  line-height: 1.35;
   margin: 0;
   min-width: max-content;
   white-space: nowrap;

@@ -3,6 +3,7 @@ const USER_STOCKS_KEY = "dotori.userStocks.v1";
 const USER_KEY = "dotori.userKey.v1";
 const USER_KEEP_ASKED_KEY = "dotori.keepAsked.v1";
 const REPORT_STORE_KEY = "dotori.stockReports.v1";
+const SIGNAL_FEED_HISTORY_KEY = "dotori.signalFeedHistory.v1";
 const USER_STOCKS_MIGRATION_KEY = "dotori.userStocks.migration.v4";
 const INITIAL_SERVER_SYMBOLS = new Set(["011070", "MU"]);
 let symbolDirectory = {};
@@ -496,6 +497,21 @@ function signalFeedActionLabel(item) {
   if (type === "hold") return "\ub9e4\uc218/\uad00\uc2ec\uc2e0\ud638";
   return "\ub9e4\uc218\uc2e0\ud638";
 }
+function loadSignalFeedHistory() {
+  try {
+    const rows = JSON.parse(localStorage.getItem(SIGNAL_FEED_HISTORY_KEY) || "[]");
+    return Array.isArray(rows) ? rows.filter(Boolean).slice(0, 10) : [];
+  } catch {
+    return [];
+  }
+}
+function saveSignalFeedHistory(rows) {
+  try {
+    localStorage.setItem(SIGNAL_FEED_HISTORY_KEY, JSON.stringify((rows || []).filter(Boolean).slice(0, 10)));
+  } catch {
+    // Browser storage may be unavailable in private mode.
+  }
+}
 function kstParts(date = new Date()) {
   const parts = new Intl.DateTimeFormat("en-US", {
     timeZone: "Asia/Seoul",
@@ -581,14 +597,14 @@ function signalFeedRows() {
   const itemCount = deduped.some((item) => item.preOpenSignal) ? 10 : 3;
   const bucketMs = 5 * 60 * 1000;
   const base = new Date(Math.floor(now.getTime() / bucketMs) * bucketMs);
-  return [0, 1, 2].map((slot) => {
-    const time = new Date(base.getTime() - slot * bucketMs);
-    const start = slot;
-    const count = Math.min(itemCount, deduped.length);
-    const items = Array.from({ length: count }, (_, index) => deduped[(start + index) % deduped.length]);
-    const body = items.map((item) => `${normalizedDisplayName(item)} ${signalFeedActionLabel(item)}`).join(", ");
-    return `[${fmtClock(time)}] \uc2ec\uce35\ubd84\uc11d: ${body}`;
-  });
+  const count = Math.min(itemCount, deduped.length);
+  const items = deduped.slice(0, count);
+  const body = items.map((item) => `${normalizedDisplayName(item)} ${signalFeedActionLabel(item)}`).join(", ");
+  const currentRow = `[${fmtClock(base)}] \uc2ec\uce35\ubd84\uc11d: ${body}`;
+  const history = loadSignalFeedHistory();
+  const rows = [currentRow, ...history.filter((row) => row !== currentRow)].slice(0, 10);
+  saveSignalFeedHistory(rows);
+  return rows;
 }
 function fmtClock(date) {
   return new Intl.DateTimeFormat("ko-KR", {
