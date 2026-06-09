@@ -104,17 +104,28 @@ function stripSymbolFromName(name, symbol) {
   const escaped = String(symbol || "").replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   return raw.replace(new RegExp(`\\s*\\(?${escaped}\\)?\\s*$`, "i"), "").trim();
 }
+function hasHangul(value) {
+  return /[가-힣]/.test(String(value || ""));
+}
 function staticSymbolNames() {
   return new Map([
-    ["MRVL", "Marvell Technology"],
+    ["MRVL", "마벨 테크놀로지"],
     ["AVGO", "Broadcom"],
     ["MU", "\ub9c8\uc774\ud06c\ub860 \ud14c\ud06c\ub180\ub85c\uc9c0"],
-    ["JPM", "JPMorgan Chase"],
+    ["JPM", "제이피모건 체이스"],
     ["SNDK", "SanDisk"],
-    ["ETN", "Eaton"],
+    ["ETN", "이튼"],
     ["GE", "GE Aerospace"],
     ["AMT", "American Tower"]
   ]);
+}
+function setPreferredName(map, symbol, name) {
+  const normalized = normalizeSymbol(symbol);
+  const cleanName = stripSymbolFromName(name || "", normalized);
+  if (!normalized || !cleanName || cleanName === normalized) return;
+  const current = map.get(normalized) || "";
+  if (hasHangul(current) && !hasHangul(cleanName)) return;
+  if (hasHangul(cleanName) || !current) map.set(normalized, cleanName);
 }
 function nameLookup() {
   const data = state.data || {};
@@ -131,14 +142,12 @@ function nameLookup() {
   Object.values(symbolDirectory || {}).forEach((item) => {
     if (!item || !item.symbol) return;
     const symbol = normalizeSymbol(item.symbol);
-    const name = stripSymbolFromName(item.name || "", symbol);
-    if (symbol && name && name !== symbol) map.set(symbol, name);
+    setPreferredName(map, symbol, item.name || "");
   });
   sources.forEach((item) => {
     if (!item || !item.symbol) return;
     const symbol = normalizeSymbol(item.symbol);
-    const name = stripSymbolFromName(item.name || item.display_name || item.title || "", symbol);
-    if (symbol && name && name !== symbol) map.set(symbol, name);
+    setPreferredName(map, symbol, item.name || item.display_name || item.title || "");
   });
   return map;
 }
@@ -637,10 +646,11 @@ function signalSide(value) {
   if (/\ub9e4\uc218|\uc0c1\uc2b9|\uac15\ud55c|\uc9c4\uc785|\ud68c\ubcf5|\ubcf4\uc720|\uac80\ud1a0/i.test(text)) return "buy";
   return "";
 }
-function normalizedDisplayName(item) {
+function normalizedDisplayName(item, lookup = null) {
   const symbol = normalizeSymbol(item?.symbol || "");
   const raw = item?.name || item?.title || item?.displayName || symbol || "-";
-  const stripped = stripSymbolFromName(raw, symbol) || raw;
+  const lookupName = symbol && lookup ? lookup.get(symbol) : "";
+  const stripped = lookupName || stripSymbolFromName(raw, symbol) || raw;
   return symbol ? `${stripped}(${symbol})` : stripped;
 }
 function signalLabelForItem(item, fallback = "\ub9e4\uc218") {
@@ -792,7 +802,8 @@ function signalFeedRows() {
   const base = new Date(Math.floor(now.getTime() / bucketMs) * bucketMs);
   const count = Math.min(itemCount, deduped.length);
   const items = deduped.slice(0, count);
-  const body = items.map((item) => `${normalizedDisplayName(item)} ${signalFeedActionLabel(item)}`).join(", ");
+  const displayNames = nameLookup();
+  const body = items.map((item) => `${normalizedDisplayName(item, displayNames)} ${signalFeedActionLabel(item)}`).join(", ");
   const currentRow = `[${fmtClock(base)}] ${body}`;
   const history = loadSignalFeedHistory();
   const rows = [currentRow, ...history.filter((row) => row !== currentRow)].slice(0, 10);
