@@ -9,6 +9,9 @@ const INITIAL_SERVER_SYMBOLS = new Set(["011070", "MU"]);
 let symbolDirectory = {};
 const DATA_REFRESH_MS = 5000;
 const MARKET_CLOSE_GRACE_MINUTES = 5;
+const DOMESTIC_MARKET_START_KST_MINUTES = 8 * 60 + 30;
+const DOMESTIC_MARKET_END_KST_MINUTES = 18 * 60;
+const DOMESTIC_PREOPEN_START_KST_MINUTES = 8 * 60 + 20;
 const US_MARKET_CLOSE_KST_MINUTES = 10 * 60;
 const T = {
   connected: "",
@@ -565,7 +568,7 @@ function isMarketOpenForItem(item, date = new Date()) {
   const { weekday, minutes } = kstParts(date);
   const isWeekday = ["Mon", "Tue", "Wed", "Thu", "Fri"].includes(weekday);
   if (market === T.domestic) {
-    return isWeekday && minutes >= 8 * 60 + 30 && minutes <= 18 * 60 + MARKET_CLOSE_GRACE_MINUTES;
+    return isWeekday && minutes >= DOMESTIC_MARKET_START_KST_MINUTES && minutes <= DOMESTIC_MARKET_END_KST_MINUTES + MARKET_CLOSE_GRACE_MINUTES;
   }
   const usEveningOpen = isWeekday && minutes >= 17 * 60;
   const usEarlyOpen = ["Tue", "Wed", "Thu", "Fri", "Sat"].includes(weekday) && minutes <= US_MARKET_CLOSE_KST_MINUTES + MARKET_CLOSE_GRACE_MINUTES;
@@ -577,8 +580,8 @@ function marketSignalWindowForItem(item, date = new Date()) {
   const isWeekday = ["Mon", "Tue", "Wed", "Thu", "Fri"].includes(weekday);
   if (market === T.domestic) {
     return {
-      open: isWeekday && minutes >= 8 * 60 + 30 && minutes <= 18 * 60 + MARKET_CLOSE_GRACE_MINUTES,
-      preOpen: isWeekday && minutes >= 8 * 60 + 20 && minutes < 8 * 60 + 30
+      open: isWeekday && minutes >= DOMESTIC_MARKET_START_KST_MINUTES && minutes <= DOMESTIC_MARKET_END_KST_MINUTES + MARKET_CLOSE_GRACE_MINUTES,
+      preOpen: isWeekday && minutes >= DOMESTIC_PREOPEN_START_KST_MINUTES && minutes < DOMESTIC_MARKET_START_KST_MINUTES
     };
   }
   return {
