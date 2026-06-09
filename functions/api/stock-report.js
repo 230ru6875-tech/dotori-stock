@@ -242,11 +242,12 @@ export async function onRequestGet(context) {
   const symbol = normalizeSymbol(url.searchParams.get("symbol"));
   const purchasePrice = Number(url.searchParams.get("purchasePrice") || 0);
   const forceRefresh = url.searchParams.get("refresh") === "1";
+  const localOnly = url.searchParams.get("localOnly") === "1";
   if (!symbol) {
     return new Response(JSON.stringify({ ok: false, error: "symbol_required" }), { status: 400, headers: JSON_HEADERS });
   }
   try {
-    const cached = forceRefresh ? null : await loadTursoReport(context.env, symbol).catch(() => null);
+    const cached = forceRefresh || localOnly ? null : await loadTursoReport(context.env, symbol).catch(() => null);
     if (cached) {
       return new Response(JSON.stringify({ ...cached, storage: "turso" }), { headers: JSON_HEADERS });
     }
@@ -297,9 +298,11 @@ export async function onRequestGet(context) {
       },
       sources: [base.source, "Naver News Search"].filter(Boolean)
     };
-    await saveTursoReport(context.env, symbol, payload).catch((error) => {
-      console.error("turso_save_failed", error);
-    });
+    if (!localOnly) {
+      await saveTursoReport(context.env, symbol, payload).catch((error) => {
+        console.error("turso_save_failed", error);
+      });
+    }
     return new Response(JSON.stringify(payload), { headers: JSON_HEADERS });
   } catch (error) {
     return new Response(JSON.stringify({ ok: false, symbol, error: String(error?.message || error) }), { status: 502, headers: JSON_HEADERS });

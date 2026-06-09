@@ -1,6 +1,7 @@
 const state = { data: null, activeSection: "watchlist", userStocks: [], selectedMovingSymbol: "", scannerMarketFirst: "domestic", quotes: {} };
 const USER_STOCKS_KEY = "dotori.userStocks.v1";
 const USER_KEY = "dotori.userKey.v1";
+const USER_KEEP_ASKED_KEY = "dotori.keepAsked.v1";
 const REPORT_STORE_KEY = "dotori.stockReports.v1";
 const USER_STOCKS_MIGRATION_KEY = "dotori.userStocks.migration.v4";
 const INITIAL_SERVER_SYMBOLS = new Set(["011070", "MU"]);
@@ -302,7 +303,7 @@ async function lookupNameFromWeb(symbol) {
 }
 async function lookupStockReport(symbol, purchasePrice, options = {}) {
   try {
-    const params = new URLSearchParams({ symbol });
+    const params = new URLSearchParams({ symbol, localOnly: "1" });
     if (purchasePrice > 0) params.set("purchasePrice", String(purchasePrice));
     if (options.refresh) params.set("refresh", "1");
     const response = await fetch(`/api/stock-report?${params.toString()}`, { cache: "no-store" });
@@ -330,30 +331,7 @@ async function lookupQuote(symbol) {
   }
 }
 async function saveWebWatchlistInterest(item, action = "add") {
-  if (!item || !item.symbol) return;
-  try {
-    const report = item.report || {};
-    const watchlist = report.watchlist || {};
-    const payload = {
-      action,
-      userKey: browserUserKey(),
-      symbol: normalizeSymbol(item.symbol),
-      name: stripSymbolFromName(item.name || watchlist.name || report.name, item.symbol) || item.symbol,
-      market: displayMarket(watchlist.market || report.market || marketName(item.symbol)),
-      purchasePrice: Number(item.purchasePrice || 0),
-      source: "dotori-web",
-      quote: state.quotes?.[normalizeSymbol(item.symbol)] || null,
-      report
-    };
-    await fetch("/api/watchlist", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(payload),
-      cache: "no-store"
-    });
-  } catch (error) {
-    console.warn("watchlist_save_failed", error);
-  }
+  return Promise.resolve({ ok: true, localOnly: true, symbol: item?.symbol || "", action });
 }
 async function refreshUserStockReports() {
   if (!state.userStocks.length) return;
@@ -421,6 +399,15 @@ function loadUserStocks() {
       localStorage.setItem(USER_STOCKS_MIGRATION_KEY, new Date().toISOString());
       localStorage.setItem(USER_STOCKS_KEY, JSON.stringify(rows));
     }
+    if (rows.length && !sessionStorage.getItem(USER_KEEP_ASKED_KEY)) {
+      sessionStorage.setItem(USER_KEEP_ASKED_KEY, "1");
+      const keepWatching = window.confirm("이전 관심종목을 계속 관찰하시겠습니까?\n\n확인: 이 컴퓨터의 웹브라우저에 계속 저장\n취소: 관심종목 초기화");
+      if (!keepWatching) {
+        rows = [];
+        localStorage.removeItem(USER_STOCKS_KEY);
+        localStorage.removeItem(REPORT_STORE_KEY);
+      }
+    }
     state.userStocks = rows;
   } catch { state.userStocks = []; }
 }
@@ -445,6 +432,17 @@ function loadReportFromBrowser(symbol) {
 function parseNumber(value) {
   const number = Number(String(value || "").replace(/[^0-9.-]/g, ""));
   return Number.isFinite(number) ? number : 0;
+}
+function setupBrowserStorageNotice() {
+  const card = el("#browserPrivacyCard");
+  if (card) {
+    card.innerHTML = `<h3>브라우저 저장 안내</h3><p>이 곳에서 조회한 내용은 종목분석에만 활용되고 별도의 외부기관에 제공되지 않습니다. 현재 웹브라우저에만 저장됩니다.</p>`;
+  }
+  window.addEventListener("beforeunload", (event) => {
+    if (!state.userStocks.length) return;
+    event.preventDefault();
+    event.returnValue = "";
+  });
 }
 function displayMarket(value) {
   return String(value || "") === "\ubbf8\uad6d" ? T.us : (value || "");
@@ -1121,6 +1119,7 @@ document.querySelectorAll("[data-section]").forEach((button) => {
     renderDashboard();
   });
 });
+setupBrowserStorageNotice();
 loadUserStocks();
 setupSymbolForm();
 loadSymbolDirectory().finally(loadData);
