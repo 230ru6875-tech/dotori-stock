@@ -456,6 +456,15 @@ function setupBrowserStorageNotice() {
 function displayMarket(value) {
   return String(value || "") === "\ubbf8\uad6d" ? T.us : (value || "");
 }
+function tossStockUrl(symbol) {
+  return `https://www.tossinvest.com/stocks/${encodeURIComponent(normalizeSymbol(symbol))}`;
+}
+function naverStockUrl(item) {
+  const symbol = normalizeSymbol(item?.symbol || "");
+  if (/^\d{6}$/.test(symbol)) return `https://finance.naver.com/item/main.naver?code=${encodeURIComponent(symbol)}`;
+  const name = stripSymbolFromName(item?.name || item?.title || "", symbol) || symbol;
+  return `https://search.naver.com/search.naver?query=${encodeURIComponent(`${name} ${symbol} 주가`)}`;
+}
 function priceClassForItem(item) {
   const purchase = Number(item?.purchasePrice || 0);
   const current = parseNumber(item?.currentPrice);
@@ -499,9 +508,9 @@ function signalFeedType(label) {
 }
 function signalFeedActionLabel(item) {
   const type = signalFeedType(item?.feedLabel);
-  if (type === "sell") return "\ub9e4\ub3c4/\uc8fc\uc758\uc2e0\ud638";
-  if (type === "hold") return "\ub9e4\uc218/\uad00\uc2ec\uc2e0\ud638";
-  return "\ub9e4\uc218\uc2e0\ud638";
+  if (type === "sell") return "\ub9e4\ub3c4/\uc8fc\uc758";
+  if (type === "hold") return "\ub9e4\uc218/\uad00\uc2ec";
+  return "\ub9e4\uc218";
 }
 function loadSignalFeedHistory() {
   try {
@@ -873,7 +882,8 @@ function renderDashboard() {
     grid.innerHTML = renderCards(active, (item) => {
       const displayName = !item.name || item.name === item.symbol ? item.symbol : `${item.name} <span>(${item.symbol})</span>`;
       const priceLine = item.currentPrice ? `<p class="price ${priceClassForItem(item)}"><span>${T.currentPrice}:</span> ${item.currentPrice}</p>` : "";
-      return `<article class="data-card clickable-card watch-card ${priceBackgroundClassForItem(item)}" data-chart-symbol="${item.symbol}"><div class="card-top"><strong>${displayName}</strong><em>${displayMarket(item.market)}</em></div>${priceLine}<p><b class="${signalClass(item.signal)}">${item.signal}</b>${item.movingAverage ? ` / ${item.movingAverage}` : ""}</p><p>${item.memo}</p><div class="watch-chart-popover">${watchlistMiniChartSvg(item)}</div>${item.userAdded ? `<button class="small-button" data-remove-symbol="${item.symbol}" type="button">${T.remove}</button>` : ""}</article>`;
+      const marketLinks = item.symbol ? ` <a class="market-link" href="${tossStockUrl(item.symbol)}" target="_blank" rel="noopener">토스증권</a> <a class="market-link" href="${naverStockUrl(item)}" target="_blank" rel="noopener">네이버증권</a>` : "";
+      return `<article class="data-card clickable-card watch-card ${priceBackgroundClassForItem(item)}" data-chart-symbol="${item.symbol}"><div class="card-top"><strong>${displayName}</strong><em>${displayMarket(item.market)}</em></div>${priceLine}<p><b class="${signalClass(item.signal)}">${item.signal}</b>${item.movingAverage ? ` / ${item.movingAverage}` : ""}</p><p>${item.memo}${marketLinks}</p><div class="watch-chart-popover">${watchlistMiniChartSvg(item)}</div>${item.userAdded ? `<button class="small-button" data-remove-symbol="${item.symbol}" type="button">${T.remove}</button>` : ""}</article>`;
     });
   } else if (state.activeSection === "scanner") {
     const marketRows = (marketLabel) => active.filter((item) => displayMarket(item.market || marketName(item.symbol)) === marketLabel);

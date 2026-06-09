@@ -608,6 +608,13 @@ button:hover {
   border-color: #bfdbfe;
 }
 
+.market-link {
+  color: var(--accent-2);
+  font-weight: 700;
+  margin-left: 8px;
+  white-space: nowrap;
+}
+
 .watch-chart-popover {
   background: #ffffff;
   border: 1px solid var(--line);
