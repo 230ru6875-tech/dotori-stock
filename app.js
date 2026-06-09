@@ -12,7 +12,9 @@ const MARKET_CLOSE_GRACE_MINUTES = 5;
 const DOMESTIC_MARKET_START_KST_MINUTES = 8 * 60 + 30;
 const DOMESTIC_MARKET_END_KST_MINUTES = 18 * 60;
 const DOMESTIC_PREOPEN_START_KST_MINUTES = 8 * 60 + 20;
-const US_MARKET_CLOSE_KST_MINUTES = 10 * 60;
+const US_MARKET_START_ET_MINUTES = 4 * 60;
+const US_MARKET_END_ET_MINUTES = 20 * 60;
+const US_PREOPEN_START_ET_MINUTES = 3 * 60 + 50;
 const T = {
   connected: "",
   loadFail: "\ub370\uc774\ud130\ub97c \ubd88\ub7ec\uc624\uc9c0 \ubabb\ud588\uc2b5\ub2c8\ub2e4. \uc7a0\uc2dc \ud6c4 \ub2e4\uc2dc \ud655\uc778\ud574 \uc8fc\uc138\uc694.",
@@ -563,6 +565,22 @@ function kstParts(date = new Date()) {
     minutes: Number(parts.hour || 0) * 60 + Number(parts.minute || 0)
   };
 }
+function etParts(date = new Date()) {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/New_York",
+    weekday: "short",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false
+  }).formatToParts(date).reduce((acc, part) => {
+    acc[part.type] = part.value;
+    return acc;
+  }, {});
+  return {
+    weekday: parts.weekday,
+    minutes: Number(parts.hour || 0) * 60 + Number(parts.minute || 0)
+  };
+}
 function isMarketOpenForItem(item, date = new Date()) {
   const market = displayMarket(item?.market || marketName(item?.symbol || ""));
   const { weekday, minutes } = kstParts(date);
@@ -570,9 +588,9 @@ function isMarketOpenForItem(item, date = new Date()) {
   if (market === T.domestic) {
     return isWeekday && minutes >= DOMESTIC_MARKET_START_KST_MINUTES && minutes <= DOMESTIC_MARKET_END_KST_MINUTES + MARKET_CLOSE_GRACE_MINUTES;
   }
-  const usEveningOpen = isWeekday && minutes >= 17 * 60;
-  const usEarlyOpen = ["Tue", "Wed", "Thu", "Fri", "Sat"].includes(weekday) && minutes <= US_MARKET_CLOSE_KST_MINUTES + MARKET_CLOSE_GRACE_MINUTES;
-  return usEveningOpen || usEarlyOpen;
+  const et = etParts(date);
+  const isEtWeekday = ["Mon", "Tue", "Wed", "Thu", "Fri"].includes(et.weekday);
+  return isEtWeekday && et.minutes >= US_MARKET_START_ET_MINUTES && et.minutes <= US_MARKET_END_ET_MINUTES + MARKET_CLOSE_GRACE_MINUTES;
 }
 function marketSignalWindowForItem(item, date = new Date()) {
   const market = displayMarket(item?.market || marketName(item?.symbol || ""));
@@ -584,9 +602,11 @@ function marketSignalWindowForItem(item, date = new Date()) {
       preOpen: isWeekday && minutes >= DOMESTIC_PREOPEN_START_KST_MINUTES && minutes < DOMESTIC_MARKET_START_KST_MINUTES
     };
   }
+  const et = etParts(date);
+  const isEtWeekday = ["Mon", "Tue", "Wed", "Thu", "Fri"].includes(et.weekday);
   return {
     open: isMarketOpenForItem(item, date),
-    preOpen: isWeekday && minutes >= 16 * 60 + 50 && minutes < 17 * 60
+    preOpen: isEtWeekday && et.minutes >= US_PREOPEN_START_ET_MINUTES && et.minutes < US_MARKET_START_ET_MINUTES
   };
 }
 function signalFeedRows() {
