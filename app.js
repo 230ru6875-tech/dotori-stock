@@ -496,8 +496,11 @@ function valuationSummaryText(item) {
   const valuation = valuationFromItem(item);
   if (!valuation) return "";
   const parts = [
-    valuation.per ? `PER ${valuation.per}` : "",
+    valuation.buyFocus || "매수 판단: PBR 확인",
+    valuation.sellFocus || "매도 판단: PSR 확인",
+    valuation.psr ? `PSR ${valuation.psr}` : "",
     valuation.pbr ? `PBR ${valuation.pbr}` : "",
+    valuation.per ? `PER ${valuation.per}` : "",
     valuation.fcf ? `FCF ${valuation.fcf}` : "",
     valuation.debtRatio ? `부채비율 ${valuation.debtRatio}%` : "",
     valuation.evEbitda ? `EV/EBITDA ${valuation.evEbitda}` : ""

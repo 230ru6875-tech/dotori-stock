@@ -146,22 +146,48 @@ function cleanName(value, symbol) {
 function valuationJudgment(metrics) {
   const per = Number(String(metrics?.per || "").replace(/,/g, ""));
   const pbr = Number(String(metrics?.pbr || "").replace(/,/g, ""));
+  const psr = Number(String(metrics?.psr || "").replace(/,/g, ""));
   const debt = Number(String(metrics?.debtRatio || "").replace(/,/g, ""));
   const flags = [];
-  if (Number.isFinite(per) && per > 0) {
-    if (per >= 25) flags.push("PER 높음");
-    else if (per <= 10) flags.push("PER 낮음");
-  }
   if (Number.isFinite(pbr) && pbr > 0) {
-    if (pbr >= 3) flags.push("PBR 높음");
-    else if (pbr <= 1) flags.push("PBR 낮음");
+    if (pbr <= 1) flags.push("매수 지표 PBR 낮음");
+    else if (pbr >= 3) flags.push("매수 지표 PBR 부담");
+  }
+  if (Number.isFinite(psr) && psr > 0) {
+    if (psr >= 8) flags.push("매도 지표 PSR 과열");
+    else if (psr >= 4) flags.push("매도 지표 PSR 주의");
+    else if (psr <= 1) flags.push("매도 지표 PSR 낮음");
+  } else {
+    flags.push("매도 지표 PSR 확인 필요");
+  }
+  if (Number.isFinite(per) && per > 0) {
+    if (per >= 25) flags.push("PER 보조 고평가");
+    else if (per <= 10) flags.push("PER 보조 저평가");
   }
   if (Number.isFinite(debt) && debt > 0) {
     if (debt >= 150) flags.push("부채비율 주의");
     else if (debt <= 50) flags.push("재무부담 낮음");
   }
-  if (!flags.length) return "PER/PBR/FCF/부채비율을 함께 확인";
+  if (!flags.length) return "매수는 PBR, 매도는 PSR을 우선 확인";
   return flags.join(" / ");
+}
+
+function valuationFocus(metrics) {
+  const pbr = Number(String(metrics?.pbr || "").replace(/,/g, ""));
+  const psr = Number(String(metrics?.psr || "").replace(/,/g, ""));
+  let buyFocus = "매수 판단: PBR 확인 필요";
+  let sellFocus = "매도 판단: PSR 확인 필요";
+  if (Number.isFinite(pbr) && pbr > 0) {
+    if (pbr <= 1) buyFocus = "매수 판단: PBR 저평가권";
+    else if (pbr >= 3) buyFocus = "매수 판단: PBR 부담권";
+    else buyFocus = "매수 판단: PBR 중립권";
+  }
+  if (Number.isFinite(psr) && psr > 0) {
+    if (psr >= 8) sellFocus = "매도 판단: PSR 과열권";
+    else if (psr >= 4) sellFocus = "매도 판단: PSR 주의권";
+    else sellFocus = "매도 판단: PSR 부담 낮음";
+  }
+  return { buyFocus, sellFocus };
 }
 
 function extractLatestAnalystRowValue(html, rowLabel) {
@@ -179,6 +205,7 @@ function lookupDomesticValuationFromHtml(html) {
     per: matchHtmlValue(html, /<em[^>]+id=["']_per["'][^>]*>([^<]+)<\/em>/i),
     estimatedPer: matchHtmlValue(html, /<em[^>]+id=["']_cns_per["'][^>]*>([^<]+)<\/em>/i),
     pbr: matchHtmlValue(html, /<em[^>]+id=["']_pbr["'][^>]*>([^<]+)<\/em>/i),
+    psr: "",
     industryPer: matchHtmlValue(html, /동일업종 PER[\s\S]*?<em>([^<]+)<\/em>\s*배/i),
     debtRatio: extractLatestAnalystRowValue(html, "부채비율"),
     fcf: "",
@@ -187,8 +214,9 @@ function lookupDomesticValuationFromHtml(html) {
   };
   return {
     ...metrics,
+    ...valuationFocus(metrics),
     summary: valuationJudgment(metrics),
-    note: "PER, PBR, 부채비율은 네이버 금융 공개값 기준입니다. FCF와 EV/EBITDA는 별도 재무 API 연결 후 확정합니다."
+    note: "매수 판단은 PBR, 매도 판단은 PSR을 우선합니다. PER, PBR, 부채비율은 네이버 금융 공개값 기준이며 PSR, FCF, EV/EBITDA는 별도 재무 API 연결 후 확정합니다."
   };
 }
 
@@ -197,6 +225,7 @@ function emptyValuation(source = "") {
     per: "",
     estimatedPer: "",
     pbr: "",
+    psr: "",
     industryPer: "",
     fcf: "",
     debtRatio: "",
@@ -205,8 +234,9 @@ function emptyValuation(source = "") {
   };
   return {
     ...metrics,
+    ...valuationFocus(metrics),
     summary: valuationJudgment(metrics),
-    note: "PER, PBR, FCF, 부채비율, EV/EBITDA 확인 필요"
+    note: "매수 판단은 PBR, 매도 판단은 PSR을 우선합니다. PER, FCF, 부채비율, EV/EBITDA는 보조 지표입니다."
   };
 }
 
@@ -391,9 +421,10 @@ function crashWarning(base, moving, valuation, oilRisk) {
     score += 2;
     reasons.push("20일선 이탈");
   }
-  if ((Number.isFinite(per) && per >= 25) || (Number.isFinite(pbr) && pbr >= 3)) {
+  const psr = Number(String(valuation?.psr || "").replace(/,/g, ""));
+  if ((Number.isFinite(psr) && psr >= 4) || (Number.isFinite(per) && per >= 25) || (Number.isFinite(pbr) && pbr >= 3)) {
     score += 1;
-    reasons.push("밸류에이션 부담");
+    reasons.push(Number.isFinite(psr) && psr >= 4 ? "PSR 매도 부담" : "밸류에이션 부담");
   }
   if (/유가 상승/.test(oilText)) {
     score += 1;

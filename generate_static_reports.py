@@ -38,7 +38,12 @@ def valuation_text(item: dict, key: str) -> str:
 
 def valuation_summary(item: dict) -> str:
     valuation = item.get("valuation") if isinstance(item.get("valuation"), dict) else {}
-    return clean_text(valuation.get("summary") or valuation.get("note") or "PER, PBR, FCF, 부채비율, EV/EBITDA를 함께 확인합니다.")
+    return clean_text(valuation.get("summary") or valuation.get("note") or "매수는 PBR, 매도는 PSR을 우선 확인합니다.")
+
+
+def valuation_focus_text(item: dict, key: str, fallback: str) -> str:
+    valuation = item.get("valuation") if isinstance(item.get("valuation"), dict) else {}
+    return clean_text(valuation.get(key) or fallback)
 
 
 def market_risk_summary(item: dict) -> str:
@@ -227,8 +232,11 @@ def report_body(item: dict, data: dict) -> str:
       <h2>밸류에이션 점검</h2>
       <table class="plain-table">
         <tbody>
-          <tr><th>PER</th><td>{esc(valuation_text(item, "per"))}</td></tr>
+          <tr><th>매수 판단</th><td>{esc(valuation_focus_text(item, "buyFocus", "PBR 확인 필요"))}</td></tr>
+          <tr><th>매도 판단</th><td>{esc(valuation_focus_text(item, "sellFocus", "PSR 확인 필요"))}</td></tr>
           <tr><th>PBR</th><td>{esc(valuation_text(item, "pbr"))}</td></tr>
+          <tr><th>PSR</th><td>{esc(valuation_text(item, "psr"))}</td></tr>
+          <tr><th>PER 보조</th><td>{esc(valuation_text(item, "per"))}</td></tr>
           <tr><th>FCF</th><td>{esc(valuation_text(item, "fcf"))}</td></tr>
           <tr><th>부채비율</th><td>{esc(valuation_text(item, "debtRatio"))}</td></tr>
           <tr><th>EV/EBITDA</th><td>{esc(valuation_text(item, "evEbitda"))}</td></tr>
