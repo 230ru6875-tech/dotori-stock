@@ -125,12 +125,21 @@ async function quoteYahoo(symbol) {
   const meta = result?.meta || {};
   const quote = result?.indicators?.quote?.[0] || {};
   const closes = (quote.close || []).filter((value) => typeof value === "number");
+  const highs = (quote.high || []).filter((value) => typeof value === "number");
+  const lows = (quote.low || []).filter((value) => typeof value === "number");
   const current = Number(meta.regularMarketPrice || closes[closes.length - 1] || 0);
+  const previousClose = Number(meta.previousClose || 0);
+  const dayHigh = Number(meta.regularMarketDayHigh || (highs.length ? Math.max(...highs) : 0));
+  const dayLow = Number(meta.regularMarketDayLow || (lows.length ? Math.min(...lows) : 0));
   return {
     symbol,
     name: cleanName(meta.longName || meta.shortName || symbol, symbol) || symbol,
     market: "\uD574\uC678",
     currentPrice: current > 0 ? `$${current.toFixed(2)}` : "",
+    previousClose: previousClose > 0 ? `$${previousClose.toFixed(2)}` : "",
+    dayHigh: dayHigh > 0 ? `$${dayHigh.toFixed(2)}` : "",
+    dayLow: dayLow > 0 ? `$${dayLow.toFixed(2)}` : "",
+    crashRisk: crashRiskFromQuote({ current, previousClose, dayHigh, dayLow }),
     source: "Yahoo Finance"
   };
 }
@@ -139,6 +148,45 @@ function parseDollar(value) {
   const text = String(value || "").replace(/[^0-9.\-]/g, "");
   const parsed = Number(text);
   return Number.isFinite(parsed) ? parsed : 0;
+}
+
+function crashRiskFromQuote(stats) {
+  const current = Number(stats?.current || 0);
+  const previousClose = Number(stats?.previousClose || 0);
+  const dayHigh = Number(stats?.dayHigh || 0);
+  const changePct = current > 0 && previousClose > 0 ? ((current / previousClose) - 1) * 100 : Number(stats?.changePct || 0);
+  const fromHighPct = current > 0 && dayHigh > 0 ? ((current / dayHigh) - 1) * 100 : 0;
+  const reasons = [];
+  let score = 0;
+  if (changePct <= -7) {
+    score += 4;
+    reasons.push(`전일 대비 ${changePct.toFixed(2)}% 급락`);
+  } else if (changePct <= -4) {
+    score += 2;
+    reasons.push(`전일 대비 ${changePct.toFixed(2)}% 하락`);
+  }
+  if (fromHighPct <= -7) {
+    score += 4;
+    reasons.push(`장중 고점 대비 ${fromHighPct.toFixed(2)}% 이탈`);
+  } else if (fromHighPct <= -5) {
+    score += 3;
+    reasons.push(`장중 고점 대비 ${fromHighPct.toFixed(2)}% 하락`);
+  }
+  let level = "주의보 없음";
+  if (score >= 6) level = "폭락주의보";
+  else if (score >= 3) level = "급락경계";
+  else if (score >= 1) level = "변동성 주의";
+  return {
+    level,
+    score,
+    previousClose: previousClose > 0 ? `$${previousClose.toFixed(2)}` : "",
+    dayHigh: dayHigh > 0 ? `$${dayHigh.toFixed(2)}` : "",
+    dayLow: Number(stats?.dayLow || 0) > 0 ? `$${Number(stats.dayLow).toFixed(2)}` : "",
+    changePct: current > 0 && previousClose > 0 ? `${changePct >= 0 ? "+" : ""}${changePct.toFixed(2)}%` : "",
+    fromHighPct: current > 0 && dayHigh > 0 ? `${fromHighPct >= 0 ? "+" : ""}${fromHighPct.toFixed(2)}%` : "",
+    reasons,
+    summary: reasons.length ? `${level} / ${reasons.join(" / ")}` : "폭락 징후 없음"
+  };
 }
 
 async function quoteNasdaq(symbol) {
@@ -158,18 +206,41 @@ async function quoteNasdaq(symbol) {
   const priceText = primary.lastSalePrice || secondary.lastSalePrice || "";
   const price = parseDollar(priceText);
   if (!price) throw new Error("nasdaq_price_missing");
+  const netChange = parseDollar(primary.netChange || secondary.netChange || "");
+  const pctText = String(primary.percentageChange || secondary.percentageChange || "").replace(/[^0-9.\-]/g, "");
+  const changePct = Number(pctText);
+  const previousClose = netChange ? price - netChange : (Number.isFinite(changePct) && changePct !== 0 ? price / (1 + changePct / 100) : 0);
+  const crashRisk = crashRiskFromQuote({ current: price, previousClose, changePct });
   return {
     symbol,
     name: cleanName(data.companyName || symbol, symbol) || symbol,
     market: "\uD574\uC678",
     currentPrice: `$${price.toFixed(2)}`,
+    previousClose: previousClose > 0 ? `$${previousClose.toFixed(2)}` : "",
+    changePct: Number.isFinite(changePct) ? `${changePct >= 0 ? "+" : ""}${changePct.toFixed(2)}%` : "",
+    crashRisk,
     source: primary.isRealTime ? "Nasdaq Real-Time" : "Nasdaq"
   };
 }
 
 async function quoteUs(symbol) {
   try {
-    return await quoteNasdaq(symbol);
+    const nasdaq = await quoteNasdaq(symbol);
+    const yahoo = await quoteYahoo(symbol).catch(() => null);
+    if (!yahoo?.crashRisk) return nasdaq;
+    return {
+      ...nasdaq,
+      dayHigh: yahoo.dayHigh || nasdaq.dayHigh,
+      dayLow: yahoo.dayLow || nasdaq.dayLow,
+      crashRisk: crashRiskFromQuote({
+        current: parseDollar(nasdaq.currentPrice),
+        previousClose: parseDollar(nasdaq.previousClose || yahoo.previousClose),
+        dayHigh: parseDollar(yahoo.dayHigh),
+        dayLow: parseDollar(yahoo.dayLow),
+        changePct: parseDollar(nasdaq.changePct)
+      }),
+      source: `${nasdaq.source}/Yahoo Chart`
+    };
   } catch (_) {
     return await quoteYahoo(symbol);
   }

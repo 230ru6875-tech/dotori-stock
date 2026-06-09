@@ -51,6 +51,19 @@ def market_risk_summary(item: dict) -> str:
     return " / ".join(parts)
 
 
+def crash_risk_summary(item: dict) -> str:
+    risk = item.get("crashRisk") if isinstance(item.get("crashRisk"), dict) else {}
+    level = clean_text(risk.get("level") or "주의보 없음")
+    if level == "주의보 없음":
+        return "주의보 없음"
+    change = clean_text(risk.get("changePct") or "")
+    from_high = clean_text(risk.get("fromHighPct") or "")
+    reasons = risk.get("reasons") if isinstance(risk.get("reasons"), list) else []
+    reason_text = " / ".join(clean_text(row) for row in reasons if clean_text(row))
+    parts = [level, f"전일대비 {change}" if change else "", f"고점대비 {from_high}" if from_high else "", reason_text]
+    return " / ".join(part for part in parts if part)
+
+
 def is_excluded_product(name: str) -> bool:
     lowered = name.lower()
     banned = [
@@ -207,6 +220,9 @@ def report_body(item: dict, data: dict) -> str:
         <li>60일선: {esc(ma60)}</li>
         <li>위험 또는 확인 요소: {esc(risk)}</li>
       </ul>
+
+      <h2>폭락주의보</h2>
+      <p>{esc(crash_risk_summary(item))}</p>
 
       <h2>밸류에이션 점검</h2>
       <table class="plain-table">

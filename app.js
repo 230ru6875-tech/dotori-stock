@@ -267,6 +267,7 @@ function applyLiveQuote(item) {
     name: stripSymbolFromName(quote.name, symbol) || item.name,
     market: quote.market || item.market,
     currentPrice: quote.currentPrice || item.currentPrice,
+    crashRisk: quote.crashRisk || item.crashRisk,
     quotedAt: quote.quotedAt || item.quotedAt
   };
 }
@@ -363,12 +364,13 @@ async function refreshUserStockReports() {
       currentPrice: quote.currentPrice || report.watchlist?.currentPrice || "",
       signal: report.watchlist?.signal || T.mockReview,
       movingAverage: report.watchlist?.movingAverage || "",
-      memo: report.watchlist?.memo || ""
+      memo: report.watchlist?.memo || "",
+      crashRisk: quote.crashRisk || report.watchlist?.crashRisk || report.crashRisk
     };
     return {
       ...item,
       name: stripSymbolFromName(quote.name, item.symbol) || item.name,
-      report: { ...report, ok: true, symbol: item.symbol, name: quote.name || item.name, market: quote.market, currentPrice: quote.currentPrice, watchlist },
+      report: { ...report, ok: true, symbol: item.symbol, name: quote.name || item.name, market: quote.market, currentPrice: quote.currentPrice, crashRisk: quote.crashRisk || report.crashRisk, watchlist },
       refreshedAt: new Date().toISOString()
     };
   }));
@@ -526,6 +528,28 @@ function marketRiskSummaryHtml(item) {
   const text = marketRiskSummaryText(item);
   return text ? `<p class="macro-line">유가 변수: ${escapeHtml(text)}</p>` : "";
 }
+function crashRiskFromItem(item) {
+  return item?.crashRisk || item?.analysis?.crashRisk || item?.watchlist?.crashRisk || item?.report?.crashRisk || item?.report?.watchlist?.crashRisk || item?.report?.analysis?.crashRisk || null;
+}
+function crashRiskSummaryText(item) {
+  const risk = crashRiskFromItem(item);
+  if (!risk || !risk.level || risk.level === "주의보 없음") return "";
+  const parts = [
+    risk.level,
+    risk.changePct ? `전일대비 ${risk.changePct}` : "",
+    risk.fromHighPct ? `고점대비 ${risk.fromHighPct}` : "",
+    Array.isArray(risk.reasons) ? risk.reasons.join(" / ") : risk.summary || ""
+  ].filter(Boolean);
+  return [...new Set(parts)].join(" / ");
+}
+function crashRiskSummaryHtml(item) {
+  const risk = crashRiskFromItem(item);
+  const text = crashRiskSummaryText(item);
+  if (!text) return "";
+  const level = String(risk?.level || "");
+  const cls = level === "폭락주의보" ? "crash-alert critical" : "crash-alert";
+  return `<p class="${cls}">폭락주의보: ${escapeHtml(text)}</p>`;
+}
 function priceClassForItem(item) {
   const purchase = Number(item?.purchasePrice || 0);
   const current = parseNumber(item?.currentPrice);
@@ -542,7 +566,7 @@ function priceBackgroundClassForItem(item) {
 }
 function signalSide(value) {
   const text = String(value || "");
-  if (/\ub9e4\ub3c4|\uc704\ud5d8|\uc774\ud0c8|\uc190\uc808|\uc8fc\uc758/i.test(text)) return "sell";
+  if (/\ub9e4\ub3c4|\uc704\ud5d8|\uc774\ud0c8|\uc190\uc808|\uc8fc\uc758|\ud3ed\ub77d|\uae09\ub77d/i.test(text)) return "sell";
   if (/\ub9e4\uc218|\uc0c1\uc2b9|\uac15\ud55c|\uc9c4\uc785|\ud68c\ubcf5|\ubcf4\uc720|\uac80\ud1a0/i.test(text)) return "buy";
   return "";
 }
@@ -553,21 +577,27 @@ function normalizedDisplayName(item) {
   return symbol ? `${stripped}(${symbol})` : stripped;
 }
 function signalLabelForItem(item, fallback = "\ub9e4\uc218") {
+  const crashRisk = crashRiskFromItem(item);
+  if (crashRisk?.level === "폭락주의보") return "폭락주의보";
+  if (crashRisk?.level === "급락경계") return "급락경계";
   const signal = String(item?.signal || item?.sentiment || item?.decision || fallback || "").trim();
   if (/\uac15\ud55c\s*\ub9e4\uc218/.test(signal)) return "\uac15\ud55c \ub9e4\uc218";
   if (/\ub9e4\uc218/.test(signal)) return "\ub9e4\uc218";
   if (/\uac15\ud55c\s*\ub9e4\ub3c4/.test(signal)) return "\uac15\ud55c \ub9e4\ub3c4";
-  if (/\ub9e4\ub3c4|\uc704\ud5d8|\uc774\ud0c8|\uc190\uc808|\uc8fc\uc758/.test(signal)) return "\ub9e4\ub3c4/\uc8fc\uc758";
+  if (/\ub9e4\ub3c4|\uc704\ud5d8|\uc774\ud0c8|\uc190\uc808|\uc8fc\uc758|\ud3ed\ub77d|\uae09\ub77d/.test(signal)) return "\ub9e4\ub3c4/\uc8fc\uc758";
   if (/\ubcf4\uc720/.test(signal)) return "\uad00\uc2ec\uad00\ucc30";
   return fallback;
 }
 function signalFeedType(label) {
   const text = String(label || "");
-  if (/\ub9e4\ub3c4|\uc704\ud5d8|\uc774\ud0c8|\uc190\uc808|\uc8fc\uc758/.test(text)) return "sell";
+  if (/\ub9e4\ub3c4|\uc704\ud5d8|\uc774\ud0c8|\uc190\uc808|\uc8fc\uc758|\ud3ed\ub77d|\uae09\ub77d/.test(text)) return "sell";
   if (/\ubcf4\uc720|\uad00\uc2ec|\uad00\ucc30/.test(text)) return "hold";
   return "buy";
 }
 function signalFeedActionLabel(item) {
+  const crashRisk = crashRiskFromItem(item);
+  if (crashRisk?.level === "폭락주의보") return "폭락주의보";
+  if (crashRisk?.level === "급락경계") return "급락경계";
   const type = signalFeedType(item?.feedLabel);
   if (type === "sell") return "\ub9e4\ub3c4/\uc8fc\uc758";
   if (type === "hold") return "\ub9e4\uc218/\uad00\uc2ec";
@@ -655,7 +685,7 @@ function signalFeedRows() {
   const sections = mergedSections(data);
   const watchRows = (sections.watchlist || []).filter((item) => userSymbols.has(normalizeSymbol(item.symbol)));
   const interestSignals = watchRows
-    .filter((item) => signalSide(item.signal || item.sentiment || item.decision))
+    .filter((item) => crashRiskSummaryText(item) || signalSide(item.signal || item.sentiment || item.decision))
     .map((item) => ({ ...item, feedLabel: signalLabelForItem(item) }));
   const nonInterestSignals = [
     ...(sections.scanner || []),
@@ -810,7 +840,7 @@ function userStockToWatchlist(item) {
     const resolvedName = stripSymbolFromName(base.name || item.name, item.symbol) || nameLookup().get(item.symbol) || item.symbol;
     const memoParts = [base.memo || ""];
     if (hasPrice) memoParts.push(`\uad6c\uc785\uac00 ${price.toLocaleString()}\uc744 \uae30\uc900\uc73c\ub85c \uac80\ud1a0\ud569\ub2c8\ub2e4.`);
-    return { ...base, name: resolvedName, market: displayMarket(base.market || marketName(item.symbol)), currentPrice: current, purchasePrice: price, memo: memoParts.filter(Boolean).join(" / "), userAdded: true };
+    return { ...base, name: resolvedName, market: displayMarket(base.market || marketName(item.symbol)), currentPrice: current, purchasePrice: price, crashRisk: base.crashRisk || directory?.crashRisk || report?.crashRisk, memo: memoParts.filter(Boolean).join(" / "), userAdded: true };
   }
   const resolvedName = stripSymbolFromName(item.name, item.symbol) || nameLookup().get(item.symbol) || item.symbol;
   return {
@@ -962,7 +992,7 @@ function renderDashboard() {
       const displayName = !item.name || item.name === item.symbol ? item.symbol : `${item.name} <span>(${item.symbol})</span>`;
       const priceLine = item.currentPrice ? `<p class="price ${priceClassForItem(item)}"><span>${T.currentPrice}:</span> ${formatDisplayPrice(item.currentPrice, item)}</p>` : "";
       const marketLinks = item.symbol ? ` <a class="market-link" href="${tossStockUrl(item.symbol)}" target="_blank" rel="noopener">토스증권</a> <a class="market-link" href="${naverStockUrl(item)}" target="_blank" rel="noopener">네이버증권</a>` : "";
-      return `<article class="data-card clickable-card watch-card ${priceBackgroundClassForItem(item)}" data-chart-symbol="${item.symbol}"><div class="card-top"><strong>${displayName}</strong><em>${displayMarket(item.market)}</em></div>${priceLine}<p><b class="${signalClass(item.signal)}">${item.signal}</b>${item.movingAverage ? ` / ${item.movingAverage}` : ""}</p>${valuationSummaryHtml(item)}${marketRiskSummaryHtml(item)}<p>${item.memo}${marketLinks}</p><div class="watch-chart-popover">${watchlistMiniChartSvg(item)}</div>${item.userAdded ? `<button class="small-button" data-remove-symbol="${item.symbol}" type="button">${T.remove}</button>` : ""}</article>`;
+      return `<article class="data-card clickable-card watch-card ${priceBackgroundClassForItem(item)}" data-chart-symbol="${item.symbol}"><div class="card-top"><strong>${displayName}</strong><em>${displayMarket(item.market)}</em></div>${priceLine}<p><b class="${signalClass(item.signal)}">${item.signal}</b>${item.movingAverage ? ` / ${item.movingAverage}` : ""}</p>${crashRiskSummaryHtml(item)}${valuationSummaryHtml(item)}${marketRiskSummaryHtml(item)}<p>${item.memo}${marketLinks}</p><div class="watch-chart-popover">${watchlistMiniChartSvg(item)}</div>${item.userAdded ? `<button class="small-button" data-remove-symbol="${item.symbol}" type="button">${T.remove}</button>` : ""}</article>`;
     });
   } else if (state.activeSection === "scanner") {
     const marketRows = (marketLabel) => active.filter((item) => displayMarket(item.market || marketName(item.symbol)) === marketLabel);
@@ -1002,9 +1032,9 @@ function renderDashboard() {
       if (Array.isArray(item.sections)) {
         const sections = Array.isArray(item.sections) ? item.sections : [];
         const sectionHtml = sections.map((section) => `<section class="report-section"><h3>${section.heading}</h3><ul>${(section.items || []).map((line) => `<li>${line}</li>`).join("")}</ul></section>`).join("");
-        return `<article class="report-card"><div class="report-head"><div><strong>${item.title}</strong><p>${item.updatedAt || ""}</p></div><em>${T.report}</em></div><p class="report-summary">${item.summary || item.body || ""}</p>${valuationSummaryHtml(item)}${marketRiskSummaryHtml(item)}${sectionHtml}</article>`;
+        return `<article class="report-card"><div class="report-head"><div><strong>${item.title}</strong><p>${item.updatedAt || ""}</p></div><em>${T.report}</em></div><p class="report-summary">${item.summary || item.body || ""}</p>${crashRiskSummaryHtml(item)}${valuationSummaryHtml(item)}${marketRiskSummaryHtml(item)}${sectionHtml}</article>`;
       }
-      return `<article class="data-card"><div class="card-top"><strong>${item.title}</strong><em>${T.report}</em></div>${valuationSummaryHtml(item)}${marketRiskSummaryHtml(item)}<p>${item.body}</p></article>`;
+      return `<article class="data-card"><div class="card-top"><strong>${item.title}</strong><em>${T.report}</em></div>${crashRiskSummaryHtml(item)}${valuationSummaryHtml(item)}${marketRiskSummaryHtml(item)}<p>${item.body}</p></article>`;
     });
   } else {
     grid.innerHTML = renderCards(active, (item) => `<article class="data-card"><div class="card-top"><strong>${item.title || "-"}</strong><em>${T.report}</em></div><p>${item.body || ""}</p></article>`);

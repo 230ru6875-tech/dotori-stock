@@ -635,6 +635,23 @@ button:hover {
   padding: 6px 8px;
 }
 
+.crash-alert {
+  background: #fff1f2;
+  border: 1px solid #fda4af;
+  border-radius: 6px;
+  color: #9f1239;
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.45;
+  padding: 7px 9px;
+}
+
+.crash-alert.critical {
+  background: #fee2e2;
+  border-color: #ef4444;
+  color: #991b1b;
+}
+
 .watch-chart-popover {
   background: #ffffff;
   border: 1px solid var(--line);

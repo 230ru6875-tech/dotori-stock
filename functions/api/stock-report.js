@@ -333,6 +333,92 @@ async function lookupTossName(symbol) {
 }
 
 async function lookupYahoo(symbol) {
+  const [dailyResponse, intradayResponse] = await Promise.all([
+    fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?range=3mo&interval=1d`, {
+      headers: { "user-agent": "Mozilla/5.0 DotoriWeb/1.0" }
+    }),
+    fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?range=1d&interval=1m`, {
+      headers: { "user-agent": "Mozilla/5.0 DotoriWeb/1.0" }
+    })
+  ]);
+  if (!dailyResponse.ok) throw new Error(`HTTP ${dailyResponse.status}`);
+  const dailyPayload = await dailyResponse.json();
+  const intradayPayload = intradayResponse.ok ? await intradayResponse.json() : null;
+  const dailyResult = dailyPayload?.chart?.result?.[0];
+  const intradayResult = intradayPayload?.chart?.result?.[0];
+  const dailyCloses = (dailyResult?.indicators?.quote?.[0]?.close || []).filter((value) => typeof value === "number");
+  const intradayQuote = intradayResult?.indicators?.quote?.[0] || {};
+  const intradayCloses = (intradayQuote.close || []).filter((value) => typeof value === "number");
+  const intradayHighs = (intradayQuote.high || []).filter((value) => typeof value === "number");
+  const meta = intradayResult?.meta || dailyResult?.meta || {};
+  const current = Number(meta.regularMarketPrice || intradayCloses[intradayCloses.length - 1] || dailyCloses[dailyCloses.length - 1] || 0);
+  const previousClose = Number(meta.previousClose || dailyCloses[dailyCloses.length - 2] || 0);
+  const dayHigh = Number(meta.regularMarketDayHigh || Math.max(...intradayHighs, 0));
+  const lowCandidates = intradayCloses.filter((value) => value > 0);
+  const dayLow = Number(meta.regularMarketDayLow || (lowCandidates.length ? Math.min(...lowCandidates) : 0));
+  const changePct = current > 0 && previousClose > 0 ? ((current / previousClose) - 1) * 100 : 0;
+  const fromHighPct = current > 0 && dayHigh > 0 ? ((current / dayHigh) - 1) * 100 : 0;
+  return { current, closes: dailyCloses, previousClose, dayHigh, dayLow, changePct, fromHighPct };
+}
+
+function crashWarning(base, moving, valuation, oilRisk) {
+  const current = Number(base?.current || 0);
+  const previousClose = Number(base?.previousClose || 0);
+  const dayHigh = Number(base?.dayHigh || 0);
+  const changePct = Number(base?.changePct || 0);
+  const fromHighPct = Number(base?.fromHighPct || 0);
+  const ma20 = Number(moving?.ma20 || 0);
+  const per = Number(String(valuation?.per || "").replace(/,/g, ""));
+  const pbr = Number(String(valuation?.pbr || "").replace(/,/g, ""));
+  const oilText = `${oilRisk?.direction || ""} ${oilRisk?.changePct || ""}`;
+  const reasons = [];
+  let score = 0;
+  if (changePct <= -7) {
+    score += 4;
+    reasons.push(`전일 대비 ${changePct.toFixed(2)}% 급락`);
+  } else if (changePct <= -4) {
+    score += 2;
+    reasons.push(`전일 대비 ${changePct.toFixed(2)}% 하락`);
+  }
+  if (fromHighPct <= -7) {
+    score += 4;
+    reasons.push(`장중 고점 대비 ${fromHighPct.toFixed(2)}% 이탈`);
+  } else if (fromHighPct <= -5) {
+    score += 3;
+    reasons.push(`장중 고점 대비 ${fromHighPct.toFixed(2)}% 하락`);
+  }
+  if (current > 0 && ma20 > 0 && current < ma20) {
+    score += 2;
+    reasons.push("20일선 이탈");
+  }
+  if ((Number.isFinite(per) && per >= 25) || (Number.isFinite(pbr) && pbr >= 3)) {
+    score += 1;
+    reasons.push("밸류에이션 부담");
+  }
+  if (/유가 상승/.test(oilText)) {
+    score += 1;
+    reasons.push("유가상승발 금리 부담");
+  }
+  let level = "";
+  if (score >= 6) level = "폭락주의보";
+  else if (score >= 3) level = "급락경계";
+  else if (score >= 1) level = "변동성 주의";
+  else level = "주의보 없음";
+  return {
+    level,
+    score,
+    current: current > 0 ? `$${current.toFixed(2)}` : "",
+    previousClose: previousClose > 0 ? `$${previousClose.toFixed(2)}` : "",
+    dayHigh: dayHigh > 0 ? `$${dayHigh.toFixed(2)}` : "",
+    dayLow: Number(base?.dayLow || 0) > 0 ? `$${Number(base.dayLow).toFixed(2)}` : "",
+    changePct: current > 0 && previousClose > 0 ? `${changePct >= 0 ? "+" : ""}${changePct.toFixed(2)}%` : "",
+    fromHighPct: current > 0 && dayHigh > 0 ? `${fromHighPct >= 0 ? "+" : ""}${fromHighPct.toFixed(2)}%` : "",
+    reasons,
+    summary: reasons.length ? `${level} / ${reasons.join(" / ")}` : "폭락 징후 없음"
+  };
+}
+
+async function lookupYahooLegacy(symbol) {
   const response = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?range=3mo&interval=1d`, {
     headers: { "user-agent": "Mozilla/5.0 DotoriWeb/1.0" }
   });
@@ -356,6 +442,13 @@ async function lookupUs(symbol) {
     market: TXT.us,
     source: "Toss/Yahoo",
     closes: yahoo.closes,
+    marketStats: {
+      previousClose: yahoo.previousClose || 0,
+      dayHigh: yahoo.dayHigh || 0,
+      dayLow: yahoo.dayLow || 0,
+      changePct: yahoo.changePct || 0,
+      fromHighPct: yahoo.fromHighPct || 0
+    },
     valuation: emptyValuation("Yahoo Finance")
   };
 }
@@ -415,6 +508,10 @@ export async function onRequestGet(context) {
     const oilRisk = await lookupOilMarketRisk();
     const news = await lookupNews(`${base.name || symbol} ${symbol}`);
     const moving = isDomestic ? { ma20: "", ma60: "", decision: TXT.wait } : movingSignal(base.closes || []);
+    const crashRisk = isDomestic
+      ? crashWarning({}, moving, base.valuation || emptyValuation(base.source), oilRisk)
+      : crashWarning({ current: Number(String(base.currentPrice || "").replace(/[^0-9.]/g, "")), ...(base.marketStats || {}) }, moving, base.valuation || emptyValuation(base.source), oilRisk);
+    const watchSignal = /폭락주의보|급락경계/.test(crashRisk.level) ? crashRisk.level : TXT.observe;
     const currentNumber = Number(String(base.currentPrice || "").replace(/[^0-9.]/g, ""));
     const mock = purchasePrice > 0 && currentNumber > 0
       ? `${TXT.mockInvestment}: ${(((currentNumber / purchasePrice) - 1) * 100).toFixed(2)}%`
@@ -427,6 +524,7 @@ export async function onRequestGet(context) {
       currentPrice: base.currentPrice || "-",
       valuation: base.valuation || emptyValuation(base.source),
       marketRisk: oilRisk,
+      crashRisk,
       savedAt: new Date().toISOString(),
       scanner: {
         title: base.name || symbol,
@@ -439,11 +537,12 @@ export async function onRequestGet(context) {
         name: base.name || symbol,
         market: base.market,
         currentPrice: base.currentPrice || "-",
-        signal: TXT.observe,
+        signal: watchSignal,
         movingAverage: moving.decision,
         memo: news[0] || TXT.wait,
         valuation: base.valuation || emptyValuation(base.source),
-        marketRisk: oilRisk
+        marketRisk: oilRisk,
+        crashRisk
       },
       learning: {
         topic: `${TXT.mockInvestment} - ${symbol}`,
@@ -460,7 +559,8 @@ export async function onRequestGet(context) {
         title: `${TXT.analysis} - ${base.name || symbol}`,
         body: news.length ? news.join(" / ") : TXT.wait,
         valuation: base.valuation || emptyValuation(base.source),
-        marketRisk: oilRisk
+        marketRisk: oilRisk,
+        crashRisk
       },
       sources: [base.source, oilRisk.source, "Naver News Search"].filter(Boolean)
     };
