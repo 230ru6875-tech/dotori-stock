@@ -626,6 +626,47 @@ function crashRiskSummaryHtml(item) {
   const cls = level === "폭락주의보" ? "crash-alert critical" : "crash-alert";
   return `<p class="${cls}">폭락주의보: ${escapeHtml(text)}</p>`;
 }
+function spikeReasonFromItem(item) {
+  const symbol = normalizeSymbol(item?.symbol || "");
+  if (!symbol) return null;
+  const data = state.data || {};
+  const rows = [
+    ...(data.spikes || []),
+    ...(data.deepAnalysis || []),
+    ...(data.scanner || []),
+    ...(data.movingAverages || []),
+    item?.report?.watchlist,
+    item?.report
+  ].filter((row) => normalizeSymbol(row?.symbol || "") === symbol);
+  const risk = crashRiskFromItem(item);
+  const reasons = [];
+  const spike = rows.find((row) => row && (row.change || /급등|급락|하락|폭락|상승/.test(`${row.range || ""} ${row.note || ""}`)));
+  if (spike) {
+    const direction = spikeDirection(spike);
+    const label = direction === "down" ? "급락" : "급등";
+    const change = spike.change ? `등락률 ${spike.change}` : "";
+    const note = String(spike.note || "").split(" / ").slice(0, 2).join(" / ");
+    reasons.push(`${label} 감지${change ? `: ${change}` : ""}${note ? ` / ${note}` : ""}`);
+  }
+  if (risk && risk.level && risk.level !== "주의보 없음") {
+    const riskReasons = Array.isArray(risk.reasons) ? risk.reasons.slice(0, 2).join(" / ") : (risk.summary || "");
+    reasons.push(`하락 위험: ${risk.level}${riskReasons ? ` / ${riskReasons}` : ""}`);
+  }
+  const tech = technicalSummaryText(item);
+  if (tech) reasons.push(`기술: ${tech}`);
+  const macro = macroEventRiskSummaryText(item);
+  if (macro) reasons.push(`이벤트: ${macro}`);
+  const unique = [...new Set(reasons.filter(Boolean))].slice(0, 3);
+  if (!unique.length) return null;
+  return unique.join(" / ");
+}
+function spikeReasonHtml(item) {
+  const text = spikeReasonFromItem(item);
+  if (!text) return "";
+  const direction = spikeDirection(item);
+  const cls = direction === "down" ? "spike-reason down-reason" : "spike-reason up-reason";
+  return `<p class="${cls}">급등락 분석: ${escapeHtml(text)}</p>`;
+}
 function priceClassForItem(item) {
   const purchase = Number(item?.purchasePrice || 0);
   const current = parseNumber(item?.currentPrice);
@@ -1079,7 +1120,7 @@ function renderDashboard() {
       const displayName = !item.name || item.name === item.symbol ? item.symbol : `${item.name} <span>(${item.symbol})</span>`;
       const priceLine = item.currentPrice ? `<p class="price ${priceClassForItem(item)}"><span>${T.currentPrice}:</span> ${formatDisplayPrice(item.currentPrice, item)}</p>` : "";
       const marketLinks = item.symbol ? ` <a class="market-link" href="${tossStockUrl(item.symbol)}" target="_blank" rel="noopener">토스증권</a> <a class="market-link" href="${naverStockUrl(item)}" target="_blank" rel="noopener">네이버증권</a>` : "";
-      return `<article class="data-card clickable-card watch-card ${priceBackgroundClassForItem(item)}" data-chart-symbol="${item.symbol}"><div class="card-top"><strong>${displayName}</strong><em>${displayMarket(item.market)}</em></div>${priceLine}<p><b class="${signalClass(item.signal)}">${item.signal}</b>${item.movingAverage ? ` / ${item.movingAverage}` : ""}</p>${crashRiskSummaryHtml(item)}${macroEventRiskSummaryHtml(item)}${fairValueSummaryHtml(item)}${technicalSummaryHtml(item)}${valuationSummaryHtml(item)}${marketRiskSummaryHtml(item)}<p>${item.memo}${marketLinks}</p><div class="watch-chart-popover">${watchlistMiniChartSvg(item)}</div>${item.userAdded ? `<button class="small-button" data-remove-symbol="${item.symbol}" type="button">${T.remove}</button>` : ""}</article>`;
+      return `<article class="data-card clickable-card watch-card ${priceBackgroundClassForItem(item)}" data-chart-symbol="${item.symbol}"><div class="card-top"><strong>${displayName}</strong><em>${displayMarket(item.market)}</em></div>${priceLine}<p><b class="${signalClass(item.signal)}">${item.signal}</b>${item.movingAverage ? ` / ${item.movingAverage}` : ""}</p>${spikeReasonHtml(item)}${crashRiskSummaryHtml(item)}${macroEventRiskSummaryHtml(item)}${fairValueSummaryHtml(item)}${technicalSummaryHtml(item)}${valuationSummaryHtml(item)}${marketRiskSummaryHtml(item)}<p>${item.memo}${marketLinks}</p><div class="watch-chart-popover">${watchlistMiniChartSvg(item)}</div>${item.userAdded ? `<button class="small-button" data-remove-symbol="${item.symbol}" type="button">${T.remove}</button>` : ""}</article>`;
     });
   } else if (state.activeSection === "scanner") {
     const marketRows = (marketLabel) => active.filter((item) => displayMarket(item.market || marketName(item.symbol)) === marketLabel);

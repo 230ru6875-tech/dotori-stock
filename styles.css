@@ -672,6 +672,26 @@ button:hover {
   color: #991b1b;
 }
 
+.spike-reason {
+  border-radius: 6px;
+  font-size: 0.96rem;
+  font-weight: 700;
+  line-height: 1.45;
+  padding: 7px 9px;
+}
+
+.spike-reason.up-reason {
+  background: #fff1f2;
+  border: 1px solid #fecdd3;
+  color: #9f1239;
+}
+
+.spike-reason.down-reason {
+  background: #dbeafe;
+  border: 1px solid #93c5fd;
+  color: #1d4ed8;
+}
+
 .watch-chart-popover {
   background: #ffffff;
   border: 1px solid var(--line);
