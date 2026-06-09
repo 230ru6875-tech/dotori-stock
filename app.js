@@ -476,12 +476,41 @@ function signalLabelForItem(item, fallback = "\ub9e4\uc218") {
   if (/\ubcf4\uc720/.test(signal)) return "\ubcf4\uc720";
   return fallback;
 }
+function kstParts(date = new Date()) {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "Asia/Seoul",
+    weekday: "short",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false
+  }).formatToParts(date).reduce((acc, part) => {
+    acc[part.type] = part.value;
+    return acc;
+  }, {});
+  return {
+    weekday: parts.weekday,
+    minutes: Number(parts.hour || 0) * 60 + Number(parts.minute || 0)
+  };
+}
+function isMarketOpenForItem(item, date = new Date()) {
+  const market = displayMarket(item?.market || marketName(item?.symbol || ""));
+  const { weekday, minutes } = kstParts(date);
+  const isWeekday = ["Mon", "Tue", "Wed", "Thu", "Fri"].includes(weekday);
+  if (market === T.domestic) {
+    return isWeekday && minutes >= 9 * 60 && minutes <= 15 * 60 + 30;
+  }
+  const usEveningOpen = isWeekday && minutes >= 22 * 60 + 30;
+  const usEarlyOpen = ["Tue", "Wed", "Thu", "Fri", "Sat"].includes(weekday) && minutes < 5 * 60;
+  return usEveningOpen || usEarlyOpen;
+}
 function signalFeedRows() {
   const data = state.data || {};
+  const now = new Date();
   const userSymbols = new Set(state.userStocks.map((item) => normalizeSymbol(item.symbol)).filter(Boolean));
   const sections = mergedSections(data);
   const watchRows = (sections.watchlist || []).filter((item) => userSymbols.has(normalizeSymbol(item.symbol)));
   const interestSignals = watchRows
+    .filter((item) => isMarketOpenForItem(item, now))
     .filter((item) => signalSide(item.signal || item.sentiment || item.decision))
     .map((item) => ({ ...item, feedLabel: signalLabelForItem(item) }));
   const nonInterestSignals = [
@@ -492,6 +521,7 @@ function signalFeedRows() {
     .filter((item) => {
       const symbol = normalizeSymbol(item.symbol);
       if (!symbol || userSymbols.has(symbol)) return false;
+      if (!isMarketOpenForItem(item, now)) return false;
       return signalSide(item.signal || item.sentiment || item.decision) === "buy";
     })
     .map((item) => {
@@ -509,10 +539,9 @@ function signalFeedRows() {
     deduped.push(item);
   });
   if (!deduped.length) return [];
-  const now = new Date();
   const bucketMs = 5 * 60 * 1000;
   const base = new Date(Math.floor(now.getTime() / bucketMs) * bucketMs);
-  return [2, 1, 0].map((slot) => {
+  return [0, 1, 2].map((slot) => {
     const time = new Date(base.getTime() - slot * bucketMs);
     const start = slot;
     const count = Math.min(3, deduped.length);

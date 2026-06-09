@@ -256,6 +256,8 @@ h3 {
 .signal-feed-lines {
   display: grid;
   gap: 4px;
+  overflow-x: auto;
+  padding-bottom: 4px;
 }
 
 .signal-feed-lines p {
@@ -264,7 +266,8 @@ h3 {
   font-size: 17px;
   line-height: 1.5;
   margin: 0;
-  overflow-wrap: anywhere;
+  min-width: max-content;
+  white-space: nowrap;
 }
 
 button {
