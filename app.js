@@ -1,5 +1,6 @@
 const state = { data: null, activeSection: "watchlist", userStocks: [], selectedMovingSymbol: "", scannerMarketFirst: "domestic", quotes: {} };
 const USER_STOCKS_KEY = "dotori.userStocks.v1";
+const USER_KEY = "dotori.userKey.v1";
 const REPORT_STORE_KEY = "dotori.stockReports.v1";
 const USER_STOCKS_MIGRATION_KEY = "dotori.userStocks.migration.v4";
 const INITIAL_SERVER_SYMBOLS = new Set(["011070", "MU"]);
@@ -70,6 +71,18 @@ function setStatus(message) {
   status.hidden = !message;
 }
 function renderCards(items, mapper) { return items.map(mapper).join(""); }
+function browserUserKey() {
+  try {
+    let value = localStorage.getItem(USER_KEY);
+    if (!value) {
+      value = crypto?.randomUUID ? crypto.randomUUID() : `web-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+      localStorage.setItem(USER_KEY, value);
+    }
+    return value;
+  } catch {
+    return "web-anonymous";
+  }
+}
 function signalClass(value) {
   if (/\ub9e4\uc218|\uc0c1\uc2b9|\ud68c\ubcf5|\ubcf4\uc720|\uac80\ud1a0/i.test(value)) return "up";
   if (/\ub9e4\ub3c4|\uc704\ud5d8|\uc774\ud0c8|\ubcf4\ub958/i.test(value)) return "down";
@@ -314,6 +327,32 @@ async function lookupQuote(symbol) {
     return payload && payload.ok ? payload : null;
   } catch {
     return null;
+  }
+}
+async function saveWebWatchlistInterest(item, action = "add") {
+  if (!item || !item.symbol) return;
+  try {
+    const report = item.report || {};
+    const watchlist = report.watchlist || {};
+    const payload = {
+      action,
+      userKey: browserUserKey(),
+      symbol: normalizeSymbol(item.symbol),
+      name: stripSymbolFromName(item.name || watchlist.name || report.name, item.symbol) || item.symbol,
+      market: displayMarket(watchlist.market || report.market || marketName(item.symbol)),
+      purchasePrice: Number(item.purchasePrice || 0),
+      source: "dotori-web",
+      quote: state.quotes?.[normalizeSymbol(item.symbol)] || null,
+      report
+    };
+    await fetch("/api/watchlist", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(payload),
+      cache: "no-store"
+    });
+  } catch (error) {
+    console.warn("watchlist_save_failed", error);
   }
 }
 async function refreshUserStockReports() {
@@ -726,8 +765,10 @@ function renderDashboard() {
     button.addEventListener("click", (event) => {
       event.stopPropagation();
       const symbol = button.dataset.removeSymbol;
+      const removed = state.userStocks.find((item) => item.symbol === symbol);
       state.userStocks = state.userStocks.filter((item) => item.symbol !== symbol);
       saveUserStocks();
+      if (removed) saveWebWatchlistInterest(removed, "remove");
       setStatus(`${symbol} ${T.removed}`);
       renderDashboard();
     });
@@ -971,6 +1012,7 @@ function setupSymbolForm() {
     }
     state.userStocks = [next, ...state.userStocks.filter((item) => item.symbol !== symbol)].slice(0, 30);
     saveUserStocks();
+    saveWebWatchlistInterest(next, "add");
     symbolInput.value = ""; nameInput.value = ""; if (priceInput) priceInput.value = "";
     updateSymbolHint();
     state.activeSection = "watchlist";
