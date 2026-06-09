@@ -8,6 +8,8 @@ const USER_STOCKS_MIGRATION_KEY = "dotori.userStocks.migration.v4";
 const INITIAL_SERVER_SYMBOLS = new Set(["011070", "MU"]);
 let symbolDirectory = {};
 const DATA_REFRESH_MS = 5000;
+const MARKET_CLOSE_GRACE_MINUTES = 5;
+const US_MARKET_CLOSE_KST_MINUTES = 10 * 60;
 const T = {
   connected: "",
   loadFail: "\ub370\uc774\ud130\ub97c \ubd88\ub7ec\uc624\uc9c0 \ubabb\ud588\uc2b5\ub2c8\ub2e4. \uc7a0\uc2dc \ud6c4 \ub2e4\uc2dc \ud655\uc778\ud574 \uc8fc\uc138\uc694.",
@@ -465,6 +467,21 @@ function naverStockUrl(item) {
   const name = stripSymbolFromName(item?.name || item?.title || "", symbol) || symbol;
   return `https://search.naver.com/search.naver?query=${encodeURIComponent(`${name} ${symbol} 주가`)}`;
 }
+function formatDisplayPrice(value, item) {
+  const raw = String(value || "").trim();
+  if (!raw || /조회|대기|-/.test(raw)) return raw;
+  const market = displayMarket(item?.market || marketName(item?.symbol || ""));
+  if (market === T.domestic) {
+    if (/원/.test(raw)) return raw;
+    const price = parseNumber(raw);
+    return price > 0 ? `${Math.round(price).toLocaleString()}원` : raw;
+  }
+  if (/^\$/.test(raw)) return raw;
+  const price = parseNumber(raw);
+  if (price <= 0) return raw;
+  const hasDecimal = /\.\d+/.test(raw);
+  return `$${price.toLocaleString(undefined, { minimumFractionDigits: hasDecimal ? 2 : 0, maximumFractionDigits: 2 })}`;
+}
 function priceClassForItem(item) {
   const purchase = Number(item?.purchasePrice || 0);
   const current = parseNumber(item?.currentPrice);
@@ -548,10 +565,10 @@ function isMarketOpenForItem(item, date = new Date()) {
   const { weekday, minutes } = kstParts(date);
   const isWeekday = ["Mon", "Tue", "Wed", "Thu", "Fri"].includes(weekday);
   if (market === T.domestic) {
-    return isWeekday && minutes >= 8 * 60 + 30 && minutes <= 18 * 60;
+    return isWeekday && minutes >= 8 * 60 + 30 && minutes <= 18 * 60 + MARKET_CLOSE_GRACE_MINUTES;
   }
   const usEveningOpen = isWeekday && minutes >= 17 * 60;
-  const usEarlyOpen = ["Tue", "Wed", "Thu", "Fri", "Sat"].includes(weekday) && minutes <= 9 * 60;
+  const usEarlyOpen = ["Tue", "Wed", "Thu", "Fri", "Sat"].includes(weekday) && minutes <= US_MARKET_CLOSE_KST_MINUTES + MARKET_CLOSE_GRACE_MINUTES;
   return usEveningOpen || usEarlyOpen;
 }
 function marketSignalWindowForItem(item, date = new Date()) {
@@ -560,7 +577,7 @@ function marketSignalWindowForItem(item, date = new Date()) {
   const isWeekday = ["Mon", "Tue", "Wed", "Thu", "Fri"].includes(weekday);
   if (market === T.domestic) {
     return {
-      open: isWeekday && minutes >= 8 * 60 + 30 && minutes <= 18 * 60,
+      open: isWeekday && minutes >= 8 * 60 + 30 && minutes <= 18 * 60 + MARKET_CLOSE_GRACE_MINUTES,
       preOpen: isWeekday && minutes >= 8 * 60 + 20 && minutes < 8 * 60 + 30
     };
   }
@@ -881,7 +898,7 @@ function renderDashboard() {
   if (state.activeSection === "watchlist") {
     grid.innerHTML = renderCards(active, (item) => {
       const displayName = !item.name || item.name === item.symbol ? item.symbol : `${item.name} <span>(${item.symbol})</span>`;
-      const priceLine = item.currentPrice ? `<p class="price ${priceClassForItem(item)}"><span>${T.currentPrice}:</span> ${item.currentPrice}</p>` : "";
+      const priceLine = item.currentPrice ? `<p class="price ${priceClassForItem(item)}"><span>${T.currentPrice}:</span> ${formatDisplayPrice(item.currentPrice, item)}</p>` : "";
       const marketLinks = item.symbol ? ` <a class="market-link" href="${tossStockUrl(item.symbol)}" target="_blank" rel="noopener">토스증권</a> <a class="market-link" href="${naverStockUrl(item)}" target="_blank" rel="noopener">네이버증권</a>` : "";
       return `<article class="data-card clickable-card watch-card ${priceBackgroundClassForItem(item)}" data-chart-symbol="${item.symbol}"><div class="card-top"><strong>${displayName}</strong><em>${displayMarket(item.market)}</em></div>${priceLine}<p><b class="${signalClass(item.signal)}">${item.signal}</b>${item.movingAverage ? ` / ${item.movingAverage}` : ""}</p><p>${item.memo}${marketLinks}</p><div class="watch-chart-popover">${watchlistMiniChartSvg(item)}</div>${item.userAdded ? `<button class="small-button" data-remove-symbol="${item.symbol}" type="button">${T.remove}</button>` : ""}</article>`;
     });

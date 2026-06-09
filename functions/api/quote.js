@@ -53,16 +53,65 @@ async function fetchText(url) {
   }
 }
 
+async function fetchJson(url) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 3500);
+  try {
+    const response = await fetch(url, {
+      signal: controller.signal,
+      headers: {
+        "user-agent": "Mozilla/5.0 DotoriWeb/1.0",
+        "accept": "application/json",
+        "referer": "https://finance.naver.com"
+      }
+    });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return await response.json();
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+function cleanPrice(value) {
+  return String(value || "").replace(/,/g, "").trim();
+}
+
+function naverRealtimePrice(payload) {
+  const rows = Array.isArray(payload?.datas) ? payload.datas : [];
+  const item = rows.find((row) => row && typeof row === "object") || {};
+  const overInfo = item.overMarketPriceInfo && typeof item.overMarketPriceInfo === "object" ? item.overMarketPriceInfo : {};
+  if (String(overInfo.overMarketStatus || "").toUpperCase() === "OPEN") {
+    const overPrice = Number(cleanPrice(overInfo.overPrice));
+    if (overPrice > 0) return String(Math.round(overPrice));
+  }
+  const closePrice = Number(cleanPrice(item.closePriceRaw || item.closePrice));
+  return closePrice > 0 ? String(Math.round(closePrice)) : "";
+}
+
+async function quoteDomesticRealtime(symbol) {
+  const payload = await fetchJson(`https://polling.finance.naver.com/api/realtime/domestic/stock/${symbol}`);
+  const row = Array.isArray(payload?.datas) ? payload.datas[0] : null;
+  return {
+    name: cleanName(row?.stockName || "", symbol),
+    currentPrice: naverRealtimePrice(payload),
+    source: "Naver Finance Realtime"
+  };
+}
+
 async function quoteDomestic(symbol) {
-  const html = await fetchText(`https://finance.naver.com/item/main.naver?code=${symbol}`);
+  let realtime = {};
+  try {
+    realtime = await quoteDomesticRealtime(symbol);
+  } catch (_) {}
+  const html = realtime.currentPrice && realtime.name ? "" : await fetchText(`https://finance.naver.com/item/main.naver?code=${symbol}`);
   const titleMatch = html.match(/<title[^>]*>([^<]+)<\/title>/i);
   const priceMatch = html.match(/<p[^>]+class=["']no_today["'][\s\S]*?<span[^>]+class=["']blind["']>([^<]+)<\/span>/i);
   return {
     symbol,
-    name: naverCompanyName(html, symbol) || cleanName(titleMatch?.[1], symbol) || symbol,
+    name: realtime.name || naverCompanyName(html, symbol) || cleanName(titleMatch?.[1], symbol) || symbol,
     market: "\uAD6D\uB0B4",
-    currentPrice: cleanHtml(priceMatch?.[1] || ""),
-    source: "Naver Finance"
+    currentPrice: realtime.currentPrice || cleanHtml(priceMatch?.[1] || ""),
+    source: realtime.currentPrice ? (realtime.source || "Naver Finance Realtime") : "Naver Finance"
   };
 }
 
