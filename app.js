@@ -551,20 +551,8 @@ function signalFeedRows() {
     const start = slot;
     const count = Math.min(3, deduped.length);
     const items = Array.from({ length: count }, (_, index) => deduped[(start + index) % deduped.length]);
-    const buyItems = items.filter((item) => signalFeedType(item.feedLabel) === "buy");
-    const holdItems = items.filter((item) => signalFeedType(item.feedLabel) === "hold");
-    const sellItems = items.filter((item) => signalFeedType(item.feedLabel) === "sell");
-    let label = "\uc2ec\uce35\ubd84\uc11d \ub9e4\uc218\uc2e0\ud638 \uc804\ub2ec";
-    if (sellItems.length && !buyItems.length && !holdItems.length) {
-      label = "\uc2ec\uce35\ubd84\uc11d \ub9e4\ub3c4/\uc8fc\uc758\uc2e0\ud638 \uc804\ub2ec";
-    } else if (holdItems.length && !buyItems.length) {
-      label = "\uc2ec\uce35\ubd84\uc11d \uad00\uc2ec\uad00\ucc30\uc2e0\ud638 \uc804\ub2ec";
-    } else if (holdItems.length) {
-      label = "\uc2ec\uce35\ubd84\uc11d \ub9e4\uc218/\uad00\uc2ec\uc2e0\ud638 \uc804\ub2ec";
-    }
-    const bodyItems = sellItems.length && !buyItems.length && !holdItems.length ? sellItems : items;
-    const body = bodyItems.map((item) => [normalizedDisplayName(item), item.feedLabel].filter(Boolean).join(" ")).join(", ");
-    return `[${fmtClock(time)}] ${label}: ${body}`;
+    const body = items.map((item) => [normalizedDisplayName(item), item.feedLabel].filter(Boolean).join(" ")).join(", ");
+    return `[${fmtClock(time)}] \uc2ec\uce35\ubd84\uc11d: ${body}`;
   });
 }
 function fmtClock(date) {
