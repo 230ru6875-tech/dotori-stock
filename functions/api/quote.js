@@ -161,13 +161,17 @@ async function quoteToss(symbol, env = {}) {
   if (!Number.isFinite(current) || current <= 0) throw new Error("toss_price_missing");
   const currency = String(price.currency || stock.currency || "").toUpperCase();
   const isDomestic = /^\d{6}$/.test(symbol) || currency === "KRW";
+  const calendarPayload = await fetchTossOpenApi(`/api/v1/market-calendar/${isDomestic ? "KR" : "US"}`, env).catch(() => null);
+  const marketCalendar = calendarPayload && typeof calendarPayload.result === "object" ? calendarPayload.result : {};
   return {
     symbol,
     name: cleanName(stock.name || stock.englishName || symbol, symbol) || symbol,
     market: isDomestic ? "\uAD6D\uB0B4" : "\uD574\uC678",
     currentPrice: isDomestic ? formatWon(current) : formatDollar(current),
     source: "Toss OpenAPI",
-    tossQuotedAt: price.timestamp || ""
+    tossQuotedAt: price.timestamp || "",
+    marketStatus: marketCalendar.marketStatus || marketCalendar.status || marketCalendar.session || "",
+    marketCalendar
   };
 }
 

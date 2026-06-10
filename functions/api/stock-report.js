@@ -537,12 +537,17 @@ async function lookupTossQuote(symbol, env = {}) {
   if (!Number.isFinite(current) || current <= 0) throw new Error("toss_price_missing");
   const currency = String(price.currency || stock.currency || "").toUpperCase();
   const isDomestic = /^\d{6}$/.test(symbol) || currency === "KRW";
+  const calendarPayload = await fetchTossOpenApi(`/api/v1/market-calendar/${isDomestic ? "KR" : "US"}`, env).catch(() => null);
+  const marketCalendar = calendarPayload && typeof calendarPayload.result === "object" ? calendarPayload.result : {};
   return {
     name: cleanName(stock.name || stock.englishName || symbol, symbol) || symbol,
     currentPrice: isDomestic ? formatWon(current) : formatDollar(current),
     market: isDomestic ? TXT.domestic : TXT.us,
     source: "Toss OpenAPI",
-    marketStats: {},
+    marketStats: {
+      marketStatus: marketCalendar.marketStatus || marketCalendar.status || marketCalendar.session || ""
+    },
+    marketCalendar,
     valuation: emptyValuation("Toss OpenAPI")
   };
 }
