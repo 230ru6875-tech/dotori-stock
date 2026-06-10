@@ -106,6 +106,71 @@ function formatDollar(value) {
   return `$${number.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 }
 
+function tossCredentials(env = {}) {
+  const clientId = env.TOSS_INVEST_CLIENT_ID || env.TOSS_CLIENT_ID || "";
+  const clientSecret = env.TOSS_INVEST_CLIENT_SECRET || env.TOSS_CLIENT_SECRET || "";
+  return { clientId, clientSecret };
+}
+
+async function tossAccessToken(env = {}) {
+  const { clientId, clientSecret } = tossCredentials(env);
+  if (!clientId || !clientSecret) throw new Error("toss_credentials_missing");
+  const body = new URLSearchParams();
+  body.set("grant_type", "client_credentials");
+  body.set("client_id", clientId);
+  body.set("client_secret", clientSecret);
+  const payload = await fetchJsonWithTimeout(
+    "https://openapi.tossinvest.com/oauth2/token",
+    {
+      method: "POST",
+      headers: { "content-type": "application/x-www-form-urlencoded" },
+      body
+    },
+    2500
+  );
+  const token = payload?.access_token || "";
+  if (!token) throw new Error("toss_token_missing");
+  return token;
+}
+
+async function fetchTossOpenApi(path, env = {}) {
+  const token = await tossAccessToken(env);
+  return await fetchJsonWithTimeout(
+    `https://openapi.tossinvest.com${path}`,
+    {
+      headers: {
+        "accept": "application/json",
+        "authorization": `Bearer ${token}`
+      }
+    },
+    3000
+  );
+}
+
+async function quoteToss(symbol, env = {}) {
+  const encoded = encodeURIComponent(symbol);
+  const [pricePayload, stockPayload] = await Promise.all([
+    fetchTossOpenApi(`/api/v1/prices?symbols=${encoded}`, env),
+    fetchTossOpenApi(`/api/v1/stocks?symbols=${encoded}`, env).catch(() => null)
+  ]);
+  const priceRows = Array.isArray(pricePayload?.result) ? pricePayload.result : [];
+  const stockRows = Array.isArray(stockPayload?.result) ? stockPayload.result : [];
+  const price = priceRows.find((row) => normalizeSymbol(row?.symbol) === symbol) || priceRows[0] || {};
+  const stock = stockRows.find((row) => normalizeSymbol(row?.symbol) === symbol) || stockRows[0] || {};
+  const current = Number(price.lastPrice || 0);
+  if (!Number.isFinite(current) || current <= 0) throw new Error("toss_price_missing");
+  const currency = String(price.currency || stock.currency || "").toUpperCase();
+  const isDomestic = /^\d{6}$/.test(symbol) || currency === "KRW";
+  return {
+    symbol,
+    name: cleanName(stock.name || stock.englishName || symbol, symbol) || symbol,
+    market: isDomestic ? "\uAD6D\uB0B4" : "\uD574\uC678",
+    currentPrice: isDomestic ? formatWon(current) : formatDollar(current),
+    source: "Toss OpenAPI",
+    tossQuotedAt: price.timestamp || ""
+  };
+}
+
 function naverRealtimePrice(payload) {
   const rows = Array.isArray(payload?.datas) ? payload.datas : [];
   const item = rows.find((row) => row && typeof row === "object") || {};
@@ -128,7 +193,10 @@ async function quoteDomesticRealtime(symbol) {
   };
 }
 
-async function quoteDomestic(symbol) {
+async function quoteDomestic(symbol, env = {}) {
+  try {
+    return await quoteToss(symbol, env);
+  } catch (_) {}
   let realtime = {};
   try {
     realtime = await quoteDomesticRealtime(symbol);
@@ -253,7 +321,20 @@ async function quoteNasdaq(symbol) {
   };
 }
 
-async function quoteUs(symbol) {
+async function quoteUs(symbol, env = {}) {
+  try {
+    const toss = await quoteToss(symbol, env);
+    const yahoo = await quoteYahoo(symbol).catch(() => null);
+    if (!yahoo?.crashRisk) return toss;
+    return {
+      ...toss,
+      previousClose: yahoo.previousClose,
+      dayHigh: yahoo.dayHigh,
+      dayLow: yahoo.dayLow,
+      crashRisk: yahoo.crashRisk,
+      source: "Toss OpenAPI/Yahoo Chart"
+    };
+  } catch (_) {}
   try {
     const nasdaq = await quoteNasdaq(symbol);
     const yahoo = await quoteYahoo(symbol).catch(() => null);
@@ -283,7 +364,7 @@ export async function onRequestGet(context) {
     return new Response(JSON.stringify({ ok: false, error: "symbol_required" }), { status: 400, headers: JSON_HEADERS });
   }
   try {
-    const quote = /^\d{6}$/.test(symbol) ? await quoteDomestic(symbol) : await quoteUs(symbol);
+    const quote = /^\d{6}$/.test(symbol) ? await quoteDomestic(symbol, context.env) : await quoteUs(symbol, context.env);
     return new Response(JSON.stringify({ ok: true, ...quote, quotedAt: new Date().toISOString() }), { headers: JSON_HEADERS });
   } catch (error) {
     return new Response(JSON.stringify({ ok: false, symbol, error: String(error?.message || error) }), { status: 502, headers: JSON_HEADERS });

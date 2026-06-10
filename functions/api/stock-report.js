@@ -445,6 +445,22 @@ async function fetchJson(url) {
   return response.json();
 }
 
+async function fetchJsonWithTimeout(url, options = {}, timeoutMs = 3500) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const response = await fetch(url, {
+      ...options,
+      signal: controller.signal,
+      headers: { ...(options.headers || {}) }
+    });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return await response.json();
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 function cleanPrice(value) {
   return String(value || "").replace(/,/g, "").trim();
 }
@@ -464,6 +480,71 @@ function formatDollar(value) {
   const number = numericPrice(value);
   if (number <= 0) return "";
   return `$${number.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+}
+
+function tossCredentials(env = {}) {
+  const clientId = env.TOSS_INVEST_CLIENT_ID || env.TOSS_CLIENT_ID || "";
+  const clientSecret = env.TOSS_INVEST_CLIENT_SECRET || env.TOSS_CLIENT_SECRET || "";
+  return { clientId, clientSecret };
+}
+
+async function tossAccessToken(env = {}) {
+  const { clientId, clientSecret } = tossCredentials(env);
+  if (!clientId || !clientSecret) throw new Error("toss_credentials_missing");
+  const body = new URLSearchParams();
+  body.set("grant_type", "client_credentials");
+  body.set("client_id", clientId);
+  body.set("client_secret", clientSecret);
+  const payload = await fetchJsonWithTimeout(
+    "https://openapi.tossinvest.com/oauth2/token",
+    {
+      method: "POST",
+      headers: { "content-type": "application/x-www-form-urlencoded" },
+      body
+    },
+    2500
+  );
+  const token = payload?.access_token || "";
+  if (!token) throw new Error("toss_token_missing");
+  return token;
+}
+
+async function fetchTossOpenApi(path, env = {}) {
+  const token = await tossAccessToken(env);
+  return await fetchJsonWithTimeout(
+    `https://openapi.tossinvest.com${path}`,
+    {
+      headers: {
+        "accept": "application/json",
+        "authorization": `Bearer ${token}`
+      }
+    },
+    3000
+  );
+}
+
+async function lookupTossQuote(symbol, env = {}) {
+  const encoded = encodeURIComponent(symbol);
+  const [pricePayload, stockPayload] = await Promise.all([
+    fetchTossOpenApi(`/api/v1/prices?symbols=${encoded}`, env),
+    fetchTossOpenApi(`/api/v1/stocks?symbols=${encoded}`, env).catch(() => null)
+  ]);
+  const priceRows = Array.isArray(pricePayload?.result) ? pricePayload.result : [];
+  const stockRows = Array.isArray(stockPayload?.result) ? stockPayload.result : [];
+  const price = priceRows.find((row) => normalizeSymbol(row?.symbol) === symbol) || priceRows[0] || {};
+  const stock = stockRows.find((row) => normalizeSymbol(row?.symbol) === symbol) || stockRows[0] || {};
+  const current = Number(price.lastPrice || 0);
+  if (!Number.isFinite(current) || current <= 0) throw new Error("toss_price_missing");
+  const currency = String(price.currency || stock.currency || "").toUpperCase();
+  const isDomestic = /^\d{6}$/.test(symbol) || currency === "KRW";
+  return {
+    name: cleanName(stock.name || stock.englishName || symbol, symbol) || symbol,
+    currentPrice: isDomestic ? formatWon(current) : formatDollar(current),
+    market: isDomestic ? TXT.domestic : TXT.us,
+    source: "Toss OpenAPI",
+    marketStats: {},
+    valuation: emptyValuation("Toss OpenAPI")
+  };
 }
 
 function naverRealtimePrice(payload) {
@@ -489,7 +570,11 @@ async function lookupDomesticRealtime(symbol) {
   };
 }
 
-async function lookupDomestic(symbol) {
+async function lookupDomestic(symbol, env = {}) {
+  try {
+    const toss = await lookupTossQuote(symbol, env);
+    return { ...toss, valuation: emptyValuation("Toss OpenAPI") };
+  } catch (_) {}
   let realtime = {};
   try {
     realtime = await lookupDomesticRealtime(symbol);
@@ -640,16 +725,17 @@ async function lookupYahooLegacy(symbol) {
   return { current, closes };
 }
 
-async function lookupUs(symbol) {
-  const [name, yahoo] = await Promise.all([
+async function lookupUs(symbol, env = {}) {
+  const [toss, name, yahoo] = await Promise.all([
+    lookupTossQuote(symbol, env).catch(() => null),
     lookupTossName(symbol).catch(() => ""),
     lookupYahoo(symbol).catch(() => ({ current: 0, closes: [] }))
   ]);
   return {
-    name: name || symbol,
-    currentPrice: formatDollar(yahoo.current),
+    name: toss?.name || name || symbol,
+    currentPrice: toss?.currentPrice || formatDollar(yahoo.current),
     market: TXT.us,
-    source: "Toss/Yahoo",
+    source: toss?.currentPrice ? "Toss OpenAPI/Yahoo Chart" : "Toss/Yahoo",
     closes: yahoo.closes,
     highs: yahoo.highs,
     lows: yahoo.lows,
@@ -661,7 +747,7 @@ async function lookupUs(symbol) {
       changePct: yahoo.changePct || 0,
       fromHighPct: yahoo.fromHighPct || 0
     },
-    valuation: emptyValuation("Yahoo Finance")
+    valuation: emptyValuation(toss?.currentPrice ? "Toss OpenAPI" : "Yahoo Finance")
   };
 }
 
@@ -716,7 +802,7 @@ export async function onRequestGet(context) {
       return new Response(JSON.stringify({ ...cached, storage: "turso" }), { headers: JSON_HEADERS });
     }
     const isDomestic = /^\d{6}$/.test(symbol);
-    const base = isDomestic ? await lookupDomestic(symbol) : await lookupUs(symbol);
+    const base = isDomestic ? await lookupDomestic(symbol, context.env) : await lookupUs(symbol, context.env);
     const oilRisk = await lookupOilMarketRisk();
     const macroEventRisk = await ppiSemiconductorRisk();
     const news = await lookupNews(`${base.name || symbol} ${symbol}`);
