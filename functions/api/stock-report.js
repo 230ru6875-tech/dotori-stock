@@ -138,9 +138,16 @@ function cleanName(value, symbol) {
     .replace(/\s*-\s*Toss Invest.*$/i, "")
     .replace(/\s*\|\s*Toss Invest.*$/i, "")
     .replace(/\s*\|\s*\uD1A0\uC2A4\uC99D\uAD8C.*$/i, "")
+    .replace(/^Toss Invest$/i, "")
+    .replace(/^\uD1A0\uC2A4\uC99D\uAD8C\s*-\s*\uC8FC\uC2DD\s*\uD22C\uC790\uB97C\s*\uB354\s*\uC27D\uAC8C$/i, "")
     .trim();
   const escaped = symbol.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   return text.replace(new RegExp(`\\s*\\(?${escaped}\\)?\\s*$`, "i"), "").trim();
+}
+
+function isBadCompanyName(value) {
+  const text = cleanHtml(value);
+  return !text || /^Toss Invest$/i.test(text) || /^\uD1A0\uC2A4\uC99D\uAD8C\s*-\s*\uC8FC\uC2DD\s*\uD22C\uC790\uB97C\s*\uB354\s*\uC27D\uAC8C$/i.test(text);
 }
 
 function valuationJudgment(metrics) {
@@ -646,6 +653,7 @@ async function lookupYahoo(symbol) {
   const changePct = current > 0 && previousClose > 0 ? ((current / previousClose) - 1) * 100 : 0;
   const fromHighPct = current > 0 && dayHigh > 0 ? ((current / dayHigh) - 1) * 100 : 0;
   return {
+    name: cleanName(meta.longName || meta.shortName || "", symbol),
     current,
     closes: dailyCloses,
     highs: dailyHighs,
@@ -730,29 +738,64 @@ async function lookupYahooLegacy(symbol) {
   return { current, closes };
 }
 
-async function lookupUs(symbol, env = {}) {
-  const [toss, name, yahoo] = await Promise.all([
-    lookupTossQuote(symbol, env).catch(() => null),
-    lookupTossName(symbol).catch(() => ""),
-    lookupYahoo(symbol).catch(() => ({ current: 0, closes: [] }))
-  ]);
+async function lookupNasdaqQuote(symbol) {
+  const payload = await fetchJsonWithTimeout(
+    `https://api.nasdaq.com/api/quote/${encodeURIComponent(symbol)}/info?assetclass=stocks`,
+    {
+      headers: {
+        "user-agent": "Mozilla/5.0 DotoriWeb/1.0",
+        "accept": "application/json",
+        "origin": "https://www.nasdaq.com",
+        "referer": "https://www.nasdaq.com/"
+      }
+    },
+    3000
+  );
+  const data = payload?.data || {};
+  const primary = data.primaryData || {};
+  const secondary = data.secondaryData || {};
+  const price = numericPrice(primary.lastSalePrice || secondary.lastSalePrice || "");
+  if (!price) throw new Error("nasdaq_price_missing");
+  const netChange = numericPrice(primary.netChange || secondary.netChange || "");
+  const pctText = String(primary.percentageChange || secondary.percentageChange || "").replace(/[^0-9.\-]/g, "");
+  const changePct = Number(pctText);
+  const previousClose = netChange ? price - netChange : (Number.isFinite(changePct) && changePct !== 0 ? price / (1 + changePct / 100) : 0);
   return {
-    name: toss?.name || name || symbol,
-    currentPrice: toss?.currentPrice || formatDollar(yahoo.current),
+    name: cleanName(data.companyName || "", symbol),
+    current: price,
+    currentPrice: formatDollar(price),
+    previousClose,
+    changePct: Number.isFinite(changePct) ? changePct : 0,
+    source: primary.isRealTime ? "Nasdaq Real-Time" : "Nasdaq"
+  };
+}
+
+async function lookupUs(symbol, env = {}) {
+  const [toss, yahoo, nasdaq] = await Promise.all([
+    lookupTossQuote(symbol, env).catch(() => null),
+    lookupYahoo(symbol).catch(() => ({ current: 0, closes: [] })),
+    lookupNasdaqQuote(symbol).catch(() => null)
+  ]);
+  const name = !isBadCompanyName(toss?.name) ? toss?.name : (nasdaq?.name || yahoo?.name || symbol);
+  const currentPrice = nasdaq?.currentPrice || toss?.currentPrice || formatDollar(yahoo.current);
+  const currentSource = nasdaq?.source || (toss?.currentPrice ? "Toss OpenAPI" : "Yahoo Finance");
+  return {
+    name: name || symbol,
+    currentPrice,
     market: TXT.us,
-    source: toss?.currentPrice ? "Toss OpenAPI/Yahoo Chart" : "Toss/Yahoo",
+    source: `${currentSource}/Yahoo Chart`,
     closes: yahoo.closes,
     highs: yahoo.highs,
     lows: yahoo.lows,
     volumes: yahoo.volumes,
     marketStats: {
-      previousClose: yahoo.previousClose || 0,
+      previousClose: nasdaq?.previousClose || yahoo.previousClose || 0,
       dayHigh: yahoo.dayHigh || 0,
       dayLow: yahoo.dayLow || 0,
-      changePct: yahoo.changePct || 0,
-      fromHighPct: yahoo.fromHighPct || 0
+      changePct: nasdaq?.changePct || yahoo.changePct || 0,
+      fromHighPct: numericPrice(currentPrice) > 0 && yahoo.dayHigh > 0 ? ((numericPrice(currentPrice) / yahoo.dayHigh) - 1) * 100 : (yahoo.fromHighPct || 0)
     },
-    valuation: emptyValuation(toss?.currentPrice ? "Toss OpenAPI" : "Yahoo Finance")
+    valuation: emptyValuation(currentSource)
   };
 }
 
@@ -803,7 +846,7 @@ export async function onRequestGet(context) {
   }
   try {
     const cached = forceRefresh || localOnly ? null : await loadTursoReport(context.env, symbol).catch(() => null);
-    if (cached) {
+    if (cached && !isBadCompanyName(cached.name || cached.watchlist?.name || cached.scanner?.title)) {
       return new Response(JSON.stringify({ ...cached, storage: "turso" }), { headers: JSON_HEADERS });
     }
     const isDomestic = /^\d{6}$/.test(symbol);
