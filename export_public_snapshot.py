@@ -269,6 +269,9 @@ def _scanner_row(item: dict, rank: int) -> dict:
     name = _clean_text(resolved_name, symbol)
     current = _clean_text(item.get("current_price_text"))
     signal = _clean_text(item.get("trade_signal"), "관찰")
+    purchase_price = _safe_float(item.get("purchase_price"), 0.0)
+    if purchase_price <= 0 and any(token in signal for token in ("보유", "매도", "비중축소")):
+        signal = "관찰대기"
     low = _clean_text(item.get("pred_low_text"))
     high = _clean_text(item.get("pred_high_text"))
     hint = _clean_text(item.get("analysis_hint"), "시장 데이터 확인")
@@ -702,7 +705,7 @@ def _spike_rows(items: list[dict], limit: int = 50) -> list[dict]:
             "range": "6\ud30c\ud2b8 \uae09\ub4f1\uc8fc",
             "change": f"+{pct:.1f}%" if pct > 0 else "-",
             "currentPrice": _clean_text(item.get("current_price_text"), ""),
-            "signal": _clean_text(item.get("trade_signal"), ""),
+            "signal": _public_prediction_signal(item),
             "note": note,
             "score": round(_score_from_reasons(item), 2),
         }))
@@ -721,6 +724,14 @@ def _first_matching_reason(item: dict, keywords: tuple[str, ...]) -> str:
 def _shorten(text: str, limit: int = 110) -> str:
     text = re.sub(r"\s+", " ", str(text or "")).strip()
     return text if len(text) <= limit else text[: limit - 3].rstrip() + "..."
+
+
+def _public_prediction_signal(item: dict) -> str:
+    signal = _clean_text(item.get("trade_signal"), "관찰")
+    purchase_price = _safe_float(item.get("purchase_price"), 0.0)
+    if purchase_price <= 0 and any(token in signal for token in ("보유", "매도", "비중축소")):
+        return "관찰대기"
+    return signal
 
 
 def _ma20_label(item: dict) -> str:
@@ -761,7 +772,7 @@ def _moving_average_rows(items: list[dict], limit: int = 30) -> list[dict]:
             "currentPrice": _clean_text(item.get("current_price_text"), ""),
             "ma20": _ma20_label(item),
             "ma60": _ma60_label(item),
-            "decision": _clean_text(item.get("trade_signal"), "\uad00\ucc30"),
+            "decision": _public_prediction_signal(item),
             "note": _shorten(note),
             "score": round(_score_from_reasons(item), 2),
         })
@@ -872,7 +883,7 @@ def _public_deep_analysis_reports(items: list[dict], limit: int = 12) -> list[di
         symbol = _clean_text(item.get("symbol"), "")
         name = re.sub(rf"\s*\(?{re.escape(symbol)}\)?\s*$", "", _clean_text(item.get("display_name"), symbol)).strip() or symbol
         current = _clean_text(item.get("current_price_text"), "")
-        signal = _clean_text(item.get("trade_signal"), "\uad00\ucc30")
+        signal = _public_prediction_signal(item)
         pred = f"{_clean_text(item.get('pred_low_text'), '-')} ~ {_clean_text(item.get('pred_high_text'), '-')}"
         hint = _clean_text(item.get("analysis_hint"), "")
         lines.append(f"{name}({symbol}) | \ud604\uc7ac {current} | \uc608\uce21 {pred} | {signal}")
@@ -1173,7 +1184,7 @@ def build_symbol_directory(snapshot: dict | None = None) -> dict:
             "name": clean_name,
             "market": _clean_text(resolved_market),
             "currentPrice": current_price,
-            "signal": _clean_text(item.get("trade_signal"), "관찰"),
+            "signal": _public_prediction_signal(item),
             "movingAverage": _clean_text(item.get("analysis_hint"), ""),
             "predRange": f"{pred_low} ~ {pred_high}",
             "memo": _clean_text(item.get("analysis_hint"), "도토리웹 저장소 기준 종목 정보"),

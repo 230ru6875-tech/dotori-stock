@@ -797,8 +797,14 @@ function signalFeedActionLabel(item) {
   if (crashRisk?.level === "급락경계") return "급락경계";
   const type = signalFeedType(item?.feedLabel);
   if (type === "sell") return "\ub9e4\ub3c4/\uc8fc\uc758";
-  if (type === "hold") return "\ubcf4\uc720/\uad00\uc2ec";
+  if (type === "hold") return Number(item?.purchasePrice || 0) > 0 ? "\ubcf4\uc720/\uad00\uc2ec" : "\uad00\uc2ec/\uad00\ucc30";
   return "\ub9e4\uc218";
+}
+function signalForPurchaseState(signal, hasPrice, fallback = "\uad00\uc2ec/\uad00\ucc30") {
+  const text = String(signal || "").trim();
+  if (hasPrice) return text || fallback;
+  if (/\ubcf4\uc720|\ub9e4\ub3c4|\ube44\uc911\ucd95\uc18c/.test(text)) return fallback;
+  return text || fallback;
 }
 function loadSignalFeedHistory() {
   try {
@@ -1104,7 +1110,7 @@ function userStockToWatchlist(item) {
     const resolvedName = stripSymbolFromName(base.name || item.name, item.symbol) || nameLookup().get(item.symbol) || item.symbol;
     const memoParts = [base.memo || ""];
     if (hasPrice) memoParts.push(`\uad6c\uc785\uac00 ${formatDisplayPrice(price, item)}\uc744 \uae30\uc900\uc73c\ub85c \uac80\ud1a0\ud569\ub2c8\ub2e4.`);
-    return { ...base, name: resolvedName, market: displayMarket(base.market || marketName(item.symbol)), currentPrice: current, purchasePrice: price, crashRisk: base.crashRisk || directory?.crashRisk || report?.crashRisk, memo: memoParts.filter(Boolean).join(" / "), userAdded: true };
+    return { ...base, name: resolvedName, market: displayMarket(base.market || marketName(item.symbol)), currentPrice: current, purchasePrice: price, signal: signalForPurchaseState(base.signal, hasPrice), crashRisk: base.crashRisk || directory?.crashRisk || report?.crashRisk, memo: memoParts.filter(Boolean).join(" / "), userAdded: true };
   }
   const resolvedName = stripSymbolFromName(item.name, item.symbol) || nameLookup().get(item.symbol) || item.symbol;
   return {
@@ -1132,17 +1138,21 @@ function userStockToLearning(item) {
 function userStockToMoving(item) {
   const directory = item.report || directoryReport(item.symbol);
   if (directory && directory.moving) {
+    const price = Number(item.purchasePrice || 0);
     return {
       currentPrice: directory.watchlist?.currentPrice || directory.currentPrice || "",
       note: directory.watchlist?.memo || directory.moving.note || "",
       ...directory.moving,
+      decision: signalForPurchaseState(directory.moving.decision, price > 0, "\uad00\ucc30\ub300\uae30"),
     };
   }
   if (item.report && item.report.moving) {
+    const price = Number(item.purchasePrice || 0);
     return {
       currentPrice: item.report.watchlist?.currentPrice || item.report.currentPrice || "",
       note: item.report.watchlist?.memo || item.report.moving.note || "",
       ...item.report.moving,
+      decision: signalForPurchaseState(item.report.moving.decision, price > 0, "\uad00\ucc30\ub300\uae30"),
     };
   }
   const resolvedName = stripSymbolFromName(item.name, item.symbol) || nameLookup().get(item.symbol) || item.symbol;
@@ -1586,7 +1596,7 @@ function setupSymbolForm() {
           name: quote.name || next.name,
           market: quote.market || base.watchlist?.market || marketName(symbol),
           currentPrice: quote.currentPrice || base.watchlist?.currentPrice || "",
-          signal: base.watchlist?.signal || T.mockReview,
+          signal: signalForPurchaseState(base.watchlist?.signal || T.mockReview, purchasePrice > 0),
           movingAverage: base.watchlist?.movingAverage || "",
           memo: base.watchlist?.memo || ""
         }
