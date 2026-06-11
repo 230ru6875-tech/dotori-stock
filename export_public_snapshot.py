@@ -1,9 +1,13 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
+from urllib.error import URLError
+from urllib.parse import quote, urlencode
+from urllib.request import Request, urlopen
 
 
 BASE_DIR = Path(__file__).resolve().parents[1]
@@ -12,9 +16,119 @@ PREDICTIONS_PATH = BASE_DIR / "logs" / "latest_stock_predictions.json"
 INVESTMENT_ANALYSIS_PATH = BASE_DIR / "logs" / "investment_analysis_latest.json"
 MORNING_NOTE_PATH = BASE_DIR / "logs" / "morning_note_latest.json"
 EXTERNAL_SIGNALS_PATH = BASE_DIR / "logs" / "external_signals" / "latest.json"
+WATCHLIST_PATH = BASE_DIR / "config" / "price_band_alert_watchlist.json"
+PREDICTION_SYMBOLS_PATH = BASE_DIR / "config" / "prediction_symbols.yaml"
 PUBLIC_SNAPSHOT_PATH = DOTORI_DIR / "data" / "public-snapshot.json"
 SYMBOL_DIRECTORY_PATH = DOTORI_DIR / "data" / "symbol-directory.json"
+DOTORI_COM_REPORT_PATH = DOTORI_DIR / "data" / "dotori-com-report.json"
 KST = timezone(timedelta(hours=9))
+REQUEST_TIMEOUT_SECONDS = 4
+
+DEFAULT_US_SYMBOLS = [
+    ("MU", "마이크론 테크놀로지"),
+    ("MRVL", "마벨 테크놀로지"),
+    ("AVGO", "브로드컴"),
+    ("NVDA", "엔비디아"),
+    ("AMD", "AMD"),
+    ("TSM", "TSMC"),
+    ("QQQ", "인베스코 QQQ"),
+    ("SOXX", "필라델피아 반도체 ETF"),
+    ("SMH", "반도체 ETF"),
+    ("JPM", "JP모건체이스"),
+    ("ETN", "이튼"),
+    ("SNDK", "샌디스크"),
+    ("TSLA", "테슬라"),
+    ("AAPL", "애플"),
+    ("MSFT", "마이크로소프트"),
+    ("GOOGL", "알파벳"),
+    ("META", "메타"),
+    ("AMZN", "아마존"),
+    ("ORCL", "오라클"),
+    ("CRM", "세일즈포스"),
+    ("NFLX", "넷플릭스"),
+    ("PLTR", "팔란티어"),
+    ("ARM", "Arm"),
+    ("ASML", "ASML"),
+    ("LRCX", "램리서치"),
+    ("KLAC", "KLA"),
+    ("INTC", "인텔"),
+    ("QCOM", "퀄컴"),
+    ("TXN", "텍사스 인스트루먼트"),
+    ("AMAT", "어플라이드 머티어리얼즈"),
+    ("MCHP", "마이크로칩"),
+    ("ON", "온세미컨덕터"),
+    ("IBM", "IBM"),
+    ("BAC", "뱅크오브아메리카"),
+    ("WFC", "웰스파고"),
+    ("GS", "골드만삭스"),
+    ("XOM", "엑슨모빌"),
+    ("CVX", "셰브론"),
+    ("CAT", "캐터필러"),
+    ("DE", "디어"),
+    ("BA", "보잉"),
+    ("LMT", "록히드마틴"),
+    ("NOC", "노스럽그러먼"),
+    ("UNH", "유나이티드헬스"),
+    ("JNJ", "존슨앤드존슨"),
+    ("ABBV", "애브비"),
+    ("PFE", "화이자"),
+    ("GE", "GE"),
+    ("AMT", "아메리칸타워"),
+    ("SHOP", "쇼피파이"),
+]
+
+DEFAULT_DOMESTIC_SYMBOLS = [
+    ("005930", "삼성전자"),
+    ("000660", "SK하이닉스"),
+    ("373220", "LG에너지솔루션"),
+    ("005380", "현대차"),
+    ("000270", "기아"),
+    ("068270", "셀트리온"),
+    ("105560", "KB금융"),
+    ("055550", "신한지주"),
+    ("035420", "NAVER"),
+    ("005490", "POSCO홀딩스"),
+    ("012330", "현대모비스"),
+    ("028260", "삼성물산"),
+    ("006400", "삼성SDI"),
+    ("051910", "LG화학"),
+    ("035720", "카카오"),
+    ("207940", "삼성바이오로직스"),
+    ("032830", "삼성생명"),
+    ("086790", "하나금융지주"),
+    ("000810", "삼성화재"),
+    ("316140", "우리금융지주"),
+    ("066570", "LG전자"),
+    ("034730", "SK"),
+    ("096770", "SK이노베이션"),
+    ("003550", "LG"),
+    ("017670", "SK텔레콤"),
+    ("009150", "삼성전기"),
+    ("011070", "LG이노텍"),
+    ("018260", "삼성에스디에스"),
+    ("222800", "심텍"),
+    ("001820", "삼화콘덴서"),
+    ("009155", "삼성전기우"),
+    ("018880", "한온시스템"),
+    ("005850", "에스엘"),
+    ("277810", "레인보우로보틱스"),
+    ("033780", "KT&G"),
+    ("015760", "한국전력"),
+    ("010950", "S-Oil"),
+    ("010130", "고려아연"),
+    ("042660", "한화오션"),
+    ("329180", "HD현대중공업"),
+    ("012450", "한화에어로스페이스"),
+    ("047810", "한국항공우주"),
+    ("064350", "현대로템"),
+    ("003670", "포스코퓨처엠"),
+    ("247540", "에코프로비엠"),
+    ("086520", "에코프로"),
+    ("326030", "SK바이오팜"),
+    ("196170", "알테오젠"),
+    ("028300", "HLB"),
+    ("039030", "이오테크닉스"),
+]
 
 
 def _score_from_reasons(item: dict) -> float:
@@ -31,6 +145,82 @@ def _score_from_reasons(item: dict) -> float:
 def _clean_text(value: object, fallback: str = "-") -> str:
     text = str(value or "").strip()
     return text if text else fallback
+
+
+def _load_dotenv_once() -> None:
+    for path in (BASE_DIR / ".env", DOTORI_DIR / ".env"):
+        if not path.exists():
+            continue
+        try:
+            lines = path.read_text(encoding="utf-8", errors="replace").splitlines()
+        except Exception:
+            continue
+        for line in lines:
+            stripped = line.strip()
+            if not stripped or stripped.startswith("#") or "=" not in stripped:
+                continue
+            key, value = stripped.split("=", 1)
+            key = key.strip()
+            if key and key not in os.environ:
+                os.environ[key] = value.strip().strip('"').strip("'")
+
+
+def _windows_user_env(*names: str) -> str:
+    for name in names:
+        value = str(os.environ.get(name, "") or "").strip()
+        if value:
+            return value
+    if os.name != "nt":
+        return ""
+    try:
+        import winreg
+    except Exception:
+        return ""
+    for name in names:
+        try:
+            with winreg.OpenKey(winreg.HKEY_CURRENT_USER, "Environment") as key:
+                value = str(winreg.QueryValueEx(key, name)[0] or "").strip()
+        except Exception:
+            value = ""
+        if value:
+            os.environ.setdefault(name, value)
+            return value
+    return ""
+
+
+def _http_json(url: str, params: dict | None = None, timeout: int = REQUEST_TIMEOUT_SECONDS) -> object:
+    full_url = url
+    if params:
+        full_url += ("&" if "?" in full_url else "?") + urlencode(params)
+    request = Request(
+        full_url,
+        headers={
+            "User-Agent": "Mozilla/5.0",
+            "Accept": "application/json,text/plain,*/*",
+            "Referer": "https://www.tossinvest.com",
+        },
+    )
+    with urlopen(request, timeout=timeout) as response:
+        raw = response.read()
+    return json.loads(raw.decode("utf-8", errors="replace"))
+
+
+def _safe_float(value: object, default: float = 0.0) -> float:
+    try:
+        text = str(value or "").replace(",", "").replace("$", "").replace("원", "").strip()
+        if not text:
+            return default
+        return float(text)
+    except Exception:
+        return default
+
+
+def _format_price(value: float, market_text: str) -> str:
+    if value <= 0:
+        return "-"
+    if market_text == "미국":
+        return f"${value:,.2f}"
+    return f"{value:,.0f}원"
 
 
 def _scanner_row(item: dict, rank: int) -> dict:
@@ -92,6 +282,11 @@ def _supplement_from_investment(market_text: str, used_symbols: set[str], start_
         symbol = _clean_text(position.get("symbol"))
         if not symbol or symbol in used_symbols:
             continue
+        is_domestic_symbol = bool(re.fullmatch(r"\d{6}", symbol))
+        if market_text == "국내" and not is_domestic_symbol:
+            continue
+        if market_text == "미국" and is_domestic_symbol:
+            continue
         display_name = _clean_text(position.get("display_name"), symbol)
         current_price = position.get("current_price", 0.0)
         expected = position.get("expected_return_pct", 0.0)
@@ -116,6 +311,296 @@ def _supplement_from_investment(market_text: str, used_symbols: set[str], start_
         if len(rows) >= limit:
             break
     return rows
+
+
+def _extract_toss_price(payload: object) -> float:
+    candidates: list[object] = []
+    if isinstance(payload, dict):
+        result = payload.get("result", payload)
+        if isinstance(result, list):
+            candidates.extend(result)
+        elif isinstance(result, dict):
+            candidates.append(result)
+            for key in ("items", "prices", "stockPrices"):
+                value = result.get(key)
+                if isinstance(value, list):
+                    candidates.extend(value)
+        candidates.append(payload)
+    elif isinstance(payload, list):
+        candidates.extend(payload)
+    for item in candidates:
+        if not isinstance(item, dict):
+            continue
+        for key in ("close", "tradePrice", "price", "currentPrice", "afterMarketClose", "preMarketClose", "regularMarketPrice"):
+            value = _safe_float(item.get(key), 0.0)
+            if value > 0:
+                return value
+    return 0.0
+
+
+def _extract_toss_price_detail(payload: object) -> dict:
+    candidates: list[object] = []
+    if isinstance(payload, dict):
+        result = payload.get("result", payload)
+        if isinstance(result, list):
+            candidates.extend(result)
+        elif isinstance(result, dict):
+            candidates.append(result)
+            for key in ("items", "prices", "stockPrices"):
+                value = result.get(key)
+                if isinstance(value, list):
+                    candidates.extend(value)
+        candidates.append(payload)
+    elif isinstance(payload, list):
+        candidates.extend(payload)
+    for item in candidates:
+        if isinstance(item, dict) and _extract_toss_price(item) > 0:
+            return item
+    return {}
+
+
+def _fetch_toss_public_quote(symbol: str) -> dict:
+    normalized = str(symbol or "").strip().upper()
+    if not normalized:
+        return {}
+    try:
+        info_payload = _http_json(f"https://wts-info-api.tossinvest.com/api/v2/stock-infos/code-or-symbol/{quote(normalized)}")
+    except Exception:
+        return {}
+    info = info_payload.get("result", info_payload) if isinstance(info_payload, dict) else {}
+    if not isinstance(info, dict):
+        return {}
+    product_code = str(info.get("productCode") or info.get("code") or info.get("guid") or "").strip()
+    detail = {}
+    if product_code:
+        endpoints = (
+            ("https://wts-info-api.tossinvest.com/api/v3/stock-prices/details", {"productCodes": product_code}),
+            ("https://wts-info-api.tossinvest.com/api/v3/stock-prices", {"productCodes": product_code, "viewType": "DETAIL", "meta": "true"}),
+            ("https://wts-info-api.tossinvest.com/api/v1/product/stock-prices", {"productCodes": product_code, "meta": "true"}),
+        )
+        for url, params in endpoints:
+            try:
+                detail = _extract_toss_price_detail(_http_json(url, params))
+            except Exception:
+                detail = {}
+            if detail:
+                break
+    price = _extract_toss_price(detail)
+    name = (
+        str(info.get("name") or info.get("stockName") or info.get("nameKo") or info.get("korName") or "").strip()
+        or str(info.get("nameEng") or info.get("englishName") or "").strip()
+    )
+    return {
+        "symbol": normalized,
+        "name": name,
+        "price": price,
+        "market": "미국" if not re.fullmatch(r"\d{6}", normalized) else "국내",
+        "source": "Toss Securities",
+        "productCode": product_code,
+    }
+
+
+def _fetch_yahoo_quote(symbol: str) -> dict:
+    normalized = str(symbol or "").strip().upper()
+    if not normalized:
+        return {}
+    try:
+        payload = _http_json("https://query1.finance.yahoo.com/v7/finance/quote", {"symbols": normalized})
+        rows = payload.get("quoteResponse", {}).get("result", []) if isinstance(payload, dict) else []
+        row = rows[0] if rows and isinstance(rows[0], dict) else {}
+    except Exception:
+        row = {}
+    if not row:
+        try:
+            chart = _http_json(
+                f"https://query1.finance.yahoo.com/v8/finance/chart/{quote(normalized)}",
+                {"range": "1d", "interval": "1m", "includePrePost": "true"},
+            )
+            result = chart.get("chart", {}).get("result", [])[0]
+            meta = result.get("meta", {})
+            row = {
+                "regularMarketPrice": meta.get("regularMarketPrice"),
+                "shortName": meta.get("symbol"),
+                "longName": meta.get("symbol"),
+            }
+        except Exception:
+            row = {}
+    price = _safe_float(row.get("regularMarketPrice") or row.get("postMarketPrice") or row.get("preMarketPrice"), 0.0)
+    name = str(row.get("longName") or row.get("shortName") or normalized).strip()
+    return {"symbol": normalized, "name": name, "price": price, "market": "미국", "source": "Yahoo Finance"}
+
+
+def _fetch_naver_quote(symbol: str) -> dict:
+    normalized = str(symbol or "").strip().zfill(6)
+    if not re.fullmatch(r"\d{6}", normalized):
+        return {}
+    try:
+        payload = _http_json(
+            "https://polling.finance.naver.com/api/realtime",
+            {"query": f"SERVICE_ITEM:{normalized}"},
+        )
+    except Exception:
+        return {}
+    areas = payload.get("result", {}).get("areas", []) if isinstance(payload, dict) else []
+    datas = []
+    for area in areas:
+        if isinstance(area, dict) and isinstance(area.get("datas"), list):
+            datas.extend(area["datas"])
+    row = datas[0] if datas and isinstance(datas[0], dict) else {}
+    name = str(row.get("nm") or row.get("name") or normalized).strip()
+    price = _safe_float(row.get("nv") or row.get("closePrice") or row.get("nowVal"), 0.0)
+    return {"symbol": normalized, "name": name, "price": price, "market": "국내", "source": "Naver Finance"}
+
+
+def _fetch_public_quote(symbol: str, market_text: str) -> dict:
+    normalized = str(symbol or "").strip().upper()
+    if not normalized:
+        return {}
+    if market_text == "국내" or re.fullmatch(r"\d{6}", normalized):
+        return _fetch_naver_quote(normalized)
+    quote_row = _fetch_toss_public_quote(normalized)
+    if quote_row.get("price", 0) > 0:
+        return quote_row
+    return _fetch_yahoo_quote(normalized)
+
+
+def _load_watchlist_symbols() -> list[dict]:
+    if not WATCHLIST_PATH.exists():
+        return []
+    try:
+        payload = json.loads(WATCHLIST_PATH.read_text(encoding="utf-8", errors="replace"))
+    except Exception:
+        return []
+    items = payload.get("items", []) if isinstance(payload, dict) else []
+    rows: list[dict] = []
+    if not isinstance(items, list):
+        return rows
+    for item in items:
+        if not isinstance(item, dict):
+            continue
+        symbol = str(item.get("symbol", "") or "").strip().upper()
+        if not symbol:
+            continue
+        market = "국내" if re.fullmatch(r"\d{6}", symbol) else "미국"
+        rows.append({
+            "symbol": symbol,
+            "name": _clean_text(item.get("name"), symbol),
+            "market": market,
+            "basePrice": item.get("base_price"),
+            "quantity": item.get("quantity"),
+        })
+    return rows
+
+
+def _load_prediction_symbol_rows() -> list[dict]:
+    if not PREDICTION_SYMBOLS_PATH.exists():
+        return []
+    rows: list[dict] = []
+    current: dict = {}
+    for line in PREDICTION_SYMBOLS_PATH.read_text(encoding="utf-8", errors="replace").splitlines():
+        stripped = line.strip()
+        if stripped.startswith("- symbol:"):
+            if current.get("symbol"):
+                rows.append(current)
+            current = {"symbol": stripped.split(":", 1)[1].strip().strip("'\"")}
+        elif ":" in stripped and current is not None:
+            key, value = stripped.split(":", 1)
+            current[key.strip()] = value.strip().strip("'\"")
+    if current.get("symbol"):
+        rows.append(current)
+    normalized_rows = []
+    for row in rows:
+        symbol = str(row.get("symbol", "") or "").strip().upper()
+        if not symbol:
+            continue
+        normalized_rows.append({
+            "symbol": symbol,
+            "name": _clean_text(row.get("name"), symbol),
+            "market": "국내" if re.fullmatch(r"\d{6}", symbol) else "미국",
+            "basePrice": row.get("purchase_price"),
+            "quantity": row.get("quantity"),
+        })
+    return normalized_rows
+
+
+def _fallback_candidates(market_text: str) -> list[dict]:
+    candidates: list[dict] = []
+    candidates.extend(_load_watchlist_symbols())
+    candidates.extend(_load_prediction_symbol_rows())
+    if market_text == "국내":
+        candidates.extend({"symbol": symbol, "name": name, "market": "국내"} for symbol, name in DEFAULT_DOMESTIC_SYMBOLS)
+    if market_text == "미국":
+        candidates.extend({"symbol": symbol, "name": name, "market": "미국"} for symbol, name in DEFAULT_US_SYMBOLS)
+    seen: set[str] = set()
+    rows: list[dict] = []
+    for item in candidates:
+        symbol = str(item.get("symbol", "") or "").strip().upper()
+        market = str(item.get("market", "") or "").strip()
+        if not symbol or symbol in seen or market != market_text:
+            continue
+        seen.add(symbol)
+        rows.append(item)
+    return rows
+
+
+def _supplement_from_public_quotes(market_text: str, used_symbols: set[str], start_rank: int, limit: int) -> list[dict]:
+    rows: list[dict] = []
+    for item in _fallback_candidates(market_text):
+        if len(rows) >= limit:
+            break
+        symbol = str(item.get("symbol", "") or "").strip().upper()
+        if not symbol or symbol in used_symbols:
+            continue
+        quote_row = _fetch_public_quote(symbol, market_text)
+        name = _clean_text(quote_row.get("name") or item.get("name"), symbol)
+        price = _safe_float(quote_row.get("price"), 0.0)
+        base = _safe_float(item.get("basePrice"), 0.0)
+        signal = "관심"
+        if base > 0 and price > 0:
+            change_pct = (price - base) / base * 100.0
+            if change_pct >= 7:
+                signal = "매도/관찰"
+            elif change_pct <= -7:
+                signal = "보유/관찰"
+            else:
+                signal = "보유/변동성확대"
+        summary = f"도토리컴 보충자료 | 현재 {_format_price(price, market_text)}"
+        if base > 0:
+            summary += f" | 기준 {_format_price(base, market_text)}"
+        rows.append({
+            "rank": start_rank + len(rows),
+            "market": market_text,
+            "symbol": symbol,
+            "name": f"{name}({symbol})" if symbol not in name else name,
+            "currentPrice": _format_price(price, market_text),
+            "signal": signal,
+            "predRange": "도토리컴 보충",
+            "summary": summary,
+            "sentiment": signal,
+            "risk": "자료 부족 보완",
+            "source": quote_row.get("source") or "도토리컴 보충자료",
+            "score": 0.0,
+        })
+        used_symbols.add(symbol)
+    return rows
+
+
+def _dedupe_and_rank(rows: list[dict], limit: int) -> list[dict]:
+    seen: set[str] = set()
+    output: list[dict] = []
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        symbol = _clean_text(row.get("symbol"), "").upper()
+        if not symbol or symbol in seen:
+            continue
+        seen.add(symbol)
+        fixed = dict(row)
+        fixed["rank"] = len(output) + 1
+        output.append(fixed)
+        if len(output) >= limit:
+            break
+    return output
 
 
 def _first_spike_reason(item: dict) -> str:
@@ -402,6 +887,146 @@ def _public_news_list(limit: int = 30) -> list[dict]:
     return rows
 
 
+def _turso_url() -> str:
+    raw = _windows_user_env("TURSO_DATABASE_URL", "TORI_TURSO_DATABASE_URL")
+    if not raw:
+        for name in ("tori_config.yaml", "tori1_config.yaml", "tori2_config.yaml", "tori3_config.yaml"):
+            path = BASE_DIR / "config" / name
+            if not path.exists():
+                continue
+            for line in path.read_text(encoding="utf-8", errors="replace").splitlines():
+                if line.strip().startswith("turso_database_url:"):
+                    raw = line.split(":", 1)[1].strip().strip("'\"")
+                    break
+            if raw:
+                break
+    raw = raw.strip().rstrip("/")
+    if raw.startswith("libsql://"):
+        raw = "https://" + raw[len("libsql://"):]
+    return raw
+
+
+def _turso_token() -> str:
+    return _windows_user_env("TURSO_AUTH_TOKEN", "TORI_TURSO_AUTH_TOKEN")
+
+
+def _turso_arg(value: object) -> dict:
+    if value is None:
+        return {"type": "null"}
+    if isinstance(value, bool):
+        return {"type": "integer", "value": "1" if value else "0"}
+    if isinstance(value, int):
+        return {"type": "integer", "value": str(value)}
+    if isinstance(value, float):
+        return {"type": "float", "value": str(value)}
+    return {"type": "text", "value": str(value)}
+
+
+def _turso_execute(sql: str, args: list[object] | None = None, timeout: int = 12) -> object:
+    database_url = _turso_url()
+    auth_token = _turso_token()
+    if not database_url or not auth_token:
+        raise RuntimeError("Turso URL 또는 인증 토큰이 없습니다.")
+    payload = {
+        "requests": [
+            {"type": "execute", "stmt": {"sql": sql, "args": [_turso_arg(arg) for arg in (args or [])]}},
+            {"type": "close"},
+        ]
+    }
+    request = Request(
+        f"{database_url}/v2/pipeline",
+        data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
+        headers={"Authorization": f"Bearer {auth_token}", "Content-Type": "application/json"},
+        method="POST",
+    )
+    with urlopen(request, timeout=timeout) as response:
+        raw = response.read()
+    result = json.loads(raw.decode("utf-8", errors="replace"))
+    first = result.get("results", [{}])[0] if isinstance(result, dict) else {}
+    if isinstance(first, dict) and first.get("type") == "error":
+        raise RuntimeError(str(first.get("error", {}).get("message") or "turso_execute_error"))
+    return result
+
+
+def _report_payload_from_row(row: dict, saved_at: str) -> dict:
+    symbol = _clean_text(row.get("symbol"), "")
+    return {
+        "ok": True,
+        "symbol": symbol,
+        "name": _clean_text(row.get("name"), symbol),
+        "market": _clean_text(row.get("market"), ""),
+        "currentPrice": _clean_text(row.get("currentPrice"), "-"),
+        "source": _clean_text(row.get("source"), "도토리컴 보충자료"),
+        "quotedAt": saved_at,
+        "savedAt": saved_at,
+        "scanner": {
+            "title": _clean_text(row.get("name"), symbol),
+            "summary": _clean_text(row.get("summary"), ""),
+            "sentiment": _clean_text(row.get("sentiment"), ""),
+            "risk": _clean_text(row.get("risk"), ""),
+        },
+        "watchlist": {
+            "symbol": symbol,
+            "name": _clean_text(row.get("name"), symbol),
+            "market": _clean_text(row.get("market"), ""),
+            "currentPrice": _clean_text(row.get("currentPrice"), "-"),
+            "signal": _clean_text(row.get("signal"), "관심"),
+            "movingAverage": _clean_text(row.get("risk"), ""),
+            "memo": _clean_text(row.get("summary"), ""),
+        },
+        "analysis": {
+            "summary": _clean_text(row.get("summary"), ""),
+            "predRange": _clean_text(row.get("predRange"), ""),
+        },
+        "sources": ["도토리컴 공개 스냅샷"],
+    }
+
+
+def _build_dotori_com_reports(scanner: list[dict], saved_at: str) -> dict:
+    reports = {}
+    for row in scanner:
+        if not isinstance(row, dict):
+            continue
+        symbol = _clean_text(row.get("symbol"), "").upper()
+        if not symbol:
+            continue
+        reports[symbol] = _report_payload_from_row(row, saved_at)
+    return {
+        "updatedAt": saved_at,
+        "count": len(reports),
+        "reports": reports,
+    }
+
+
+def _upload_reports_to_turso(report_payload: dict) -> dict:
+    reports = report_payload.get("reports", {}) if isinstance(report_payload, dict) else {}
+    if not isinstance(reports, dict) or not reports:
+        return {"ok": False, "skipped": True, "reason": "업로드할 리포트가 없습니다."}
+    if not _turso_url() or not _turso_token():
+        return {"ok": False, "skipped": True, "reason": "Turso 환경변수가 없어 로컬 JSON만 갱신했습니다."}
+    try:
+        _turso_execute("CREATE TABLE IF NOT EXISTS stock_reports (symbol TEXT PRIMARY KEY, payload TEXT NOT NULL, saved_at TEXT NOT NULL)")
+        _turso_execute("CREATE TABLE IF NOT EXISTS stock_report_history (id INTEGER PRIMARY KEY AUTOINCREMENT, symbol TEXT NOT NULL, payload TEXT NOT NULL, saved_at TEXT NOT NULL)")
+        saved = 0
+        saved_at = _clean_text(report_payload.get("updatedAt"), datetime.now(KST).isoformat(timespec="seconds"))
+        for symbol, payload in reports.items():
+            text = json.dumps(payload, ensure_ascii=False, separators=(",", ":"))
+            _turso_execute(
+                "INSERT INTO stock_reports (symbol, payload, saved_at) VALUES (?, ?, ?) "
+                "ON CONFLICT(symbol) DO UPDATE SET payload = excluded.payload, saved_at = excluded.saved_at",
+                [symbol, text, saved_at],
+            )
+            if saved < 120:
+                _turso_execute(
+                    "INSERT INTO stock_report_history (symbol, payload, saved_at) VALUES (?, ?, ?)",
+                    [symbol, text, saved_at],
+                )
+            saved += 1
+        return {"ok": True, "skipped": False, "saved": saved, "table": "stock_reports"}
+    except (URLError, TimeoutError, RuntimeError, OSError) as exc:
+        return {"ok": False, "skipped": False, "reason": str(exc)[:180]}
+
+
 def build_snapshot() -> dict:
     previous: dict = {}
     if PUBLIC_SNAPSHOT_PATH.exists():
@@ -420,6 +1045,18 @@ def build_snapshot() -> dict:
         domestic.extend(_supplement_from_investment("국내", {row["symbol"] for row in domestic}, len(domestic) + 1, scanner_limit_each - len(domestic)))
     if len(us) < scanner_limit_each:
         us.extend(_supplement_from_investment("미국", {row["symbol"] for row in us}, len(us) + 1, scanner_limit_each - len(us)))
+    if len(domestic) < scanner_limit_each:
+        domestic.extend(_supplement_from_public_quotes("국내", {row["symbol"] for row in domestic}, len(domestic) + 1, scanner_limit_each - len(domestic)))
+    if len(us) < scanner_limit_each:
+        us.extend(_supplement_from_public_quotes("미국", {row["symbol"] for row in us}, len(us) + 1, scanner_limit_each - len(us)))
+    domestic = _dedupe_and_rank(domestic, scanner_limit_each)
+    us = _dedupe_and_rank(us, scanner_limit_each)
+    if len(domestic) < scanner_limit_each:
+        domestic.extend(_supplement_from_public_quotes("국내", {row["symbol"] for row in domestic}, len(domestic) + 1, scanner_limit_each - len(domestic)))
+        domestic = _dedupe_and_rank(domestic, scanner_limit_each)
+    if len(us) < scanner_limit_each:
+        us.extend(_supplement_from_public_quotes("미국", {row["symbol"] for row in us}, len(us) + 1, scanner_limit_each - len(us)))
+        us = _dedupe_and_rank(us, scanner_limit_each)
     scanner = domestic + us
     previous["updatedAt"] = datetime.now(KST).isoformat(timespec="seconds")
     previous["scannerUpdatedAt"] = predictions.get("saved_at", previous["updatedAt"])
@@ -437,6 +1074,15 @@ def build_snapshot() -> dict:
         "domestic": domestic,
         "us": us,
     }
+    previous["webDataStatus"] = {
+        "updatedAt": previous["updatedAt"],
+        "source": "도토리컴 저장자료 + Toss/Naver/Yahoo 보충",
+        "scannerTargetEach": scanner_limit_each,
+        "domesticCount": len(domestic),
+        "usCount": len(us),
+        "dotoriComSupplemented": True,
+        "note": "웹 자료가 부족할 때 도토리컴이 관심종목과 기본 감시종목을 보충해 공개 스냅샷으로 보냅니다.",
+    }
     previous.setdefault(
         "exchangeRate",
         {
@@ -449,7 +1095,7 @@ def build_snapshot() -> dict:
     return previous
 
 
-def build_symbol_directory() -> dict:
+def build_symbol_directory(snapshot: dict | None = None) -> dict:
     predictions = json.loads(PREDICTIONS_PATH.read_text(encoding="utf-8", errors="replace"))
     items = predictions.get("items", []) if isinstance(predictions, dict) else []
     directory: dict[str, dict] = {}
@@ -473,6 +1119,25 @@ def build_symbol_directory() -> dict:
             "predRange": f"{_clean_text(item.get('pred_low_text'))} ~ {_clean_text(item.get('pred_high_text'))}",
             "memo": _clean_text(item.get("analysis_hint"), "도토리웹 저장소 기준 종목 정보"),
         }
+    if isinstance(snapshot, dict):
+        for row in snapshot.get("scanner", []) or []:
+            if not isinstance(row, dict):
+                continue
+            symbol = _clean_text(row.get("symbol"), "").upper()
+            if not symbol or symbol in directory:
+                continue
+            name = _clean_text(row.get("name"), symbol)
+            clean_name = re.sub(rf"\s*\(?{re.escape(symbol)}\)?\s*$", "", name).strip() or name
+            directory[symbol] = {
+                "symbol": symbol,
+                "name": clean_name,
+                "market": _clean_text(row.get("market")),
+                "currentPrice": _clean_text(row.get("currentPrice"), ""),
+                "signal": _clean_text(row.get("signal"), "관심"),
+                "movingAverage": _clean_text(row.get("risk"), ""),
+                "predRange": _clean_text(row.get("predRange"), ""),
+                "memo": _clean_text(row.get("summary"), "도토리컴 보충자료"),
+            }
     return {
         "updatedAt": datetime.now(KST).isoformat(timespec="seconds"),
         "symbols": directory,
@@ -480,17 +1145,26 @@ def build_symbol_directory() -> dict:
 
 
 def main() -> None:
+    _load_dotenv_once()
     PUBLIC_SNAPSHOT_PATH.parent.mkdir(parents=True, exist_ok=True)
     payload = build_snapshot()
+    report_payload = _build_dotori_com_reports(payload.get("scanner", []), payload.get("updatedAt", datetime.now(KST).isoformat(timespec="seconds")))
+    upload_status = _upload_reports_to_turso(report_payload)
+    payload.setdefault("webDataStatus", {})["tursoUpload"] = upload_status
     PUBLIC_SNAPSHOT_PATH.write_text(
         json.dumps(payload, ensure_ascii=True, indent=2),
         encoding="utf-8",
     )
+    DOTORI_COM_REPORT_PATH.write_text(
+        json.dumps(report_payload, ensure_ascii=True, indent=2),
+        encoding="utf-8",
+    )
     SYMBOL_DIRECTORY_PATH.write_text(
-        json.dumps(build_symbol_directory(), ensure_ascii=True, indent=2),
+        json.dumps(build_symbol_directory(payload), ensure_ascii=True, indent=2),
         encoding="utf-8",
     )
     print(f"exported {PUBLIC_SNAPSHOT_PATH}")
+    print(f"reports {report_payload.get('count', 0)} | turso {upload_status}")
 
 
 if __name__ == "__main__":
