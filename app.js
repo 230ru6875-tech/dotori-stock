@@ -1,4 +1,4 @@
-const state = { data: null, activeSection: "watchlist", userStocks: [], selectedMovingSymbol: "", scannerMarketFirst: "domestic", quotes: {} };
+const state = { data: null, activeSection: "watchlist", userStocks: [], selectedMovingSymbol: "", scannerMarketFirst: "domestic", quotes: {}, liveQuoteCycle: 0 };
 const USER_STOCKS_KEY = "dotori.userStocks.v1";
 const USER_KEY = "dotori.userKey.v1";
 const USER_KEEP_ASKED_KEY = "dotori.keepAsked.v1";
@@ -8,6 +8,9 @@ const USER_STOCKS_MIGRATION_KEY = "dotori.userStocks.migration.v5";
 const INITIAL_SERVER_SYMBOLS = new Set(["011070", "MU"]);
 let symbolDirectory = {};
 const DATA_REFRESH_MS = 5000;
+const DISPLAY_MARKET_LIMIT = 30;
+const LIVE_QUOTE_BATCH_SIZE = 30;
+const LIVE_QUOTE_MARKET_SPLIT = 15;
 const MARKET_CLOSE_GRACE_MINUTES = 5;
 const DOMESTIC_MARKET_START_KST_MINUTES = 8 * 60 + 30;
 const DOMESTIC_MARKET_END_KST_MINUTES = 18 * 60;
@@ -291,6 +294,55 @@ function uniqueSymbols(items) {
   });
   return symbols;
 }
+function quoteMarketBucket(item) {
+  const symbol = normalizeSymbol(item?.symbol);
+  const market = displayMarket(item?.market || marketName(symbol));
+  return /^\d{6}$/.test(symbol) || market === T.domestic ? "domestic" : "us";
+}
+function rotatingSlice(items, count) {
+  if (!Array.isArray(items) || !items.length || count <= 0) return [];
+  if (items.length <= count) return items.slice(0, count);
+  const pageCount = Math.ceil(items.length / count);
+  const page = state.liveQuoteCycle % pageCount;
+  const start = page * count;
+  return items.slice(start, start + count);
+}
+function pickLiveQuoteSymbols(active) {
+  const prioritySymbols = uniqueSymbols(state.userStocks).slice(0, LIVE_QUOTE_BATCH_SIZE);
+  if (prioritySymbols.length >= LIVE_QUOTE_BATCH_SIZE) return prioritySymbols;
+  const remaining = (active || []).filter((item) => item && item.symbol);
+  const seen = new Set(prioritySymbols);
+  const addSymbol = (list, symbol) => {
+    if (!symbol || seen.has(symbol)) return;
+    seen.add(symbol);
+    list.push(symbol);
+  };
+  if (["scanner", "spikes"].includes(state.activeSection)) {
+    const domestic = [];
+    const us = [];
+    const leftovers = [];
+    remaining.forEach((item) => {
+      const symbol = normalizeSymbol(item.symbol);
+      if (!symbol || seen.has(symbol)) return;
+      if (quoteMarketBucket(item) === "domestic") domestic.push(symbol);
+      else us.push(symbol);
+    });
+    const activeBudget = LIVE_QUOTE_BATCH_SIZE - prioritySymbols.length;
+    let domesticLimit = Math.min(domestic.length, Math.ceil(activeBudget / 2), LIVE_QUOTE_MARKET_SPLIT);
+    let usLimit = Math.min(us.length, activeBudget - domesticLimit, LIVE_QUOTE_MARKET_SPLIT);
+    if (domesticLimit + usLimit < activeBudget) {
+      domesticLimit = Math.min(domestic.length, activeBudget - usLimit, LIVE_QUOTE_MARKET_SPLIT);
+      usLimit = Math.min(us.length, activeBudget - domesticLimit, LIVE_QUOTE_MARKET_SPLIT);
+    }
+    rotatingSlice(domestic, domesticLimit).forEach((symbol) => addSymbol(leftovers, symbol));
+    rotatingSlice(us, usLimit).forEach((symbol) => addSymbol(leftovers, symbol));
+    [...domestic, ...us].forEach((symbol) => addSymbol(leftovers, symbol));
+    return [...prioritySymbols, ...leftovers].slice(0, LIVE_QUOTE_BATCH_SIZE);
+  }
+  const activeSymbols = [];
+  remaining.forEach((item) => addSymbol(activeSymbols, normalizeSymbol(item.symbol)));
+  return [...prioritySymbols, ...activeSymbols].slice(0, LIVE_QUOTE_BATCH_SIZE);
+}
 function updateSymbolHint() {
   const hint = el("#symbolHint");
   const symbolInput = el("#symbolInput");
@@ -392,15 +444,13 @@ async function refreshVisibleQuotes() {
   const data = state.data || {};
   const sections = mergedSections(data);
   const active = sections[state.activeSection] || sections.watchlist || [];
-  const symbols = uniqueSymbols([
-    ...state.userStocks,
-    ...active
-  ]).slice(0, 30);
+  const symbols = pickLiveQuoteSymbols(active);
   if (!symbols.length) return;
   const results = await Promise.all(symbols.map(async (symbol) => {
     const quote = await lookupQuote(symbol);
     return quote ? [symbol, quote] : null;
   }));
+  if (["scanner", "spikes"].includes(state.activeSection)) state.liveQuoteCycle += 1;
   let changed = false;
   results.forEach((entry) => {
     if (!entry) return;
@@ -1202,7 +1252,7 @@ function renderDashboard() {
     const marketRows = (marketLabel) => active.filter((item) => displayMarket(item.market || marketName(item.symbol)) === marketLabel);
     const rowHtml = (item) => `<tr><td class="scanner-rank-cell">${item.rank || "-"}</td><td class="scanner-name-cell"><strong>${item.name || item.title || item.symbol}</strong> <span>(${item.symbol || "-"})</span></td><td>${formatDisplayPrice(item.currentPrice, item) || "-"}</td><td><b class="${signalClass(item.signal || item.sentiment || "")}">${item.signal || item.sentiment || "-"}</b></td><td>${formatDisplayPriceRange(item.predRange, item) || "-"}</td><td>${item.summary || ""}</td></tr>`;
     const groupHtml = (marketLabel) => {
-      const rows = marketRows(marketLabel).slice(0, 50);
+      const rows = marketRows(marketLabel).slice(0, DISPLAY_MARKET_LIMIT);
       const body = rows.length ? rows.map(rowHtml).join("") : `<tr><td colspan="6">\ud45c\uc2dc\ud560 \uc885\ubaa9\uc774 \uc5c6\uc2b5\ub2c8\ub2e4.</td></tr>`;
       return `<tr class="market-group-row"><td colspan="6">${marketLabel}</td></tr>${body}`;
     };
@@ -1221,7 +1271,7 @@ function renderDashboard() {
       return `<tr><td>${index + 1}</td><td>${label}</td><td><strong>${item.name || item.symbol}</strong> <span>(${item.symbol || "-"})</span></td><td>${displayMarket(item.market || marketName(item.symbol))}</td><td>${item.range || "-"}</td><td><b class="${changeClass}">${item.change || "-"}</b></td><td>${formatDisplayPrice(item.currentPrice, item) || "-"}</td><td><b class="${signalClass(item.signal || "")}">${item.signal || "-"}</b></td><td>${item.note || ""}</td></tr>`;
     };
     const groupHtml = (direction, title) => {
-      const rows = directionRows(direction).slice(0, 50);
+      const rows = directionRows(direction).slice(0, DISPLAY_MARKET_LIMIT);
       return `<tr class="market-group-row"><td colspan="9">${title}</td></tr>${rows.length ? rows.map((item, index) => rowHtml(item, index, direction)).join("") : `<tr><td colspan="9">\ud45c\uc2dc\ud560 \uc885\ubaa9\uc774 \uc5c6\uc2b5\ub2c8\ub2e4.</td></tr>`}`;
     };
     grid.innerHTML = `<div class="table-card"><table class="data-table"><thead><tr><th>\uc21c\uc704</th><th>\uad6c\ubd84</th><th>\uc885\ubaa9</th><th>\uc2dc\uc7a5</th><th>\uad6c\uac04</th><th>\ub4f1\ub77d\ub960</th><th>\ud604\uc7ac\uac00</th><th>\uc2e0\ud638</th><th>\uadfc\uac70</th></tr></thead><tbody>${groupHtml("up", "\uae09\ub4f1")}${groupHtml("down", "\uae09\ub77d")}</tbody></table></div>`;
