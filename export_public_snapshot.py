@@ -1086,7 +1086,7 @@ def build_snapshot() -> dict:
     items = predictions.get("items", []) if isinstance(predictions, dict) else []
     if not isinstance(items, list):
         items = []
-    scanner_limit_each = 50
+    scanner_limit_each = 30
     domestic = _top_items(items, "국내", scanner_limit_each)
     us = _top_items(items, "미국", scanner_limit_each)
     if len(domestic) < scanner_limit_each:
