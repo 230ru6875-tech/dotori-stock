@@ -24,6 +24,15 @@ DOTORI_COM_REPORT_PATH = DOTORI_DIR / "data" / "dotori-com-report.json"
 KST = timezone(timedelta(hours=9))
 REQUEST_TIMEOUT_SECONDS = 4
 
+SYMBOL_ALIASES = {
+    "엘지유플러스": ("032640", "LG유플러스", "국내"),
+    "LG유플러스": ("032640", "LG유플러스", "국내"),
+    "엘지전자": ("066570", "LG전자", "국내"),
+    "LG전자": ("066570", "LG전자", "국내"),
+    "엘지이노텍": ("011070", "LG이노텍", "국내"),
+    "LG이노텍": ("011070", "LG이노텍", "국내"),
+}
+
 DEFAULT_US_SYMBOLS = [
     ("MU", "마이크론 테크놀로지"),
     ("MRVL", "마벨 테크놀로지"),
@@ -202,6 +211,21 @@ def _http_json(url: str, params: dict | None = None, timeout: int = REQUEST_TIME
     )
     with urlopen(request, timeout=timeout) as response:
         raw = response.read()
+        charset = response.headers.get_content_charset() or ""
+    candidates = [charset] if charset else []
+    if "naver.com" in url:
+        candidates.extend(["cp949", "euc-kr"])
+    candidates.extend(["utf-8", "cp949"])
+    last_error: Exception | None = None
+    for encoding in candidates:
+        if not encoding:
+            continue
+        try:
+            return json.loads(raw.decode(encoding))
+        except Exception as exc:
+            last_error = exc
+    if last_error:
+        raise last_error
     return json.loads(raw.decode("utf-8", errors="replace"))
 
 
@@ -223,15 +247,39 @@ def _format_price(value: float, market_text: str) -> str:
     return f"{value:,.0f}원"
 
 
+def _normalize_symbol_fields(symbol: object, name: object = "", market: object = "") -> tuple[str, str, str]:
+    raw_symbol = str(symbol or "").strip()
+    raw_name = str(name or "").strip()
+    raw_market = str(market or "").strip()
+    alias = SYMBOL_ALIASES.get(raw_symbol) or SYMBOL_ALIASES.get(raw_name)
+    if alias:
+        return alias
+    normalized = raw_symbol.upper()
+    if re.fullmatch(r"\d{1,6}", normalized):
+        normalized = normalized.zfill(6)
+        return normalized, raw_name or normalized, "국내"
+    if re.fullmatch(r"[A-Z0-9.]+", normalized):
+        return normalized, raw_name or normalized, raw_market or "미국"
+    return normalized, raw_name or raw_symbol, raw_market or "국내"
+
+
 def _scanner_row(item: dict, rank: int) -> dict:
-    symbol = _clean_text(item.get("symbol"))
-    name = _clean_text(item.get("display_name"), symbol)
+    symbol, resolved_name, resolved_market = _normalize_symbol_fields(item.get("symbol"), item.get("display_name"), item.get("market"))
+    symbol = _clean_text(symbol)
+    name = _clean_text(resolved_name, symbol)
     current = _clean_text(item.get("current_price_text"))
     signal = _clean_text(item.get("trade_signal"), "관찰")
     low = _clean_text(item.get("pred_low_text"))
     high = _clean_text(item.get("pred_high_text"))
     hint = _clean_text(item.get("analysis_hint"), "시장 데이터 확인")
-    market = _clean_text(item.get("market"))
+    market = _clean_text(resolved_market)
+    if market == "국내" and "$" in current:
+        quote_row = _fetch_public_quote(symbol, "국내")
+        price = _safe_float(quote_row.get("price"), 0.0)
+        if price > 0:
+            current = _format_price(price, "국내")
+            low = "-"
+            high = "-"
     return {
         "rank": rank,
         "market": market,
@@ -252,7 +300,7 @@ def _top_items(items: list[dict], market_text: str, limit: int = 50) -> list[dic
     filtered = [
         item for item in items
         if isinstance(item, dict)
-        and str(item.get("market", "")).strip() == market_text
+        and _normalize_symbol_fields(item.get("symbol"), item.get("display_name"), item.get("market"))[2] == market_text
         and str(item.get("symbol", "")).strip()
     ]
     filtered.sort(
@@ -1104,19 +1152,30 @@ def build_symbol_directory(snapshot: dict | None = None) -> dict:
     for item in items:
         if not isinstance(item, dict):
             continue
-        symbol = _clean_text(item.get("symbol"), "").upper()
+        symbol, resolved_name, resolved_market = _normalize_symbol_fields(item.get("symbol"), item.get("display_name"), item.get("market"))
+        symbol = _clean_text(symbol, "").upper()
         if not symbol:
             continue
-        display_name = _clean_text(item.get("display_name"), symbol)
+        display_name = _clean_text(resolved_name, symbol)
         clean_name = re.sub(rf"\s*\(?{re.escape(symbol)}\)?\s*$", "", display_name).strip() or display_name
+        current_price = _clean_text(item.get("current_price_text"), "")
+        pred_low = _clean_text(item.get("pred_low_text"))
+        pred_high = _clean_text(item.get("pred_high_text"))
+        if resolved_market == "국내" and "$" in current_price:
+            quote_row = _fetch_public_quote(symbol, "국내")
+            price = _safe_float(quote_row.get("price"), 0.0)
+            if price > 0:
+                current_price = _format_price(price, "국내")
+                pred_low = "-"
+                pred_high = "-"
         directory[symbol] = {
             "symbol": symbol,
             "name": clean_name,
-            "market": _clean_text(item.get("market")),
-            "currentPrice": _clean_text(item.get("current_price_text"), ""),
+            "market": _clean_text(resolved_market),
+            "currentPrice": current_price,
             "signal": _clean_text(item.get("trade_signal"), "관찰"),
             "movingAverage": _clean_text(item.get("analysis_hint"), ""),
-            "predRange": f"{_clean_text(item.get('pred_low_text'))} ~ {_clean_text(item.get('pred_high_text'))}",
+            "predRange": f"{pred_low} ~ {pred_high}",
             "memo": _clean_text(item.get("analysis_hint"), "도토리웹 저장소 기준 종목 정보"),
         }
     if isinstance(snapshot, dict):
