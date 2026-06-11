@@ -1,4 +1,4 @@
-const state = { data: null, activeSection: "watchlist", userStocks: [], selectedMovingSymbol: "", scannerMarketFirst: "domestic", quotes: {}, liveQuoteCycle: 0 };
+const state = { data: null, activeSection: "watchlist", userStocks: [], selectedMovingSymbol: "", scannerMarketFirst: "domestic", scannerMarketFirstManual: false, quotes: {}, liveQuoteCycle: 0 };
 const USER_STOCKS_KEY = "dotori.userStocks.v1";
 const USER_KEY = "dotori.userKey.v1";
 const USER_KEEP_ASKED_KEY = "dotori.keepAsked.v1";
@@ -912,6 +912,17 @@ function isMarketOpenForItem(item, date = new Date()) {
   const isEtWeekday = ["Mon", "Tue", "Wed", "Thu", "Fri"].includes(et.weekday);
   return isEtWeekday && et.minutes >= US_MARKET_START_ET_MINUTES && et.minutes <= US_MARKET_END_ET_MINUTES + MARKET_CLOSE_GRACE_MINUTES;
 }
+function isDomesticMarketOpen(date = new Date()) {
+  const { weekday, minutes } = kstParts(date);
+  const isWeekday = ["Mon", "Tue", "Wed", "Thu", "Fri"].includes(weekday);
+  return isWeekday && minutes >= DOMESTIC_MARKET_START_KST_MINUTES && minutes <= DOMESTIC_MARKET_END_KST_MINUTES + MARKET_CLOSE_GRACE_MINUTES;
+}
+function effectiveScannerMarketFirst() {
+  if (!state.scannerMarketFirstManual) {
+    state.scannerMarketFirst = isDomesticMarketOpen() ? "domestic" : "us";
+  }
+  return state.scannerMarketFirst;
+}
 function marketSignalWindowForItem(item, date = new Date()) {
   const market = displayMarket(item?.market || marketName(item?.symbol || ""));
   const { weekday, minutes } = kstParts(date);
@@ -1256,9 +1267,10 @@ function renderDashboard() {
       const body = rows.length ? rows.map(rowHtml).join("") : `<tr><td colspan="6">\ud45c\uc2dc\ud560 \uc885\ubaa9\uc774 \uc5c6\uc2b5\ub2c8\ub2e4.</td></tr>`;
       return `<tr class="market-group-row"><td colspan="6">${marketLabel}</td></tr>${body}`;
     };
-    const first = state.scannerMarketFirst === "us" ? T.us : T.domestic;
-    const second = state.scannerMarketFirst === "us" ? T.domestic : T.us;
-    grid.innerHTML = `<div class="scanner-market-controls"><button class="${state.scannerMarketFirst === "domestic" ? "active" : ""}" data-scanner-first="domestic" type="button">\uad6d\ub0b4 \uc6b0\uc120</button><button class="${state.scannerMarketFirst === "us" ? "active" : ""}" data-scanner-first="us" type="button">\ud574\uc678 \uc6b0\uc120</button></div><div class="table-card"><table class="data-table scanner-table"><thead><tr><th>\uc21c\uc704</th><th>\uc885\ubaa9</th><th>\ud604\uc7ac\uac00</th><th>\uc2e0\ud638</th><th>\uc608\uce21\ubc94\uc704</th><th>\uc694\uc57d</th></tr></thead><tbody>${groupHtml(first)}${groupHtml(second)}</tbody></table></div>`;
+    const scannerFirst = effectiveScannerMarketFirst();
+    const first = scannerFirst === "us" ? T.us : T.domestic;
+    const second = scannerFirst === "us" ? T.domestic : T.us;
+    grid.innerHTML = `<div class="scanner-market-controls"><button class="${scannerFirst === "domestic" ? "active" : ""}" data-scanner-first="domestic" type="button">\uad6d\ub0b4 \uc6b0\uc120</button><button class="${scannerFirst === "us" ? "active" : ""}" data-scanner-first="us" type="button">\ud574\uc678 \uc6b0\uc120</button></div><div class="table-card"><table class="data-table scanner-table"><thead><tr><th>\uc21c\uc704</th><th>\uc885\ubaa9</th><th>\ud604\uc7ac\uac00</th><th>\uc2e0\ud638</th><th>\uc608\uce21\ubc94\uc704</th><th>\uc694\uc57d</th></tr></thead><tbody>${groupHtml(first)}${groupHtml(second)}</tbody></table></div>`;
   } else if (state.activeSection === "learning") {
     grid.innerHTML = renderCards(active, (item) => `<article class="data-card"><div class="card-top"><strong>${item.topic}</strong><em>${T.learning}</em></div><p>${item.lesson}</p></article>`);
   } else if (state.activeSection === "spikes") {
@@ -1314,6 +1326,7 @@ function renderDashboard() {
   document.querySelectorAll("[data-scanner-first]").forEach((button) => {
     button.addEventListener("click", () => {
       state.scannerMarketFirst = button.dataset.scannerFirst || "domestic";
+      state.scannerMarketFirstManual = true;
       renderDashboard();
     });
   });
