@@ -1213,31 +1213,60 @@ function movingChartSvg(item) {
   const plotWidth = 520;
   const plotHeight = 236;
   const current = parseNumber(item.currentPrice) || 4000 + (seed % 600);
-  const low = current * 0.88;
-  const high = current * 1.12;
-  const toX = (index, count) => left + (plotWidth / Math.max(count - 1, 1)) * index;
-  const toY = (value) => top + ((high - value) / Math.max(high - low, 1)) * plotHeight;
-  const closeSeries = Array.from({ length: 48 }, (_, index) => {
+  const realOhlc = Array.isArray(item.ohlc)
+    ? item.ohlc.map((row) => ({
+        date: row.date || "",
+        open: parseNumber(row.open),
+        high: parseNumber(row.high),
+        low: parseNumber(row.low),
+        close: parseNumber(row.close),
+        volume: parseNumber(row.volume)
+      })).filter((row) => row.close > 0 && row.high > 0 && row.low > 0)
+    : [];
+  const hasRealOhlc = realOhlc.length >= 5;
+  const fallbackCloseSeries = Array.from({ length: 48 }, (_, index) => {
     const amp = current * 0.032;
     const wave = Math.sin((index + seed / 17) / 4) * amp + Math.cos(index / 7) * amp * 0.55;
     const trend = (index - 24) * -current * 0.0012;
     const dip = index > 16 && index < 29 ? -amp * 1.4 : 0;
     return current + wave + trend + dip;
   });
-  const heikinRows = closeSeries.map((close, index) => {
-    const prevClose = closeSeries[Math.max(0, index - 1)];
+  const ohlcRows = hasRealOhlc ? realOhlc : fallbackCloseSeries.map((close, index) => {
+    const prevClose = fallbackCloseSeries[Math.max(0, index - 1)];
     const open = index === 0 ? prevClose : (prevClose + close) / 2;
-    const highValue = Math.max(open, close) + current * (0.005 + ((index + seed) % 4) * 0.001);
-    const lowValue = Math.min(open, close) - current * (0.005 + ((index + seed + 2) % 4) * 0.001);
-    const haClose = (open + highValue + lowValue + close) / 4;
+    return {
+      date: "",
+      open,
+      high: Math.max(open, close) + current * (0.005 + ((index + seed) % 4) * 0.001),
+      low: Math.min(open, close) - current * (0.005 + ((index + seed + 2) % 4) * 0.001),
+      close,
+      volume: 0
+    };
+  });
+  const closeSeries = ohlcRows.map((row) => row.close);
+  const rawLow = Math.min(...ohlcRows.map((row) => row.low), current);
+  const rawHigh = Math.max(...ohlcRows.map((row) => row.high), current);
+  const pad = Math.max((rawHigh - rawLow) * 0.08, current * 0.01, 1);
+  const low = rawLow - pad;
+  const high = rawHigh + pad;
+  const toX = (index, count) => left + (plotWidth / Math.max(count - 1, 1)) * index;
+  const toY = (value) => top + ((high - value) / Math.max(high - low, 1)) * plotHeight;
+  const heikinRows = [];
+  ohlcRows.forEach((row, index) => {
+    const haClose = (row.open + row.high + row.low + row.close) / 4;
     const prevHa = index > 0 ? heikinRows[index - 1] : null;
-    const haOpen = prevHa ? (prevHa.open + prevHa.close) / 2 : (open + close) / 2;
-    return { open: haOpen, close: haClose, high: Math.max(highValue, haOpen, haClose), low: Math.min(lowValue, haOpen, haClose) };
+    const haOpen = prevHa ? (prevHa.open + prevHa.close) / 2 : (row.open + row.close) / 2;
+    heikinRows.push({
+      open: haOpen,
+      close: haClose,
+      high: Math.max(row.high, haOpen, haClose),
+      low: Math.min(row.low, haOpen, haClose)
+    });
   });
   const candleStep = plotWidth / Math.max(heikinRows.length - 1, 1);
   const candleWidth = Math.max(3, candleStep * 0.52);
-  const heikinCandles = heikinRows.filter((_, index) => index % 2 === 0).map((row, index) => {
-    const sourceIndex = index * 2;
+  const candleSkip = Math.max(1, Math.ceil(heikinRows.length / 34));
+  const heikinCandles = heikinRows.map((row, index) => ({ row, sourceIndex: index })).filter(({ sourceIndex }) => sourceIndex % candleSkip === 0 || sourceIndex === heikinRows.length - 1).map(({ row, sourceIndex }) => {
     const x = toX(sourceIndex, heikinRows.length);
     const yHigh = toY(row.high);
     const yLow = toY(row.low);
@@ -1248,18 +1277,24 @@ function movingChartSvg(item) {
     const cls = row.close >= row.open ? "ha-up" : "ha-down";
     return `<line x1="${x.toFixed(1)}" y1="${yHigh.toFixed(1)}" x2="${x.toFixed(1)}" y2="${yLow.toFixed(1)}" class="ha-wick ${cls}"/><rect x="${(x - candleWidth / 2).toFixed(1)}" y="${y.toFixed(1)}" width="${candleWidth.toFixed(1)}" height="${bodyHeight.toFixed(1)}" rx="1.5" class="ha-body ${cls}"/>`;
   }).join("");
-  const line = (offset, amp, slope) => Array.from({ length: 48 }, (_, index) => {
-    const wave = Math.sin((index + seed / 17) / 4) * amp + Math.cos(index / 7) * amp * 0.55;
-    const trend = (index - 24) * slope;
-    const dip = index > 16 && index < 29 ? -amp * 1.4 : 0;
-    return `${toX(index, 48).toFixed(1)},${toY(current + offset + wave + trend + dip).toFixed(1)}`;
+  const movingAveragePoints = (windowSize) => closeSeries.map((_, index) => {
+    const start = Math.max(0, index - windowSize + 1);
+    const slice = closeSeries.slice(start, index + 1);
+    return slice.reduce((sum, value) => sum + value, 0) / Math.max(slice.length, 1);
+  }).map((value, index) => `${toX(index, closeSeries.length).toFixed(1)},${toY(value).toFixed(1)}`).join(" ");
+  const dynamicPoints = closeSeries.map((value, index) => {
+    const start = Math.max(0, index - 5);
+    const slice = closeSeries.slice(start, index + 1);
+    const avg = slice.reduce((sum, val) => sum + val, 0) / Math.max(slice.length, 1);
+    return `${toX(index, closeSeries.length).toFixed(1)},${toY(avg).toFixed(1)}`;
   }).join(" ");
-  const labels = [high, current * 1.06, current, current * 0.94, low].map((value, index) => {
+  const labels = [high, low + (high - low) * 0.75, low + (high - low) * 0.5, low + (high - low) * 0.25, low].map((value, index) => {
     const y = top + (plotHeight / 4) * index;
     return `<text x="12" y="${(y + 4).toFixed(1)}" class="ma-axis">${escapeHtml(formatDisplayPrice(value, item))}</text><line x1="${left}" y1="${y.toFixed(1)}" x2="${left + plotWidth}" y2="${y.toFixed(1)}" class="ma-grid"/>`;
   }).join("");
   const closePoints = closeSeries.map((value, index) => `${toX(index, closeSeries.length).toFixed(1)},${toY(value).toFixed(1)}`).join(" ");
-  return `<svg class="ma-svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="moving average and heikin ashi chart"><text x="54" y="18" class="ma-title">${escapeHtml(item.name || item.symbol)}(${escapeHtml(item.symbol || "")}) \uc774\ud3c9\uc120 + \ud558\uc774\ud0a8\uc544\uc2dc</text><g class="ma-legend"><text x="224" y="18">\ud558\uc774\ud0a8</text><text x="286" y="18">\uc885\uac00</text><text x="336" y="18">20\uc77c</text><text x="392" y="18">60\uc77c</text><text x="452" y="18">\ub3d9\uc801</text><text x="510" y="18">\ub370\ub4dc</text></g>${labels}<line x1="${left}" y1="${top}" x2="${left}" y2="${top + plotHeight}" class="ma-border"/><line x1="${left}" y1="${top + plotHeight}" x2="${left + plotWidth}" y2="${top + plotHeight}" class="ma-border"/><g class="ha-layer">${heikinCandles}</g><polyline points="${closePoints}" class="ma-close"/><polyline points="${line(current * 0.01, current * 0.022, -current * 0.0008)}" class="ma-line ma-fast"/><polyline points="${line(current * 0.025, current * 0.016, -current * 0.0004)}" class="ma-line ma-mid"/><polyline points="${line(current * 0.055, current * 0.010, current * 0.0001)}" class="ma-line ma-slow"/><line x1="${(left + plotWidth * 0.38).toFixed(1)}" y1="${top}" x2="${(left + plotWidth * 0.38).toFixed(1)}" y2="${top + plotHeight}" class="ma-dead"/><line x1="${(left + plotWidth * 0.90).toFixed(1)}" y1="${top}" x2="${(left + plotWidth * 0.90).toFixed(1)}" y2="${top + plotHeight}" class="ma-dead"/><circle cx="${(left + plotWidth * 0.38).toFixed(1)}" cy="${toY(current * 1.03).toFixed(1)}" r="4" class="ma-dot"/><text x="${(left + plotWidth * 0.39).toFixed(1)}" y="${toY(current * 1.04).toFixed(1)}" class="ma-dead-label">\ub370\ub4dc</text></svg>`;
+  const sourceLabel = hasRealOhlc ? "OHLC" : "\ucd94\uc815";
+  return `<svg class="ma-svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="moving average and heikin ashi chart"><text x="54" y="18" class="ma-title">${escapeHtml(item.name || item.symbol)}(${escapeHtml(item.symbol || "")}) \uc774\ud3c9\uc120 + \ud558\uc774\ud0a8\uc544\uc2dc</text><g class="ma-legend"><text x="224" y="18">${escapeHtml(sourceLabel)}</text><text x="286" y="18">\uc885\uac00</text><text x="336" y="18">20\uc77c</text><text x="392" y="18">60\uc77c</text><text x="452" y="18">\ub3d9\uc801</text><text x="510" y="18">\ub370\ub4dc</text></g>${labels}<line x1="${left}" y1="${top}" x2="${left}" y2="${top + plotHeight}" class="ma-border"/><line x1="${left}" y1="${top + plotHeight}" x2="${left + plotWidth}" y2="${top + plotHeight}" class="ma-border"/><g class="ha-layer">${heikinCandles}</g><polyline points="${closePoints}" class="ma-close"/><polyline points="${movingAveragePoints(20)}" class="ma-line ma-fast"/><polyline points="${movingAveragePoints(60)}" class="ma-line ma-mid"/><polyline points="${dynamicPoints}" class="ma-line ma-slow"/><line x1="${(left + plotWidth * 0.38).toFixed(1)}" y1="${top}" x2="${(left + plotWidth * 0.38).toFixed(1)}" y2="${top + plotHeight}" class="ma-dead"/><line x1="${(left + plotWidth * 0.90).toFixed(1)}" y1="${top}" x2="${(left + plotWidth * 0.90).toFixed(1)}" y2="${top + plotHeight}" class="ma-dead"/><circle cx="${toX(closeSeries.length - 1, closeSeries.length).toFixed(1)}" cy="${toY(closeSeries[closeSeries.length - 1]).toFixed(1)}" r="4" class="ma-dot"/><text x="${(left + plotWidth * 0.39).toFixed(1)}" y="${toY(low + (high - low) * 0.85).toFixed(1)}" class="ma-dead-label">\ub370\ub4dc</text></svg>`;
 }
 function heikinAshiDecision(item) {
   const text = `${item.decision || ""} ${item.note || ""} ${item.movingAverage || ""}`;
@@ -1278,11 +1313,13 @@ function movingDetailHtml(item) {
   const ma60 = formatDisplayPrice(item.ma60, item) || "-";
   const decision = item.decision || "-";
   const note = item.note || item.movingAverage || "-";
+  const ohlcCount = Array.isArray(item.ohlc) ? item.ohlc.length : 0;
+  const ohlcSource = ohlcCount > 0 ? `${item.ohlcSource || "OHLC"} ${ohlcCount}봉` : "OHLC 대기";
   const heikin = heikinAshiDecision(item);
   const strategy = /\ub9e4\ub3c4|\uc704\ud5d8|\ubcf4\ub958|\ubcc0\ub3d9/.test(`${decision} ${note}`)
     ? "\ub2e8\ud0c0 \uc9c4\uc785\uc740 \ubcf4\ub958\ud558\uace0 20\uc77c\uc120 \ud68c\ubcf5\uacfc \uac70\ub798\ub7c9 \uc548\uc815\uc744 \uba3c\uc800 \ud655\uc778\ud569\ub2c8\ub2e4."
     : "20\uc77c\uc120 \uc9c0\uc9c0\uc640 60\uc77c\uc120 \uc774\ud0c8 \uc5ec\ubd80\ub97c \uac19\uc774 \ubcf4\uba74\uc11c \ubd84\ud560 \uc9c4\uc785\ub9cc \uac80\ud1a0\ud569\ub2c8\ub2e4.";
-  return `<div class="moving-detail"><div class="moving-chart-box">${movingChartSvg(item)}</div><div class="moving-memo"><h3>[\uc774\ud3c9\uc120 + \ud558\uc774\ud0a8\uc544\uc2dc \ubcf4\uc870\ud310\ub2e8]</h3><p>- \uc885\ubaa9: ${escapeHtml(item.name || item.symbol)}(${escapeHtml(item.symbol || "-")})</p><p>- \ud604\uc7ac\uac00: ${escapeHtml(current)}</p><p>- 20\uc77c\uc120: ${escapeHtml(ma20)}</p><p>- 60\uc77c\uc120: ${escapeHtml(ma60)}</p><p>- \uc774\ud3c9\uc120 \ud310\ub2e8: <b>${escapeHtml(decision)}</b></p><p>- ${escapeHtml(heikin.label)}</p><p>- \uadfc\uac70: ${escapeHtml(note)}</p><h3>[\uc804\ub7b5 \uba54\ubaa8]</h3><p>- ${escapeHtml(heikin.memo)}</p><p>- ${escapeHtml(strategy)}</p><p>- \uc774\ud3c9\uc120 \ub2e8\ud0c0\uc804\ub7b5: 5\uc77c\uc120\uacfc 20\uc77c\uc120 \uc704\uce58\uac00 \uac19\uc774 \uac1c\uc120\ub420 \ub54c\ub9cc \uc810\uc218\ub97c \ub192\uc785\ub2c8\ub2e4.</p></div></div>`;
+  return `<div class="moving-detail"><div class="moving-chart-box">${movingChartSvg(item)}</div><div class="moving-memo"><h3>[\uc774\ud3c9\uc120 + \ud558\uc774\ud0a8\uc544\uc2dc \ubcf4\uc870\ud310\ub2e8]</h3><p>- \uc885\ubaa9: ${escapeHtml(item.name || item.symbol)}(${escapeHtml(item.symbol || "-")})</p><p>- \ud604\uc7ac\uac00: ${escapeHtml(current)}</p><p>- OHLC: ${escapeHtml(ohlcSource)}</p><p>- 20\uc77c\uc120: ${escapeHtml(ma20)}</p><p>- 60\uc77c\uc120: ${escapeHtml(ma60)}</p><p>- \uc774\ud3c9\uc120 \ud310\ub2e8: <b>${escapeHtml(decision)}</b></p><p>- ${escapeHtml(heikin.label)}</p><p>- \uadfc\uac70: ${escapeHtml(note)}</p><h3>[\uc804\ub7b5 \uba54\ubaa8]</h3><p>- ${escapeHtml(heikin.memo)}</p><p>- ${escapeHtml(strategy)}</p><p>- \uc774\ud3c9\uc120 \ub2e8\ud0c0\uc804\ub7b5: 5\uc77c\uc120\uacfc 20\uc77c\uc120 \uc704\uce58\uac00 \uac19\uc774 \uac1c\uc120\ub420 \ub54c\ub9cc \uc810\uc218\ub97c \ub192\uc785\ub2c8\ub2e4.</p></div></div>`;
 }
 function mergedSections(data) {
   return {

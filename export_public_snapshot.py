@@ -16,13 +16,22 @@ PREDICTIONS_PATH = BASE_DIR / "logs" / "latest_stock_predictions.json"
 INVESTMENT_ANALYSIS_PATH = BASE_DIR / "logs" / "investment_analysis_latest.json"
 MORNING_NOTE_PATH = BASE_DIR / "logs" / "morning_note_latest.json"
 EXTERNAL_SIGNALS_PATH = BASE_DIR / "logs" / "external_signals" / "latest.json"
+AUTONOMOUS_RESEARCH_PATH = BASE_DIR / "logs" / "autonomous_research" / "latest.json"
+TORI_RESEARCH_PATHS = [
+    BASE_DIR / "logs" / "tori" / "tori_latest.json",
+    BASE_DIR / "logs" / "tori1" / "tori_latest.json",
+    BASE_DIR / "logs" / "tori2" / "tori_latest.json",
+]
 WATCHLIST_PATH = BASE_DIR / "config" / "price_band_alert_watchlist.json"
 PREDICTION_SYMBOLS_PATH = BASE_DIR / "config" / "prediction_symbols.yaml"
 PUBLIC_SNAPSHOT_PATH = DOTORI_DIR / "data" / "public-snapshot.json"
 SYMBOL_DIRECTORY_PATH = DOTORI_DIR / "data" / "symbol-directory.json"
 DOTORI_COM_REPORT_PATH = DOTORI_DIR / "data" / "dotori-com-report.json"
+DOTORI_COM_AUTONOMY_POLICY_PATH = BASE_DIR / "config" / "dotori_com_autonomy_policy.json"
+DOTORI_COM_PUBLIC_AUTONOMY_POLICY_PATH = DOTORI_DIR / "data" / "autonomy-policy.json"
 KST = timezone(timedelta(hours=9))
 REQUEST_TIMEOUT_SECONDS = 4
+OHLC_CACHE: dict[tuple[str, str], dict] = {}
 
 SYMBOL_ALIASES = {
     "엘지유플러스": ("032640", "LG유플러스", "국내"),
@@ -85,6 +94,47 @@ DEFAULT_US_SYMBOLS = [
     ("AMT", "아메리칸타워"),
     ("SHOP", "쇼피파이"),
 ]
+
+
+def _dotori_com_autonomy_policy() -> dict:
+    default_policy = {
+        "program": "dotori_com",
+        "mode": "research_and_trading",
+        "scope": "dotori.com",
+        "allowed_actions": [
+            "collect_market_data",
+            "collect_news",
+            "summarize_sources",
+            "store_research",
+            "verify_tori_research",
+            "classify_verified_vs_reference_only",
+            "generate_trade_candidates",
+            "submit_buy",
+            "submit_sell",
+            "manage_positions",
+        ],
+        "forbidden_actions": [
+            "bypass_broker_limits",
+            "bypass_existing_autotrade_gates",
+            "share_api_secrets_to_public_site",
+        ],
+        "trade_execution_allowed": True,
+        "execution_owner": "pc_autotrade_engine",
+        "verification_owner": "dotori_com",
+        "tori_role_policy": {
+            "tori1": "domestic_market_and_korean_morning_evening_news_collection",
+            "tori2": "overseas_market_and_global_economic_news_collection",
+            "tori3": "unused_by_default",
+            "dotori_com": "verification_crosscheck_and_trade_candidate_classification",
+        },
+        "public_site_can_hold_secrets": False,
+        "requires_existing_safety_gates": True,
+    }
+    try:
+        payload = json.loads(DOTORI_COM_AUTONOMY_POLICY_PATH.read_text(encoding="utf-8"))
+    except Exception:
+        return default_policy
+    return payload if isinstance(payload, dict) else default_policy
 
 DEFAULT_DOMESTIC_SYMBOLS = [
     ("005930", "삼성전자"),
@@ -481,6 +531,94 @@ def _fetch_yahoo_quote(symbol: str) -> dict:
     return {"symbol": normalized, "name": name, "price": price, "market": "미국", "source": "Yahoo Finance"}
 
 
+def _yahoo_chart_symbol_candidates(symbol: str, market_text: str = "") -> list[str]:
+    normalized = str(symbol or "").strip().upper()
+    if not normalized:
+        return []
+    if re.fullmatch(r"\d{1,6}", normalized) or market_text == "국내":
+        domestic = normalized.zfill(6)
+        return [f"{domestic}.KS", f"{domestic}.KQ"]
+    return [normalized]
+
+
+def _fetch_yahoo_ohlc(symbol: str, market_text: str = "", limit: int = 80) -> dict:
+    normalized = str(symbol or "").strip().upper()
+    if not normalized:
+        return {}
+    cache_key = (normalized, str(market_text or ""))
+    if cache_key in OHLC_CACHE:
+        return OHLC_CACHE[cache_key]
+    for yahoo_symbol in _yahoo_chart_symbol_candidates(normalized, market_text):
+        try:
+            chart = _http_json(
+                f"https://query1.finance.yahoo.com/v8/finance/chart/{quote(yahoo_symbol)}",
+                {"range": "3mo", "interval": "1d", "includePrePost": "true", "events": "history"},
+                timeout=REQUEST_TIMEOUT_SECONDS,
+            )
+            result = chart.get("chart", {}).get("result", [])[0]
+            timestamps = result.get("timestamp", [])
+            quote_rows = result.get("indicators", {}).get("quote", [])
+            quote_row = quote_rows[0] if quote_rows and isinstance(quote_rows[0], dict) else {}
+            if not timestamps or not quote_row:
+                continue
+            rows: list[dict] = []
+            opens = quote_row.get("open") or []
+            highs = quote_row.get("high") or []
+            lows = quote_row.get("low") or []
+            closes = quote_row.get("close") or []
+            volumes = quote_row.get("volume") or []
+            for index, ts in enumerate(timestamps):
+                close = _safe_float(closes[index] if index < len(closes) else None, 0.0)
+                if close <= 0:
+                    continue
+                open_value = _safe_float(opens[index] if index < len(opens) else close, close)
+                high_value = _safe_float(highs[index] if index < len(highs) else close, close)
+                low_value = _safe_float(lows[index] if index < len(lows) else close, close)
+                volume = _safe_float(volumes[index] if index < len(volumes) else 0, 0.0)
+                traded_at = datetime.fromtimestamp(int(ts), KST).date().isoformat()
+                rows.append({
+                    "date": traded_at,
+                    "open": round(open_value, 4),
+                    "high": round(high_value, 4),
+                    "low": round(low_value, 4),
+                    "close": round(close, 4),
+                    "volume": int(volume) if volume >= 0 else 0,
+                })
+            if rows:
+                payload = {
+                    "symbol": normalized,
+                    "quoteSymbol": yahoo_symbol,
+                    "source": "Yahoo Finance",
+                    "updatedAt": datetime.now(KST).isoformat(timespec="seconds"),
+                    "rows": rows[-limit:],
+                }
+                OHLC_CACHE[cache_key] = payload
+                return payload
+        except Exception:
+            continue
+    OHLC_CACHE[cache_key] = {}
+    return {}
+
+
+def _previous_ohlc_by_symbol(previous: dict) -> dict[str, dict]:
+    rows: dict[str, dict] = {}
+    moving_rows = previous.get("movingAverages", []) if isinstance(previous, dict) else []
+    if not isinstance(moving_rows, list):
+        return rows
+    for item in moving_rows:
+        if not isinstance(item, dict):
+            continue
+        symbol = _clean_text(item.get("symbol"), "").upper()
+        ohlc = item.get("ohlc")
+        if symbol and isinstance(ohlc, list) and ohlc:
+            rows[symbol] = {
+                "source": _clean_text(item.get("ohlcSource"), "previous snapshot"),
+                "updatedAt": _clean_text(item.get("ohlcUpdatedAt"), ""),
+                "rows": ohlc,
+            }
+    return rows
+
+
 def _fetch_naver_quote(symbol: str) -> dict:
     normalized = str(symbol or "").strip().zfill(6)
     if not re.fullmatch(r"\d{6}", normalized):
@@ -688,10 +826,16 @@ def _spike_rows(items: list[dict], limit: int = 50) -> list[dict]:
         if not reason:
             continue
         pct = _pct_from_text(reason)
-        symbol = _clean_text(item.get("symbol"), "")
+        raw_display_name = _clean_text(item.get("display_name"), "")
+        resolved_symbol, resolved_name, resolved_market = _normalize_symbol_fields(
+            item.get("symbol"),
+            raw_display_name,
+            item.get("market"),
+        )
+        symbol = _clean_text(resolved_symbol, "")
         if not symbol:
             continue
-        display_name = _clean_text(item.get("display_name"), symbol)
+        display_name = _clean_text(resolved_name or raw_display_name, symbol)
         name = re.sub(rf"\s*\(?{re.escape(symbol)}\)?\s*$", "", display_name).strip() or display_name
         note = reason
         note = re.sub(r"^.*?(?:6|7)\ud30c\ud2b8\s*", "", note)
@@ -752,29 +896,44 @@ def _ma60_label(item: dict) -> str:
     return "\uc911\uae30 \uc120 \ud655\uc778"
 
 
-def _moving_average_rows(items: list[dict], limit: int = 30) -> list[dict]:
+def _moving_average_rows(items: list[dict], limit: int = 30, previous_ohlc: dict[str, dict] | None = None) -> list[dict]:
     rows: list[dict] = []
+    previous_ohlc = previous_ohlc or {}
     for item in items:
         if not isinstance(item, dict):
             continue
-        symbol = _clean_text(item.get("symbol"), "")
+        raw_display_name = _clean_text(item.get("display_name"), "")
+        resolved_symbol, resolved_name, resolved_market = _normalize_symbol_fields(
+            item.get("symbol"),
+            raw_display_name,
+            item.get("market"),
+        )
+        symbol = _clean_text(resolved_symbol, "")
         if not symbol:
             continue
-        display_name = _clean_text(item.get("display_name"), symbol)
+        display_name = _clean_text(resolved_name or raw_display_name, symbol)
         name = re.sub(rf"\s*\(?{re.escape(symbol)}\)?\s*$", "", display_name).strip() or display_name
         note = _first_matching_reason(item, ("\uc774\ud3c9", "20\uc77c", "\ucd94\uc138", "\ub370\ub4dc", "\uace8\ub4e0"))
         if not note:
             note = _clean_text(item.get("analysis_hint"), "")
+        market = _clean_text(resolved_market)
+        ohlc_payload = _fetch_yahoo_ohlc(symbol, market)
+        if not ohlc_payload.get("rows"):
+            ohlc_payload = previous_ohlc.get(symbol.upper(), {})
         rows.append({
             "name": name,
             "symbol": symbol,
-            "market": _clean_text(item.get("market")),
+            "market": market,
             "currentPrice": _clean_text(item.get("current_price_text"), ""),
             "ma20": _ma20_label(item),
             "ma60": _ma60_label(item),
             "decision": _public_prediction_signal(item),
             "note": _shorten(note),
             "score": round(_score_from_reasons(item), 2),
+            "ohlc": ohlc_payload.get("rows", []),
+            "ohlcSource": _clean_text(ohlc_payload.get("source"), ""),
+            "ohlcUpdatedAt": _clean_text(ohlc_payload.get("updatedAt"), ""),
+            "ohlcQuoteSymbol": _clean_text(ohlc_payload.get("quoteSymbol"), ""),
         })
     rows.sort(key=lambda row: ("\ub370\ub4dc" in row.get("note", ""), row.get("score", 0)), reverse=True)
     return rows[:limit]
@@ -946,6 +1105,124 @@ def _public_news_list(limit: int = 30) -> list[dict]:
     return rows
 
 
+def _read_json_dict(path: Path) -> dict:
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8", errors="replace"))
+    except Exception:
+        return {}
+    return payload if isinstance(payload, dict) else {}
+
+
+def _dotori_research_source_paths() -> list[Path]:
+    paths = [AUTONOMOUS_RESEARCH_PATH]
+    paths.extend(TORI_RESEARCH_PATHS)
+    return paths
+
+
+def _dotori_research_news_list(limit: int = 40) -> list[dict]:
+    rows: list[dict] = []
+    seen: set[str] = set()
+    for path in _dotori_research_source_paths():
+        if not path.exists():
+            continue
+        payload = _read_json_dict(path)
+        items = payload.get("items", [])
+        if not isinstance(items, list):
+            continue
+        collected_at = _clean_text(payload.get("collected_at"), "")
+        source_label = "dotori-com" if path == AUTONOMOUS_RESEARCH_PATH else _clean_text(payload.get("node_id"), path.parent.name)
+        for item in items:
+            if not isinstance(item, dict):
+                continue
+            title = _clean_public_line(item.get("title"))
+            summary = _clean_public_line(item.get("summary"))
+            url = _clean_text(item.get("url"), "")
+            if not title or not summary:
+                continue
+            key = url or title
+            if key in seen:
+                continue
+            domain = _clean_text(item.get("source_domain"), "")
+            verification = item.get("verification", {}) if isinstance(item.get("verification"), dict) else {}
+            confidence = _clean_text(verification.get("confidence"), "unverified")
+            trade_signal_allowed = bool(verification.get("trade_signal_allowed", False))
+            if len(summary) > 180:
+                summary = summary[:177].rstrip() + "..."
+            rows.append(
+                {
+                    "title": title,
+                    "summary": summary,
+                    "asOf": _clean_text(item.get("collected_at"), collected_at),
+                    "url": url,
+                    "source": source_label,
+                    "sourceDomain": domain,
+                    "score": float(item.get("score", 0.0) or 0.0),
+                    "verificationOwner": "dotori_com",
+                    "verificationConfidence": confidence,
+                    "tradeSignalAllowed": trade_signal_allowed,
+                    "verificationPolicy": "dotori_com verifies tori1/tori2 research before candidate use",
+                }
+            )
+            seen.add(key)
+            if len(rows) >= limit:
+                return rows
+    return rows
+
+
+def _merge_news_rows(primary: list[dict], supplemental: list[dict], limit: int = 40) -> list[dict]:
+    rows: list[dict] = []
+    seen: set[str] = set()
+    for item in [*supplemental, *primary]:
+        if not isinstance(item, dict):
+            continue
+        title = _clean_text(item.get("title"), "")
+        key = _clean_text(item.get("url"), "") or title
+        if not title or key in seen:
+            continue
+        rows.append(item)
+        seen.add(key)
+        if len(rows) >= limit:
+            break
+    return rows
+
+
+def _dotori_research_report(research_rows: list[dict]) -> dict | None:
+    if not research_rows:
+        return None
+    lines = []
+    for row in research_rows[:10]:
+        domain = _clean_text(row.get("sourceDomain"), "")
+        title = _clean_text(row.get("title"), "")
+        summary = _clean_text(row.get("summary"), "")
+        line = title
+        if domain:
+            line += f" | {domain}"
+        if summary:
+            line += f" | {summary[:90]}"
+        lines.append(line)
+    if not lines:
+        return None
+    return {
+        "title": "도토리컴 자동수집 자료",
+        "kind": "dotori-com-research",
+        "updatedAt": datetime.now(KST).isoformat(timespec="seconds"),
+        "summary": "도토리컴이 자동으로 모은 뉴스와 시장 자료를 웹 리포트 항목에 반영합니다.",
+        "sections": [
+            {
+                "heading": "자동 반영된 수집 자료",
+                "items": lines,
+            }
+        ],
+    }
+
+
+def _merge_research_into_morning_note(reports: list[dict], research_rows: list[dict]) -> list[dict]:
+    report = _dotori_research_report(research_rows)
+    if report is None:
+        return reports
+    return [report, *reports]
+
+
 def _turso_url() -> str:
     raw = _windows_user_env("TURSO_DATABASE_URL", "TORI_TURSO_DATABASE_URL")
     if not raw:
@@ -1043,15 +1320,19 @@ def _report_payload_from_row(row: dict, saved_at: str) -> dict:
 
 def _build_dotori_com_reports(scanner: list[dict], saved_at: str) -> dict:
     reports = {}
+    autonomy_policy = _dotori_com_autonomy_policy()
     for row in scanner:
         if not isinstance(row, dict):
             continue
         symbol = _clean_text(row.get("symbol"), "").upper()
         if not symbol:
             continue
-        reports[symbol] = _report_payload_from_row(row, saved_at)
+        report = _report_payload_from_row(row, saved_at)
+        report["autonomyPolicy"] = autonomy_policy
+        reports[symbol] = report
     return {
         "updatedAt": saved_at,
+        "autonomyPolicy": autonomy_policy,
         "count": len(reports),
         "reports": reports,
     }
@@ -1117,17 +1398,22 @@ def build_snapshot() -> dict:
         us.extend(_supplement_from_public_quotes("미국", {row["symbol"] for row in us}, len(us) + 1, scanner_limit_each - len(us)))
         us = _dedupe_and_rank(us, scanner_limit_each)
     scanner = domestic + us
+    autonomy_policy = _dotori_com_autonomy_policy()
     previous["updatedAt"] = datetime.now(KST).isoformat(timespec="seconds")
+    previous["autonomyPolicy"] = autonomy_policy
     previous["scannerUpdatedAt"] = predictions.get("saved_at", previous["updatedAt"])
     previous["scanner"] = scanner
     spike_rows = _spike_rows(items, 50)
     if spike_rows:
         previous["spikes"] = spike_rows
-    previous["movingAverages"] = _moving_average_rows(items)
-    previous["morningNote"] = _public_analysis_reports()
+    research_rows = _dotori_research_news_list()
+    research_report = _dotori_research_report(research_rows)
+    previous["movingAverages"] = _moving_average_rows(items, previous_ohlc=_previous_ohlc_by_symbol(previous))
+    previous["morningNote"] = _merge_research_into_morning_note(_public_analysis_reports(), research_rows)
     previous["sectorOverview"] = _public_sector_overview_reports(items)
-    previous["deepAnalysis"] = _public_deep_analysis_reports(items)
-    previous["newsList"] = _public_news_list()
+    previous["deepAnalysis"] = ([research_report] if research_report else []) + _public_deep_analysis_reports(items)
+    previous["newsList"] = _merge_news_rows(_public_news_list(), research_rows)
+    previous["dotoriComResearch"] = research_rows
     previous["analysis"] = previous["morningNote"]
     previous["scannerGroups"] = {
         "domestic": domestic,
@@ -1140,6 +1426,11 @@ def build_snapshot() -> dict:
         "domesticCount": len(domestic),
         "usCount": len(us),
         "dotoriComSupplemented": True,
+        "dotoriComResearchCount": len(research_rows),
+        "dotoriComResearchUpdatedAt": research_rows[0].get("asOf", "") if research_rows else "",
+        "autonomyMode": autonomy_policy.get("mode", "research_and_trading"),
+        "tradeExecutionAllowed": bool(autonomy_policy.get("trade_execution_allowed", False)),
+        "executionOwner": autonomy_policy.get("execution_owner", "pc_autotrade_engine"),
         "note": "웹 자료가 부족할 때 도토리컴이 관심종목과 기본 감시종목을 보충해 공개 스냅샷으로 보냅니다.",
     }
     previous.setdefault(
@@ -1227,6 +1518,10 @@ def main() -> None:
     )
     DOTORI_COM_REPORT_PATH.write_text(
         json.dumps(report_payload, ensure_ascii=True, indent=2),
+        encoding="utf-8",
+    )
+    DOTORI_COM_PUBLIC_AUTONOMY_POLICY_PATH.write_text(
+        json.dumps(_dotori_com_autonomy_policy(), ensure_ascii=True, indent=2),
         encoding="utf-8",
     )
     SYMBOL_DIRECTORY_PATH.write_text(
