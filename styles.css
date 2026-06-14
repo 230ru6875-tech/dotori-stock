@@ -57,6 +57,14 @@ a:hover {
   font-weight: 800;
 }
 
+.brand-updated-at {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+  margin-left: 6px;
+  white-space: nowrap;
+}
+
 .nav-links {
   display: flex;
   flex-wrap: wrap;

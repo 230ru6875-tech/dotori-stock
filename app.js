@@ -82,6 +82,12 @@ function setStatus(message) {
   status.textContent = message;
   status.hidden = !message;
 }
+function setBrandUpdatedAt(iso) {
+  const target = el("#brandUpdatedAt");
+  if (!target) return;
+  const text = fmtDateTimeSeconds(iso);
+  target.textContent = text && text !== "-" ? `(${text})` : "";
+}
 function renderCards(items, mapper) { return items.map(mapper).join(""); }
 function browserUserKey() {
   try {
@@ -1254,6 +1260,7 @@ function renderDashboard() {
   const updatedAt = el("#updatedAt");
   const exchangeRate = el("#exchangeRate");
   const exchangeNote = el("#exchangeNote");
+  setBrandUpdatedAt(data.updatedAt);
   if (updatedAt) updatedAt.textContent = fmtDateTimeSeconds(new Date().toISOString());
   if (exchangeRate) exchangeRate.textContent = `${data.exchangeRate.value} ${data.exchangeRate.change}`;
   if (exchangeNote) exchangeNote.textContent = data.exchangeRate.note || "\uc6b4\uc601 \ub370\uc774\ud130 \uae30\uc900\uc73c\ub85c 5\ucd08\ub9c8\ub2e4 \ud654\uba74\uc744 \uac31\uc2e0\ud569\ub2c8\ub2e4.";
