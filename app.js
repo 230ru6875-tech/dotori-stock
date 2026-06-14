@@ -1217,6 +1217,37 @@ function movingChartSvg(item) {
   const high = current * 1.12;
   const toX = (index, count) => left + (plotWidth / Math.max(count - 1, 1)) * index;
   const toY = (value) => top + ((high - value) / Math.max(high - low, 1)) * plotHeight;
+  const closeSeries = Array.from({ length: 48 }, (_, index) => {
+    const amp = current * 0.032;
+    const wave = Math.sin((index + seed / 17) / 4) * amp + Math.cos(index / 7) * amp * 0.55;
+    const trend = (index - 24) * -current * 0.0012;
+    const dip = index > 16 && index < 29 ? -amp * 1.4 : 0;
+    return current + wave + trend + dip;
+  });
+  const heikinRows = closeSeries.map((close, index) => {
+    const prevClose = closeSeries[Math.max(0, index - 1)];
+    const open = index === 0 ? prevClose : (prevClose + close) / 2;
+    const highValue = Math.max(open, close) + current * (0.005 + ((index + seed) % 4) * 0.001);
+    const lowValue = Math.min(open, close) - current * (0.005 + ((index + seed + 2) % 4) * 0.001);
+    const haClose = (open + highValue + lowValue + close) / 4;
+    const prevHa = index > 0 ? heikinRows[index - 1] : null;
+    const haOpen = prevHa ? (prevHa.open + prevHa.close) / 2 : (open + close) / 2;
+    return { open: haOpen, close: haClose, high: Math.max(highValue, haOpen, haClose), low: Math.min(lowValue, haOpen, haClose) };
+  });
+  const candleStep = plotWidth / Math.max(heikinRows.length - 1, 1);
+  const candleWidth = Math.max(3, candleStep * 0.52);
+  const heikinCandles = heikinRows.filter((_, index) => index % 2 === 0).map((row, index) => {
+    const sourceIndex = index * 2;
+    const x = toX(sourceIndex, heikinRows.length);
+    const yHigh = toY(row.high);
+    const yLow = toY(row.low);
+    const yOpen = toY(row.open);
+    const yClose = toY(row.close);
+    const y = Math.min(yOpen, yClose);
+    const bodyHeight = Math.max(3, Math.abs(yClose - yOpen));
+    const cls = row.close >= row.open ? "ha-up" : "ha-down";
+    return `<line x1="${x.toFixed(1)}" y1="${yHigh.toFixed(1)}" x2="${x.toFixed(1)}" y2="${yLow.toFixed(1)}" class="ha-wick ${cls}"/><rect x="${(x - candleWidth / 2).toFixed(1)}" y="${y.toFixed(1)}" width="${candleWidth.toFixed(1)}" height="${bodyHeight.toFixed(1)}" rx="1.5" class="ha-body ${cls}"/>`;
+  }).join("");
   const line = (offset, amp, slope) => Array.from({ length: 48 }, (_, index) => {
     const wave = Math.sin((index + seed / 17) / 4) * amp + Math.cos(index / 7) * amp * 0.55;
     const trend = (index - 24) * slope;
@@ -1227,7 +1258,18 @@ function movingChartSvg(item) {
     const y = top + (plotHeight / 4) * index;
     return `<text x="12" y="${(y + 4).toFixed(1)}" class="ma-axis">${escapeHtml(formatDisplayPrice(value, item))}</text><line x1="${left}" y1="${y.toFixed(1)}" x2="${left + plotWidth}" y2="${y.toFixed(1)}" class="ma-grid"/>`;
   }).join("");
-  return `<svg class="ma-svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="moving average chart"><text x="54" y="18" class="ma-title">${escapeHtml(item.name || item.symbol)}(${escapeHtml(item.symbol || "")}) \uc774\ub3d9\ud3c9\uade0\uc120 \ucc28\ud2b8</text><g class="ma-legend"><text x="238" y="18">\uc885\uac00</text><text x="286" y="18">5\uc77c</text><text x="336" y="18">20\uc77c</text><text x="392" y="18">60\uc77c</text><text x="452" y="18">\ub3d9\uc801</text><text x="510" y="18">\ub370\ub4dc</text></g>${labels}<line x1="${left}" y1="${top}" x2="${left}" y2="${top + plotHeight}" class="ma-border"/><line x1="${left}" y1="${top + plotHeight}" x2="${left + plotWidth}" y2="${top + plotHeight}" class="ma-border"/><polyline points="${line(0, current * 0.032, -current * 0.0012)}" class="ma-close"/><polyline points="${line(current * 0.01, current * 0.022, -current * 0.0008)}" class="ma-line ma-fast"/><polyline points="${line(current * 0.025, current * 0.016, -current * 0.0004)}" class="ma-line ma-mid"/><polyline points="${line(current * 0.055, current * 0.010, current * 0.0001)}" class="ma-line ma-slow"/><line x1="${(left + plotWidth * 0.38).toFixed(1)}" y1="${top}" x2="${(left + plotWidth * 0.38).toFixed(1)}" y2="${top + plotHeight}" class="ma-dead"/><line x1="${(left + plotWidth * 0.90).toFixed(1)}" y1="${top}" x2="${(left + plotWidth * 0.90).toFixed(1)}" y2="${top + plotHeight}" class="ma-dead"/><circle cx="${(left + plotWidth * 0.38).toFixed(1)}" cy="${toY(current * 1.03).toFixed(1)}" r="4" class="ma-dot"/><text x="${(left + plotWidth * 0.39).toFixed(1)}" y="${toY(current * 1.04).toFixed(1)}" class="ma-dead-label">\ub370\ub4dc</text></svg>`;
+  const closePoints = closeSeries.map((value, index) => `${toX(index, closeSeries.length).toFixed(1)},${toY(value).toFixed(1)}`).join(" ");
+  return `<svg class="ma-svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="moving average and heikin ashi chart"><text x="54" y="18" class="ma-title">${escapeHtml(item.name || item.symbol)}(${escapeHtml(item.symbol || "")}) \uc774\ud3c9\uc120 + \ud558\uc774\ud0a8\uc544\uc2dc</text><g class="ma-legend"><text x="224" y="18">\ud558\uc774\ud0a8</text><text x="286" y="18">\uc885\uac00</text><text x="336" y="18">20\uc77c</text><text x="392" y="18">60\uc77c</text><text x="452" y="18">\ub3d9\uc801</text><text x="510" y="18">\ub370\ub4dc</text></g>${labels}<line x1="${left}" y1="${top}" x2="${left}" y2="${top + plotHeight}" class="ma-border"/><line x1="${left}" y1="${top + plotHeight}" x2="${left + plotWidth}" y2="${top + plotHeight}" class="ma-border"/><g class="ha-layer">${heikinCandles}</g><polyline points="${closePoints}" class="ma-close"/><polyline points="${line(current * 0.01, current * 0.022, -current * 0.0008)}" class="ma-line ma-fast"/><polyline points="${line(current * 0.025, current * 0.016, -current * 0.0004)}" class="ma-line ma-mid"/><polyline points="${line(current * 0.055, current * 0.010, current * 0.0001)}" class="ma-line ma-slow"/><line x1="${(left + plotWidth * 0.38).toFixed(1)}" y1="${top}" x2="${(left + plotWidth * 0.38).toFixed(1)}" y2="${top + plotHeight}" class="ma-dead"/><line x1="${(left + plotWidth * 0.90).toFixed(1)}" y1="${top}" x2="${(left + plotWidth * 0.90).toFixed(1)}" y2="${top + plotHeight}" class="ma-dead"/><circle cx="${(left + plotWidth * 0.38).toFixed(1)}" cy="${toY(current * 1.03).toFixed(1)}" r="4" class="ma-dot"/><text x="${(left + plotWidth * 0.39).toFixed(1)}" y="${toY(current * 1.04).toFixed(1)}" class="ma-dead-label">\ub370\ub4dc</text></svg>`;
+}
+function heikinAshiDecision(item) {
+  const text = `${item.decision || ""} ${item.note || ""} ${item.movingAverage || ""}`;
+  if (/\ub9e4\ub3c4|\ucd94\uc138\ud6fc\uc190|\uc774\ud0c8|\uc704\ud5d8|\uac10\uc810/i.test(text)) {
+    return { label: "\ud558\uc774\ud0a8\uc544\uc2dc: \uc74c\ubd09 \uc6b0\uc138", memo: "\uc5f0\uc18d \uc74c\ubd09\uc73c\ub85c \ubcf4\uc774\ub294 \uad6c\uac04\uc740 \ubc18\ub4f1 \uc804\uae4c\uc9c0 \ucd94\uaca9 \uc9c4\uc785\uc744 \uc904\uc785\ub2c8\ub2e4." };
+  }
+  if (/\ub9e4\uc218|\uc9c4\uc785|\uc0c1\uc2b9|\ud68c\ubcf5|\ubcf4\uc720/i.test(text)) {
+    return { label: "\ud558\uc774\ud0a8\uc544\uc2dc: \uc591\ubd09 \uc720\uc9c0", memo: "\uc591\ubd09 \uc720\uc9c0 \uad6c\uac04\uc740 \ub2e8\ud0c0 \uc9c4\uc785 \ud6c4 \uc190\uc808\uc120\ub9cc \uc9e7\uac8c \ud655\uc778\ud569\ub2c8\ub2e4." };
+  }
+  return { label: "\ud558\uc774\ud0a8\uc544\uc2dc: \uc804\ud658 \uad00\ucc30", memo: "\uc0c9\uc774 \uc790\uc8fc \ubc14\ub00c\ub294 \uad6c\uac04\uc740 \uc774\ud3c9\uc120 \uc704\uce58\uc640 \uac70\ub798\ub7c9\uc744 \uac19\uc774 \ud655\uc778\ud569\ub2c8\ub2e4." };
 }
 function movingDetailHtml(item) {
   if (!item) return "";
@@ -1236,10 +1278,11 @@ function movingDetailHtml(item) {
   const ma60 = formatDisplayPrice(item.ma60, item) || "-";
   const decision = item.decision || "-";
   const note = item.note || item.movingAverage || "-";
+  const heikin = heikinAshiDecision(item);
   const strategy = /\ub9e4\ub3c4|\uc704\ud5d8|\ubcf4\ub958|\ubcc0\ub3d9/.test(`${decision} ${note}`)
     ? "\ub2e8\ud0c0 \uc9c4\uc785\uc740 \ubcf4\ub958\ud558\uace0 20\uc77c\uc120 \ud68c\ubcf5\uacfc \uac70\ub798\ub7c9 \uc548\uc815\uc744 \uba3c\uc800 \ud655\uc778\ud569\ub2c8\ub2e4."
     : "20\uc77c\uc120 \uc9c0\uc9c0\uc640 60\uc77c\uc120 \uc774\ud0c8 \uc5ec\ubd80\ub97c \uac19\uc774 \ubcf4\uba74\uc11c \ubd84\ud560 \uc9c4\uc785\ub9cc \uac80\ud1a0\ud569\ub2c8\ub2e4.";
-  return `<div class="moving-detail"><div class="moving-chart-box">${movingChartSvg(item)}</div><div class="moving-memo"><h3>[\uc774\ub3d9\ud3c9\uade0\uc120 \ubcf4\uc870\ud310\ub2e8]</h3><p>- \uc885\ubaa9: ${escapeHtml(item.name || item.symbol)}(${escapeHtml(item.symbol || "-")})</p><p>- \ud604\uc7ac\uac00: ${escapeHtml(current)}</p><p>- 20\uc77c\uc120: ${escapeHtml(ma20)}</p><p>- 60\uc77c\uc120: ${escapeHtml(ma60)}</p><p>- \ubcf4\uc870\ud310\ub2e8: <b>${escapeHtml(decision)}</b></p><p>- \uadfc\uac70: ${escapeHtml(note)}</p><h3>[\uc804\ub7b5 \uba54\ubaa8]</h3><p>- ${escapeHtml(strategy)}</p><p>- \uc774\ud3c9\uc120 \ub2e8\ud0c0\uc804\ub7b5: 5\uc77c\uc120\uacfc 20\uc77c\uc120 \uc704\uce58\uac00 \uac19\uc774 \uac1c\uc120\ub420 \ub54c\ub9cc \uc810\uc218\ub97c \ub192\uc785\ub2c8\ub2e4.</p></div></div>`;
+  return `<div class="moving-detail"><div class="moving-chart-box">${movingChartSvg(item)}</div><div class="moving-memo"><h3>[\uc774\ud3c9\uc120 + \ud558\uc774\ud0a8\uc544\uc2dc \ubcf4\uc870\ud310\ub2e8]</h3><p>- \uc885\ubaa9: ${escapeHtml(item.name || item.symbol)}(${escapeHtml(item.symbol || "-")})</p><p>- \ud604\uc7ac\uac00: ${escapeHtml(current)}</p><p>- 20\uc77c\uc120: ${escapeHtml(ma20)}</p><p>- 60\uc77c\uc120: ${escapeHtml(ma60)}</p><p>- \uc774\ud3c9\uc120 \ud310\ub2e8: <b>${escapeHtml(decision)}</b></p><p>- ${escapeHtml(heikin.label)}</p><p>- \uadfc\uac70: ${escapeHtml(note)}</p><h3>[\uc804\ub7b5 \uba54\ubaa8]</h3><p>- ${escapeHtml(heikin.memo)}</p><p>- ${escapeHtml(strategy)}</p><p>- \uc774\ud3c9\uc120 \ub2e8\ud0c0\uc804\ub7b5: 5\uc77c\uc120\uacfc 20\uc77c\uc120 \uc704\uce58\uac00 \uac19\uc774 \uac1c\uc120\ub420 \ub54c\ub9cc \uc810\uc218\ub97c \ub192\uc785\ub2c8\ub2e4.</p></div></div>`;
 }
 function mergedSections(data) {
   return {

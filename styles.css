@@ -579,6 +579,26 @@ button:hover {
   stroke-width: 1.4;
 }
 
+.ha-layer {
+  opacity: 0.62;
+}
+
+.ha-wick {
+  stroke-width: 1.1;
+}
+
+.ha-body.ha-up,
+.ha-wick.ha-up {
+  fill: rgba(220, 38, 38, 0.52);
+  stroke: rgba(185, 28, 28, 0.88);
+}
+
+.ha-body.ha-down,
+.ha-wick.ha-down {
+  fill: rgba(37, 99, 235, 0.50);
+  stroke: rgba(29, 78, 216, 0.88);
+}
+
 .ma-line {
   fill: none;
   stroke-width: 2;
