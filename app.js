@@ -959,7 +959,7 @@ function renderMarketBrief() {
     return;
   }
   box.hidden = false;
-  box.innerHTML = briefs.map(marketBriefHtml).join("");
+  box.innerHTML = `<div class="market-brief-title"><strong>장중 대응 참고</strong><span>한국시장과 미국시장을 분리해서 봅니다.</span></div>${briefs.map(marketBriefHtml).join("")}`;
 }
 function etParts(date = new Date()) {
   const parts = new Intl.DateTimeFormat("en-US", {
