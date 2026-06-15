@@ -94,6 +94,14 @@ a:hover {
   padding: 42px 20px 34px;
 }
 
+.eyebrow {
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0;
+  margin: 0 0 8px;
+}
+
 h1 {
   font-size: 38px;
   line-height: 1.25;
@@ -123,6 +131,55 @@ h3 {
   color: #7c2d12;
   margin-top: 18px;
   padding: 12px 14px;
+}
+
+.evidence-flow-band {
+  background: #ffffff;
+  border-bottom: 1px solid var(--line);
+}
+
+.evidence-flow {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: minmax(220px, 0.8fr) minmax(0, 1.6fr);
+}
+
+.flow-head h2 {
+  margin-bottom: 8px;
+}
+
+.flow-head p {
+  color: var(--muted);
+  margin: 0;
+}
+
+.flow-steps {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.flow-steps article {
+  border-left: 3px solid var(--accent);
+  padding: 2px 0 2px 12px;
+}
+
+.flow-steps span {
+  color: var(--accent-2);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.flow-steps h3 {
+  font-size: 17px;
+  margin: 2px 0 5px;
+}
+
+.flow-steps p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.45;
+  margin: 0;
 }
 
 .market-panel {
@@ -469,7 +526,7 @@ button:hover {
 
 .scanner-table {
   table-layout: fixed;
-  min-width: 980px;
+  min-width: 1280px;
 }
 
 .scanner-table th:nth-child(1),
@@ -481,8 +538,33 @@ button:hover {
 
 .scanner-table th:nth-child(2),
 .scanner-table td:nth-child(2) {
-  width: 120px;
-  max-width: 120px;
+  width: 150px;
+  max-width: 150px;
+}
+
+.evidence-cell strong {
+  color: var(--ink);
+  display: block;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.evidence-cell p,
+.confirm-cell p {
+  color: #334155;
+  font-size: 14px;
+  line-height: 1.35;
+  margin: 0 0 4px;
+}
+
+.confirm-cell em {
+  color: #7c2d12;
+  display: block;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.35;
+  margin-top: 4px;
 }
 
 .scanner-name-cell strong {
@@ -493,6 +575,37 @@ button:hover {
 .scanner-name-cell span {
   color: var(--muted);
   white-space: nowrap;
+}
+
+.growth-table {
+  table-layout: fixed;
+  min-width: 1320px;
+}
+
+.growth-table th:nth-child(1),
+.growth-table td:nth-child(1) {
+  width: 72px;
+  text-align: center;
+}
+
+.growth-table th:nth-child(2),
+.growth-table td:nth-child(2) {
+  width: 170px;
+}
+
+.growth-table th:nth-child(3),
+.growth-table td:nth-child(3),
+.growth-table th:nth-child(4),
+.growth-table td:nth-child(4),
+.growth-table th:nth-child(5),
+.growth-table td:nth-child(5),
+.growth-table th:nth-child(6),
+.growth-table td:nth-child(6),
+.growth-table th:nth-child(7),
+.growth-table td:nth-child(7),
+.growth-table th:nth-child(8),
+.growth-table td:nth-child(8) {
+  width: 108px;
 }
 
 .market-group-row td {

@@ -856,7 +856,30 @@ function kstDateKey(date = new Date()) {
   return `${parts.year}-${parts.month}-${parts.day}`;
 }
 function koreaMarketResponseBrief(date = new Date()) {
-  if (kstDateKey(date) !== "2026-06-10") return null;
+  if (kstDateKey(date) !== "2026-06-10") {
+    return {
+      title: "한국시장 장중 대응 참고",
+      disclaimer: "자동매수 판단 보조용입니다. 수동 매수는 체결 전 호가·거래량·지수 흐름을 다시 확인합니다.",
+      source: "도토리스캐너 시간대 리스크 규칙 / 한국시간 기준",
+      points: [
+        {
+          time: "09:00~10:00",
+          title: "초반 방향 확인",
+          body: "시초가 변동과 첫 거래량이 섞이는 시간입니다. 급등 추격보다 전일 고점·당일 저점·거래대금 유지 여부를 먼저 봅니다."
+        },
+        {
+          time: "10:20~10:40",
+          title: "10시 30분 전후 변동주의",
+          body: "한국시간 10시 30분 전후에는 가격이 요동칠 수 있으므로 국내장 신규 자동·정찰매수는 보류하고, 눌림 방어와 재돌파 확인을 우선합니다."
+        },
+        {
+          time: "10:40 이후",
+          title: "재확인 후 분할 접근",
+          body: "저점 재이탈이 없고 거래량이 유지되며 하이킨아시·5/20선 흐름이 회복될 때만 작은 비중부터 검토합니다."
+        }
+      ]
+    };
+  }
   return {
     title: "수요일(6/10) 한국시장 대응 참고",
     disclaimer: "매도를 권유하는 것이 아니라 손실을 키우지 않기 위한 리스크 관리 참고용입니다.",
@@ -1328,11 +1351,26 @@ function mergedSections(data) {
     learning: [...state.userStocks.map(userStockToLearning), ...data.learning],
     spikes: (data.spikes || []).map(applyLiveQuote),
     moving: [...state.userStocks.map(userStockToMoving), ...data.movingAverages].map(applyLiveQuote),
+    growthDiscovery: data.growthDiscovery || [],
     morningNote: data.morningNote || data.analysis || [],
     sectorOverview: data.sectorOverview || [],
     deepAnalysis: (data.deepAnalysis || []).map(applyLiveQuote),
     newsList: data.newsList || []
   };
+}
+function evidenceSummaryHtml(item) {
+  const evidence = item?.evidence || {};
+  const clues = Array.isArray(evidence.clues) ? evidence.clues.filter(Boolean) : [];
+  const title = evidence.title || "근거 단서";
+  const lines = clues.length ? clues.slice(0, 2) : [item.summary || "가격·예측·뉴스 흐름을 함께 확인합니다."];
+  return `<div class="evidence-cell"><strong>${escapeHtml(title)}</strong>${lines.map((line) => `<p>${escapeHtml(line)}</p>`).join("")}</div>`;
+}
+function confirmationSummaryHtml(item) {
+  const evidence = item?.evidence || {};
+  const confirmations = Array.isArray(evidence.confirmations) ? evidence.confirmations.filter(Boolean) : [];
+  const stance = evidence.stance || "확인 조건 충족 전에는 정찰 또는 관찰 우선";
+  const lines = confirmations.length ? confirmations.slice(0, 2) : [stance];
+  return `<div class="confirm-cell">${lines.map((line) => `<p>${escapeHtml(line)}</p>`).join("")}<em>${escapeHtml(stance)}</em></div>`;
 }
 function renderDashboard() {
   const data = state.data;
@@ -1358,16 +1396,24 @@ function renderDashboard() {
     });
   } else if (state.activeSection === "scanner") {
     const marketRows = (marketLabel) => active.filter((item) => displayMarket(item.market || marketName(item.symbol)) === marketLabel);
-    const rowHtml = (item) => `<tr><td class="scanner-rank-cell">${item.rank || "-"}</td><td class="scanner-name-cell"><strong>${item.name || item.title || item.symbol}</strong> <span>(${item.symbol || "-"})</span></td><td>${formatDisplayPrice(item.currentPrice, item) || "-"}</td><td><b class="${signalClass(item.signal || item.sentiment || "")}">${item.signal || item.sentiment || "-"}</b></td><td>${formatDisplayPriceRange(item.predRange, item) || "-"}</td><td>${item.summary || ""}</td></tr>`;
+    const rowHtml = (item) => `<tr><td class="scanner-rank-cell">${item.rank || "-"}</td><td class="scanner-name-cell"><strong>${item.name || item.title || item.symbol}</strong> <span>(${item.symbol || "-"})</span></td><td>${formatDisplayPrice(item.currentPrice, item) || "-"}</td><td><b class="${signalClass(item.signal || item.sentiment || "")}">${item.signal || item.sentiment || "-"}</b></td><td>${formatDisplayPriceRange(item.predRange, item) || "-"}</td><td>${evidenceSummaryHtml(item)}</td><td>${confirmationSummaryHtml(item)}</td></tr>`;
     const groupHtml = (marketLabel) => {
       const rows = marketRows(marketLabel).slice(0, DISPLAY_MARKET_LIMIT);
-      const body = rows.length ? rows.map(rowHtml).join("") : `<tr><td colspan="6">\ud45c\uc2dc\ud560 \uc885\ubaa9\uc774 \uc5c6\uc2b5\ub2c8\ub2e4.</td></tr>`;
-      return `<tr class="market-group-row"><td colspan="6">${marketLabel}</td></tr>${body}`;
+      const body = rows.length ? rows.map(rowHtml).join("") : `<tr><td colspan="7">\ud45c\uc2dc\ud560 \uc885\ubaa9\uc774 \uc5c6\uc2b5\ub2c8\ub2e4.</td></tr>`;
+      return `<tr class="market-group-row"><td colspan="7">${marketLabel}</td></tr>${body}`;
     };
     const scannerFirst = effectiveScannerMarketFirst();
     const first = scannerFirst === "us" ? T.us : T.domestic;
     const second = scannerFirst === "us" ? T.domestic : T.us;
-    grid.innerHTML = `<div class="scanner-market-controls"><button class="${scannerFirst === "domestic" ? "active" : ""}" data-scanner-first="domestic" type="button">\uad6d\ub0b4 \uc6b0\uc120</button><button class="${scannerFirst === "us" ? "active" : ""}" data-scanner-first="us" type="button">\ud574\uc678 \uc6b0\uc120</button></div><div class="table-card"><table class="data-table scanner-table"><thead><tr><th>\uc21c\uc704</th><th>\uc885\ubaa9</th><th>\ud604\uc7ac\uac00</th><th>\uc2e0\ud638</th><th>\uc608\uce21\ubc94\uc704</th><th>\uc694\uc57d</th></tr></thead><tbody>${groupHtml(first)}${groupHtml(second)}</tbody></table></div>`;
+    grid.innerHTML = `<div class="scanner-market-controls"><button class="${scannerFirst === "domestic" ? "active" : ""}" data-scanner-first="domestic" type="button">\uad6d\ub0b4 \uc6b0\uc120</button><button class="${scannerFirst === "us" ? "active" : ""}" data-scanner-first="us" type="button">\ud574\uc678 \uc6b0\uc120</button></div><div class="table-card"><table class="data-table scanner-table"><thead><tr><th>\uc21c\uc704</th><th>\uc885\ubaa9</th><th>\ud604\uc7ac\uac00</th><th>\uc2e0\ud638</th><th>\uc608\uce21\ubc94\uc704</th><th>\uadfc\uac70 \ub2e8\uc11c</th><th>\ud655\uc778 \uc870\uac74</th></tr></thead><tbody>${groupHtml(first)}${groupHtml(second)}</tbody></table></div>`;
+  } else if (state.activeSection === "growthDiscovery") {
+    const rows = active.slice(0, DISPLAY_MARKET_LIMIT).map((item) => {
+      const notes = Array.isArray(item.notes) ? item.notes.slice(0, 3) : [];
+      const noteHtml = notes.length ? notes.map((line) => `<p>${escapeHtml(line)}</p>`).join("") : `<p>${escapeHtml(item.reason || "성장 단서 확인 필요")}</p>`;
+      const links = item.symbol ? `<a class="market-link" href="${naverStockUrl(item)}" target="_blank" rel="noopener">네이버증권</a>` : "";
+      return `<tr><td>${item.rank || "-"}</td><td class="scanner-name-cell"><strong>${escapeHtml(item.name || item.symbol || "-")}</strong> <span>(${escapeHtml(item.symbol || "-")})</span></td><td><b>${escapeHtml(String(item.score ?? "-"))}</b></td><td><b class="${signalClass(item.verdict || "")}">${escapeHtml(item.verdict || "-")}</b></td><td>${escapeHtml(item.theme || "-")}</td><td>${escapeHtml(item.currentPriceText || formatDisplayPrice(item.currentPrice, item) || "-")}</td><td>${escapeHtml(item.return5d || "-")} / ${escapeHtml(item.return20d || "-")}</td><td>${escapeHtml(item.volumeRatio || "-")}</td><td><div class="evidence-cell">${noteHtml}${links}</div></td></tr>`;
+    }).join("");
+    grid.innerHTML = `<div class="table-card"><table class="data-table growth-table"><thead><tr><th>순위</th><th>종목</th><th>성장점수</th><th>판정</th><th>성장축</th><th>현재가</th><th>5일/20일</th><th>거래량</th><th>성장 근거</th></tr></thead><tbody>${rows || `<tr><td colspan="9">10파트 성장주 데이터가 아직 없습니다.</td></tr>`}</tbody></table></div>`;
   } else if (state.activeSection === "learning") {
     grid.innerHTML = renderCards(active, (item) => `<article class="data-card"><div class="card-top"><strong>${item.topic}</strong><em>${T.learning}</em></div><p>${item.lesson}</p></article>`);
   } else if (state.activeSection === "spikes") {

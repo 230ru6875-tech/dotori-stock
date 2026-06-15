@@ -13,10 +13,13 @@ from urllib.request import Request, urlopen
 BASE_DIR = Path(__file__).resolve().parents[1]
 DOTORI_DIR = Path(__file__).resolve().parent
 PREDICTIONS_PATH = BASE_DIR / "logs" / "latest_stock_predictions.json"
+UNIFIED_SYMBOL_STATE_PATH = BASE_DIR / "logs" / "unified_symbol_state.json"
 INVESTMENT_ANALYSIS_PATH = BASE_DIR / "logs" / "investment_analysis_latest.json"
 MORNING_NOTE_PATH = BASE_DIR / "logs" / "morning_note_latest.json"
 EXTERNAL_SIGNALS_PATH = BASE_DIR / "logs" / "external_signals" / "latest.json"
 AUTONOMOUS_RESEARCH_PATH = BASE_DIR / "logs" / "autonomous_research" / "latest.json"
+MANUAL_FUNDAMENTAL_NOTES_PATH = BASE_DIR / "logs" / "manual_fundamental_notes.json"
+DISCOVERY_PART10_PATH = BASE_DIR / "logs" / "discovery_part10_latest.json"
 TORI_RESEARCH_PATHS = [
     BASE_DIR / "logs" / "tori" / "tori_latest.json",
     BASE_DIR / "logs" / "tori1" / "tori_latest.json",
@@ -333,6 +336,7 @@ def _scanner_row(item: dict, rank: int) -> dict:
             current = _format_price(price, "국내")
             low = "-"
             high = "-"
+    evidence = _public_evidence_analysis(symbol, [hint], signal)
     return {
         "rank": rank,
         "market": market,
@@ -346,7 +350,235 @@ def _scanner_row(item: dict, rank: int) -> dict:
         "risk": hint,
         "source": "도토리 PC 저장자료",
         "score": round(_score_from_reasons(item), 2),
+        "evidence": evidence,
     }
+
+
+def _integrated_source_label(part_key: str) -> str:
+    labels = {
+        "scanner": "1파트 스캐너",
+        "scanner_integrated": "통합추천",
+        "turso_scanner": "외부 스캐너",
+        "tori_part1_scanner": "토리 스캐너",
+        "tori_part5_learning": "토리 학습",
+        "investment": "2파트 투자",
+        "autotrade_plan": "3파트 자동매매",
+        "prediction": "4파트 예측",
+        "learning": "5파트 학습",
+        "earnings": "6파트 실적",
+        "spike": "7파트 급등주",
+        "moving_average": "8파트 이평선",
+        "analysis_signal": "8파트 분석",
+        "analysis_sector_signal": "8파트 섹터",
+        "discovery": "10파트 발견",
+        "backtest": "11파트 백테스트",
+        "watchlist": "4파트 관심종목",
+        "watch_state": "4파트 감시상태",
+    }
+    return labels.get(str(part_key or ""), str(part_key or "자료"))
+
+
+def _integrated_part_score(part_key: str, part: dict) -> float:
+    score = 0.0
+    raw_score = _safe_float(part.get("score", part.get("last_score", 0.0)), 0.0)
+    if raw_score:
+        score += max(-20.0, min(100.0, raw_score)) * 0.28
+    expected = _safe_float(part.get("expected_return_pct", part.get("unrealized_return_pct", 0.0)), 0.0)
+    score += max(-15.0, min(20.0, expected)) * 1.3
+    priority = _safe_float(part.get("priority_score"), 0.0)
+    score += max(-12.0, min(20.0, priority)) * 1.5
+    signal_pct = _safe_float(part.get("part_signal_total_pct", part.get("profit_engine_adjustment_pct", 0.0)), 0.0)
+    score += max(-10.0, min(12.0, signal_pct)) * 1.2
+    side = str(part.get("side", "") or "").lower()
+    action = str(part.get("action", "") or part.get("trade_signal", "") or part.get("profit_engine_label", "") or "")
+    text = f"{side} {action}"
+    if "buy_candidate" in side or "강한 매수" in text:
+        score += 18.0
+    elif "hold_or_scale" in side or "추가" in text or "매수" in text:
+        score += 10.0
+    elif "hold" in side or "보유" in text or "관찰" in text:
+        score += 3.0
+    if "sell_watch" in side or "매도" in text or "손절" in text or "위험" in text:
+        score -= 14.0
+    score += min(12.0, max(0.0, _safe_float(part.get("buy_weight"), 0.0)) * 8.0)
+    score -= min(18.0, max(0.0, _safe_float(part.get("sell_ratio"), 0.0)) * 14.0)
+    score += {
+        "scanner": 5.0,
+        "scanner_integrated": 10.0,
+        "tori_part1_scanner": 4.0,
+        "investment": 4.0,
+        "autotrade_plan": 5.0,
+        "prediction": 3.0,
+        "spike": 4.0,
+        "moving_average": 3.0,
+        "analysis_signal": 3.0,
+    }.get(part_key, 0.0)
+    return score
+
+
+def _integrated_action(score: float, action_votes: list[str]) -> str:
+    joined = " ".join(action_votes)
+    if "매도" in joined or "손절" in joined or score < 18:
+        return "관찰"
+    if score >= 55:
+        return "강한 매수"
+    if score >= 35:
+        return "매수 후보"
+    return "관찰"
+
+
+def _dedupe_texts(values: list[str]) -> list[str]:
+    output: list[str] = []
+    seen: set[str] = set()
+    for value in values:
+        text = str(value or "").strip()
+        if not text or text in seen:
+            continue
+        seen.add(text)
+        output.append(text)
+    return output
+
+
+def _manual_fundamental_notes_payload() -> dict:
+    try:
+        payload = json.loads(MANUAL_FUNDAMENTAL_NOTES_PATH.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+    return payload if isinstance(payload, dict) else {}
+
+
+def _manual_fundamental_note(symbol: str) -> dict:
+    payload = _manual_fundamental_notes_payload()
+    symbols = payload.get("symbols", {}) if isinstance(payload.get("symbols"), dict) else {}
+    row = symbols.get(str(symbol or "").strip().upper(), {}) if isinstance(symbols, dict) else {}
+    return row if isinstance(row, dict) else {}
+
+
+def _public_evidence_analysis(symbol: str, reasons: list[str] | None = None, signal: str = "") -> dict:
+    note = _manual_fundamental_note(symbol)
+    positive = note.get("positive_points", []) if isinstance(note.get("positive_points"), list) else []
+    watch = note.get("watch_points", []) if isinstance(note.get("watch_points"), list) else []
+    required = note.get("required_confirmations", []) if isinstance(note.get("required_confirmations"), list) else []
+    clues = _dedupe_texts([str(item) for item in positive[:3]] + [str(item) for item in (reasons or [])[:3]])
+    if not clues:
+        clues = [
+            "도토리 통합 스캐너가 가격, 예측, 이평선, 뉴스 흐름을 연결해 후보로 분류했습니다.",
+            "구체적인 사업·재무 근거는 공시와 실적 자료가 확보될 때 보강합니다.",
+        ]
+    flow = _dedupe_texts([
+        "사업동력 확인",
+        "영업률과 순이익률 비교",
+        "부채비율과 이자비용 점검",
+        "차트 신호는 진입 타이밍 참고",
+    ])
+    confirmations = _dedupe_texts([str(item) for item in required[:3]] + [str(item) for item in watch[:2]])
+    if not confirmations:
+        confirmations = [
+            "실적 개선이 실제 순이익으로 이어지는지 확인",
+            "부채 부담 또는 현금흐름 훼손이 없는지 확인",
+            "예측가와 현재가 사이의 손익비가 충분한지 확인",
+        ]
+    title = _clean_text(note.get("title"), "근거 기반 종목 점검")
+    stance = _clean_text(note.get("stance"), "자료 미확인 종목은 확신 매수보다 정찰 또는 관찰 우선")
+    if signal and "매수" in signal and not note:
+        stance = "매수 후보라도 사업·재무 확인 전에는 정찰 관점으로만 봅니다."
+    return {
+        "title": title,
+        "clues": clues[:4],
+        "flow": flow,
+        "confirmations": confirmations[:4],
+        "stance": stance,
+    }
+
+
+def _scanner_rows_from_unified_state(market_text: str, limit: int = 30) -> list[dict]:
+    if not UNIFIED_SYMBOL_STATE_PATH.exists():
+        return []
+    try:
+        payload = json.loads(UNIFIED_SYMBOL_STATE_PATH.read_text(encoding="utf-8", errors="replace"))
+    except Exception:
+        return []
+    symbols = payload.get("symbols", {}) if isinstance(payload, dict) else {}
+    if not isinstance(symbols, dict):
+        return []
+    rows: list[dict] = []
+    for raw_symbol, entry in symbols.items():
+        if not isinstance(entry, dict):
+            continue
+        symbol, resolved_name, resolved_market = _normalize_symbol_fields(
+            entry.get("symbol", raw_symbol),
+            entry.get("name", raw_symbol),
+            entry.get("market", ""),
+        )
+        resolved_name = re.sub(r"\s*\(\d+회 중복\)\s*$", "", resolved_name).strip() or symbol
+        if resolved_market != market_text:
+            continue
+        parts = entry.get("parts", {}) if isinstance(entry.get("parts"), dict) else {}
+        if not parts:
+            continue
+        score = 0.0
+        source_labels: list[str] = []
+        reason_parts: list[str] = []
+        action_votes: list[str] = []
+        integrated_part = parts.get("scanner_integrated") if isinstance(parts.get("scanner_integrated"), dict) else {}
+        for part_key, part in parts.items():
+            if not isinstance(part, dict):
+                continue
+            label = _integrated_source_label(str(part_key))
+            if label not in source_labels:
+                source_labels.append(label)
+            score += _integrated_part_score(str(part_key), part)
+            action_text = str(part.get("action") or part.get("side") or part.get("trade_signal") or part.get("profit_engine_label") or "")
+            if action_text:
+                action_votes.append(action_text)
+            for key in ("reason", "analysis_hint", "profit_engine_note", "condition_learning_note", "risk_note"):
+                text = str(part.get(key, "") or "").strip()
+                if text:
+                    reason_parts.append(text)
+                    break
+            raw_reasons = part.get("reasons", [])
+            if isinstance(raw_reasons, list):
+                reason_parts.extend(str(reason or "").strip() for reason in raw_reasons[:2] if str(reason or "").strip())
+        duplicate_count = int(entry.get("duplicate_count", len(parts)) or len(parts))
+        score += min(18.0, max(0, duplicate_count - 1) * 4.0)
+        if score <= 0:
+            continue
+        current_price = _safe_float(entry.get("current_price"), 0.0)
+        if current_price <= 0 and isinstance(integrated_part, dict):
+            current_price = _safe_float(integrated_part.get("current_price"), 0.0)
+        signal = _clean_text(integrated_part.get("action") if isinstance(integrated_part, dict) else "", _integrated_action(score, action_votes))
+        expected = _safe_float(integrated_part.get("expected_return_pct") if isinstance(integrated_part, dict) else 0.0, 0.0)
+        if not expected:
+            for part in parts.values():
+                if isinstance(part, dict):
+                    expected = _safe_float(part.get("expected_return_pct"), 0.0)
+                    if expected:
+                        break
+        reasons = _dedupe_texts([
+            f"통합자료 {len(source_labels)}개 반영: {', '.join(source_labels[:6])}",
+            f"통합추천점수 {score:.1f}",
+        ] + reason_parts)
+        evidence = _public_evidence_analysis(symbol, reasons, signal)
+        rows.append(
+            {
+                "rank": 0,
+                "market": market_text,
+                "symbol": symbol,
+                "name": f"{resolved_name}({symbol})" if symbol not in resolved_name else resolved_name,
+                "currentPrice": _format_price(current_price, market_text),
+                "signal": signal,
+                "predRange": f"예상수익 {expected:+.2f}%",
+                "summary": " | ".join(reasons[:3]),
+                "sentiment": signal,
+                "risk": reasons[2] if len(reasons) > 2 else "통합자료 기준 관찰",
+                "source": "도토리 PC 통합 추천자료",
+                "score": round(score, 2),
+                "integratedSources": source_labels,
+                "evidence": evidence,
+            }
+        )
+    rows.sort(key=lambda row: float(row.get("score", 0.0) or 0.0), reverse=True)
+    return _dedupe_and_rank(rows, limit)
 
 
 def _top_items(items: list[dict], market_text: str, limit: int = 50) -> list[dict]:
@@ -1105,6 +1337,63 @@ def _public_news_list(limit: int = 30) -> list[dict]:
     return rows
 
 
+def _public_growth_discovery_rows(limit: int = 40) -> list[dict]:
+    if not DISCOVERY_PART10_PATH.exists():
+        return []
+    try:
+        payload = json.loads(DISCOVERY_PART10_PATH.read_text(encoding="utf-8", errors="replace"))
+    except Exception:
+        return []
+    rows = payload.get("rows", []) if isinstance(payload, dict) else []
+    if not isinstance(rows, list):
+        return []
+    output: list[dict] = []
+    for index, row in enumerate(rows[:limit], start=1):
+        if not isinstance(row, dict):
+            continue
+        symbol = _clean_text(row.get("symbol"), "")
+        if not symbol:
+            continue
+        name = _clean_text(row.get("display_name"), symbol)
+        score = _safe_float(row.get("score"), 0.0)
+        price = _safe_float(row.get("price"), 0.0)
+        reasons = row.get("reasons", [])
+        if not isinstance(reasons, list):
+            reasons = [row.get("reason", "")]
+        durable = row.get("durable_growth_metrics", {}) if isinstance(row.get("durable_growth_metrics"), dict) else {}
+        quality = row.get("quality_valuation_metrics", {}) if isinstance(row.get("quality_valuation_metrics"), dict) else {}
+        notes: list[str] = []
+        durable_notes = durable.get("notes", []) if isinstance(durable.get("notes"), list) else []
+        for value in list(reasons[:4]) + list(durable_notes):
+            text = _clean_text(value, "")
+            if text and text not in notes:
+                notes.append(text)
+        quality_label = _clean_text(quality.get("label"), "")
+        if quality_label and quality_label not in notes:
+            notes.append(quality_label)
+        output.append(
+            {
+                "rank": int(row.get("rank") or index),
+                "symbol": symbol,
+                "name": name,
+                "market": "국내",
+                "score": round(score, 1),
+                "verdict": _clean_text(row.get("verdict"), "관찰"),
+                "theme": _clean_text(row.get("theme"), "일반성장"),
+                "currentPrice": price,
+                "currentPriceText": _format_price(price, "국내"),
+                "return5d": f"{_safe_float(row.get('return_5d_pct'), 0.0):+.2f}%",
+                "return20d": f"{_safe_float(row.get('return_20d_pct'), 0.0):+.2f}%",
+                "volumeRatio": f"{_safe_float(row.get('volume_ratio_20'), 0.0):.2f}배",
+                "rsi": f"{_safe_float(row.get('rsi_14'), 0.0):.1f}",
+                "lifecycle": _clean_text(row.get("company_lifecycle"), ""),
+                "reason": _clean_text(row.get("reason"), ""),
+                "notes": notes[:5],
+            }
+        )
+    return output
+
+
 def _read_json_dict(path: Path) -> dict:
     try:
         payload = json.loads(path.read_text(encoding="utf-8", errors="replace"))
@@ -1379,8 +1668,15 @@ def build_snapshot() -> dict:
     if not isinstance(items, list):
         items = []
     scanner_limit_each = 30
-    domestic = _top_items(items, "국내", scanner_limit_each)
-    us = _top_items(items, "미국", scanner_limit_each)
+    domestic = _scanner_rows_from_unified_state("국내", scanner_limit_each)
+    us = _scanner_rows_from_unified_state("미국", scanner_limit_each)
+    scanner_source = "도토리 PC 통합 추천자료"
+    if not domestic:
+        domestic = _top_items(items, "국내", scanner_limit_each)
+        scanner_source = "도토리컴 저장자료 + Toss/Naver/Yahoo 보충"
+    if not us:
+        us = _top_items(items, "미국", scanner_limit_each)
+        scanner_source = "도토리컴 저장자료 + Toss/Naver/Yahoo 보충"
     if len(domestic) < scanner_limit_each:
         domestic.extend(_supplement_from_investment("국내", {row["symbol"] for row in domestic}, len(domestic) + 1, scanner_limit_each - len(domestic)))
     if len(us) < scanner_limit_each:
@@ -1413,6 +1709,7 @@ def build_snapshot() -> dict:
     previous["sectorOverview"] = _public_sector_overview_reports(items)
     previous["deepAnalysis"] = ([research_report] if research_report else []) + _public_deep_analysis_reports(items)
     previous["newsList"] = _merge_news_rows(_public_news_list(), research_rows)
+    previous["growthDiscovery"] = _public_growth_discovery_rows()
     previous["dotoriComResearch"] = research_rows
     previous["analysis"] = previous["morningNote"]
     previous["scannerGroups"] = {
@@ -1421,13 +1718,15 @@ def build_snapshot() -> dict:
     }
     previous["webDataStatus"] = {
         "updatedAt": previous["updatedAt"],
-        "source": "도토리컴 저장자료 + Toss/Naver/Yahoo 보충",
+        "source": scanner_source,
         "scannerTargetEach": scanner_limit_each,
         "domesticCount": len(domestic),
         "usCount": len(us),
         "dotoriComSupplemented": True,
+        "integratedScanner": scanner_source == "도토리 PC 통합 추천자료",
         "dotoriComResearchCount": len(research_rows),
         "dotoriComResearchUpdatedAt": research_rows[0].get("asOf", "") if research_rows else "",
+        "growthDiscoveryCount": len(previous.get("growthDiscovery", [])),
         "autonomyMode": autonomy_policy.get("mode", "research_and_trading"),
         "tradeExecutionAllowed": bool(autonomy_policy.get("trade_execution_allowed", False)),
         "executionOwner": autonomy_policy.get("execution_owner", "pc_autotrade_engine"),
