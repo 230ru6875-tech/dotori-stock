@@ -1128,6 +1128,19 @@ def _ma60_label(item: dict) -> str:
     return "\uc911\uae30 \uc120 \ud655\uc778"
 
 
+def _moving_average_value(rows: list[dict], window_size: int) -> float:
+    closes: list[float] = []
+    for row in rows or []:
+        if not isinstance(row, dict):
+            continue
+        close = _safe_float(row.get("close"), 0.0)
+        if close > 0:
+            closes.append(close)
+    if len(closes) < window_size:
+        return 0.0
+    return sum(closes[-window_size:]) / window_size
+
+
 def _moving_average_rows(items: list[dict], limit: int = 30, previous_ohlc: dict[str, dict] | None = None) -> list[dict]:
     rows: list[dict] = []
     previous_ohlc = previous_ohlc or {}
@@ -1152,17 +1165,30 @@ def _moving_average_rows(items: list[dict], limit: int = 30, previous_ohlc: dict
         ohlc_payload = _fetch_yahoo_ohlc(symbol, market)
         if not ohlc_payload.get("rows"):
             ohlc_payload = previous_ohlc.get(symbol.upper(), {})
+        ohlc_rows = ohlc_payload.get("rows", []) if isinstance(ohlc_payload.get("rows"), list) else []
+        current_price = _safe_float(item.get("current_price_text"), 0.0)
+        ma20_value = _moving_average_value(ohlc_rows, 20)
+        ma60_value = _moving_average_value(ohlc_rows, 60)
+        ma20_gap = ((current_price / ma20_value) - 1.0) * 100.0 if current_price > 0 and ma20_value > 0 else 0.0
+        ma60_gap = ((current_price / ma60_value) - 1.0) * 100.0 if current_price > 0 and ma60_value > 0 else 0.0
+        ma20_text = _format_price(ma20_value, market) if ma20_value > 0 else _ma20_label(item)
+        ma60_text = _format_price(ma60_value, market) if ma60_value > 0 else _ma60_label(item)
+        ma_note = _shorten(f"20\uc77c\uc120 \ub300\ube44 {ma20_gap:+.1f}% | {note}", 140) if ma20_value > 0 else _shorten(note)
         rows.append({
             "name": name,
             "symbol": symbol,
             "market": market,
             "currentPrice": _clean_text(item.get("current_price_text"), ""),
-            "ma20": _ma20_label(item),
-            "ma60": _ma60_label(item),
+            "ma20": ma20_text,
+            "ma60": ma60_text,
+            "ma20Value": round(ma20_value, 4),
+            "ma60Value": round(ma60_value, 4),
+            "ma20Gap": f"{ma20_gap:+.1f}%" if ma20_value > 0 else "",
+            "ma60Gap": f"{ma60_gap:+.1f}%" if ma60_value > 0 else "",
             "decision": _public_prediction_signal(item),
-            "note": _shorten(note),
+            "note": ma_note,
             "score": round(_score_from_reasons(item), 2),
-            "ohlc": ohlc_payload.get("rows", []),
+            "ohlc": ohlc_rows,
             "ohlcSource": _clean_text(ohlc_payload.get("source"), ""),
             "ohlcUpdatedAt": _clean_text(ohlc_payload.get("updatedAt"), ""),
             "ohlcQuoteSymbol": _clean_text(ohlc_payload.get("quoteSymbol"), ""),
