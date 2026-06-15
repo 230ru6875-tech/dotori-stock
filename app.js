@@ -910,9 +910,9 @@ function koreaMarketResponseBrief(date = new Date()) {
 }
 function usMarketResponseBrief() {
   return {
-    title: "해외시장 장중 대응 참고",
+    title: "미국시장 장중 대응 참고",
     disclaimer: "미국장은 프리마켓 변동과 정규장 초반 변동성이 크게 다를 수 있어 체결 전 호가·거래량·섹터 흐름을 다시 확인합니다.",
-    source: "도토리스캐너 해외장 시간대 리스크 규칙 / 한국시간·미국동부 기준",
+    source: "도토리스캐너 미국장 시간대 리스크 규칙 / 한국시간·미국동부 기준",
     points: [
       {
         time: "프리마켓",
