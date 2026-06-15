@@ -1089,6 +1089,49 @@ def _spike_rows(items: list[dict], limit: int = 50) -> list[dict]:
     return [row for _, row in rows[:limit]]
 
 
+def _supplement_spike_rows(items: list[dict], market_text: str, existing_symbols: set[str], limit: int = 20) -> list[dict]:
+    rows: list[tuple[float, dict]] = []
+    for item in items or []:
+        if not isinstance(item, dict) or _is_excluded_product(item):
+            continue
+        raw_display_name = _clean_text(item.get("display_name"), "")
+        resolved_symbol, resolved_name, resolved_market = _normalize_symbol_fields(
+            item.get("symbol"),
+            raw_display_name,
+            item.get("market"),
+        )
+        symbol = _clean_text(resolved_symbol, "").upper()
+        if not symbol or symbol in existing_symbols:
+            continue
+        is_domestic = bool(re.fullmatch(r"\d{6}", symbol))
+        if market_text == "국내" and not is_domestic:
+            continue
+        if market_text == "미국" and is_domestic:
+            continue
+        reason = _reason_with_keywords(item, ("\ucd5c\uadfc \uc218\uc775\ub960", "20\uc77c", "\uae09\ub4f1", "\uae09\ub77d", "\uc0c1\uc2b9", "\ud558\ub77d"))
+        if not reason:
+            continue
+        pct = _pct_from_text(reason)
+        if abs(pct) < 3.0:
+            continue
+        display_name = _clean_text(resolved_name or raw_display_name, symbol)
+        name = re.sub(rf"\s*\(?{re.escape(symbol)}\)?\s*$", "", display_name).strip() or display_name
+        rows.append((abs(pct), {
+            "name": name,
+            "symbol": symbol,
+            "market": market_text,
+            "range": "\ucd5c\uadfc \uc218\uc775\ub960/\uc218\uae09 \ubcf4\ucda9",
+            "change": f"{pct:+.1f}%",
+            "currentPrice": _clean_text(item.get("current_price_text"), ""),
+            "signal": _public_prediction_signal(item),
+            "note": _shorten(reason),
+            "score": round(_score_from_reasons(item), 2),
+        }))
+        existing_symbols.add(symbol)
+    rows.sort(key=lambda pair: (pair[0], pair[1].get("score", 0)), reverse=True)
+    return [row for _, row in rows[:limit]]
+
+
 def _first_matching_reason(item: dict, keywords: tuple[str, ...]) -> str:
     for reason in item.get("reasons", []) or []:
         text = str(reason or "").strip()
@@ -1420,6 +1463,84 @@ def _public_growth_discovery_rows(limit: int = 40) -> list[dict]:
     return output
 
 
+def _reason_with_keywords(item: dict, keywords: tuple[str, ...]) -> str:
+    for reason in item.get("reasons", []) or []:
+        text = str(reason or "").strip()
+        if any(keyword in text for keyword in keywords):
+            return text
+    return ""
+
+
+def _growth_pct_from_item(item: dict) -> float:
+    for reason in item.get("reasons", []) or []:
+        text = str(reason or "")
+        if "20\uc77c" in text or "\ucd5c\uadfc \uc218\uc775\ub960" in text or "\uc0c1\uc2b9" in text:
+            pct = _pct_from_text(text)
+            if pct:
+                return pct
+    return 0.0
+
+
+def _public_us_growth_discovery_rows(items: list[dict], start_rank: int = 1, limit: int = 30, existing_symbols: set[str] | None = None) -> list[dict]:
+    existing = {str(symbol or "").strip().upper() for symbol in (existing_symbols or set())}
+    candidates: list[tuple[float, dict]] = []
+    for item in items or []:
+        if not isinstance(item, dict) or _is_excluded_product(item):
+            continue
+        raw_display_name = _clean_text(item.get("display_name"), "")
+        resolved_symbol, resolved_name, resolved_market = _normalize_symbol_fields(
+            item.get("symbol"),
+            raw_display_name,
+            item.get("market"),
+        )
+        symbol = _clean_text(resolved_symbol, "").upper()
+        if not symbol or symbol in existing or re.fullmatch(r"\d{6}", symbol):
+            continue
+        market = _clean_text(resolved_market, "미국")
+        if market not in {"미국", "해외"}:
+            continue
+        display_name = _clean_text(resolved_name or raw_display_name, symbol)
+        name = re.sub(rf"\s*\(?{re.escape(symbol)}\)?\s*$", "", display_name).strip() or display_name
+        growth_pct = _growth_pct_from_item(item)
+        base_score = _score_from_reasons(item)
+        if growth_pct < 3.0 and base_score < 80:
+            continue
+        current_price = _safe_float(item.get("current_price_text"), 0.0)
+        reason = _reason_with_keywords(item, ("20\uc77c", "\ucd5c\uadfc \uc218\uc775\ub960", "\uac70\ub798\ub7c9", "\uc131\uc7a5", "AI", "\ubc18\ub3c4\uccb4"))
+        notes = []
+        for value in item.get("reasons", [])[:5] if isinstance(item.get("reasons"), list) else []:
+            text = _clean_text(value, "")
+            if text and text not in notes:
+                notes.append(text)
+        volume_text = _reason_with_keywords(item, ("\uac70\ub798\ub7c9", "20\uc77c \ud3c9\uade0"))
+        candidates.append((
+            growth_pct + base_score * 0.03,
+            {
+                "rank": 0,
+                "symbol": symbol,
+                "name": name,
+                "market": "미국",
+                "score": round(base_score, 1),
+                "verdict": _clean_text(item.get("trade_signal"), "관찰"),
+                "theme": _clean_text(item.get("analysis_hint"), "미국 성장후보"),
+                "currentPrice": current_price,
+                "currentPriceText": _format_price(current_price, "미국"),
+                "return5d": "-",
+                "return20d": f"{growth_pct:+.2f}%" if growth_pct else "-",
+                "volumeRatio": _shorten(volume_text, 32) if volume_text else "-",
+                "rsi": "-",
+                "lifecycle": "",
+                "reason": _clean_text(reason, ""),
+                "notes": notes[:5],
+            },
+        ))
+    candidates.sort(key=lambda pair: pair[0], reverse=True)
+    rows = [row for _, row in candidates[:limit]]
+    for offset, row in enumerate(rows, start=start_rank):
+        row["rank"] = offset
+    return rows
+
+
 def _read_json_dict(path: Path) -> dict:
     try:
         payload = json.loads(path.read_text(encoding="utf-8", errors="replace"))
@@ -1726,6 +1847,9 @@ def build_snapshot() -> dict:
     previous["scannerUpdatedAt"] = predictions.get("saved_at", previous["updatedAt"])
     previous["scanner"] = scanner
     spike_rows = _spike_rows(items, 50)
+    spike_symbols = {str(row.get("symbol", "")).strip().upper() for row in spike_rows if isinstance(row, dict)}
+    spike_rows.extend(_supplement_spike_rows(items, "국내", spike_symbols, 20))
+    spike_rows.extend(_supplement_spike_rows(items, "미국", spike_symbols, 20))
     if spike_rows:
         previous["spikes"] = spike_rows
     research_rows = _dotori_research_news_list()
@@ -1735,7 +1859,10 @@ def build_snapshot() -> dict:
     previous["sectorOverview"] = _public_sector_overview_reports(items)
     previous["deepAnalysis"] = ([research_report] if research_report else []) + _public_deep_analysis_reports(items)
     previous["newsList"] = _merge_news_rows(_public_news_list(), research_rows)
-    previous["growthDiscovery"] = _public_growth_discovery_rows()
+    growth_rows = _public_growth_discovery_rows()
+    growth_symbols = {str(row.get("symbol", "")).strip().upper() for row in growth_rows if isinstance(row, dict)}
+    growth_rows.extend(_public_us_growth_discovery_rows(items, len(growth_rows) + 1, 30, growth_symbols))
+    previous["growthDiscovery"] = growth_rows
     previous["dotoriComResearch"] = research_rows
     previous["analysis"] = previous["morningNote"]
     previous["scannerGroups"] = {

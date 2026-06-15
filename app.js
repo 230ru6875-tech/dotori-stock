@@ -541,6 +541,12 @@ function setupBrowserStorageNotice() {
 function displayMarket(value) {
   return String(value || "") === "\ubbf8\uad6d" ? T.us : (value || "");
 }
+function marketGroupLabel(item) {
+  const symbol = normalizeSymbol(item?.symbol || "");
+  const market = String(item?.market || marketName(symbol) || "").trim();
+  if (/^\d{6}$/.test(symbol) || market === T.domestic || market === "\uad6d\ub0b4") return "\uad6d\ub0b4";
+  return "\ubbf8\uad6d";
+}
 function tossStockUrl(symbol) {
   return `https://www.tossinvest.com/stocks/${encodeURIComponent(normalizeSymbol(symbol))}`;
 }
@@ -1442,29 +1448,33 @@ function renderDashboard() {
     const second = scannerFirst === "us" ? T.domestic : T.us;
     grid.innerHTML = `<div class="scanner-market-controls"><button class="${scannerFirst === "domestic" ? "active" : ""}" data-scanner-first="domestic" type="button">\uad6d\ub0b4 \uc6b0\uc120</button><button class="${scannerFirst === "us" ? "active" : ""}" data-scanner-first="us" type="button">\ud574\uc678 \uc6b0\uc120</button></div><div class="table-card"><table class="data-table scanner-table"><thead><tr><th>\uc21c\uc704</th><th>\uc885\ubaa9</th><th>\ud604\uc7ac\uac00</th><th>\uc2e0\ud638</th><th>\uc608\uce21\ubc94\uc704</th><th>\uadfc\uac70 \ub2e8\uc11c</th><th>\ud655\uc778 \uc870\uac74</th></tr></thead><tbody>${groupHtml(first)}${groupHtml(second)}</tbody></table></div>`;
   } else if (state.activeSection === "growthDiscovery") {
-    const rows = active.slice(0, DISPLAY_MARKET_LIMIT).map((item) => {
+    const rowHtml = (item) => {
       const notes = Array.isArray(item.notes) ? item.notes.slice(0, 3) : [];
       const noteHtml = notes.length ? notes.map((line) => `<p>${escapeHtml(line)}</p>`).join("") : `<p>${escapeHtml(item.reason || "성장 단서 확인 필요")}</p>`;
-      const links = item.symbol ? `<a class="market-link" href="${naverStockUrl(item)}" target="_blank" rel="noopener">네이버증권</a>` : "";
+      const links = item.symbol ? `<a class="market-link" href="${naverStockUrl(item)}" target="_blank" rel="noopener">네이버증권</a>${marketGroupLabel(item) === "\ubbf8\uad6d" ? ` <a class="market-link" href="${tossStockUrl(item.symbol)}" target="_blank" rel="noopener">토스증권</a>` : ""}` : "";
       return `<tr><td>${item.rank || "-"}</td><td class="scanner-name-cell"><strong>${escapeHtml(item.name || item.symbol || "-")}</strong> <span>(${escapeHtml(item.symbol || "-")})</span></td><td><b>${escapeHtml(String(item.score ?? "-"))}</b></td><td><b class="${signalClass(item.verdict || "")}">${escapeHtml(item.verdict || "-")}</b></td><td>${escapeHtml(item.theme || "-")}</td><td>${escapeHtml(item.currentPriceText || formatDisplayPrice(item.currentPrice, item) || "-")}</td><td>${escapeHtml(item.return5d || "-")} / ${escapeHtml(item.return20d || "-")}</td><td>${escapeHtml(item.volumeRatio || "-")}</td><td><div class="evidence-cell">${noteHtml}${links}</div></td></tr>`;
-    }).join("");
-    grid.innerHTML = `<div class="table-card"><table class="data-table growth-table"><thead><tr><th>순위</th><th>종목</th><th>성장점수</th><th>판정</th><th>성장축</th><th>현재가</th><th>5일/20일</th><th>거래량</th><th>성장 근거</th></tr></thead><tbody>${rows || `<tr><td colspan="9">10파트 성장주 데이터가 아직 없습니다.</td></tr>`}</tbody></table></div>`;
+    };
+    const groupHtml = (marketLabel) => {
+      const rows = active.filter((item) => marketGroupLabel(item) === marketLabel).slice(0, DISPLAY_MARKET_LIMIT);
+      return `<tr class="market-group-row"><td colspan="9">${marketLabel} 성장주 후보</td></tr>${rows.length ? rows.map(rowHtml).join("") : `<tr><td colspan="9">${marketLabel} 성장주 데이터가 아직 없습니다.</td></tr>`}`;
+    };
+    grid.innerHTML = `<div class="table-card"><table class="data-table growth-table"><thead><tr><th>순위</th><th>종목</th><th>성장점수</th><th>판정</th><th>성장축</th><th>현재가</th><th>5일/20일</th><th>거래량</th><th>성장 근거</th></tr></thead><tbody>${groupHtml("\uad6d\ub0b4")}${groupHtml("\ubbf8\uad6d")}</tbody></table></div>`;
   } else if (state.activeSection === "learning") {
     grid.innerHTML = renderCards(active, (item) => `<article class="data-card"><div class="card-top"><strong>${item.topic}</strong><em>${T.learning}</em></div><p>${item.lesson}</p></article>`);
   } else if (state.activeSection === "spikes") {
-    const directionRows = (direction) => active
-      .filter((item) => spikeDirection(item) === direction)
+    const directionRows = (direction, marketLabel) => active
+      .filter((item) => spikeDirection(item) === direction && marketGroupLabel(item) === marketLabel)
       .sort((a, b) => direction === "down" ? parseNumber(a.change) - parseNumber(b.change) : parseNumber(b.change) - parseNumber(a.change));
     const rowHtml = (item, index, direction) => {
       const changeClass = direction === "down" ? "down" : "up";
       const label = direction === "down" ? "급락" : "급등";
       return `<tr><td>${index + 1}</td><td>${label}</td><td><strong>${item.name || item.symbol}</strong> <span>(${item.symbol || "-"})</span></td><td>${displayMarket(item.market || marketName(item.symbol))}</td><td>${item.range || "-"}</td><td><b class="${changeClass}">${item.change || "-"}</b></td><td>${formatDisplayPrice(item.currentPrice, item) || "-"}</td><td><b class="${signalClass(item.signal || "")}">${item.signal || "-"}</b></td><td>${item.note || ""}</td></tr>`;
     };
-    const groupHtml = (direction, title) => {
-      const rows = directionRows(direction).slice(0, DISPLAY_MARKET_LIMIT);
-      return `<tr class="market-group-row"><td colspan="9">${title}</td></tr>${rows.length ? rows.map((item, index) => rowHtml(item, index, direction)).join("") : `<tr><td colspan="9">\ud45c\uc2dc\ud560 \uc885\ubaa9\uc774 \uc5c6\uc2b5\ub2c8\ub2e4.</td></tr>`}`;
+    const groupHtml = (marketLabel, direction, title) => {
+      const rows = directionRows(direction, marketLabel).slice(0, DISPLAY_MARKET_LIMIT);
+      return `<tr class="market-group-row"><td colspan="9">${marketLabel} ${title}</td></tr>${rows.length ? rows.map((item, index) => rowHtml(item, index, direction)).join("") : `<tr><td colspan="9">${marketLabel} ${title} 종목이 없습니다.</td></tr>`}`;
     };
-    grid.innerHTML = `<div class="table-card"><table class="data-table"><thead><tr><th>\uc21c\uc704</th><th>\uad6c\ubd84</th><th>\uc885\ubaa9</th><th>\uc2dc\uc7a5</th><th>\uad6c\uac04</th><th>\ub4f1\ub77d\ub960</th><th>\ud604\uc7ac\uac00</th><th>\uc2e0\ud638</th><th>\uadfc\uac70</th></tr></thead><tbody>${groupHtml("up", "\uae09\ub4f1")}${groupHtml("down", "\uae09\ub77d")}</tbody></table></div>`;
+    grid.innerHTML = `<div class="table-card"><table class="data-table"><thead><tr><th>\uc21c\uc704</th><th>\uad6c\ubd84</th><th>\uc885\ubaa9</th><th>\uc2dc\uc7a5</th><th>\uad6c\uac04</th><th>\ub4f1\ub77d\ub960</th><th>\ud604\uc7ac\uac00</th><th>\uc2e0\ud638</th><th>\uadfc\uac70</th></tr></thead><tbody>${groupHtml("\uad6d\ub0b4", "up", "\uae09\ub4f1")}${groupHtml("\uad6d\ub0b4", "down", "\uae09\ub77d")}${groupHtml("\ubbf8\uad6d", "up", "\uae09\ub4f1")}${groupHtml("\ubbf8\uad6d", "down", "\uae09\ub77d")}</tbody></table></div>`;
   } else if (state.activeSection === "moving") {
     const selectedSymbol = normalizeSymbol(state.selectedMovingSymbol);
     const rows = active.map((item) => {
