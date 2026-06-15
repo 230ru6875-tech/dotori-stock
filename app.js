@@ -530,7 +530,7 @@ function formatDollar(value) {
 function setupBrowserStorageNotice() {
   const card = el("#browserPrivacyCard");
   if (card) {
-    card.innerHTML = `<h3>브라우저 저장 안내</h3><p>이 곳에서 조회한 내용은 종목분석에만 활용되고 별도의 외부기관에 제공되지 않습니다. 현재 웹브라우저에만 저장됩니다.</p>`;
+    card.innerHTML = `<h3>성장주 찾기</h3><p>실적, 가격 흐름, 거래량, 뉴스 단서를 함께 보며 국내와 미국 성장 후보를 나누어 확인합니다.</p>`;
   }
   window.addEventListener("beforeunload", (event) => {
     if (!state.userStocks.length) return;
