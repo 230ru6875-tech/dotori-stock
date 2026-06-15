@@ -1,0 +1,40 @@
+{
+  "program": "dotori_com",
+  "mode": "research_and_trading",
+  "scope": "dotori.com",
+  "allowed_actions": [
+    "collect_market_data",
+    "collect_news",
+    "summarize_sources",
+    "store_research",
+    "verify_tori_research",
+    "classify_verified_vs_reference_only",
+    "generate_trade_candidates",
+    "submit_buy",
+    "submit_sell",
+    "manage_positions"
+  ],
+  "forbidden_actions": [
+    "bypass_broker_limits",
+    "bypass_existing_autotrade_gates",
+    "share_api_secrets_to_public_site"
+  ],
+  "trade_execution_allowed": true,
+  "execution_owner": "pc_autotrade_engine",
+  "verification_owner": "dotori_com",
+  "tori_role_policy": {
+    "tori1": "domestic_market_and_korean_morning_evening_news_collection",
+    "tori2": "overseas_market_and_global_economic_news_collection",
+    "tori3": "unused_by_default",
+    "dotori_com": "verification_crosscheck_and_trade_candidate_classification"
+  },
+  "public_site_can_hold_secrets": false,
+  "requires_existing_safety_gates": true,
+  "notes": [
+    "Tori collectors remain research_only.",
+    "Tori1 collects domestic market and Korean morning/evening newspaper inputs.",
+    "Tori2 collects overseas market and global economic newspaper inputs.",
+    "Tori3 is not used by default; Dotori.com owns verification and classification.",
+    "Dotori.com may express data collection and trading autonomy, but real order execution must stay in the existing local broker engine."
+  ]
+}

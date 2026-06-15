@@ -908,17 +908,52 @@ function koreaMarketResponseBrief(date = new Date()) {
     ]
   };
 }
+function usMarketResponseBrief() {
+  return {
+    title: "해외시장 장중 대응 참고",
+    disclaimer: "미국장은 프리마켓 변동과 정규장 초반 변동성이 크게 다를 수 있어 체결 전 호가·거래량·섹터 흐름을 다시 확인합니다.",
+    source: "도토리스캐너 해외장 시간대 리스크 규칙 / 한국시간·미국동부 기준",
+    points: [
+      {
+        time: "프리마켓",
+        title: "가격 발견 구간",
+        body: "거래량이 얇아 스파이크가 크게 보일 수 있습니다. 급락 후 회복은 저점 방어 증거가 2회 이상 확인될 때만 정찰 관점으로 봅니다."
+      },
+      {
+        time: "정규장 초반",
+        title: "첫 30분 방향 확인",
+        body: "개장 직후 갭과 프로그램 매물이 섞입니다. 전일 고점, 프리마켓 저점, VWAP 회복 여부를 같이 확인합니다."
+      },
+      {
+        time: "한국 10:30 전후",
+        title: "국내 동시 변동 주의",
+        body: "한국시간 10시 30분 전후 국내 변동성이 커질 수 있어 해외 보유종목 판단도 환율·선물·반도체 동조 흐름을 함께 봅니다."
+      },
+      {
+        time: "재돌파 확인",
+        title: "분할 진입 우선",
+        body: "스파이크 눌림 이후 저점 재이탈이 없고 거래량이 붙으며 하이킨아시 약화가 멈출 때만 첫 비중을 작게 잡습니다."
+      }
+    ]
+  };
+}
+function marketResponseBriefs() {
+  return [koreaMarketResponseBrief(), usMarketResponseBrief()].filter(Boolean);
+}
+function marketBriefHtml(brief) {
+  return `<section class="market-brief-card"><div class="market-brief-head"><div><strong>${escapeHtml(brief.title)}</strong><p>${escapeHtml(brief.disclaimer)}</p></div><em>${escapeHtml(brief.source)}</em></div><div class="market-brief-grid">${brief.points.map((point) => `<article><span>${escapeHtml(point.time)}</span><h3>${escapeHtml(point.title)}</h3><p>${escapeHtml(point.body)}</p></article>`).join("")}</div></section>`;
+}
 function renderMarketBrief() {
   const box = el("#marketBrief");
   if (!box) return;
-  const brief = koreaMarketResponseBrief();
-  if (!brief) {
+  const briefs = marketResponseBriefs();
+  if (!briefs.length) {
     box.hidden = true;
     box.innerHTML = "";
     return;
   }
   box.hidden = false;
-  box.innerHTML = `<div class="market-brief-head"><div><strong>${escapeHtml(brief.title)}</strong><p>${escapeHtml(brief.disclaimer)}</p></div><em>${escapeHtml(brief.source)}</em></div><div class="market-brief-grid">${brief.points.map((point) => `<article><span>${escapeHtml(point.time)}</span><h3>${escapeHtml(point.title)}</h3><p>${escapeHtml(point.body)}</p></article>`).join("")}</div>`;
+  box.innerHTML = briefs.map(marketBriefHtml).join("");
 }
 function etParts(date = new Date()) {
   const parts = new Intl.DateTimeFormat("en-US", {

@@ -338,10 +338,15 @@ h3 {
 }
 
 .market-brief {
+  display: grid;
+  gap: 12px;
+  margin: 0 0 16px;
+}
+
+.market-brief-card {
   background: #fff7ed;
   border: 1px solid #fdba74;
   border-radius: 8px;
-  margin: 0 0 16px;
   padding: 14px;
 }
 
