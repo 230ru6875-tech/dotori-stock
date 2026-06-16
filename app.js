@@ -573,26 +573,31 @@ function formatDisplayPriceRange(value, item) {
 function valuationFromItem(item) {
   return item?.valuation || item?.analysis?.valuation || item?.watchlist?.valuation || item?.report?.valuation || item?.report?.watchlist?.valuation || item?.report?.analysis?.valuation || null;
 }
+function withLabelPrefix(label, text) {
+  const value = String(text || "").trim();
+  if (!value) return "";
+  return value.startsWith(label) ? value : `${label} ${value}`;
+}
 function valuationSummaryText(item) {
   const valuation = valuationFromItem(item);
   if (!valuation) return "";
   const parts = [
-    valuation.buyFocus || "매수 판단: PBR 확인",
-    valuation.sellFocus || "매도 판단: PSR 확인",
-    valuation.psr ? `PSR ${valuation.psr}` : "",
+    valuation.buyFocus || "매수 판단: PBR 확인 필요",
+    valuation.sellFocus || "매도 판단: PSR 확인 필요",
     valuation.pbr ? `PBR ${valuation.pbr}` : "",
+    valuation.psr ? `매도 지표 PSR ${valuation.psr}` : "매도 지표 PSR 확인 필요",
     valuation.per ? `PER ${valuation.per}` : "",
     valuation.fcf ? `FCF ${valuation.fcf}` : "",
     valuation.debtRatio ? `부채비율 ${valuation.debtRatio}%` : "",
     valuation.evEbitda ? `EV/EBITDA ${valuation.evEbitda}` : ""
   ].filter(Boolean);
-  const summary = valuation.summary || valuation.note || "";
+  const summary = [valuation.summary, valuation.note].filter(Boolean).join(" / ");
   if (!parts.length && !summary) return "";
   return `${parts.join(" / ")}${parts.length && summary ? " / " : ""}${summary}`;
 }
 function valuationSummaryHtml(item) {
   const text = valuationSummaryText(item);
-  return text ? `<p class="valuation-line">밸류에이션: ${escapeHtml(text)}</p>` : "";
+  return text ? `<p class="valuation-line"><strong>밸류에이션:</strong> ${escapeHtml(text)}</p>` : "";
 }
 function fairValueFromItem(item) {
   return item?.fairValue || item?.analysis?.fairValue || item?.watchlist?.fairValue || item?.report?.fairValue || item?.report?.watchlist?.fairValue || item?.report?.analysis?.fairValue || null;
@@ -600,17 +605,26 @@ function fairValueFromItem(item) {
 function fairValueSummaryText(item) {
   const fair = fairValueFromItem(item);
   if (!fair) return "";
-  const parts = [
-    fair.summary || "",
-    fair.conservative ? `보수 ${fair.conservative}` : "",
-    fair.neutral ? `중립 ${fair.neutral}` : "",
-    fair.growth ? `성장 ${fair.growth}` : ""
-  ].filter(Boolean);
+  const currentPrice = item?.watchlist?.currentPrice || item?.currentPrice || item?.report?.watchlist?.currentPrice || item?.report?.currentPrice || "";
+  const hasBand = fair.conservative || fair.neutral || fair.growth;
+  const parts = hasBand
+    ? [
+        fair.conservative ? `보수 ${formatDisplayPrice(fair.conservative, item)}` : "",
+        fair.neutral ? `중립 ${formatDisplayPrice(fair.neutral, item)}` : "",
+        fair.growth ? `성장 ${formatDisplayPrice(fair.growth, item)}` : "",
+        currentPrice ? `현재가 ${formatDisplayPrice(currentPrice, item)}` : "",
+        fair.summary || ""
+      ].filter(Boolean)
+    : [
+        currentPrice ? `현재가 ${formatDisplayPrice(currentPrice, item)}` : "",
+        "PBR 또는 현재가 확인 필요",
+        fair.summary || ""
+      ].filter(Boolean);
   return parts.join(" / ");
 }
 function fairValueSummaryHtml(item) {
   const text = fairValueSummaryText(item);
-  return text ? `<p class="fair-line">적정주가: ${escapeHtml(text)}</p>` : "";
+  return text ? `<p class="fair-line"><strong>적정주가:</strong> ${escapeHtml(text)}</p>` : "";
 }
 function technicalFromItem(item) {
   return item?.technical || item?.analysis?.technical || item?.watchlist?.technical || item?.report?.technical || item?.report?.watchlist?.technical || item?.report?.analysis?.technical || null;
@@ -620,18 +634,26 @@ function technicalSummaryText(item) {
   if (!tech) return "";
   const stochastic = tech.stochastic || {};
   const volume = tech.volume || {};
+  const stochasticParts = [
+    withLabelPrefix("스토캐스틱", stochastic.signal || "확인 필요"),
+    stochastic.k ? `K ${stochastic.k}` : "",
+    stochastic.d ? `D ${stochastic.d}` : ""
+  ].filter(Boolean).join(" / ");
+  const volumeParts = [
+    withLabelPrefix("거래량", volume.signal || "확인 필요"),
+    volume.ratio ? `20일평균대비 ${volume.ratio}` : "",
+    volume.latest ? `최근 ${volume.latest}` : "",
+    volume.average20 ? `평균 ${volume.average20}` : ""
+  ].filter(Boolean).join(" / ");
   const parts = [
-    stochastic.signal ? `스토캐스틱 ${stochastic.signal}` : "",
-    stochastic.k ? `%K ${stochastic.k}` : "",
-    stochastic.d ? `%D ${stochastic.d}` : "",
-    volume.signal ? `거래량 ${volume.signal}` : "",
-    volume.ratio ? `20일평균 대비 ${volume.ratio}` : ""
+    stochasticParts,
+    volumeParts
   ].filter(Boolean);
   return parts.join(" / ");
 }
 function technicalSummaryHtml(item) {
   const text = technicalSummaryText(item);
-  return text ? `<p class="technical-line">기술지표: ${escapeHtml(text)}</p>` : "";
+  return text ? `<p class="technical-line"><strong>기술지표:</strong> ${escapeHtml(text)}</p>` : "";
 }
 function marketRiskFromItem(item) {
   return item?.marketRisk || item?.analysis?.marketRisk || item?.watchlist?.marketRisk || item?.report?.marketRisk || item?.report?.watchlist?.marketRisk || item?.report?.analysis?.marketRisk || null;
@@ -727,7 +749,7 @@ function spikeReasonHtml(item) {
   if (!text) return "";
   const direction = spikeDirection(item);
   const cls = direction === "down" ? "spike-reason down-reason" : "spike-reason up-reason";
-  return `<p class="${cls}">급등락 분석: ${escapeHtml(text)}</p>`;
+  return `<p class="${cls}"><strong>급등락 분석:</strong> ${escapeHtml(text)}</p>`;
 }
 function priceClassForItem(item) {
   const purchase = Number(item?.purchasePrice || 0);
