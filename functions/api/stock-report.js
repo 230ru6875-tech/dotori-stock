@@ -144,6 +144,22 @@ function textValue(value) {
   return text && text !== "N/A" && text !== "&nbsp;" ? text : "";
 }
 
+function sanitizePublicDisclosure(value, fallback = "") {
+  let text = cleanHtml(value);
+  if (!text) return fallback;
+  const replacements = [
+    [/\b토스 보유종목\b/gi, "공개 추적종목"],
+    [/\b보유종목\b/gi, "추적종목"],
+    [/\b실계좌\b/gi, "실거래"],
+    [/\b내 계좌\b/gi, "운영 기준"],
+    [/\b계좌\b/gi, "운영정보"],
+    [/\b모의보유\b/gi, "모의 추적"]
+  ];
+  for (const [pattern, replacement] of replacements) text = text.replace(pattern, replacement);
+  text = text.replace(/\s+/g, " ").trim();
+  return text || fallback;
+}
+
 function matchHtmlValue(html, pattern) {
   const match = String(html || "").match(pattern);
   return textValue(match?.[1] || "");
@@ -982,28 +998,28 @@ export async function onRequestGet(context) {
     const crashRisk = isDomestic
       ? crashWarning({}, moving, valuation, oilRisk)
       : crashWarning({ current: numericPrice(base.currentPrice), ...(base.marketStats || {}) }, moving, valuation, oilRisk);
-    const publishedSignal = textValue(
+    const publishedSignal = sanitizePublicDisclosure(
       publishedSnapshot?.scanner?.signal ||
       publishedSnapshot?.scanner?.sentiment ||
       publishedSnapshot?.watchlist?.signal ||
       published?.signal || ""
     );
-    const publishedMoving = textValue(
+    const publishedMoving = sanitizePublicDisclosure(
       publishedSnapshot?.moving?.decision ||
       publishedSnapshot?.watchlist?.movingAverage ||
       published?.movingAverage || ""
     );
-    const publishedRange = textValue(
+    const publishedRange = sanitizePublicDisclosure(
       publishedSnapshot?.scanner?.predRange ||
       published?.predRange || ""
     );
-    const publishedMemo = textValue(
+    const publishedMemo = sanitizePublicDisclosure(
       publishedSnapshot?.scanner?.summary ||
       publishedSnapshot?.moving?.note ||
       publishedSnapshot?.watchlist?.memo ||
       published?.memo || ""
     );
-    const publishedCurrentPrice = textValue(
+    const publishedCurrentPrice = sanitizePublicDisclosure(
       publishedSnapshot?.moving?.currentPrice ||
       publishedSnapshot?.watchlist?.currentPrice ||
       publishedSnapshot?.scanner?.currentPrice ||
@@ -1021,7 +1037,7 @@ export async function onRequestGet(context) {
       ok: true,
       schemaVersion: REPORT_SCHEMA_VERSION,
       symbol,
-      name: cleanName(publishedSnapshot?.scanner?.name || publishedSnapshot?.watchlist?.name || published?.name || "", symbol) || base.name || symbol,
+      name: sanitizePublicDisclosure(cleanName(publishedSnapshot?.scanner?.name || publishedSnapshot?.watchlist?.name || published?.name || "", symbol) || base.name || symbol, symbol),
       market: base.market,
       currentPrice: mergedCurrentPrice,
       valuation,
@@ -1032,14 +1048,14 @@ export async function onRequestGet(context) {
       crashRisk,
       savedAt: new Date().toISOString(),
       scanner: {
-        title: cleanName(publishedSnapshot?.scanner?.name || publishedSnapshot?.watchlist?.name || published?.name || "", symbol) || base.name || symbol,
+        title: sanitizePublicDisclosure(cleanName(publishedSnapshot?.scanner?.name || publishedSnapshot?.watchlist?.name || published?.name || "", symbol) || base.name || symbol, symbol),
         summary: scannerSummary,
         sentiment: publishedSignal || TXT.observe,
         risk: news.length ? TXT.newsScanner : TXT.wait
       },
       watchlist: {
         symbol,
-        name: cleanName(publishedSnapshot?.watchlist?.name || publishedSnapshot?.scanner?.name || published?.name || "", symbol) || base.name || symbol,
+        name: sanitizePublicDisclosure(cleanName(publishedSnapshot?.watchlist?.name || publishedSnapshot?.scanner?.name || published?.name || "", symbol) || base.name || symbol, symbol),
         market: base.market,
         currentPrice: mergedCurrentPrice,
         signal: watchSignal,
@@ -1057,14 +1073,14 @@ export async function onRequestGet(context) {
         lesson: mock
       },
       moving: {
-        name: cleanName(publishedSnapshot?.moving?.name || publishedSnapshot?.watchlist?.name || published?.name || "", symbol) || base.name || symbol,
+        name: sanitizePublicDisclosure(cleanName(publishedSnapshot?.moving?.name || publishedSnapshot?.watchlist?.name || published?.name || "", symbol) || base.name || symbol, symbol),
         symbol,
         ma20: textValue(publishedSnapshot?.moving?.ma20 || "") || formatPriceByMarket(moving.ma20, base.market) || TXT.wait,
         ma60: textValue(publishedSnapshot?.moving?.ma60 || "") || formatPriceByMarket(moving.ma60, base.market) || TXT.wait,
         decision: publishedMoving || moving.decision
       },
       analysis: {
-        title: `${TXT.analysis} - ${(cleanName(publishedSnapshot?.scanner?.name || publishedSnapshot?.watchlist?.name || published?.name || "", symbol) || base.name || symbol)}`,
+        title: `${TXT.analysis} - ${sanitizePublicDisclosure((cleanName(publishedSnapshot?.scanner?.name || publishedSnapshot?.watchlist?.name || published?.name || "", symbol) || base.name || symbol), symbol)}`,
         body: analysisBody,
         valuation,
         fairValue,

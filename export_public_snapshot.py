@@ -30,8 +30,14 @@ PREDICTION_SYMBOLS_PATH = BASE_DIR / "config" / "prediction_symbols.yaml"
 PUBLIC_SNAPSHOT_PATH = DOTORI_DIR / "data" / "public-snapshot.json"
 SYMBOL_DIRECTORY_PATH = DOTORI_DIR / "data" / "symbol-directory.json"
 DOTORI_COM_REPORT_PATH = DOTORI_DIR / "data" / "dotori-com-report.json"
+DOTORI_SANGHOE_PATH = DOTORI_DIR / "data" / "dotori-sanghoe.json"
 DOTORI_COM_AUTONOMY_POLICY_PATH = BASE_DIR / "config" / "dotori_com_autonomy_policy.json"
 DOTORI_COM_PUBLIC_AUTONOMY_POLICY_PATH = DOTORI_DIR / "data" / "autonomy-policy.json"
+AUTOTRADE_PLAN_LATEST_PATH = BASE_DIR / "logs" / "autotrade_2part_plan_latest.json"
+INVESTMENT_SIMULATION_STATE_PATH = BASE_DIR / "logs" / "investment_simulation_state.json"
+AUTOTRADE_ORDER_RESULTS_PATH = BASE_DIR / "logs" / "autotrade_order_results.jsonl"
+AUTOTRADE_BROKER_PAUSE_STATE_PATH = BASE_DIR / "logs" / "autotrade_broker_pause_state.json"
+AUTOTRADE_SELL_REVIEW_PATH = BASE_DIR / "logs" / "autotrade_sell_review.json"
 KST = timezone(timedelta(hours=9))
 REQUEST_TIMEOUT_SECONDS = 4
 OHLC_CACHE: dict[tuple[str, str], dict] = {}
@@ -207,6 +213,34 @@ def _score_from_reasons(item: dict) -> float:
 def _clean_text(value: object, fallback: str = "-") -> str:
     text = str(value or "").strip()
     return text if text else fallback
+
+
+def _sanitize_public_text(value: object, fallback: str = "") -> str:
+    text = str(value or "").strip()
+    if not text:
+        return fallback
+    replacements = [
+        (r"\b토스 보유종목\b", "공개 추적종목"),
+        (r"\b보유종목\b", "추적종목"),
+        (r"\b실계좌\b", "실거래"),
+        (r"\b내 계좌\b", "운영 기준"),
+        (r"\b계좌\b", "운영정보"),
+        (r"\b모의보유\b", "모의 추적"),
+    ]
+    for pattern, replacement in replacements:
+        text = re.sub(pattern, replacement, text, flags=re.IGNORECASE)
+    text = re.sub(r"\s+", " ", text).strip(" |,/")
+    return text or fallback
+
+
+def _sanitize_public_payload(value: object) -> object:
+    if isinstance(value, dict):
+        return {key: _sanitize_public_payload(item) for key, item in value.items()}
+    if isinstance(value, list):
+        return [_sanitize_public_payload(item) for item in value]
+    if isinstance(value, str):
+        return _sanitize_public_text(value, "")
+    return value
 
 
 def _load_dotenv_once() -> None:
@@ -1241,7 +1275,7 @@ def _moving_average_rows(items: list[dict], limit: int = 30, previous_ohlc: dict
 
 
 def _clean_public_line(value: object) -> str:
-    text = re.sub(r"\s+", " ", str(value or "")).strip()
+    text = _sanitize_public_text(value, "")
     if not text:
         return ""
     blocked = ("\ud1a0\ub9ac", "tori", "Tori", "\uc218\uc9d1\uc790\ub8cc", "\uc790\ub3d9\ud6c4\ubcf4")
@@ -1549,6 +1583,234 @@ def _read_json_dict(path: Path) -> dict:
     return payload if isinstance(payload, dict) else {}
 
 
+def _read_jsonl_tail(path: Path, limit: int = 12) -> list[dict]:
+    if not path.exists():
+        return []
+    try:
+        lines = path.read_text(encoding="utf-8", errors="replace").splitlines()
+    except Exception:
+        return []
+    rows: list[dict] = []
+    for line in reversed(lines):
+        if not line.strip():
+            continue
+        try:
+            payload = json.loads(line)
+        except Exception:
+            continue
+        if isinstance(payload, dict):
+            rows.append(payload)
+        if len(rows) >= limit:
+            break
+    rows.reverse()
+    return rows
+
+
+def _sanghoe_market_label(value: object) -> str:
+    text = str(value or "").strip().lower()
+    if text in {"us", "usa", "america", "미국", "해외"}:
+        return "미국"
+    if text in {"domestic", "kr", "kor", "korea", "국내", "한국"}:
+        return "국내"
+    return _clean_text(value, "-")
+
+
+def _sanghoe_side_label(value: object) -> str:
+    text = str(value or "").strip().lower()
+    labels = {
+        "buy_candidate": "매수 후보",
+        "sell_watch": "매도 주의",
+        "hold": "보유",
+        "hold_or_scale": "보유/추가 검토",
+    }
+    return labels.get(text, _clean_text(value, "-"))
+
+
+def _sanghoe_price_text(value: object, market: str) -> str:
+    price = _safe_float(value, 0.0)
+    if price <= 0:
+        return "-"
+    if market == "미국":
+        return f"${price:,.2f}"
+    return f"{price:,.0f}원"
+
+
+def _sanghoe_pct_text(value: object) -> str:
+    pct = _safe_float(value, 0.0)
+    if abs(pct) < 0.000001:
+        return "0.00%"
+    return f"{pct:+.2f}%"
+
+
+def _sanghoe_number(value: object, digits: int = 2) -> float:
+    return round(_safe_float(value, 0.0), digits)
+
+
+def _sanghoe_clean_log(value: object, fallback: str = "-") -> str:
+    text = _clean_text(value, fallback)
+    text = re.sub(r"[A-Za-z0-9_-]{24,}", "[비공개]", text)
+    text = re.sub(r"requestId\s+[A-Za-z0-9_-]+", "requestId [비공개]", text, flags=re.IGNORECASE)
+    text = re.sub(r"\s+", " ", text).strip()
+    if len(text) > 220:
+        text = text[:217].rstrip() + "..."
+    return text or fallback
+
+
+def build_dotori_sanghoe_payload() -> dict:
+    now_text = datetime.now(KST).isoformat(timespec="seconds")
+    plan = _read_json_dict(AUTOTRADE_PLAN_LATEST_PATH)
+    simulation = _read_json_dict(INVESTMENT_SIMULATION_STATE_PATH)
+    pause_state = _read_json_dict(AUTOTRADE_BROKER_PAUSE_STATE_PATH)
+    sell_review = _read_json_dict(AUTOTRADE_SELL_REVIEW_PATH)
+
+    candidate_rows: list[dict] = []
+    for row in plan.get("rows", []) if isinstance(plan.get("rows"), list) else []:
+        if not isinstance(row, dict):
+            continue
+        market = _sanghoe_market_label(row.get("market_key"))
+        candidate_rows.append(
+            {
+                "symbol": _clean_text(row.get("symbol")),
+                "name": _clean_text(row.get("display_name"), _clean_text(row.get("symbol"))),
+                "market": market,
+                "side": _sanghoe_side_label(row.get("side")),
+                "sideRaw": _clean_text(row.get("side"), ""),
+                "score": _sanghoe_number(row.get("last_score"), 1),
+                "priorityScore": _sanghoe_number(row.get("priority_score"), 2),
+                "currentPrice": _sanghoe_price_text(row.get("current_price"), market),
+                "expectedReturn": _sanghoe_pct_text(row.get("expected_return_pct")),
+                "unrealizedReturn": _sanghoe_pct_text(row.get("unrealized_return_pct")),
+                "profitLabel": _clean_text(row.get("profit_engine_label"), "-"),
+                "profitNote": _sanghoe_clean_log(row.get("profit_engine_note"), "-"),
+                "riskNote": _sanghoe_clean_log(row.get("risk_note"), "-"),
+                "decisionFramework": _clean_text(row.get("decision_framework"), "-"),
+                "deterministicRulePass": bool(row.get("deterministic_rule_pass", False)),
+                "deterministicScore": _sanghoe_number(row.get("deterministic_score"), 1),
+                "deterministicRewardRisk": _sanghoe_number(row.get("deterministic_reward_risk"), 2),
+                "alphaSignalCount": int(_safe_float(row.get("alpha_signal_count"), 0.0)),
+                "emaTrendPass": bool(row.get("ema_trend_pass", False)),
+                "emaTrendAdjustment": _sanghoe_number(row.get("ema_trend_adjustment"), 1),
+                "emaTrendNote": _sanghoe_clean_log(row.get("ema_trend_note"), "-"),
+                "fixedRuleEvidence": row.get("fixed_rule_evidence", []) if isinstance(row.get("fixed_rule_evidence"), list) else [],
+                "qualitativeRole": _clean_text(row.get("qualitative_role"), "보조근거"),
+                "qualitativeScore": _sanghoe_number(row.get("qualitative_score"), 1),
+                "qualitativeEvidence": row.get("qualitative_evidence", []) if isinstance(row.get("qualitative_evidence"), list) else [],
+                "decisionNote": _sanghoe_clean_log(row.get("decision_framework_note"), "-"),
+                "decisionBlockReason": _sanghoe_clean_log(row.get("decision_framework_block_reason"), "-"),
+            }
+        )
+    candidate_rows.sort(
+        key=lambda item: (
+            0 if item.get("market") == "국내" else 1,
+            0 if item.get("sideRaw") == "buy_candidate" else 1,
+            -float(item.get("priorityScore", 0.0) or 0.0),
+        )
+    )
+
+    position_rows: list[dict] = []
+    for market_key, market_payload in simulation.items():
+        if not isinstance(market_payload, dict):
+            continue
+        market = _sanghoe_market_label(market_key)
+        positions = market_payload.get("positions", {})
+        iterable = positions.items() if isinstance(positions, dict) else enumerate(positions if isinstance(positions, list) else [])
+        for symbol_key, position in iterable:
+            if not isinstance(position, dict):
+                continue
+            symbol = _clean_text(position.get("symbol"), str(symbol_key))
+            entry_price = _safe_float(position.get("entry_price"), 0.0)
+            current_price = _safe_float(position.get("current_price"), entry_price)
+            quantity = _safe_float(position.get("quantity"), 0.0)
+            pnl = (current_price - entry_price) * quantity if entry_price > 0 and quantity else 0.0
+            return_pct = ((current_price - entry_price) / entry_price * 100.0) if entry_price > 0 else 0.0
+            position_rows.append(
+                {
+                    "symbol": symbol,
+                    "name": _clean_text(position.get("display_name"), symbol),
+                    "market": market,
+                    "quantity": quantity,
+                    "entryPrice": _sanghoe_price_text(entry_price, market),
+                    "currentPrice": _sanghoe_price_text(current_price, market),
+                    "pnl": _sanghoe_price_text(pnl, market) if pnl else "0",
+                    "returnPct": _sanghoe_pct_text(return_pct),
+                    "lastAction": _clean_text(position.get("last_action"), "-"),
+                    "lastScore": _sanghoe_number(position.get("last_score"), 1),
+                    "reason": _sanghoe_clean_log(position.get("part_signal_reason") or " / ".join(position.get("reasons", [])[:2]) if isinstance(position.get("reasons"), list) else position.get("part_signal_reason"), "-"),
+                }
+            )
+    position_rows.sort(key=lambda item: (0 if item.get("market") == "국내" else 1, item.get("name", "")))
+
+    order_rows: list[dict] = []
+    for row in _read_jsonl_tail(AUTOTRADE_ORDER_RESULTS_PATH, 10):
+        logs = row.get("logs", [])
+        preview = logs[0] if isinstance(logs, list) and logs else row.get("summary")
+        order_rows.append(
+            {
+                "timestamp": _clean_text(row.get("timestamp"), "-"),
+                "broker": _clean_text(row.get("broker_label") or row.get("broker"), "-"),
+                "status": _clean_text(row.get("status"), "-"),
+                "orderCount": len(row.get("order_numbers", [])) if isinstance(row.get("order_numbers"), list) else 0,
+                "summary": _sanghoe_clean_log(row.get("summary") or preview, "-"),
+                "preview": _sanghoe_clean_log(preview, "-"),
+            }
+        )
+
+    pause_items: list[dict] = []
+    if pause_state:
+        pause_items.append(
+            {
+                "broker": _clean_text(pause_state.get("broker"), "toss"),
+                "until": _clean_text(pause_state.get("until"), "-"),
+                "reason": _sanghoe_clean_log(pause_state.get("reason"), "-"),
+            }
+        )
+
+    lesson_rows: list[dict] = []
+    symbol_lessons = sell_review.get("symbol_lessons", {}) if isinstance(sell_review, dict) else {}
+    if isinstance(symbol_lessons, dict):
+        for symbol, lesson in list(symbol_lessons.items())[:12]:
+            if not isinstance(lesson, dict):
+                continue
+            lesson_rows.append(
+                {
+                    "symbol": _clean_text(symbol),
+                    "lesson": _sanghoe_clean_log(lesson.get("lesson") or lesson.get("summary") or lesson, "-"),
+                }
+            )
+
+    return {
+        "updatedAt": now_text,
+        "source": "도토리상회",
+        "service": {
+            "name": "도토리상회",
+            "scannerName": "도토리스캐너",
+            "collectorName": "토리",
+            "role": "자동매매 후보, 보유, 주문 상태를 도토리스캐너와 분리해 보여주는 화면",
+            "executionOwner": "도토리 PC 3파트 자동매매 엔진",
+            "publicNotice": "이 화면은 공개 요약이며 주문 실행 화면이 아닙니다.",
+        },
+        "summary": {
+            "planTimestamp": _clean_text(plan.get("timestamp"), "-"),
+            "candidateCount": len(candidate_rows),
+            "buyCandidateCount": int(_safe_float(plan.get("buy_candidate_count"), 0.0)),
+            "sellWatchCount": int(_safe_float(plan.get("sell_watch_count"), 0.0)),
+            "mockPositionCount": len(position_rows),
+            "pausedBrokerCount": len(pause_items),
+        },
+        "candidates": candidate_rows[:80],
+        "positions": position_rows[:80],
+        "orders": order_rows,
+        "brokerPause": {
+            "updatedAt": _clean_text(pause_state.get("updated_at"), "-") if isinstance(pause_state, dict) else "-",
+            "items": pause_items,
+        },
+        "sellReview": {
+            "updatedAt": _clean_text(sell_review.get("updated_at"), "-") if isinstance(sell_review, dict) else "-",
+            "lessons": lesson_rows,
+        },
+    }
+
+
 def _dotori_research_source_paths() -> list[Path]:
     paths = [AUTONOMOUS_RESEARCH_PATH]
     paths.extend(TORI_RESEARCH_PATHS)
@@ -1725,30 +1987,30 @@ def _report_payload_from_row(row: dict, saved_at: str) -> dict:
     return {
         "ok": True,
         "symbol": symbol,
-        "name": _clean_text(row.get("name"), symbol),
-        "market": _clean_text(row.get("market"), ""),
-        "currentPrice": _clean_text(row.get("currentPrice"), "-"),
-        "source": _clean_text(row.get("source"), "도토리컴 보충자료"),
+        "name": _sanitize_public_text(row.get("name"), symbol),
+        "market": _sanitize_public_text(row.get("market"), ""),
+        "currentPrice": _sanitize_public_text(row.get("currentPrice"), "-"),
+        "source": _sanitize_public_text(row.get("source"), "도토리컴 보충자료"),
         "quotedAt": saved_at,
         "savedAt": saved_at,
         "scanner": {
-            "title": _clean_text(row.get("name"), symbol),
-            "summary": _clean_text(row.get("summary"), ""),
-            "sentiment": _clean_text(row.get("sentiment"), ""),
-            "risk": _clean_text(row.get("risk"), ""),
+            "title": _sanitize_public_text(row.get("name"), symbol),
+            "summary": _sanitize_public_text(row.get("summary"), ""),
+            "sentiment": _sanitize_public_text(row.get("sentiment"), ""),
+            "risk": _sanitize_public_text(row.get("risk"), ""),
         },
         "watchlist": {
             "symbol": symbol,
-            "name": _clean_text(row.get("name"), symbol),
-            "market": _clean_text(row.get("market"), ""),
-            "currentPrice": _clean_text(row.get("currentPrice"), "-"),
-            "signal": _clean_text(row.get("signal"), "관심"),
-            "movingAverage": _clean_text(row.get("risk"), ""),
-            "memo": _clean_text(row.get("summary"), ""),
+            "name": _sanitize_public_text(row.get("name"), symbol),
+            "market": _sanitize_public_text(row.get("market"), ""),
+            "currentPrice": _sanitize_public_text(row.get("currentPrice"), "-"),
+            "signal": _sanitize_public_text(row.get("signal"), "관심"),
+            "movingAverage": _sanitize_public_text(row.get("risk"), ""),
+            "memo": _sanitize_public_text(row.get("summary"), ""),
         },
         "analysis": {
-            "summary": _clean_text(row.get("summary"), ""),
-            "predRange": _clean_text(row.get("predRange"), ""),
+            "summary": _sanitize_public_text(row.get("summary"), ""),
+            "predRange": _sanitize_public_text(row.get("predRange"), ""),
         },
         "sources": ["도토리컴 공개 스냅샷"],
     }
@@ -1960,8 +2222,8 @@ def build_symbol_directory(snapshot: dict | None = None) -> dict:
 def main() -> None:
     _load_dotenv_once()
     PUBLIC_SNAPSHOT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    payload = build_snapshot()
-    report_payload = _build_dotori_com_reports(payload.get("scanner", []), payload.get("updatedAt", datetime.now(KST).isoformat(timespec="seconds")))
+    payload = _sanitize_public_payload(build_snapshot())
+    report_payload = _sanitize_public_payload(_build_dotori_com_reports(payload.get("scanner", []), payload.get("updatedAt", datetime.now(KST).isoformat(timespec="seconds"))))
     upload_status = _upload_reports_to_turso(report_payload)
     payload.setdefault("webDataStatus", {})["tursoUpload"] = upload_status
     PUBLIC_SNAPSHOT_PATH.write_text(
@@ -1976,11 +2238,16 @@ def main() -> None:
         json.dumps(_dotori_com_autonomy_policy(), ensure_ascii=True, indent=2),
         encoding="utf-8",
     )
+    DOTORI_SANGHOE_PATH.write_text(
+        json.dumps(build_dotori_sanghoe_payload(), ensure_ascii=True, indent=2),
+        encoding="utf-8",
+    )
     SYMBOL_DIRECTORY_PATH.write_text(
-        json.dumps(build_symbol_directory(payload), ensure_ascii=True, indent=2),
+        json.dumps(_sanitize_public_payload(build_symbol_directory(payload)), ensure_ascii=True, indent=2),
         encoding="utf-8",
     )
     print(f"exported {PUBLIC_SNAPSHOT_PATH}")
+    print(f"sanghoe {DOTORI_SANGHOE_PATH}")
     print(f"reports {report_payload.get('count', 0)} | turso {upload_status}")
 
 
