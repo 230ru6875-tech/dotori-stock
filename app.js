@@ -751,6 +751,16 @@ function spikeReasonHtml(item) {
   const cls = direction === "down" ? "spike-reason down-reason" : "spike-reason up-reason";
   return `<p class="${cls}"><strong>급등락 분석:</strong> ${escapeHtml(text)}</p>`;
 }
+function analysisSummaryBlockHtml(item) {
+  const lines = [
+    { cls: `analysis-row spike-row ${spikeDirection(item) === "down" ? "down-reason" : "up-reason"}`, label: "급등락 분석", text: spikeReasonFromItem(item) },
+    { cls: "analysis-row fair-row", label: "적정주가", text: fairValueSummaryText(item) },
+    { cls: "analysis-row technical-row", label: "기술지표", text: technicalSummaryText(item) },
+    { cls: "analysis-row valuation-row", label: "밸류에이션", text: valuationSummaryText(item) }
+  ].filter((row) => row.text);
+  if (!lines.length) return "";
+  return `<div class="analysis-summary-block">${lines.map((row) => `<div class="${row.cls}"><strong>${row.label}:</strong> ${escapeHtml(row.text)}</div>`).join("")}</div>`;
+}
 function priceClassForItem(item) {
   const purchase = Number(item?.purchasePrice || 0);
   const current = parseNumber(item?.currentPrice);
@@ -1419,7 +1429,7 @@ function renderDashboard() {
       const displayName = !item.name || item.name === item.symbol ? item.symbol : `${item.name} <span>(${item.symbol})</span>`;
       const priceLine = item.currentPrice ? `<p class="price ${priceClassForItem(item)}"><span>${T.currentPrice}:</span> ${formatDisplayPrice(item.currentPrice, item)}</p>` : "";
       const marketLinks = item.symbol ? ` <a class="market-link" href="${tossStockUrl(item.symbol)}" target="_blank" rel="noopener">토스증권</a> <a class="market-link" href="${naverStockUrl(item)}" target="_blank" rel="noopener">네이버증권</a>` : "";
-      return `<article class="data-card clickable-card watch-card ${priceBackgroundClassForItem(item)}" data-chart-symbol="${item.symbol}"><div class="card-top"><strong>${displayName}</strong><em>${displayMarket(item.market)}</em></div>${priceLine}<p><b class="${signalClass(item.signal)}">${item.signal}</b>${item.movingAverage ? ` / ${item.movingAverage}` : ""}</p>${spikeReasonHtml(item)}${crashRiskSummaryHtml(item)}${macroEventRiskSummaryHtml(item)}${fairValueSummaryHtml(item)}${technicalSummaryHtml(item)}${valuationSummaryHtml(item)}${marketRiskSummaryHtml(item)}<p>${item.memo}${marketLinks}</p><div class="watch-chart-popover">${watchlistMiniChartSvg(item)}</div>${item.userAdded ? `<button class="small-button" data-remove-symbol="${item.symbol}" type="button">${T.remove}</button>` : ""}</article>`;
+      return `<article class="data-card clickable-card watch-card ${priceBackgroundClassForItem(item)}" data-chart-symbol="${item.symbol}"><div class="card-top"><strong>${displayName}</strong><em>${displayMarket(item.market)}</em></div>${priceLine}<p><b class="${signalClass(item.signal)}">${item.signal}</b>${item.movingAverage ? ` / ${item.movingAverage}` : ""}</p>${analysisSummaryBlockHtml(item)}${crashRiskSummaryHtml(item)}${macroEventRiskSummaryHtml(item)}${marketRiskSummaryHtml(item)}<p>${item.memo}${marketLinks}</p><div class="watch-chart-popover">${watchlistMiniChartSvg(item)}</div>${item.userAdded ? `<button class="small-button" data-remove-symbol="${item.symbol}" type="button">${T.remove}</button>` : ""}</article>`;
     });
   } else if (state.activeSection === "scanner") {
     const marketRows = (marketLabel) => active.filter((item) => displayMarket(item.market || marketName(item.symbol)) === marketLabel);
@@ -1478,7 +1488,7 @@ function renderDashboard() {
       if (Array.isArray(item.sections)) {
         const sections = Array.isArray(item.sections) ? item.sections : [];
         const sectionHtml = sections.map((section) => `<section class="report-section"><h3>${section.heading}</h3><ul>${(section.items || []).map((line) => `<li>${line}</li>`).join("")}</ul></section>`).join("");
-        return `<article class="report-card"><div class="report-head"><div><strong>${item.title}</strong><p>${item.updatedAt || ""}</p></div><em>${T.report}</em></div>${livePriceLine}<p class="report-summary">${item.summary || item.body || ""}</p>${crashRiskSummaryHtml(item)}${macroEventRiskSummaryHtml(item)}${fairValueSummaryHtml(item)}${technicalSummaryHtml(item)}${valuationSummaryHtml(item)}${marketRiskSummaryHtml(item)}${sectionHtml}</article>`;
+        return `<article class="report-card"><div class="report-head"><div><strong>${item.title}</strong><p>${item.updatedAt || ""}</p></div><em>${T.report}</em></div>${livePriceLine}<p class="report-summary">${item.summary || item.body || ""}</p>${analysisSummaryBlockHtml(item)}${crashRiskSummaryHtml(item)}${macroEventRiskSummaryHtml(item)}${marketRiskSummaryHtml(item)}${sectionHtml}</article>`;
       }
       return `<article class="data-card"><div class="card-top"><strong>${item.title}</strong><em>${T.report}</em></div>${livePriceLine}${crashRiskSummaryHtml(item)}${macroEventRiskSummaryHtml(item)}${fairValueSummaryHtml(item)}${technicalSummaryHtml(item)}${valuationSummaryHtml(item)}${marketRiskSummaryHtml(item)}<p>${item.body}</p></article>`;
     });

@@ -869,6 +869,53 @@ button:hover {
   white-space: nowrap;
 }
 
+.analysis-summary-block {
+  display: grid;
+  gap: 8px;
+  margin: 10px 0;
+}
+
+.analysis-row {
+  border-radius: 6px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  padding: 7px 9px;
+}
+
+.analysis-row strong {
+  margin-right: 4px;
+}
+
+.analysis-row.spike-row.up-reason {
+  background: #fff1f2;
+  border: 1px solid #fecdd3;
+  color: #9f1239;
+}
+
+.analysis-row.spike-row.down-reason {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #1d4ed8;
+}
+
+.analysis-row.fair-row {
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #065f46;
+}
+
+.analysis-row.technical-row {
+  background: #eef2ff;
+  border: 1px solid #c7d2fe;
+  color: #312e81;
+}
+
+.analysis-row.valuation-row {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #334155;
+}
+
 .valuation-line {
   color: #334155;
   font-size: 0.95rem;
