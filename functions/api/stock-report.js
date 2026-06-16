@@ -17,6 +17,7 @@ const TXT = {
   analysis: "\uBD84\uC11D",
   noPurchase: "\uAD6C\uC785\uAC00 \uBBF8\uC785\uB825"
 };
+const REPORT_SCHEMA_VERSION = 2;
 
 function normalizeSymbol(value) {
   return String(value || "").trim().toUpperCase().replace(/[^A-Z0-9.]/g, "");
@@ -108,6 +109,20 @@ async function saveTursoReport(env, symbol, payload) {
     [symbol, saved, savedAt]
   );
   return true;
+}
+
+function shouldRefreshCachedReport(payload) {
+  if (!payload || typeof payload !== "object") return true;
+  if (Number(payload.schemaVersion || 0) < REPORT_SCHEMA_VERSION) return true;
+  const body = String(payload?.analysis?.body || "");
+  const watchSignal = String(payload?.watchlist?.signal || "");
+  const watchMemo = String(payload?.watchlist?.memo || "");
+  const movingDecision = String(payload?.moving?.decision || "");
+  const valuationSummary = String(payload?.valuation?.summary || "");
+  if (/데이터 확인 필요/.test(body) && /관찰/.test(watchSignal)) return true;
+  if (/데이터 확인 필요/.test(watchMemo) && /전송 대기/.test(movingDecision)) return true;
+  if (/부족한 값은 도토리컴 수집자료 전송 대기/.test(valuationSummary) && /데이터 확인 필요/.test(body)) return true;
+  return false;
 }
 
 function cleanHtml(value) {
@@ -903,7 +918,7 @@ export async function onRequestGet(context) {
   }
   try {
     const cached = forceRefresh || localOnly ? null : await loadTursoReport(context.env, symbol).catch(() => null);
-    if (cached && !isBadCompanyName(cached.name || cached.watchlist?.name || cached.scanner?.title)) {
+    if (cached && !shouldRefreshCachedReport(cached) && !isBadCompanyName(cached.name || cached.watchlist?.name || cached.scanner?.title)) {
       return new Response(JSON.stringify({ ...cached, storage: "turso" }), { headers: JSON_HEADERS });
     }
     const [published, publishedSnapshot] = await Promise.all([
@@ -961,6 +976,7 @@ export async function onRequestGet(context) {
     const analysisBody = [publishedRange, publishedMemo, news[0] || ""].filter(Boolean).join(" / ") || TXT.wait;
     const payload = {
       ok: true,
+      schemaVersion: REPORT_SCHEMA_VERSION,
       symbol,
       name: cleanName(publishedSnapshot?.scanner?.name || publishedSnapshot?.watchlist?.name || published?.name || "", symbol) || base.name || symbol,
       market: base.market,
