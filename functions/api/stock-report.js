@@ -18,6 +18,10 @@ const TXT = {
   noPurchase: "\uAD6C\uC785\uAC00 \uBBF8\uC785\uB825"
 };
 const REPORT_SCHEMA_VERSION = 2;
+const PUBLIC_DATA_FALLBACK_BASES = [
+  "https://dotoristock.com",
+  "https://raw.githubusercontent.com/230ru6875-tech/dotori-stock/main"
+];
 
 function normalizeSymbol(value) {
   return String(value || "").trim().toUpperCase().replace(/[^A-Z0-9.]/g, "");
@@ -495,46 +499,51 @@ async function fetchJsonWithTimeout(url, options = {}, timeoutMs = 3500) {
 
 async function lookupPublishedSymbolData(origin, symbol) {
   if (!origin || !symbol) return null;
-  try {
-    const payload = await fetchJsonWithTimeout(
-      `${String(origin).replace(/\/+$/, "")}/data/symbol-directory.json`,
-      {
-        headers: {
-          "accept": "application/json",
-          "user-agent": "Mozilla/5.0 DotoriWeb/1.0"
-        }
-      },
-      2500
-    );
-    const item = payload?.symbols?.[symbol];
-    return item && typeof item === "object" ? item : null;
-  } catch (_) {
-    return null;
+  const bases = [String(origin).replace(/\/+$/, ""), ...PUBLIC_DATA_FALLBACK_BASES].filter(Boolean);
+  for (const base of [...new Set(bases)]) {
+    try {
+      const payload = await fetchJsonWithTimeout(
+        `${base}/data/symbol-directory.json`,
+        {
+          headers: {
+            "accept": "application/json",
+            "user-agent": "Mozilla/5.0 DotoriWeb/1.0"
+          }
+        },
+        2500
+      );
+      const item = payload?.symbols?.[symbol];
+      if (item && typeof item === "object") return item;
+    } catch (_) {}
   }
+  return null;
 }
 
 async function lookupPublishedSnapshotSymbol(origin, symbol) {
   if (!origin || !symbol) return null;
-  try {
-    const payload = await fetchJsonWithTimeout(
-      `${String(origin).replace(/\/+$/, "")}/data/public-snapshot.json`,
-      {
-        headers: {
-          "accept": "application/json",
-          "user-agent": "Mozilla/5.0 DotoriWeb/1.0"
-        }
-      },
-      2500
-    );
-    const pick = (rows) => Array.isArray(rows) ? rows.find((row) => normalizeSymbol(row?.symbol || "") === symbol) || null : null;
-    return {
-      watchlist: pick(payload?.watchlist),
-      scanner: pick(payload?.scanner),
-      moving: pick(payload?.movingAverages)
-    };
-  } catch (_) {
-    return null;
+  const bases = [String(origin).replace(/\/+$/, ""), ...PUBLIC_DATA_FALLBACK_BASES].filter(Boolean);
+  for (const base of [...new Set(bases)]) {
+    try {
+      const payload = await fetchJsonWithTimeout(
+        `${base}/data/public-snapshot.json`,
+        {
+          headers: {
+            "accept": "application/json",
+            "user-agent": "Mozilla/5.0 DotoriWeb/1.0"
+          }
+        },
+        2500
+      );
+      const pick = (rows) => Array.isArray(rows) ? rows.find((row) => normalizeSymbol(row?.symbol || "") === symbol) || null : null;
+      const result = {
+        watchlist: pick(payload?.watchlist),
+        scanner: pick(payload?.scanner),
+        moving: pick(payload?.movingAverages)
+      };
+      if (result.watchlist || result.scanner || result.moving) return result;
+    } catch (_) {}
   }
+  return null;
 }
 
 function cleanPrice(value) {
