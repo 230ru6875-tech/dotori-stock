@@ -869,6 +869,11 @@ button:hover {
   white-space: nowrap;
 }
 
+.build-version {
+  color: #0f766e;
+  font-weight: 800;
+}
+
 .analysis-summary-block {
   display: grid;
   gap: 8px;
