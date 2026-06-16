@@ -944,7 +944,7 @@ function usMarketResponseBrief() {
   };
 }
 function marketResponseBriefs() {
-  return [koreaMarketResponseBrief(), usMarketResponseBrief()].filter(Boolean);
+  return [];
 }
 function marketBriefHtml(brief) {
   return `<section class="market-brief-card"><div class="market-brief-head"><div><strong>${escapeHtml(brief.title)}</strong><p>${escapeHtml(brief.disclaimer)}</p></div><em>${escapeHtml(brief.source)}</em></div><div class="market-brief-grid">${brief.points.map((point) => `<article><span>${escapeHtml(point.time)}</span><h3>${escapeHtml(point.title)}</h3><p>${escapeHtml(point.body)}</p></article>`).join("")}</div></section>`;
@@ -1240,10 +1240,74 @@ function userStockToMoving(item) {
 }
 function userStockToAnalysis(item) {
   const directory = item.report || directoryReport(item.symbol);
-  if (directory && directory.analysis) return directory.analysis;
-  if (item.report && item.report.analysis) return item.report.analysis;
+  const price = Number(item.purchasePrice || 0);
+  const watch = userStockToWatchlist(item);
+  const moving = userStockToMoving(item);
+  const scanner = item.report?.scanner || directory?.scanner || {};
   const resolvedName = stripSymbolFromName(item.name, item.symbol) || nameLookup().get(item.symbol) || item.symbol;
-  return { title: `${T.analysisPreview} - ${item.symbol}`, body: `${resolvedName} \uc885\ubaa9\uc740 \ubaa8\ub2dd\ub178\ud2b8, \uc139\ud130\uc624\ubc84\ubdf0, \uc2e4\uc801\ubd84\uc11d\uacfc \uc5f0\uacb0\ub420 \uc900\ube44\uac00 \ub418\uc5c8\uc2b5\ub2c8\ub2e4.` };
+  const baseAnalysis = item.report?.analysis || directory?.analysis || null;
+  if (baseAnalysis && Array.isArray(baseAnalysis.sections)) {
+    return {
+      ...baseAnalysis,
+      symbol: item.symbol,
+      name: resolvedName,
+      market: displayMarket(watch.market || marketName(item.symbol)),
+      currentPrice: watch.currentPrice || item.report?.currentPrice || directory?.currentPrice || "",
+      purchasePrice: price,
+      title: `${resolvedName}(${item.symbol}) 8파트 분석결과`,
+      kind: "watchlist-analysis",
+      summary: baseAnalysis.summary || baseAnalysis.body || `${resolvedName} 관심종목의 8파트 분석 결과입니다.`,
+      userAdded: true
+    };
+  }
+  const current = watch.currentPrice || item.report?.currentPrice || directory?.currentPrice || "";
+  const signal = watch.signal || scanner.signal || moving.decision || T.preview;
+  const predRange = scanner.predRange || directory?.scanner?.predRange || directory?.watchlist?.predRange || watch.predRange || "-";
+  const movingText = moving.decision || watch.movingAverage || moving.note || "-";
+  const memo = [watch.memo, moving.note, scanner.summary].filter(Boolean).join(" / ");
+  const purchaseLine = price > 0 ? `구입가 ${formatDisplayPrice(price, item)} 기준으로 현재가와 신호를 비교합니다.` : "구입가가 없으므로 현재가·신호·이평선 중심으로 관찰합니다.";
+  const stance = /매수|진입|회복|보유/.test(`${signal} ${movingText}`)
+    ? "정찰 또는 보유 관점은 가능하지만, 저점 방어와 거래량 확인 후 분할 접근합니다."
+    : /매도|훼손|이탈|주의|위험/.test(`${signal} ${movingText}`)
+      ? "신규 매수는 보류하고 손절선·이전 고점 회복 여부를 먼저 확인합니다."
+      : "바로 매수하지 말고 다음 갱신에서 가격·거래량·이평선 변화를 확인합니다.";
+  return {
+    title: `${resolvedName}(${item.symbol}) 8파트 분석결과`,
+    kind: "watchlist-analysis",
+    symbol: item.symbol,
+    name: resolvedName,
+    market: displayMarket(watch.market || marketName(item.symbol)),
+    currentPrice: current,
+    purchasePrice: price,
+    signal,
+    summary: `${resolvedName} 관심종목의 현재가, 예측범위, 이평선 신호를 8파트 형식으로 정리합니다.`,
+    sections: [
+      {
+        heading: "현재 판단",
+        items: [
+          `현재가: ${formatDisplayPrice(current, item) || "-"}`,
+          `신호: ${signal || "-"}`,
+          `예측범위: ${formatDisplayPriceRange(predRange, item) || predRange || "-"}`,
+          purchaseLine
+        ]
+      },
+      {
+        heading: "이평선·추세 확인",
+        items: [
+          `이평선 판단: ${movingText || "-"}`,
+          `근거: ${memo || "도토리컴 수집 자료가 갱신되면 분석 근거가 보강됩니다."}`
+        ]
+      },
+      {
+        heading: "예측과 대응",
+        items: [
+          stance,
+          "3파트 자동매매 후보로 넘기기 전에는 2파트 모의검증, 4파트 가격밴드, 7파트 이평선 신호를 함께 확인합니다."
+        ]
+      }
+    ],
+    userAdded: true
+  };
 }
 
 function escapeHtml(value) {
@@ -1395,7 +1459,7 @@ function mergedSections(data) {
     growthDiscovery: data.growthDiscovery || [],
     morningNote: data.morningNote || data.analysis || [],
     sectorOverview: data.sectorOverview || [],
-    deepAnalysis: (data.deepAnalysis || []).map(applyLiveQuote),
+    deepAnalysis: [...state.userStocks.map(userStockToAnalysis), ...(data.deepAnalysis || [])].map(applyLiveQuote),
     newsList: data.newsList || []
   };
 }
