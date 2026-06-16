@@ -661,6 +661,31 @@ function technicalSummaryHtml(item) {
   const text = technicalSummaryText(item);
   return text ? `<p class="technical-line"><strong>기술지표:</strong> ${escapeHtml(text)}</p>` : "";
 }
+function bestFairValueText(item) {
+  const fair = fairValueSummaryText(item);
+  if (fair) return fair;
+  const current = item?.currentPrice ? `현재가 ${formatDisplayPrice(item.currentPrice, item)}` : "";
+  const predRange = item?.predRange ? `예측 ${formatDisplayPriceRange(item.predRange, item)}` : "";
+  return [current, predRange, "PBR 또는 현재가 확인 필요"].filter(Boolean).join(" / ");
+}
+function bestTechnicalText(item) {
+  const tech = technicalSummaryText(item);
+  if (tech) return tech;
+  const moving = item?.report?.moving || item?.moving || null;
+  const current = item?.currentPrice ? `현재가 ${formatDisplayPrice(item.currentPrice, item)}` : "";
+  const ma20 = moving?.ma20 ? `20일선 ${formatDisplayPrice(moving.ma20, item)}` : "";
+  const ma60 = moving?.ma60 ? `60일선 ${formatDisplayPrice(moving.ma60, item)}` : "";
+  const decision = moving?.decision ? `판단 ${moving.decision}` : "";
+  const fallback = [current, ma20, ma60, decision].filter(Boolean);
+  if (fallback.length) return `${fallback.join(" / ")} / 스토캐스틱 확인 필요 / 거래량 확인 필요`;
+  return "스토캐스틱 확인 필요 / 거래량 확인 필요";
+}
+function bestValuationText(item) {
+  const valuation = valuationSummaryText(item);
+  if (valuation) return valuation;
+  const current = item?.currentPrice ? `현재가 ${formatDisplayPrice(item.currentPrice, item)}` : "";
+  return [current, "매수 판단: PBR 확인 필요", "매도 판단: PSR 확인 필요", "매도 지표 PSR 확인 필요"].filter(Boolean).join(" / ");
+}
 function marketRiskFromItem(item) {
   return item?.marketRisk || item?.analysis?.marketRisk || item?.watchlist?.marketRisk || item?.report?.marketRisk || item?.report?.watchlist?.marketRisk || item?.report?.analysis?.marketRisk || null;
 }
@@ -767,17 +792,17 @@ function analysisSummaryBlockHtml(item) {
     {
       cls: "analysis-row fair-row",
       label: "적정주가",
-      text: fairValueSummaryText(item) || "PBR 또는 현재가 확인 필요"
+      text: bestFairValueText(item)
     },
     {
       cls: "analysis-row technical-row",
       label: "기술지표",
-      text: technicalSummaryText(item) || "스토캐스틱 확인 필요 / 거래량 확인 필요"
+      text: bestTechnicalText(item)
     },
     {
       cls: "analysis-row valuation-row",
       label: "밸류에이션",
-      text: valuationSummaryText(item) || "매수 판단: PBR 확인 필요 / 매도 판단: PSR 확인 필요 / 매도 지표 PSR 확인 필요"
+      text: bestValuationText(item)
     }
   ];
   return `<div class="analysis-summary-block">${lines.map((row) => `<div class="${row.cls}"><strong>${row.label}:</strong> ${escapeHtml(row.text)}</div>`).join("")}</div>`;
