@@ -87,6 +87,20 @@ async function ensureTursoSchema(env) {
   if (!tursoUrl(env) || !env?.TURSO_AUTH_TOKEN) return false;
   await tursoExecute(env, "CREATE TABLE IF NOT EXISTS stock_reports (symbol TEXT PRIMARY KEY, payload TEXT NOT NULL, saved_at TEXT NOT NULL)");
   await tursoExecute(env, "CREATE TABLE IF NOT EXISTS stock_report_history (id INTEGER PRIMARY KEY AUTOINCREMENT, symbol TEXT NOT NULL, payload TEXT NOT NULL, saved_at TEXT NOT NULL)");
+  await tursoExecute(
+    env,
+    "CREATE TABLE IF NOT EXISTS stock_research_requests (" +
+      "symbol TEXT PRIMARY KEY, " +
+      "name TEXT NOT NULL, " +
+      "market TEXT NOT NULL, " +
+      "missing_fields TEXT NOT NULL, " +
+      "reason_summary TEXT NOT NULL, " +
+      "status TEXT NOT NULL, " +
+      "requested_at TEXT NOT NULL, " +
+      "updated_at TEXT NOT NULL, " +
+      "payload TEXT NOT NULL" +
+    ")"
+  );
   return true;
 }
 
@@ -113,6 +127,105 @@ async function saveTursoReport(env, symbol, payload) {
     [symbol, saved, savedAt]
   );
   return true;
+}
+
+function hasUsableResearchValue(value) {
+  const text = String(value ?? "").trim();
+  if (!text) return false;
+  if (text === TXT.wait) return false;
+  return !/확인 필요|요청 대기|도토리연구소/.test(text);
+}
+
+function uniqueResearchFields(entries) {
+  const seen = new Set();
+  const output = [];
+  for (const entry of entries) {
+    if (!entry?.key || seen.has(entry.key)) continue;
+    seen.add(entry.key);
+    output.push(entry);
+  }
+  return output;
+}
+
+function collectResearchMissingFields(payload) {
+  const valuation = payload?.valuation || {};
+  const fairValue = payload?.fairValue || {};
+  const technical = payload?.technical || {};
+  const stochastic = technical?.stochastic || {};
+  const volume = technical?.volume || {};
+  const moving = payload?.moving || {};
+  const missing = [];
+
+  if (!hasUsableResearchValue(payload?.currentPrice)) missing.push({ key: "current_price", label: "현재가" });
+  if (!hasUsableResearchValue(valuation?.pbr)) missing.push({ key: "pbr", label: "PBR" });
+  if (!hasUsableResearchValue(valuation?.psr)) missing.push({ key: "psr", label: "PSR" });
+  if (!hasUsableResearchValue(valuation?.per)) missing.push({ key: "per", label: "PER" });
+  if (!hasUsableResearchValue(fairValue?.conservative)) missing.push({ key: "fair_value_conservative", label: "보수 적정가" });
+  if (!hasUsableResearchValue(fairValue?.neutral)) missing.push({ key: "fair_value_neutral", label: "중립 적정가" });
+  if (!hasUsableResearchValue(fairValue?.growth)) missing.push({ key: "fair_value_growth", label: "성장 적정가" });
+  if (!hasUsableResearchValue(stochastic?.k)) missing.push({ key: "stochastic_k", label: "스토캐스틱 K" });
+  if (!hasUsableResearchValue(stochastic?.d)) missing.push({ key: "stochastic_d", label: "스토캐스틱 D" });
+  if (!hasUsableResearchValue(volume?.latest)) missing.push({ key: "volume_latest", label: "최근 거래량" });
+  if (!hasUsableResearchValue(volume?.average20)) missing.push({ key: "volume_average20", label: "20일 평균 거래량" });
+  if (!hasUsableResearchValue(volume?.ratio)) missing.push({ key: "volume_ratio", label: "거래량 배수" });
+  if (!hasUsableResearchValue(moving?.ma20)) missing.push({ key: "ma20", label: "20일선" });
+  if (!hasUsableResearchValue(moving?.ma60)) missing.push({ key: "ma60", label: "60일선" });
+
+  return uniqueResearchFields(missing);
+}
+
+async function syncResearchRequest(env, payload) {
+  if (!payload || typeof payload !== "object") return payload;
+  if (!(await ensureTursoSchema(env))) {
+    return { ...payload, researchRequest: null };
+  }
+
+  const missingFields = collectResearchMissingFields(payload);
+  const symbol = normalizeSymbol(payload.symbol || payload.watchlist?.symbol || "");
+  if (!symbol || !missingFields.length) {
+    if (symbol) {
+      await tursoExecute(
+        env,
+        "UPDATE stock_research_requests SET status = ?, updated_at = ? WHERE symbol = ?",
+        ["resolved", new Date().toISOString(), symbol]
+      ).catch(() => null);
+    }
+    return { ...payload, researchRequest: null };
+  }
+
+  const now = new Date().toISOString();
+  const name = String(payload.name || payload.watchlist?.name || symbol).trim() || symbol;
+  const market = String(payload.market || payload.watchlist?.market || "").trim();
+  const labels = missingFields.map((field) => field.label);
+  const researchRequest = {
+    requested: true,
+    status: "pending",
+    requestedAt: now,
+    missingFields: missingFields.map((field) => field.key),
+    missingLabels: labels,
+    summary: `도토리연구소 요청 대기: ${labels.join(", ")} 원천데이터 보강 필요`
+  };
+  await tursoExecute(
+    env,
+    "INSERT INTO stock_research_requests (symbol, name, market, missing_fields, reason_summary, status, requested_at, updated_at, payload) " +
+      "VALUES (?, ?, ?, ?, ?, ?, COALESCE((SELECT requested_at FROM stock_research_requests WHERE symbol = ?), ?), ?, ?) " +
+      "ON CONFLICT(symbol) DO UPDATE SET " +
+      "name = excluded.name, market = excluded.market, missing_fields = excluded.missing_fields, " +
+      "reason_summary = excluded.reason_summary, status = excluded.status, updated_at = excluded.updated_at, payload = excluded.payload",
+    [
+      symbol,
+      name,
+      market,
+      JSON.stringify(researchRequest.missingFields),
+      researchRequest.summary,
+      researchRequest.status,
+      symbol,
+      now,
+      now,
+      JSON.stringify({ ...researchRequest, symbol, name, market })
+    ]
+  ).catch(() => null);
+  return { ...payload, researchRequest };
 }
 
 function shouldRefreshCachedReport(payload) {
@@ -980,7 +1093,8 @@ export async function onRequestGet(context) {
   try {
     const cached = forceRefresh || localOnly ? null : await loadTursoReport(context.env, symbol).catch(() => null);
     if (cached && !shouldRefreshCachedReport(cached) && !isBadCompanyName(cached.name || cached.watchlist?.name || cached.scanner?.title)) {
-      return new Response(JSON.stringify({ ...cached, storage: "turso" }), { headers: JSON_HEADERS });
+      const cachedPayload = await syncResearchRequest(context.env, cached).catch(() => ({ ...cached, researchRequest: null }));
+      return new Response(JSON.stringify({ ...cachedPayload, storage: "turso" }), { headers: JSON_HEADERS });
     }
     const [published, publishedSnapshot] = await Promise.all([
       lookupPublishedSymbolData(url.origin, symbol),
@@ -1093,12 +1207,13 @@ export async function onRequestGet(context) {
       },
       sources: [base.source, oilRisk.source, "Naver News Search"].filter(Boolean)
     };
+    const finalPayload = await syncResearchRequest(context.env, payload).catch(() => ({ ...payload, researchRequest: null }));
     if (!localOnly) {
-      await saveTursoReport(context.env, symbol, payload).catch((error) => {
+      await saveTursoReport(context.env, symbol, finalPayload).catch((error) => {
         console.error("turso_save_failed", error);
       });
     }
-    return new Response(JSON.stringify(payload), { headers: JSON_HEADERS });
+    return new Response(JSON.stringify(finalPayload), { headers: JSON_HEADERS });
   } catch (error) {
     return new Response(JSON.stringify({ ok: false, symbol, error: String(error?.message || error) }), { status: 502, headers: JSON_HEADERS });
   }

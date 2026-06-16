@@ -1984,6 +1984,78 @@ def _turso_execute(sql: str, args: list[object] | None = None, timeout: int = 12
     return result
 
 
+def _turso_cell_value(cell: object) -> object:
+    if cell is None:
+        return None
+    if not isinstance(cell, dict):
+        return cell
+    if cell.get("type") == "null":
+        return None
+    if "value" in cell:
+        return cell.get("value")
+    if "base64" in cell:
+        return cell.get("base64")
+    return None
+
+
+def _turso_rows(result: object) -> list[dict]:
+    if not isinstance(result, dict):
+        return []
+    first = result.get("results", [{}])[0] if isinstance(result.get("results"), list) else {}
+    response = first.get("response", {}).get("result", {}) if isinstance(first, dict) else {}
+    cols = response.get("cols", []) if isinstance(response, dict) else []
+    col_names = [(col.get("name") if isinstance(col, dict) else str(col)) for col in cols]
+    rows = response.get("rows", []) if isinstance(response, dict) else []
+    output: list[dict] = []
+    for row in rows:
+        if not isinstance(row, list):
+            continue
+        item: dict[str, object] = {}
+        for index, cell in enumerate(row):
+            key = col_names[index] if index < len(col_names) else str(index)
+            item[key] = _turso_cell_value(cell)
+        output.append(item)
+    return output
+
+
+def _load_turso_research_requests(limit: int = 40) -> list[dict]:
+    if not _turso_url() or not _turso_token():
+        return []
+    try:
+        result = _turso_execute(
+            "SELECT symbol, name, market, missing_fields, reason_summary, status, requested_at, updated_at, payload "
+            "FROM stock_research_requests "
+            "WHERE status IN ('pending', 'queued', 'working') "
+            "ORDER BY updated_at DESC LIMIT ?",
+            [limit],
+        )
+    except Exception:
+        return []
+    rows = _turso_rows(result)
+    output: list[dict] = []
+    for row in rows:
+        payload = {}
+        try:
+            payload = json.loads(str(row.get("payload") or "{}"))
+        except Exception:
+            payload = {}
+        output.append(
+            {
+                "symbol": _clean_text(row.get("symbol"), "").upper(),
+                "name": _clean_text(row.get("name"), ""),
+                "market": _clean_text(row.get("market"), ""),
+                "missingFields": payload.get("missingFields") if isinstance(payload.get("missingFields"), list) else [],
+                "missingLabels": payload.get("missingLabels") if isinstance(payload.get("missingLabels"), list) else [],
+                "summary": _clean_text(row.get("reason_summary"), ""),
+                "status": _clean_text(row.get("status"), "pending"),
+                "requestedAt": _clean_text(row.get("requested_at"), ""),
+                "updatedAt": _clean_text(row.get("updated_at"), ""),
+                "payload": payload if isinstance(payload, dict) else {},
+            }
+        )
+    return [row for row in output if row.get("symbol")]
+
+
 def _report_payload_from_row(row: dict, saved_at: str) -> dict:
     symbol = _clean_text(row.get("symbol"), "")
     return {
@@ -2018,7 +2090,61 @@ def _report_payload_from_row(row: dict, saved_at: str) -> dict:
     }
 
 
-def _build_dotori_com_reports(scanner: list[dict], saved_at: str) -> dict:
+def _report_payload_from_directory_row(row: dict, saved_at: str, request_row: dict | None = None) -> dict:
+    symbol = _clean_text(row.get("symbol"), "")
+    request_payload = request_row.get("payload", {}) if isinstance(request_row, dict) else {}
+    summary = _clean_text(row.get("memo"), "")
+    if request_row and request_row.get("summary"):
+        summary = " / ".join(part for part in [summary, _clean_text(request_row.get("summary"), "")] if part)
+    report = {
+        "ok": True,
+        "symbol": symbol,
+        "name": _sanitize_public_text(row.get("name"), symbol),
+        "market": _sanitize_public_text(row.get("market"), ""),
+        "currentPrice": _sanitize_public_text(row.get("currentPrice"), "-"),
+        "source": "도토리연구소 요청 반영",
+        "quotedAt": saved_at,
+        "savedAt": saved_at,
+        "scanner": {
+            "title": _sanitize_public_text(row.get("name"), symbol),
+            "summary": _sanitize_public_text(summary, ""),
+            "sentiment": _sanitize_public_text(row.get("signal"), "관찰"),
+            "risk": _sanitize_public_text(summary, ""),
+        },
+        "watchlist": {
+            "symbol": symbol,
+            "name": _sanitize_public_text(row.get("name"), symbol),
+            "market": _sanitize_public_text(row.get("market"), ""),
+            "currentPrice": _sanitize_public_text(row.get("currentPrice"), "-"),
+            "signal": _sanitize_public_text(row.get("signal"), "관찰"),
+            "movingAverage": _sanitize_public_text(row.get("movingAverage"), ""),
+            "memo": _sanitize_public_text(summary, ""),
+        },
+        "analysis": {
+            "summary": _sanitize_public_text(summary, ""),
+            "predRange": _sanitize_public_text(row.get("predRange"), ""),
+        },
+        "sources": ["도토리연구소 요청 반영"],
+    }
+    if isinstance(request_payload, dict) and request_payload:
+        report["researchRequest"] = {
+            "requested": True,
+            "status": _clean_text(request_row.get("status"), "pending"),
+            "requestedAt": _clean_text(request_row.get("requestedAt"), ""),
+            "updatedAt": _clean_text(request_row.get("updatedAt"), ""),
+            "missingFields": request_payload.get("missingFields", []),
+            "missingLabels": request_payload.get("missingLabels", []),
+            "summary": _clean_text(request_row.get("summary"), ""),
+        }
+    return report
+
+
+def _build_dotori_com_reports(
+    scanner: list[dict],
+    saved_at: str,
+    symbol_directory: dict[str, dict] | None = None,
+    research_requests: list[dict] | None = None,
+) -> dict:
     reports = {}
     autonomy_policy = _dotori_com_autonomy_policy()
     for row in scanner:
@@ -2028,6 +2154,43 @@ def _build_dotori_com_reports(scanner: list[dict], saved_at: str) -> dict:
         if not symbol:
             continue
         report = _report_payload_from_row(row, saved_at)
+        report["autonomyPolicy"] = autonomy_policy
+        reports[symbol] = report
+    directory = symbol_directory or {}
+    requests = research_requests or []
+    request_map = {
+        _clean_text(row.get("symbol"), "").upper(): row
+        for row in requests
+        if isinstance(row, dict) and _clean_text(row.get("symbol"), "")
+    }
+    for symbol, request_row in request_map.items():
+        if symbol in reports:
+            reports[symbol]["researchRequest"] = {
+                "requested": True,
+                "status": _clean_text(request_row.get("status"), "pending"),
+                "requestedAt": _clean_text(request_row.get("requestedAt"), ""),
+                "updatedAt": _clean_text(request_row.get("updatedAt"), ""),
+                "missingFields": request_row.get("missingFields", []),
+                "missingLabels": request_row.get("missingLabels", []),
+                "summary": _clean_text(request_row.get("summary"), ""),
+            }
+            continue
+        directory_row = directory.get(symbol)
+        if not isinstance(directory_row, dict):
+            fallback_name = _clean_text(request_row.get("name"), symbol)
+            fallback_market = _clean_text(request_row.get("market"), "")
+            missing_text = ", ".join(str(value) for value in request_row.get("missingLabels", []) if str(value).strip())
+            directory_row = {
+                "symbol": symbol,
+                "name": fallback_name,
+                "market": fallback_market,
+                "currentPrice": _clean_text(request_row.get("payload", {}).get("currentPrice"), "-") if isinstance(request_row.get("payload"), dict) else "-",
+                "signal": "관찰 / 연구소 확인",
+                "movingAverage": "도토리연구소 요청",
+                "predRange": "",
+                "memo": f"도토리연구소가 상세값을 수집 중입니다. {missing_text}".strip(),
+            }
+        report = _report_payload_from_directory_row(directory_row, saved_at, request_row)
         report["autonomyPolicy"] = autonomy_policy
         reports[symbol] = report
     return {
@@ -2161,7 +2324,7 @@ def build_snapshot() -> dict:
     return previous
 
 
-def build_symbol_directory(snapshot: dict | None = None) -> dict:
+def build_symbol_directory(snapshot: dict | None = None, research_requests: list[dict] | None = None) -> dict:
     predictions = json.loads(PREDICTIONS_PATH.read_text(encoding="utf-8", errors="replace"))
     items = predictions.get("items", []) if isinstance(predictions, dict) else []
     directory: dict[str, dict] = {}
@@ -2215,6 +2378,24 @@ def build_symbol_directory(snapshot: dict | None = None) -> dict:
                 "predRange": _clean_text(row.get("predRange"), ""),
                 "memo": _clean_text(row.get("summary"), "도토리컴 보충자료"),
             }
+    for request_row in research_requests or []:
+        if not isinstance(request_row, dict):
+            continue
+        symbol = _clean_text(request_row.get("symbol"), "").upper()
+        if not symbol or symbol in directory:
+            continue
+        request_payload = request_row.get("payload", {}) if isinstance(request_row.get("payload"), dict) else {}
+        missing_text = ", ".join(str(value) for value in request_row.get("missingLabels", []) if str(value).strip())
+        directory[symbol] = {
+            "symbol": symbol,
+            "name": _clean_text(request_row.get("name"), symbol),
+            "market": _clean_text(request_row.get("market"), ""),
+            "currentPrice": _clean_text(request_payload.get("currentPrice"), ""),
+            "signal": "관찰 / 연구소 확인",
+            "movingAverage": "도토리연구소 요청",
+            "predRange": "",
+            "memo": f"도토리연구소 요청 대기: {missing_text}" if missing_text else "도토리연구소 요청 대기",
+        }
     return {
         "updatedAt": datetime.now(KST).isoformat(timespec="seconds"),
         "symbols": directory,
@@ -2225,9 +2406,19 @@ def main() -> None:
     _load_dotenv_once()
     PUBLIC_SNAPSHOT_PATH.parent.mkdir(parents=True, exist_ok=True)
     payload = _sanitize_public_payload(build_snapshot())
-    report_payload = _sanitize_public_payload(_build_dotori_com_reports(payload.get("scanner", []), payload.get("updatedAt", datetime.now(KST).isoformat(timespec="seconds"))))
+    research_requests = _load_turso_research_requests()
+    symbol_directory = build_symbol_directory(payload, research_requests)
+    report_payload = _sanitize_public_payload(
+        _build_dotori_com_reports(
+            payload.get("scanner", []),
+            payload.get("updatedAt", datetime.now(KST).isoformat(timespec="seconds")),
+            symbol_directory.get("symbols", {}) if isinstance(symbol_directory, dict) else {},
+            research_requests,
+        )
+    )
     upload_status = _upload_reports_to_turso(report_payload)
     payload.setdefault("webDataStatus", {})["tursoUpload"] = upload_status
+    payload["researchRequests"] = research_requests
     PUBLIC_SNAPSHOT_PATH.write_text(
         json.dumps(payload, ensure_ascii=True, indent=2),
         encoding="utf-8",
@@ -2245,7 +2436,7 @@ def main() -> None:
         encoding="utf-8",
     )
     SYMBOL_DIRECTORY_PATH.write_text(
-        json.dumps(_sanitize_public_payload(build_symbol_directory(payload)), ensure_ascii=True, indent=2),
+        json.dumps(_sanitize_public_payload(symbol_directory), ensure_ascii=True, indent=2),
         encoding="utf-8",
     )
     print(f"exported {PUBLIC_SNAPSHOT_PATH}")
