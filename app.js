@@ -88,6 +88,11 @@ function setBrandUpdatedAt(iso) {
   const text = fmtDateTimeSeconds(iso);
   target.textContent = text && text !== "-" ? `(${text})` : "";
 }
+function setTabDebugState(section, count) {
+  const target = el("#tabDebugState");
+  if (!target) return;
+  target.textContent = `${section || "-"} / ${Number(count || 0)}건`;
+}
 function renderCards(items, mapper) { return items.map(mapper).join(""); }
 function renderMarketBrief() {}
 function browserUserKey() {
@@ -1438,6 +1443,7 @@ function renderDashboard() {
   const sections = mergedSections(data);
   const active = sections[state.activeSection] || sections.watchlist;
   const grid = el("#contentGrid");
+  setTabDebugState(state.activeSection, Array.isArray(active) ? active.length : 0);
   renderSignalFeed();
   renderMarketBrief();
   if (state.activeSection === "watchlist") {
