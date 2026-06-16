@@ -753,12 +753,27 @@ function spikeReasonHtml(item) {
 }
 function analysisSummaryBlockHtml(item) {
   const lines = [
-    { cls: `analysis-row spike-row ${spikeDirection(item) === "down" ? "down-reason" : "up-reason"}`, label: "급등락 분석", text: spikeReasonFromItem(item) },
-    { cls: "analysis-row fair-row", label: "적정주가", text: fairValueSummaryText(item) },
-    { cls: "analysis-row technical-row", label: "기술지표", text: technicalSummaryText(item) },
-    { cls: "analysis-row valuation-row", label: "밸류에이션", text: valuationSummaryText(item) }
-  ].filter((row) => row.text);
-  if (!lines.length) return "";
+    {
+      cls: `analysis-row spike-row ${spikeDirection(item) === "down" ? "down-reason" : "up-reason"}`,
+      label: "급등락 분석",
+      text: spikeReasonFromItem(item) || "기술: 스토캐스틱 확인 필요 / 거래량 확인 필요"
+    },
+    {
+      cls: "analysis-row fair-row",
+      label: "적정주가",
+      text: fairValueSummaryText(item) || "PBR 또는 현재가 확인 필요"
+    },
+    {
+      cls: "analysis-row technical-row",
+      label: "기술지표",
+      text: technicalSummaryText(item) || "스토캐스틱 확인 필요 / 거래량 확인 필요"
+    },
+    {
+      cls: "analysis-row valuation-row",
+      label: "밸류에이션",
+      text: valuationSummaryText(item) || "매수 판단: PBR 확인 필요 / 매도 판단: PSR 확인 필요 / 매도 지표 PSR 확인 필요"
+    }
+  ];
   return `<div class="analysis-summary-block">${lines.map((row) => `<div class="${row.cls}"><strong>${row.label}:</strong> ${escapeHtml(row.text)}</div>`).join("")}</div>`;
 }
 function priceClassForItem(item) {
