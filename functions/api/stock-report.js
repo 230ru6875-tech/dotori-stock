@@ -148,8 +148,8 @@ function sanitizePublicDisclosure(value, fallback = "") {
   let text = cleanHtml(value);
   if (!text) return fallback;
   const replacements = [
-    [/\b토스 보유종목\b/gi, "공개 추적종목"],
-    [/\b보유종목\b/gi, "추적종목"],
+    [/\b토스 보유종목\b/gi, "관심 추적"],
+    [/\b보유종목\b/gi, "관심 추적"],
     [/\b실계좌\b/gi, "실거래"],
     [/\b내 계좌\b/gi, "운영 기준"],
     [/\b계좌\b/gi, "운영정보"],

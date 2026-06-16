@@ -220,8 +220,8 @@ def _sanitize_public_text(value: object, fallback: str = "") -> str:
     if not text:
         return fallback
     replacements = [
-        (r"\b토스 보유종목\b", "공개 추적종목"),
-        (r"\b보유종목\b", "추적종목"),
+        (r"\b토스 보유종목\b", "관심 추적"),
+        (r"\b보유종목\b", "관심 추적"),
         (r"\b실계좌\b", "실거래"),
         (r"\b내 계좌\b", "운영 기준"),
         (r"\b계좌\b", "운영정보"),
