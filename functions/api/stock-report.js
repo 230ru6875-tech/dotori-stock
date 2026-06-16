@@ -478,6 +478,26 @@ async function fetchJsonWithTimeout(url, options = {}, timeoutMs = 3500) {
   }
 }
 
+async function lookupPublishedSymbolData(origin, symbol) {
+  if (!origin || !symbol) return null;
+  try {
+    const payload = await fetchJsonWithTimeout(
+      `${String(origin).replace(/\/+$/, "")}/data/symbol-directory.json`,
+      {
+        headers: {
+          "accept": "application/json",
+          "user-agent": "Mozilla/5.0 DotoriWeb/1.0"
+        }
+      },
+      2500
+    );
+    const item = payload?.symbols?.[symbol];
+    return item && typeof item === "object" ? item : null;
+  } catch (_) {
+    return null;
+  }
+}
+
 function cleanPrice(value) {
   return String(value || "").replace(/,/g, "").trim();
 }
@@ -862,6 +882,7 @@ export async function onRequestGet(context) {
     if (cached && !isBadCompanyName(cached.name || cached.watchlist?.name || cached.scanner?.title)) {
       return new Response(JSON.stringify({ ...cached, storage: "turso" }), { headers: JSON_HEADERS });
     }
+    const published = await lookupPublishedSymbolData(url.origin, symbol);
     const isDomestic = /^\d{6}$/.test(symbol);
     const base = isDomestic ? await lookupDomestic(symbol, context.env) : await lookupUs(symbol, context.env);
     const oilRisk = await lookupOilMarketRisk();
@@ -876,15 +897,21 @@ export async function onRequestGet(context) {
     const crashRisk = isDomestic
       ? crashWarning({}, moving, valuation, oilRisk)
       : crashWarning({ current: numericPrice(base.currentPrice), ...(base.marketStats || {}) }, moving, valuation, oilRisk);
-    const watchSignal = /폭락주의보|급락경계/.test(crashRisk.level) ? crashRisk.level : TXT.observe;
+    const publishedSignal = textValue(published?.signal || "");
+    const publishedMoving = textValue(published?.movingAverage || "");
+    const publishedRange = textValue(published?.predRange || "");
+    const publishedMemo = textValue(published?.memo || "");
+    const watchSignal = publishedSignal || (/폭락주의보|급락경계/.test(crashRisk.level) ? crashRisk.level : TXT.observe);
     const currentNumber = numericPrice(base.currentPrice);
     const mock = purchasePrice > 0 && currentNumber > 0
       ? `${TXT.mockInvestment}: ${(((currentNumber / purchasePrice) - 1) * 100).toFixed(2)}%`
       : `${TXT.mockInvestment}: ${TXT.noPurchase}`;
+    const scannerSummary = publishedMemo || (news.length ? news.join(" / ") : TXT.wait);
+    const analysisBody = [publishedRange, publishedMemo, news[0] || ""].filter(Boolean).join(" / ") || TXT.wait;
     const payload = {
       ok: true,
       symbol,
-      name: base.name || symbol,
+      name: cleanName(published?.name || "", symbol) || base.name || symbol,
       market: base.market,
       currentPrice: base.currentPrice || "-",
       valuation,
@@ -895,19 +922,19 @@ export async function onRequestGet(context) {
       crashRisk,
       savedAt: new Date().toISOString(),
       scanner: {
-        title: base.name || symbol,
-        summary: news.length ? news.join(" / ") : TXT.wait,
-        sentiment: TXT.observe,
+        title: cleanName(published?.name || "", symbol) || base.name || symbol,
+        summary: scannerSummary,
+        sentiment: publishedSignal || TXT.observe,
         risk: news.length ? TXT.newsScanner : TXT.wait
       },
       watchlist: {
         symbol,
-        name: base.name || symbol,
+        name: cleanName(published?.name || "", symbol) || base.name || symbol,
         market: base.market,
         currentPrice: base.currentPrice || "-",
         signal: watchSignal,
-        movingAverage: moving.decision,
-        memo: news[0] || TXT.wait,
+        movingAverage: publishedMoving || moving.decision,
+        memo: publishedMemo || news[0] || TXT.wait,
         valuation,
         fairValue,
         technical,
@@ -920,15 +947,15 @@ export async function onRequestGet(context) {
         lesson: mock
       },
       moving: {
-        name: base.name || symbol,
+        name: cleanName(published?.name || "", symbol) || base.name || symbol,
         symbol,
         ma20: formatPriceByMarket(moving.ma20, base.market) || TXT.wait,
         ma60: formatPriceByMarket(moving.ma60, base.market) || TXT.wait,
-        decision: moving.decision
+        decision: publishedMoving || moving.decision
       },
       analysis: {
-        title: `${TXT.analysis} - ${base.name || symbol}`,
-        body: news.length ? news.join(" / ") : TXT.wait,
+        title: `${TXT.analysis} - ${(cleanName(published?.name || "", symbol) || base.name || symbol)}`,
+        body: analysisBody,
         valuation,
         fairValue,
         technical,
