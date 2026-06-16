@@ -89,6 +89,7 @@ function setBrandUpdatedAt(iso) {
   target.textContent = text && text !== "-" ? `(${text})` : "";
 }
 function renderCards(items, mapper) { return items.map(mapper).join(""); }
+function renderMarketBrief() {}
 function browserUserKey() {
   try {
     let value = localStorage.getItem(USER_KEY);
