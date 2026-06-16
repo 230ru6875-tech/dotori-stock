@@ -175,15 +175,15 @@ function valuationJudgment(metrics) {
     if (debt >= 150) flags.push("부채비율 주의");
     else if (debt <= 50) flags.push("재무부담 낮음");
   }
-  if (!flags.length) return "매수는 PBR, 매도는 PSR을 우선 확인";
+  if (!flags.length) return "PBR/PSR 재무 원천이 없어 밸류에이션 판단을 보류합니다. 부족한 값은 도토리컴 수집자료 전송 대기 상태입니다.";
   return flags.join(" / ");
 }
 
 function valuationFocus(metrics) {
   const pbr = Number(String(metrics?.pbr || "").replace(/,/g, ""));
   const psr = Number(String(metrics?.psr || "").replace(/,/g, ""));
-  let buyFocus = "매수 판단: PBR 확인 필요";
-  let sellFocus = "매도 판단: PSR 확인 필요";
+  let buyFocus = "매수 판단: PBR 원천 미연결 - 도토리컴 전송 대기";
+  let sellFocus = "매도 판단: PSR 원천 미연결 - 도토리컴 전송 대기";
   if (Number.isFinite(pbr) && pbr > 0) {
     if (pbr <= 1) buyFocus = "매수 판단: PBR 저평가권";
     else if (pbr >= 3) buyFocus = "매수 판단: PBR 부담권";
@@ -241,9 +241,10 @@ function emptyValuation(source = "") {
   };
   return {
     ...metrics,
-    ...valuationFocus(metrics),
-    summary: valuationJudgment(metrics),
-    note: "매수 판단은 PBR, 매도 판단은 PSR을 우선합니다. PER, FCF, 부채비율, EV/EBITDA는 보조 지표입니다."
+    buyFocus: "매수 판단: PBR 원천 미연결 - 도토리컴 전송 대기",
+    sellFocus: "매도 판단: PSR 원천 미연결 - 도토리컴 전송 대기",
+    summary: source ? `${source}에서 PBR/PSR 재무값을 받지 못해 밸류에이션은 보류합니다. 부족한 값은 도토리컴 수집자료 전송 대기입니다.` : "PBR/PSR 재무 원천이 없어 밸류에이션은 보류합니다. 부족한 값은 도토리컴 수집자료 전송 대기입니다.",
+    note: "현재는 재무 지표 대신 가격 흐름, 거래량, 전일 대비 변동, 장중 고점 대비 이탈을 우선 확인하고, 부족한 재무값은 도토리컴이 보완 전송해야 합니다."
   };
 }
 
@@ -257,11 +258,11 @@ function fairValueAnalysis(currentPrice, valuation, market) {
   if (!current || !pbr) {
     return {
       method: "PBR 기준 적정주가",
-      summary: "PBR 또는 현재가 확인 필요",
+      summary: current ? "PBR 데이터가 없어 적정주가 계산을 보류합니다. 도토리컴 재무 전송값이 필요합니다." : "현재가 또는 PBR 데이터가 없어 적정주가 계산을 보류합니다. 도토리컴 재무 전송값이 필요합니다.",
       conservative: "",
       neutral: "",
       growth: "",
-      note: "매수 판단은 PBR을 우선 보되, 업종 평균과 실적 훼손 여부를 함께 확인합니다."
+      note: "대신 현재가는 전일 대비 변화, 장중 고점 대비 이탈률, 거래량, 최근 추세로 먼저 판단하고, 부족한 PBR 값은 도토리컴 전송을 기다립니다."
     };
   }
   const bps = current / pbr;
@@ -289,10 +290,18 @@ function technicalAnalysis(series) {
   const lows = Array.isArray(series?.lows) ? series.lows : [];
   const volumes = Array.isArray(series?.volumes) ? series.volumes : [];
   if (closes.length < 14 || highs.length < 14 || lows.length < 14) {
+    const availableDays = Math.max(closes.length, highs.length, lows.length);
+    const volumeDays = volumes.filter((value) => typeof value === "number" && value > 0).length;
+    const stochasticSignal = availableDays > 0
+      ? `일봉 ${availableDays}개로 14일 기준 부족 - 도토리컴 분봉/일봉 전송 대기`
+      : "일봉 이력이 없어 계산 불가 - 도토리컴 시세 전송 대기";
+    const volumeSignal = volumeDays >= 1 && volumeDays < 20
+      ? `거래량 ${volumeDays}일치로 20일 평균 부족 - 도토리컴 거래량 전송 대기`
+      : "거래량 이력이 부족 - 도토리컴 거래량 전송 대기";
     return {
-      stochastic: { k: "", d: "", signal: "스토캐스틱 확인 필요" },
-      volume: { latest: "", average20: "", ratio: "", signal: "거래량 확인 필요" },
-      summary: "스토캐스틱과 거래량 이력 확인 필요"
+      stochastic: { k: "", d: "", signal: stochasticSignal },
+      volume: { latest: "", average20: "", ratio: "", signal: volumeSignal },
+      summary: `스토캐스틱 ${stochasticSignal} / 거래량 ${volumeSignal}`
     };
   }
   const recentHigh = Math.max(...highs.slice(-14));
@@ -318,6 +327,7 @@ function technicalAnalysis(series) {
   if (ratio >= 2) volumeSignal = "거래량 급증";
   else if (ratio >= 1.3) volumeSignal = "거래량 증가";
   else if (ratio > 0 && ratio <= 0.7) volumeSignal = "거래량 부족";
+  else if (!ratio) volumeSignal = "거래량 평균 계산 불가";
   return {
     stochastic: { k: k.toFixed(1), d: d.toFixed(1), signal: stochasticSignal },
     volume: {
@@ -821,7 +831,10 @@ function average(values) {
 }
 
 function movingSignal(closes) {
-  if (!Array.isArray(closes) || closes.length < 20) return { ma20: "", ma60: "", decision: TXT.wait };
+  if (!Array.isArray(closes) || closes.length < 20) {
+    const days = Array.isArray(closes) ? closes.length : 0;
+    return { ma20: "", ma60: "", decision: days > 0 ? `관찰 / 일봉 ${days}개로 20일선 부족 - 도토리컴 이력 전송 대기` : `${TXT.wait} / 도토리컴 이력 전송 대기` };
+  }
   const last = closes[closes.length - 1];
   const ma20 = average(closes.slice(-20));
   const ma60 = closes.length >= 60 ? average(closes.slice(-60)) : 0;
