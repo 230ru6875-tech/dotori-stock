@@ -150,6 +150,8 @@ function sanitizePublicDisclosure(value, fallback = "") {
   const replacements = [
     [/\b토스 보유종목\b/gi, "관심 추적"],
     [/\b보유종목\b/gi, "관심 추적"],
+    [/\b공개 추적종목\b/gi, "관심 추적"],
+    [/\b추적종목\b/gi, "관심 추적"],
     [/\b실계좌\b/gi, "실거래"],
     [/\b내 계좌\b/gi, "운영 기준"],
     [/\b계좌\b/gi, "운영정보"],
