@@ -19,9 +19,9 @@ const TXT = {
 };
 const REPORT_SCHEMA_VERSION = 2;
 const PUBLIC_DATA_FALLBACK_BASES = [
-  "https://dotoristock.com",
-  "https://raw.githubusercontent.com/230ru6875-tech/dotori-stock/main"
+  "https://dotoristock.com"
 ];
+const GITHUB_REPO_JSON_BASE = "https://api.github.com/repos/230ru6875-tech/dotori-stock/contents";
 
 function normalizeSymbol(value) {
   return String(value || "").trim().toUpperCase().replace(/[^A-Z0-9.]/g, "");
@@ -497,6 +497,25 @@ async function fetchJsonWithTimeout(url, options = {}, timeoutMs = 3500) {
   }
 }
 
+async function fetchGitHubRepoJson(path, timeoutMs = 3500) {
+  const encodedPath = String(path || "").split("/").map(encodeURIComponent).join("/");
+  const payload = await fetchJsonWithTimeout(
+    `${GITHUB_REPO_JSON_BASE}/${encodedPath}?ref=main`,
+    {
+      headers: {
+        "accept": "application/vnd.github+json",
+        "user-agent": "Mozilla/5.0 DotoriWeb/1.0"
+      }
+    },
+    timeoutMs
+  );
+  const content = String(payload?.content || "").replace(/\s+/g, "");
+  const encoding = String(payload?.encoding || "").toLowerCase();
+  if (!content || encoding !== "base64") throw new Error("github_contents_invalid");
+  const decoded = atob(content);
+  return JSON.parse(decoded);
+}
+
 async function lookupPublishedSymbolData(origin, symbol) {
   if (!origin || !symbol) return null;
   const bases = [String(origin).replace(/\/+$/, ""), ...PUBLIC_DATA_FALLBACK_BASES].filter(Boolean);
@@ -516,6 +535,11 @@ async function lookupPublishedSymbolData(origin, symbol) {
       if (item && typeof item === "object") return item;
     } catch (_) {}
   }
+  try {
+    const payload = await fetchGitHubRepoJson("data/symbol-directory.json", 3000);
+    const item = payload?.symbols?.[symbol];
+    if (item && typeof item === "object") return item;
+  } catch (_) {}
   return null;
 }
 
@@ -543,6 +567,16 @@ async function lookupPublishedSnapshotSymbol(origin, symbol) {
       if (result.watchlist || result.scanner || result.moving) return result;
     } catch (_) {}
   }
+  try {
+    const payload = await fetchGitHubRepoJson("data/public-snapshot.json", 3000);
+    const pick = (rows) => Array.isArray(rows) ? rows.find((row) => normalizeSymbol(row?.symbol || "") === symbol) || null : null;
+    const result = {
+      watchlist: pick(payload?.watchlist),
+      scanner: pick(payload?.scanner),
+      moving: pick(payload?.movingAverages)
+    };
+    if (result.watchlist || result.scanner || result.moving) return result;
+  } catch (_) {}
   return null;
 }
 
