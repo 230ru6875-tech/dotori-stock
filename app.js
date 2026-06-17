@@ -1,4 +1,4 @@
-const state = { data: null, activeSection: "watchlist", userStocks: [], selectedMovingSymbol: "", scannerMarketFirst: "domestic", scannerMarketFirstManual: false, quotes: {}, liveQuoteCycle: 0 };
+const state = { data: null, activeSection: "watchlist", userStocks: [], selectedMovingSymbol: "", scannerMarketFirst: "domestic", scannerMarketFirstManual: false, quotes: {}, liveQuoteCycle: 0, quoteRefreshInFlight: false, quoteRenderTimer: 0 };
 const USER_STOCKS_KEY = "dotori.userStocks.v1";
 const USER_KEY = "dotori.userKey.v1";
 const USER_KEEP_ASKED_KEY = "dotori.keepAsked.v1";
@@ -8,6 +8,7 @@ const USER_STOCKS_MIGRATION_KEY = "dotori.userStocks.migration.v5";
 const INITIAL_SERVER_SYMBOLS = new Set(["011070", "MU"]);
 let symbolDirectory = {};
 const DATA_REFRESH_MS = 5000;
+const WATCHLIST_QUOTE_REFRESH_MS = 2000;
 const DISPLAY_MARKET_LIMIT = 30;
 const LIVE_QUOTE_BATCH_SIZE = 30;
 const LIVE_QUOTE_MARKET_SPLIT = 15;
@@ -113,6 +114,52 @@ function signalClass(value) {
   return "neutral";
 }
 function normalizeSymbol(symbol) { return String(symbol || "").trim().toUpperCase().replace(/[^A-Z0-9.]/g, ""); }
+function normalizeSectorLabel(value) {
+  const raw = String(value || "").trim();
+  if (!raw) return "-";
+  const normalized = raw.toLowerCase();
+  const sectorMap = [
+    ["ai semiconductor", "AI반도체"], ["ai chip", "AI반도체"], ["ai accelerator", "AI반도체"], ["gpu", "AI반도체"],
+    ["hbm", "메모리"], ["dram", "메모리"], ["nand", "메모리"], ["flash memory", "메모리"], ["memory", "메모리"],
+    ["foundry", "파운드리"], ["fabless", "팹리스"], ["system semiconductor", "시스템반도체"],
+    ["semiconductor equipment", "반도체장비"], ["semiconductor materials", "반도체소재"], ["semiconductor packaging", "반도체패키징"],
+    ["반도체 장비", "반도체장비"], ["반도체 소재", "반도체소재"], ["반도체 패키징", "반도체패키징"], ["후공정", "반도체패키징"], ["전공정", "파운드리"],
+    ["ai반도체", "AI반도체"], ["메모리반도체", "메모리"], ["메모리", "메모리"], ["파운드리", "파운드리"], ["팹리스", "팹리스"], ["시스템반도체", "시스템반도체"],
+    ["semiconductor", "반도체"], ["chip", "반도체"],
+    ["investment bank", "증권"], ["brokerage", "증권"], ["capital markets", "증권"], ["asset management", "자산운용"], ["wealth management", "자산관리"],
+    ["credit card", "카드"], ["consumer finance", "여신"], ["regional bank", "은행"], ["commercial bank", "은행"], ["internet bank", "인터넷은행"],
+    ["life insurance", "생명보험"], ["property & casualty insurance", "손해보험"], ["손해보험", "손해보험"], ["생명보험", "생명보험"], ["인터넷은행", "인터넷은행"],
+    ["자산운용", "자산운용"], ["자산관리", "자산관리"], ["여신", "여신"], ["카드", "카드"],
+    ["finance", "금융"], ["financial", "금융"], ["bank", "은행"], ["insurance", "보험"], ["broker", "증권"], ["securities", "증권"],
+    ["증권", "증권"], ["은행", "은행"], ["보험", "보험"], ["금융", "금융"]
+  ];
+  const found = sectorMap.find(([token]) => normalized.includes(token));
+  return found ? found[1] : raw;
+}
+function normalizeSnapshotData(payload) {
+  if (!payload || typeof payload !== "object") return payload;
+  const normalizeRow = (row) => {
+    if (!row || typeof row !== "object") return row;
+    const next = { ...row };
+    if (next.sector) next.sector = normalizeSectorLabel(next.sector);
+    if (next.sectorLabel) next.sectorLabel = normalizeSectorLabel(next.sectorLabel);
+    if (next.theme && /semiconductor|finance|bank|insurance|broker|memory|foundry|fabless|gpu|dram|nand/i.test(String(next.theme))) {
+      next.theme = normalizeSectorLabel(next.theme);
+    }
+    if (Array.isArray(next.sections)) {
+      next.sections = next.sections.map((section) => {
+        if (!section || typeof section !== "object") return section;
+        return { ...section, heading: section.heading ? normalizeSectorLabel(section.heading) : section.heading };
+      });
+    }
+    return next;
+  };
+  const next = { ...payload };
+  ["scanner", "watchlist", "movingAverages", "spikes", "growthDiscovery", "sectorOverview", "deepAnalysis", "morningNote", "newsList"].forEach((key) => {
+    if (Array.isArray(next[key])) next[key] = next[key].map(normalizeRow);
+  });
+  return next;
+}
 function stripSymbolFromName(name, symbol) {
   const raw = String(name || "").trim();
   if (!raw) return "";
@@ -380,6 +427,14 @@ function updateSymbolHint() {
   });
   hint.innerHTML = `<span>${T.codeCandidates}:</span> ${parts.join(" ")}`;
 }
+function scheduleQuoteRender() {
+  if (state.quoteRenderTimer) return;
+  state.quoteRenderTimer = window.setTimeout(() => {
+    state.quoteRenderTimer = 0;
+    renderDashboard();
+    updateSymbolHint();
+  }, 120);
+}
 async function lookupNameFromWeb(symbol) {
   try {
     const response = await fetch(`/api/symbol?symbol=${encodeURIComponent(symbol)}`, { cache: "force-cache" });
@@ -420,13 +475,28 @@ async function lookupQuote(symbol) {
     return null;
   }
 }
+async function lookupQuoteBatch(symbols) {
+  const normalized = Array.from(new Set((symbols || []).map((symbol) => normalizeSymbol(symbol)).filter(Boolean))).slice(0, LIVE_QUOTE_BATCH_SIZE);
+  if (!normalized.length) return {};
+  try {
+    const response = await fetch(`/api/quote?symbols=${encodeURIComponent(normalized.join(","))}`, { cache: "no-store" });
+    if (!response.ok) return {};
+    if (!String(response.headers.get("content-type") || "").includes("application/json")) return {};
+    const payload = await response.json();
+    if (!payload || !payload.ok || !payload.batch || typeof payload.quotes !== "object") return {};
+    return payload.quotes || {};
+  } catch {
+    return {};
+  }
+}
 async function saveWebWatchlistInterest(item, action = "add") {
   return Promise.resolve({ ok: true, localOnly: true, symbol: item?.symbol || "", action });
 }
 async function refreshUserStockReports() {
   if (!state.userStocks.length) return;
+  const quoteMap = await lookupQuoteBatch(state.userStocks.map((item) => item.symbol));
   const refreshed = await Promise.all(state.userStocks.map(async (item) => {
-    const quote = await lookupQuote(item.symbol);
+    const quote = quoteMap[normalizeSymbol(item.symbol)] || await lookupQuote(item.symbol);
     if (!quote) return item;
     const report = item.report || directoryReport(item.symbol) || {};
     const watchlist = {
@@ -453,26 +523,42 @@ async function refreshUserStockReports() {
   updateSymbolHint();
 }
 async function refreshVisibleQuotes() {
+  if (state.quoteRefreshInFlight) return;
   const data = state.data || {};
   const sections = mergedSections(data);
   const active = sections[state.activeSection] || sections.watchlist || [];
   const symbols = pickLiveQuoteSymbols(active);
   if (!symbols.length) return;
-  const results = await Promise.all(symbols.map(async (symbol) => {
-    const quote = await lookupQuote(symbol);
-    return quote ? [symbol, quote] : null;
-  }));
-  if (["scanner", "spikes"].includes(state.activeSection)) state.liveQuoteCycle += 1;
+  state.quoteRefreshInFlight = true;
   let changed = false;
-  results.forEach((entry) => {
-    if (!entry) return;
-    const [symbol, quote] = entry;
-    state.quotes[symbol] = quote;
-    changed = true;
-  });
-  if (changed) {
-    renderDashboard();
-    updateSymbolHint();
+  try {
+    if (state.activeSection === "watchlist") {
+      const watchSymbols = uniqueSymbols(state.userStocks).slice(0, LIVE_QUOTE_BATCH_SIZE);
+      const quoteMap = await lookupQuoteBatch(watchSymbols);
+      Object.entries(quoteMap).forEach(([symbol, quote]) => {
+        if (!quote) return;
+        state.quotes[normalizeSymbol(symbol)] = quote;
+        changed = true;
+      });
+      if (changed) {
+        scheduleQuoteRender();
+      }
+      return;
+    }
+    await Promise.allSettled(symbols.map(async (symbol) => {
+      const quote = await lookupQuote(symbol);
+      if (!quote) return;
+      state.quotes[symbol] = quote;
+      changed = true;
+      if (state.activeSection === "watchlist") scheduleQuoteRender();
+    }));
+    if (["scanner", "spikes"].includes(state.activeSection)) state.liveQuoteCycle += 1;
+    if (changed && state.activeSection !== "watchlist") {
+      renderDashboard();
+      updateSymbolHint();
+    }
+  } finally {
+    state.quoteRefreshInFlight = false;
   }
 }
 function loadUserStocks() {
@@ -1150,6 +1236,26 @@ function directoryReport(symbol) {
   };
 }
 function marketName(symbol) { return /^\d{6}$/.test(symbol) ? T.domestic : T.us; }
+
+function scannerDataBySymbol(symbol) {
+  const normalized = normalizeSymbol(symbol);
+  if (!normalized) return null;
+  const rows = Array.isArray(state.data?.scanner) ? state.data.scanner : [];
+  return rows.find((row) => normalizeSymbol(row?.symbol) === normalized) || null;
+}
+
+function dedupeRowsBySymbol(rows) {
+  const seen = new Set();
+  const output = [];
+  for (const row of rows || []) {
+    const symbol = normalizeSymbol(row?.symbol || "");
+    if (!symbol || seen.has(symbol)) continue;
+    seen.add(symbol);
+    output.push(row);
+  }
+  return output;
+}
+
 function userStockToWatchlist(item) {
   const price = Number(item.purchasePrice || 0);
   const hasPrice = price > 0;
@@ -1177,6 +1283,39 @@ function userStockToWatchlist(item) {
     userAdded: true
   };
 }
+
+function userStockToScanner(item) {
+  const price = Number(item.purchasePrice || 0);
+  const report = item.report || directoryReport(item.symbol) || {};
+  const liveScanner = scannerDataBySymbol(item.symbol) || {};
+  const scanner = report.scanner || {};
+  const watch = userStockToWatchlist(item);
+  const resolvedName = stripSymbolFromName(item.name, item.symbol) || nameLookup().get(item.symbol) || item.symbol;
+  const summary = liveScanner.summary || scanner.summary || watch.memo || "";
+  const risk = liveScanner.risk || scanner.risk || watch.movingAverage || watch.memo || "";
+  const evidence = liveScanner.evidence || {
+    title: "근거 단서",
+    clues: [summary || `${resolvedName} 관련 공개 데이터 확인 중입니다.`].filter(Boolean),
+    confirmations: [risk || "현재가와 예측범위, 추세 신호를 함께 확인합니다."],
+    stance: risk || "관찰 우선"
+  };
+  return {
+    ...liveScanner,
+    ...scanner,
+    symbol: item.symbol,
+    name: resolvedName,
+    market: watch.market || liveScanner.market || scanner.market || marketName(item.symbol),
+    currentPrice: watch.currentPrice || liveScanner.currentPrice || scanner.currentPrice || report.currentPrice || "",
+    signal: signalForPurchaseState(liveScanner.signal || scanner.signal || watch.signal || T.preview, price > 0),
+    sentiment: liveScanner.sentiment || scanner.sentiment || watch.signal || "",
+    predRange: liveScanner.predRange || scanner.predRange || report.watchlist?.predRange || directoryReport(item.symbol)?.scanner?.predRange || "",
+    summary,
+    risk,
+    evidence,
+    userAdded: true
+  };
+}
+
 function userStockToLearning(item) {
   const directory = item.report || directoryReport(item.symbol);
   if (directory && directory.learning) return directory.learning;
@@ -1235,9 +1374,9 @@ function userStockToAnalysis(item) {
       market: displayMarket(watch.market || marketName(item.symbol)),
       currentPrice: watch.currentPrice || item.report?.currentPrice || directory?.currentPrice || "",
       purchasePrice: price,
-      title: `${resolvedName}(${item.symbol}) 8파트 분석결과`,
+      title: `${resolvedName}(${item.symbol}) 분석결과`,
       kind: "watchlist-analysis",
-      summary: baseAnalysis.summary || baseAnalysis.body || `${resolvedName} 관심종목의 8파트 분석 결과입니다.`,
+      summary: baseAnalysis.summary || baseAnalysis.body || `${resolvedName} 관심종목의 분석 결과입니다.`,
       userAdded: true
     };
   }
@@ -1253,7 +1392,7 @@ function userStockToAnalysis(item) {
       ? "신규 매수는 보류하고 손절선·이전 고점 회복 여부를 먼저 확인합니다."
       : "바로 매수하지 말고 다음 갱신에서 가격·거래량·이평선 변화를 확인합니다.";
   return {
-    title: `${resolvedName}(${item.symbol}) 8파트 분석결과`,
+    title: `${resolvedName}(${item.symbol}) 분석결과`,
     kind: "watchlist-analysis",
     symbol: item.symbol,
     name: resolvedName,
@@ -1261,7 +1400,7 @@ function userStockToAnalysis(item) {
     currentPrice: current,
     purchasePrice: price,
     signal,
-    summary: `${resolvedName} 관심종목의 현재가, 예측범위, 이평선 신호를 8파트 형식으로 정리합니다.`,
+    summary: `${resolvedName} 관심종목의 현재가, 예측범위, 이평선 신호를 정리합니다.`,
     sections: [
       {
         heading: "현재 판단",
@@ -1432,7 +1571,7 @@ function movingDetailHtml(item) {
 }
 function mergedSections(data) {
   return {
-    scanner: [...state.userStocks.map((item) => item.report?.scanner).filter(Boolean), ...data.scanner].map(applyLiveQuote),
+    scanner: dedupeRowsBySymbol([...state.userStocks.map(userStockToScanner), ...(data.scanner || [])]).map(applyLiveQuote),
     watchlist: state.userStocks.map(userStockToWatchlist).map(applyLiveQuote),
     learning: [...state.userStocks.map(userStockToLearning), ...data.learning],
     spikes: (data.spikes || []).map(applyLiveQuote),
@@ -1734,7 +1873,7 @@ async function loadData(options = {}) {
   try {
     const response = await fetch("./data/public-snapshot.json", { cache: "no-store" });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    state.data = await response.json();
+    state.data = normalizeSnapshotData(await response.json());
     setStatus(T.connected);
     renderDashboard();
     if (!options.silent) refreshVisibleQuotes();
@@ -1852,4 +1991,8 @@ setupSymbolForm();
 loadSymbolDirectory().finally(loadData);
 setInterval(() => loadData({ silent: true }), DATA_REFRESH_MS);
 setInterval(refreshVisibleQuotes, DATA_REFRESH_MS);
+setInterval(() => {
+  if (state.activeSection !== "watchlist") return;
+  refreshVisibleQuotes();
+}, WATCHLIST_QUOTE_REFRESH_MS);
 setInterval(updateSymbolHint, DATA_REFRESH_MS);

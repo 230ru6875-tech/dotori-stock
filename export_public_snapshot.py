@@ -42,6 +42,27 @@ KST = timezone(timedelta(hours=9))
 REQUEST_TIMEOUT_SECONDS = 4
 OHLC_CACHE: dict[tuple[str, str], dict] = {}
 
+PART_CATALOG: dict[str, dict[str, str]] = {
+    "scanner": {"id": "lab.scanner", "title": "1파트 종목스캐너"},
+    "scanner_integrated": {"id": "scanner.integrated", "title": "통합추천"},
+    "turso_scanner": {"id": "scanner.external", "title": "외부 스캐너"},
+    "tori_part1_scanner": {"id": "tori.scanner", "title": "토리 스캐너"},
+    "tori_part5_learning": {"id": "tori.learning", "title": "토리 학습"},
+    "investment": {"id": "full.investment", "title": "2파트 투자"},
+    "autotrade_plan": {"id": "sanghoe.autotrade", "title": "3파트 자동매매"},
+    "prediction": {"id": "watch.prediction", "title": "4파트 관심종목"},
+    "learning": {"id": "full.learning", "title": "5파트 학습"},
+    "earnings": {"id": "full.earnings", "title": "6파트 실적"},
+    "spike": {"id": "lab.spike", "title": "2파트 급등주"},
+    "moving_average": {"id": "lab.moving_average", "title": "3파트 이평"},
+    "analysis_signal": {"id": "lab.analysis", "title": "4파트 분석"},
+    "analysis_sector_signal": {"id": "lab.analysis_sector", "title": "4파트 섹터"},
+    "discovery": {"id": "lab.discovery", "title": "5파트 종목발견"},
+    "backtest": {"id": "lab.backtest", "title": "6파트 백테스팅"},
+    "watchlist": {"id": "watch.watchlist", "title": "4파트 관심종목"},
+    "watch_state": {"id": "watch.state", "title": "4파트 감시상태"},
+}
+
 SYMBOL_ALIASES = {
     "엘지유플러스": ("032640", "LG유플러스", "국내"),
     "LG유플러스": ("032640", "LG유플러스", "국내"),
@@ -378,6 +399,8 @@ def _scanner_row(item: dict, rank: int) -> dict:
         "market": market,
         "symbol": symbol,
         "name": name,
+        "sourcePartId": _integrated_source_id("scanner"),
+        "sourcePartTitle": _integrated_source_label("scanner"),
         "currentPrice": current,
         "signal": signal,
         "predRange": f"{low} ~ {high}",
@@ -391,27 +414,15 @@ def _scanner_row(item: dict, rank: int) -> dict:
 
 
 def _integrated_source_label(part_key: str) -> str:
-    labels = {
-        "scanner": "1파트 스캐너",
-        "scanner_integrated": "통합추천",
-        "turso_scanner": "외부 스캐너",
-        "tori_part1_scanner": "토리 스캐너",
-        "tori_part5_learning": "토리 학습",
-        "investment": "2파트 투자",
-        "autotrade_plan": "3파트 자동매매",
-        "prediction": "4파트 예측",
-        "learning": "5파트 학습",
-        "earnings": "6파트 실적",
-        "spike": "7파트 급등주",
-        "moving_average": "8파트 이평선",
-        "analysis_signal": "8파트 분석",
-        "analysis_sector_signal": "8파트 섹터",
-        "discovery": "10파트 발견",
-        "backtest": "11파트 백테스트",
-        "watchlist": "4파트 관심종목",
-        "watch_state": "4파트 감시상태",
-    }
-    return labels.get(str(part_key or ""), str(part_key or "자료"))
+    key = str(part_key or "").strip()
+    meta = PART_CATALOG.get(key, {})
+    return _clean_text(meta.get("title"), key or "자료")
+
+
+def _integrated_source_id(part_key: str) -> str:
+    key = str(part_key or "").strip()
+    meta = PART_CATALOG.get(key, {})
+    return _clean_text(meta.get("id"), key or "unknown")
 
 
 def _integrated_part_score(part_key: str, part: dict) -> float:
@@ -591,7 +602,6 @@ def _scanner_rows_from_unified_state(market_text: str, limit: int = 30) -> list[
                     if expected:
                         break
         reasons = _dedupe_texts([
-            f"통합자료 {len(source_labels)}개 반영: {', '.join(source_labels[:6])}",
             f"통합추천점수 {score:.1f}",
         ] + reason_parts)
         evidence = _public_evidence_analysis(symbol, reasons, signal)
@@ -601,12 +611,14 @@ def _scanner_rows_from_unified_state(market_text: str, limit: int = 30) -> list[
                 "market": market_text,
                 "symbol": symbol,
                 "name": f"{resolved_name}({symbol})" if symbol not in resolved_name else resolved_name,
+                "sourcePartId": _integrated_source_id("scanner_integrated"),
+                "sourcePartTitle": _integrated_source_label("scanner_integrated"),
                 "currentPrice": _format_price(current_price, market_text),
                 "signal": signal,
                 "predRange": f"예상수익 {expected:+.2f}%",
                 "summary": " | ".join(reasons[:3]),
                 "sentiment": signal,
-                "risk": reasons[2] if len(reasons) > 2 else "통합자료 기준 관찰",
+                "risk": reasons[1] if len(reasons) > 1 else "통합추천 기준 관찰",
                 "source": "도토리 PC 통합 추천자료",
                 "score": round(score, 2),
                 "integratedSources": source_labels,
@@ -1114,6 +1126,8 @@ def _spike_rows(items: list[dict], limit: int = 50) -> list[dict]:
             "name": name,
             "symbol": symbol,
             "market": _clean_text(item.get("market")),
+            "sourcePartId": _integrated_source_id("spike"),
+            "sourcePartTitle": _integrated_source_label("spike"),
             "range": "6\ud30c\ud2b8 \uae09\ub4f1\uc8fc",
             "change": f"+{pct:.1f}%" if pct > 0 else "-",
             "currentPrice": _clean_text(item.get("current_price_text"), ""),
@@ -1257,6 +1271,8 @@ def _moving_average_rows(items: list[dict], limit: int = 30, previous_ohlc: dict
             "name": name,
             "symbol": symbol,
             "market": market,
+            "sourcePartId": _integrated_source_id("moving_average"),
+            "sourcePartTitle": _integrated_source_label("moving_average"),
             "currentPrice": _clean_text(item.get("current_price_text"), ""),
             "ma20": ma20_text,
             "ma60": ma60_text,
@@ -1341,7 +1357,7 @@ def _public_sector_overview_reports(items: list[dict]) -> list[dict]:
     for item in items:
         if not isinstance(item, dict):
             continue
-        sector = _clean_public_line(item.get("sector_label")) or "\uc5c5\uc885 \ud655\uc778"
+        sector = _normalize_sector_label(item.get("sector_label")) or "\uc5c5\uc885 \ud655\uc778"
         if "?" in sector or len(sector) > 60:
             sector = "\uc5c5\uc885 \ud750\ub984 \uc810\uac80"
         groups.setdefault(sector, []).append(item)
@@ -1482,6 +1498,8 @@ def _public_growth_discovery_rows(limit: int = 40) -> list[dict]:
                 "symbol": symbol,
                 "name": name,
                 "market": "국내",
+                "sourcePartId": _integrated_source_id("discovery"),
+                "sourcePartTitle": _integrated_source_label("discovery"),
                 "score": round(score, 1),
                 "verdict": _clean_text(row.get("verdict"), "관찰"),
                 "theme": _clean_text(row.get("theme"), "일반성장"),
@@ -1675,6 +1693,8 @@ def build_dotori_sanghoe_payload() -> dict:
                 "symbol": _clean_text(row.get("symbol")),
                 "name": _clean_text(row.get("display_name"), _clean_text(row.get("symbol"))),
                 "market": market,
+                "source": _clean_text(row.get("source"), _clean_text(row.get("source_part"), _clean_text(row.get("mock_quantity_basis"), "-"))),
+                "sourcePart": _clean_text(row.get("source_part"), _clean_text(row.get("mock_quantity_basis"), "-")),
                 "side": _sanghoe_side_label(row.get("side")),
                 "sideRaw": _clean_text(row.get("side"), ""),
                 "score": _sanghoe_number(row.get("last_score"), 1),
@@ -1782,9 +1802,9 @@ def build_dotori_sanghoe_payload() -> dict:
 
     return {
         "updatedAt": now_text,
-        "source": "도토리상회",
+        "source": "도토리증권사",
         "service": {
-            "name": "도토리상회",
+            "name": "도토리증권사",
             "scannerName": "도토리스캐너",
             "collectorName": "토리",
             "role": "자동매매 후보, 보유, 주문 상태를 도토리스캐너와 분리해 보여주는 화면",
@@ -1886,6 +1906,32 @@ def _merge_news_rows(primary: list[dict], supplemental: list[dict], limit: int =
     return rows
 
 
+def _normalize_sector_label(value: object) -> str:
+    raw = _clean_public_line(value)
+    if not raw:
+        return ""
+    normalized = raw.lower()
+    sector_map = [
+        ("ai semiconductor", "AI반도체"), ("ai chip", "AI반도체"), ("ai accelerator", "AI반도체"), ("gpu", "AI반도체"),
+        ("hbm", "메모리"), ("dram", "메모리"), ("nand", "메모리"), ("flash memory", "메모리"), ("memory", "메모리"),
+        ("foundry", "파운드리"), ("fabless", "팹리스"), ("system semiconductor", "시스템반도체"),
+        ("semiconductor equipment", "반도체장비"), ("semiconductor materials", "반도체소재"), ("semiconductor packaging", "반도체패키징"),
+        ("반도체 장비", "반도체장비"), ("반도체 소재", "반도체소재"), ("반도체 패키징", "반도체패키징"), ("후공정", "반도체패키징"), ("전공정", "파운드리"),
+        ("ai반도체", "AI반도체"), ("메모리반도체", "메모리"), ("메모리", "메모리"), ("파운드리", "파운드리"), ("팹리스", "팹리스"), ("시스템반도체", "시스템반도체"),
+        ("semiconductor", "반도체"), ("chip", "반도체"),
+        ("investment bank", "증권"), ("brokerage", "증권"), ("capital markets", "증권"), ("asset management", "자산운용"), ("wealth management", "자산관리"),
+        ("credit card", "카드"), ("consumer finance", "여신"), ("regional bank", "은행"), ("commercial bank", "은행"), ("internet bank", "인터넷은행"),
+        ("life insurance", "생명보험"), ("property & casualty insurance", "손해보험"), ("손해보험", "손해보험"), ("생명보험", "생명보험"), ("인터넷은행", "인터넷은행"),
+        ("자산운용", "자산운용"), ("자산관리", "자산관리"), ("여신", "여신"), ("카드", "카드"),
+        ("finance", "금융"), ("financial", "금융"), ("bank", "은행"), ("insurance", "보험"), ("broker", "증권"), ("securities", "증권"),
+        ("증권", "증권"), ("은행", "은행"), ("보험", "보험"), ("금융", "금융"),
+    ]
+    for token, label in sector_map:
+        if token in normalized:
+            return label
+    return raw
+
+
 def _dotori_research_report(research_rows: list[dict]) -> dict | None:
     if not research_rows:
         return None
@@ -1903,10 +1949,10 @@ def _dotori_research_report(research_rows: list[dict]) -> dict | None:
     if not lines:
         return None
     return {
-        "title": "도토리컴 자동수집 자료",
+        "title": "웹 자동수집자료",
         "kind": "dotori-com-research",
         "updatedAt": datetime.now(KST).isoformat(timespec="seconds"),
-        "summary": "도토리컴이 자동으로 모은 뉴스와 시장 자료를 웹 리포트 항목에 반영합니다.",
+        "summary": "웹이 자동으로 모은 뉴스와 시장 자료를 웹 리포트 항목에 반영합니다.",
         "sections": [
             {
                 "heading": "자동 반영된 수집 자료",
@@ -2056,6 +2102,91 @@ def _load_turso_research_requests(limit: int = 40) -> list[dict]:
     return [row for row in output if row.get("symbol")]
 
 
+def _load_turso_research_metrics(limit: int = 400) -> list[dict]:
+    if not _turso_url() or not _turso_token():
+        return []
+    try:
+        result = _turso_execute(
+            "SELECT symbol, payload, updated_at FROM stock_research_metrics ORDER BY updated_at DESC LIMIT ?",
+            [limit],
+        )
+    except Exception:
+        return []
+    rows = _turso_rows(result)
+    output: list[dict] = []
+    for row in rows:
+        symbol = _clean_text(row.get("symbol"), "").upper()
+        if not symbol:
+            continue
+        payload = {}
+        try:
+            payload = json.loads(str(row.get("payload") or "{}"))
+        except Exception:
+            payload = {}
+        if not isinstance(payload, dict):
+            payload = {}
+        payload["symbol"] = symbol
+        payload["updatedAt"] = _clean_text(row.get("updated_at"), "")
+        output.append(payload)
+    return output
+
+
+def _apply_metric_to_directory_row(row: dict, metric: dict) -> dict:
+    if not isinstance(row, dict):
+        row = {}
+    valuation = metric.get("valuation", {}) if isinstance(metric.get("valuation"), dict) else {}
+    moving = metric.get("moving", {}) if isinstance(metric.get("moving"), dict) else {}
+    current_price = _safe_float(metric.get("currentPrice"), 0.0)
+    market = _clean_text(row.get("market") or metric.get("market"), "")
+    if current_price > 0:
+        row["currentPrice"] = _format_price(current_price, market or _clean_text(metric.get("market"), ""))
+    if not _clean_text(row.get("movingAverage"), ""):
+        row["movingAverage"] = _clean_text(moving.get("decision"), "")
+    memo_parts = [_clean_text(row.get("memo"), "")]
+    psr = _clean_text(valuation.get("psr"), "")
+    if psr:
+        memo_parts.append(f"PSR {psr}")
+    row["memo"] = " / ".join(part for part in memo_parts if part).strip()
+    row["name"] = _clean_text(row.get("name") or metric.get("name"), _clean_text(metric.get("symbol"), ""))
+    row["market"] = market or _clean_text(metric.get("market"), "")
+    return row
+
+
+def _apply_metric_to_report(report: dict, metric: dict, saved_at: str) -> dict:
+    if not isinstance(report, dict):
+        report = {}
+    valuation = metric.get("valuation", {}) if isinstance(metric.get("valuation"), dict) else {}
+    moving = metric.get("moving", {}) if isinstance(metric.get("moving"), dict) else {}
+    technical = metric.get("technical", {}) if isinstance(metric.get("technical"), dict) else {}
+    current_price = _safe_float(metric.get("currentPrice"), 0.0)
+    market = _clean_text(report.get("market") or metric.get("market"), "")
+    current_price_text = _format_price(current_price, market) if current_price > 0 else _clean_text(report.get("currentPrice"), "")
+    if current_price_text:
+        report["currentPrice"] = current_price_text
+    if valuation:
+        report["valuation"] = {**(report.get("valuation", {}) if isinstance(report.get("valuation"), dict) else {}), **valuation}
+    if technical:
+        report["technical"] = {**(report.get("technical", {}) if isinstance(report.get("technical"), dict) else {}), **technical}
+    if isinstance(report.get("watchlist"), dict):
+        report["watchlist"]["currentPrice"] = current_price_text or _clean_text(report["watchlist"].get("currentPrice"), "")
+        if valuation:
+            report["watchlist"]["valuation"] = {**(report["watchlist"].get("valuation", {}) if isinstance(report["watchlist"].get("valuation"), dict) else {}), **valuation}
+        if technical:
+            report["watchlist"]["technical"] = {**(report["watchlist"].get("technical", {}) if isinstance(report["watchlist"].get("technical"), dict) else {}), **technical}
+        if not _clean_text(report["watchlist"].get("movingAverage"), ""):
+            report["watchlist"]["movingAverage"] = _clean_text(moving.get("decision"), "")
+    if isinstance(report.get("moving"), dict):
+        report["moving"]["currentPrice"] = current_price_text or _clean_text(report["moving"].get("currentPrice"), "")
+        if _safe_float(moving.get("ma20"), 0.0) > 0:
+            report["moving"]["ma20"] = _format_price(_safe_float(moving.get("ma20"), 0.0), market)
+        if _safe_float(moving.get("ma60"), 0.0) > 0:
+            report["moving"]["ma60"] = _format_price(_safe_float(moving.get("ma60"), 0.0), market)
+        if not _clean_text(report["moving"].get("decision"), ""):
+            report["moving"]["decision"] = _clean_text(moving.get("decision"), "")
+    report["savedAt"] = saved_at
+    return report
+
+
 def _report_payload_from_row(row: dict, saved_at: str) -> dict:
     symbol = _clean_text(row.get("symbol"), "")
     return {
@@ -2144,6 +2275,7 @@ def _build_dotori_com_reports(
     saved_at: str,
     symbol_directory: dict[str, dict] | None = None,
     research_requests: list[dict] | None = None,
+    research_metrics: list[dict] | None = None,
 ) -> dict:
     reports = {}
     autonomy_policy = _dotori_com_autonomy_policy()
@@ -2161,6 +2293,11 @@ def _build_dotori_com_reports(
     request_map = {
         _clean_text(row.get("symbol"), "").upper(): row
         for row in requests
+        if isinstance(row, dict) and _clean_text(row.get("symbol"), "")
+    }
+    metric_map = {
+        _clean_text(row.get("symbol"), "").upper(): row
+        for row in (research_metrics or [])
         if isinstance(row, dict) and _clean_text(row.get("symbol"), "")
     }
     for symbol, request_row in request_map.items():
@@ -2193,6 +2330,9 @@ def _build_dotori_com_reports(
         report = _report_payload_from_directory_row(directory_row, saved_at, request_row)
         report["autonomyPolicy"] = autonomy_policy
         reports[symbol] = report
+    for symbol, metric_row in metric_map.items():
+        if symbol in reports:
+            reports[symbol] = _apply_metric_to_report(reports[symbol], metric_row, saved_at)
     return {
         "updatedAt": saved_at,
         "autonomyPolicy": autonomy_policy,
@@ -2296,6 +2436,7 @@ def build_snapshot() -> dict:
         "domestic": domestic,
         "us": us,
     }
+    previous["partCatalog"] = PART_CATALOG
     previous["webDataStatus"] = {
         "updatedAt": previous["updatedAt"],
         "source": scanner_source,
@@ -2324,7 +2465,11 @@ def build_snapshot() -> dict:
     return previous
 
 
-def build_symbol_directory(snapshot: dict | None = None, research_requests: list[dict] | None = None) -> dict:
+def build_symbol_directory(
+    snapshot: dict | None = None,
+    research_requests: list[dict] | None = None,
+    research_metrics: list[dict] | None = None,
+) -> dict:
     predictions = json.loads(PREDICTIONS_PATH.read_text(encoding="utf-8", errors="replace"))
     items = predictions.get("items", []) if isinstance(predictions, dict) else []
     directory: dict[str, dict] = {}
@@ -2396,6 +2541,28 @@ def build_symbol_directory(snapshot: dict | None = None, research_requests: list
             "predRange": "",
             "memo": f"도토리연구소 요청 대기: {missing_text}" if missing_text else "도토리연구소 요청 대기",
         }
+    for metric_row in research_metrics or []:
+        if not isinstance(metric_row, dict):
+            continue
+        symbol = _clean_text(metric_row.get("symbol"), "").upper()
+        if not symbol:
+            continue
+        directory[symbol] = _apply_metric_to_directory_row(
+            directory.get(
+                symbol,
+                {
+                    "symbol": symbol,
+                    "name": _clean_text(metric_row.get("name"), symbol),
+                    "market": _clean_text(metric_row.get("market"), ""),
+                    "currentPrice": "",
+                    "signal": "관찰",
+                    "movingAverage": "",
+                    "predRange": "",
+                    "memo": "도토리연구소 지표 반영",
+                },
+            ),
+            metric_row,
+        )
     return {
         "updatedAt": datetime.now(KST).isoformat(timespec="seconds"),
         "symbols": directory,
@@ -2407,13 +2574,15 @@ def main() -> None:
     PUBLIC_SNAPSHOT_PATH.parent.mkdir(parents=True, exist_ok=True)
     payload = _sanitize_public_payload(build_snapshot())
     research_requests = _load_turso_research_requests()
-    symbol_directory = build_symbol_directory(payload, research_requests)
+    research_metrics = _load_turso_research_metrics()
+    symbol_directory = build_symbol_directory(payload, research_requests, research_metrics)
     report_payload = _sanitize_public_payload(
         _build_dotori_com_reports(
             payload.get("scanner", []),
             payload.get("updatedAt", datetime.now(KST).isoformat(timespec="seconds")),
             symbol_directory.get("symbols", {}) if isinstance(symbol_directory, dict) else {},
             research_requests,
+            research_metrics,
         )
     )
     upload_status = _upload_reports_to_turso(report_payload)
