@@ -1912,19 +1912,36 @@ def _normalize_sector_label(value: object) -> str:
         return ""
     normalized = raw.lower()
     sector_map = [
+        ("ai software", "AI소프트웨어"), ("cyber security", "보안"), ("data center", "데이터센터"),
         ("ai semiconductor", "AI반도체"), ("ai chip", "AI반도체"), ("ai accelerator", "AI반도체"), ("gpu", "AI반도체"),
+        ("semiconductor testing", "반도체검사"), ("semiconductor inspection", "반도체검사"),
         ("hbm", "메모리"), ("dram", "메모리"), ("nand", "메모리"), ("flash memory", "메모리"), ("memory", "메모리"),
         ("foundry", "파운드리"), ("fabless", "팹리스"), ("system semiconductor", "시스템반도체"),
         ("semiconductor equipment", "반도체장비"), ("semiconductor materials", "반도체소재"), ("semiconductor packaging", "반도체패키징"),
         ("반도체 장비", "반도체장비"), ("반도체 소재", "반도체소재"), ("반도체 패키징", "반도체패키징"), ("후공정", "반도체패키징"), ("전공정", "파운드리"),
-        ("ai반도체", "AI반도체"), ("메모리반도체", "메모리"), ("메모리", "메모리"), ("파운드리", "파운드리"), ("팹리스", "팹리스"), ("시스템반도체", "시스템반도체"),
-        ("semiconductor", "반도체"), ("chip", "반도체"),
+        ("ai반도체", "AI반도체"), ("메모리반도체", "메모리"), ("메모리", "메모리"), ("파운드리", "파운드리"), ("팹리스", "팹리스"), ("시스템반도체", "시스템반도체"), ("반도체 검사", "반도체검사"),
+        ("semiconductor", "반도체"), ("chip", "반도체"), ("llm", "인공지능"), ("machine learning", "인공지능"),
         ("investment bank", "증권"), ("brokerage", "증권"), ("capital markets", "증권"), ("asset management", "자산운용"), ("wealth management", "자산관리"),
         ("credit card", "카드"), ("consumer finance", "여신"), ("regional bank", "은행"), ("commercial bank", "은행"), ("internet bank", "인터넷은행"),
         ("life insurance", "생명보험"), ("property & casualty insurance", "손해보험"), ("손해보험", "손해보험"), ("생명보험", "생명보험"), ("인터넷은행", "인터넷은행"),
         ("자산운용", "자산운용"), ("자산관리", "자산관리"), ("여신", "여신"), ("카드", "카드"),
         ("finance", "금융"), ("financial", "금융"), ("bank", "은행"), ("insurance", "보험"), ("broker", "증권"), ("securities", "증권"),
         ("증권", "증권"), ("은행", "은행"), ("보험", "보험"), ("금융", "금융"),
+        ("software as a service", "SaaS"), ("saas", "SaaS"), ("enterprise software", "소프트웨어"), ("security software", "보안"), ("semiconductor software", "반도체소프트웨어"),
+        ("software", "소프트웨어"), ("cloud", "클라우드"), ("server", "서버"), ("network", "네트워크"), ("platform software", "플랫폼"), ("social media", "미디어플랫폼"), ("search engine", "인터넷플랫폼"), ("internet", "인터넷"), ("platform", "플랫폼"),
+        ("e-commerce", "전자상거래"), ("marketplace", "전자상거래"), ("consumer staples", "필수소비재"), ("consumer discretionary", "경기관련소비재"), ("retail", "소매유통"), ("consumer", "소비재"),
+        ("renewable", "신재생에너지"), ("solar", "태양광"), ("wind", "풍력"), ("nuclear", "원전"), ("power", "전력"), ("energy", "에너지"), ("oil", "정유"), ("gas", "가스"), ("utility", "유틸리티"),
+        ("machinery", "기계"), ("factory automation", "공장자동화"), ("industrial", "산업재"), ("defence", "방산"), ("defense", "방산"), ("aerospace", "우주항공"), ("space", "우주항공"), ("robot", "로봇"), ("automation", "자동화"),
+        ("diagnostics", "진단"), ("genomics", "유전체"), ("biosimilar", "바이오시밀러"), ("bio", "바이오"), ("biotech", "바이오"), ("pharma", "제약"), ("drug", "제약"), ("medical device", "의료기기"), ("healthcare", "헬스케어"), ("medical", "의료기기"), ("hospital", "의료"),
+        ("wireless", "통신장비"), ("telecom", "통신"), ("communication", "통신"), ("advertising", "광고"), ("content", "콘텐츠"), ("streaming", "콘텐츠"), ("media", "미디어"), ("entertainment", "엔터테인먼트"),
+        ("auto parts", "자동차부품"), ("mobility", "모빌리티"), ("autonomous driving", "자율주행"), ("automotive", "자동차"), ("auto", "자동차"), ("ev", "전기차"),
+        ("cathode", "배터리소재"), ("anode", "배터리소재"), ("electrolyte", "배터리소재"), ("battery recycling", "배터리재활용"), ("battery equipment", "배터리장비"), ("battery material", "배터리소재"), ("battery", "배터리"), ("secondary battery", "2차전지"), ("lithium", "배터리소재"),
+        ("chemical", "화학"), ("materials", "소재"), ("steel", "철강"), ("shipbuilding", "조선"), ("ship", "조선"), ("shipping", "해운"), ("logistics", "물류"), ("construction", "건설"), ("engineering", "건설엔지니어링"), ("real estate", "부동산"), ("reit", "리츠"),
+        ("leisure", "레저"), ("travel", "여행"), ("hotel", "호텔"), ("airline", "항공"), ("restaurant", "외식"), ("food", "식품"), ("beverage", "음료"), ("cosmetic", "화장품"), ("fashion", "패션"), ("gaming", "게임"), ("game", "게임"), ("etf", "ETF"),
+        ("보안", "보안"), ("클라우드", "클라우드"), ("서버", "서버"), ("네트워크", "네트워크"), ("소프트웨어", "소프트웨어"), ("플랫폼", "플랫폼"), ("전자상거래", "전자상거래"), ("미디어플랫폼", "미디어플랫폼"), ("데이터센터", "데이터센터"),
+        ("필수소비재", "필수소비재"), ("경기관련소비재", "경기관련소비재"), ("정유", "정유"), ("가스", "가스"), ("전력", "전력"), ("원전", "원전"), ("태양광", "태양광"), ("풍력", "풍력"), ("신재생", "신재생에너지"), ("기계", "기계"), ("공장자동화", "공장자동화"),
+        ("진단", "진단"), ("유전체", "유전체"), ("바이오시밀러", "바이오시밀러"), ("의료기기", "의료기기"), ("통신장비", "통신장비"), ("광고", "광고"), ("콘텐츠", "콘텐츠"), ("자동차부품", "자동차부품"), ("모빌리티", "모빌리티"), ("자율주행", "자율주행"),
+        ("배터리소재", "배터리소재"), ("배터리장비", "배터리장비"), ("배터리재활용", "배터리재활용"), ("2차전지", "2차전지"), ("건설엔지니어링", "건설엔지니어링"), ("레저", "레저"), ("외식", "외식"),
     ]
     for token, label in sector_map:
         if token in normalized:
