@@ -1,4 +1,4 @@
-const state = { data: null, activeSection: "watchlist", userStocks: [], selectedMovingSymbol: "", scannerMarketFirst: "domestic", scannerMarketFirstManual: false, quotes: {}, liveQuoteCycle: 0, quoteRefreshInFlight: false, quoteRenderTimer: 0 };
+const state = { data: null, activeSection: "watchlist", userStocks: [], selectedMovingSymbol: "", scannerMarketFirst: "domestic", scannerMarketFirstManual: false, scannerSectorFilter: "전체", growthSectorFilter: "전체", quotes: {}, liveQuoteCycle: 0, quoteRefreshInFlight: false, quoteRenderTimer: 0 };
 const USER_STOCKS_KEY = "dotori.userStocks.v1";
 const USER_KEY = "dotori.userKey.v1";
 const USER_KEEP_ASKED_KEY = "dotori.keepAsked.v1";
@@ -1598,6 +1598,31 @@ function mergedSections(data) {
     newsList: data.newsList || []
   };
 }
+function sectorLabelFromItem(item) {
+  return normalizeSectorLabel(item?.sector || item?.sectorLabel || item?.theme || "");
+}
+function currentSectorFilter(section) {
+  return section === "growthDiscovery" ? (state.growthSectorFilter || "전체") : (state.scannerSectorFilter || "전체");
+}
+function sectorOptions(items, limit = 10) {
+  const counts = new Map();
+  (items || []).forEach((item) => {
+    const sector = sectorLabelFromItem(item);
+    if (!sector || sector === "-") return;
+    counts.set(sector, (counts.get(sector) || 0) + 1);
+  });
+  return [...counts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "ko")).slice(0, limit).map(([label]) => label);
+}
+function applySectorFilter(items, section) {
+  const selected = currentSectorFilter(section);
+  if (!selected || selected === "전체") return items;
+  return (items || []).filter((item) => sectorLabelFromItem(item) === selected);
+}
+function sectorFilterControls(section, items) {
+  const selected = currentSectorFilter(section);
+  const options = ["전체", ...sectorOptions(items)];
+  return `<div class="sector-filter-controls">${options.map((label) => `<button class="${selected === label ? "active" : ""}" data-sector-filter-section="${section}" data-sector-filter-value="${escapeHtml(label)}" type="button">${escapeHtml(label)}</button>`).join("")}</div>`;
+}
 function evidenceSummaryHtml(item) {
   const evidence = item?.evidence || {};
   const clues = Array.isArray(evidence.clues) ? evidence.clues.filter(Boolean) : [];
@@ -1636,7 +1661,8 @@ function renderDashboard() {
       return `<article class="data-card clickable-card watch-card ${priceBackgroundClassForItem(item)}" data-chart-symbol="${item.symbol}"><div class="card-top"><strong>${displayName}</strong><em>${displayMarket(item.market)}</em></div>${priceLine}<p><b class="${signalClass(item.signal)}">${item.signal}</b>${item.movingAverage ? ` / ${item.movingAverage}` : ""}</p>${analysisSummaryBlockHtml(item)}${crashRiskSummaryHtml(item)}${macroEventRiskSummaryHtml(item)}${marketRiskSummaryHtml(item)}<p>${marketLinks.trim()}</p><div class="watch-chart-popover">${watchlistMiniChartSvg(item)}</div>${item.userAdded ? `<button class="small-button" data-remove-symbol="${item.symbol}" type="button">${T.remove}</button>` : ""}</article>`;
     });
   } else if (state.activeSection === "scanner") {
-    const marketRows = (marketLabel) => active.filter((item) => displayMarket(item.market || marketName(item.symbol)) === marketLabel);
+    const filtered = applySectorFilter(active, "scanner");
+    const marketRows = (marketLabel) => filtered.filter((item) => displayMarket(item.market || marketName(item.symbol)) === marketLabel);
     const rowHtml = (item) => `<tr><td class="scanner-rank-cell">${item.rank || "-"}</td><td class="scanner-name-cell"><strong>${item.name || item.title || item.symbol}</strong> <span>(${item.symbol || "-"})</span></td><td>${formatDisplayPrice(item.currentPrice, item) || "-"}</td><td><b class="${signalClass(item.signal || item.sentiment || "")}">${item.signal || item.sentiment || "-"}</b></td><td>${formatDisplayPriceRange(item.predRange, item) || "-"}</td><td>${evidenceSummaryHtml(item)}</td><td>${confirmationSummaryHtml(item)}</td></tr>`;
     const groupHtml = (marketLabel) => {
       const rows = marketRows(marketLabel).slice(0, DISPLAY_MARKET_LIMIT);
@@ -1646,8 +1672,9 @@ function renderDashboard() {
     const scannerFirst = effectiveScannerMarketFirst();
     const first = scannerFirst === "us" ? T.us : T.domestic;
     const second = scannerFirst === "us" ? T.domestic : T.us;
-    grid.innerHTML = `<div class="scanner-market-controls"><button class="${scannerFirst === "domestic" ? "active" : ""}" data-scanner-first="domestic" type="button">\uad6d\ub0b4 \uc6b0\uc120</button><button class="${scannerFirst === "us" ? "active" : ""}" data-scanner-first="us" type="button">\ud574\uc678 \uc6b0\uc120</button></div><div class="table-card"><table class="data-table scanner-table"><thead><tr><th>\uc21c\uc704</th><th>\uc885\ubaa9</th><th>\ud604\uc7ac\uac00</th><th>\uc2e0\ud638</th><th>\uc608\uce21\ubc94\uc704</th><th>\uadfc\uac70 \ub2e8\uc11c</th><th>\ud655\uc778 \uc870\uac74</th></tr></thead><tbody>${groupHtml(first)}${groupHtml(second)}</tbody></table></div>`;
+    grid.innerHTML = `<div class="scanner-market-controls"><button class="${scannerFirst === "domestic" ? "active" : ""}" data-scanner-first="domestic" type="button">\uad6d\ub0b4 \uc6b0\uc120</button><button class="${scannerFirst === "us" ? "active" : ""}" data-scanner-first="us" type="button">\ud574\uc678 \uc6b0\uc120</button></div>${sectorFilterControls("scanner", active)}<div class="table-card"><table class="data-table scanner-table"><thead><tr><th>\uc21c\uc704</th><th>\uc885\ubaa9</th><th>\ud604\uc7ac\uac00</th><th>\uc2e0\ud638</th><th>\uc608\uce21\ubc94\uc704</th><th>\uadfc\uac70 \ub2e8\uc11c</th><th>\ud655\uc778 \uc870\uac74</th></tr></thead><tbody>${groupHtml(first)}${groupHtml(second)}</tbody></table></div>`;
   } else if (state.activeSection === "growthDiscovery") {
+    const filtered = applySectorFilter(active, "growthDiscovery");
     const rowHtml = (item) => {
       const notes = Array.isArray(item.notes) ? item.notes.slice(0, 3) : [];
       const noteHtml = notes.length ? notes.map((line) => `<p>${escapeHtml(line)}</p>`).join("") : `<p>${escapeHtml(item.reason || "성장 단서 확인 필요")}</p>`;
@@ -1655,10 +1682,11 @@ function renderDashboard() {
       return `<tr><td>${item.rank || "-"}</td><td class="scanner-name-cell"><strong>${escapeHtml(item.name || item.symbol || "-")}</strong> <span>(${escapeHtml(item.symbol || "-")})</span></td><td><b>${escapeHtml(String(item.score ?? "-"))}</b></td><td><b class="${signalClass(item.verdict || "")}">${escapeHtml(item.verdict || "-")}</b></td><td>${escapeHtml(item.theme || "-")}</td><td>${escapeHtml(item.currentPriceText || formatDisplayPrice(item.currentPrice, item) || "-")}</td><td>${escapeHtml(item.return5d || "-")} / ${escapeHtml(item.return20d || "-")}</td><td>${escapeHtml(item.volumeRatio || "-")}</td><td><div class="evidence-cell">${noteHtml}${links}</div></td></tr>`;
     };
     const groupHtml = (marketLabel) => {
-      const rows = active.filter((item) => marketGroupLabel(item) === marketLabel).slice(0, DISPLAY_MARKET_LIMIT);
+      const rows = filtered.filter((item) => marketGroupLabel(item) === marketLabel).slice(0, DISPLAY_MARKET_LIMIT);
       return `<tr class="market-group-row"><td colspan="9">${marketLabel} 성장주 후보</td></tr>${rows.length ? rows.map(rowHtml).join("") : `<tr><td colspan="9">${marketLabel} 성장주 데이터가 아직 없습니다.</td></tr>`}`;
     };
     grid.innerHTML = `<div class="table-card"><table class="data-table growth-table"><thead><tr><th>순위</th><th>종목</th><th>성장점수</th><th>판정</th><th>성장축</th><th>현재가</th><th>5일/20일</th><th>거래량</th><th>성장 근거</th></tr></thead><tbody>${groupHtml("\uad6d\ub0b4")}${groupHtml("\ubbf8\uad6d")}</tbody></table></div>`;
+    grid.innerHTML = `${sectorFilterControls("growthDiscovery", active)}${grid.innerHTML}`;
   } else if (state.activeSection === "learning") {
     grid.innerHTML = renderCards(active, (item) => `<article class="data-card"><div class="card-top"><strong>${item.topic}</strong><em>${T.learning}</em></div><p>${item.lesson}</p></article>`);
   } else if (state.activeSection === "spikes") {
@@ -1715,6 +1743,15 @@ function renderDashboard() {
     button.addEventListener("click", () => {
       state.scannerMarketFirst = button.dataset.scannerFirst || "domestic";
       state.scannerMarketFirstManual = true;
+      renderDashboard();
+    });
+  });
+  document.querySelectorAll("[data-sector-filter-value]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const section = button.dataset.sectorFilterSection || "scanner";
+      const value = button.dataset.sectorFilterValue || "전체";
+      if (section === "growthDiscovery") state.growthSectorFilter = value;
+      else state.scannerSectorFilter = value;
       renderDashboard();
     });
   });

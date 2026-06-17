@@ -643,6 +643,14 @@ button:hover {
   margin-bottom: 10px;
 }
 
+.sector-filter-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  grid-column: 1 / -1;
+  margin: 0 0 10px;
+}
+
 .clickable-row {
   cursor: pointer;
 }
