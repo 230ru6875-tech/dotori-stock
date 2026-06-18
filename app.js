@@ -1799,10 +1799,7 @@ function renderDashboard() {
     const listHtml = filtered.length
       ? filtered.map((item) => dailyDigestCardHtml(item, latest && item.slug === latest.slug)).join("")
       : `<article class="data-card"><div class="card-top"><strong>오늘시황 기록 없음</strong><em>-</em></div><p>선택한 날짜 범위와 검색어에 맞는 문서가 없습니다.</p></article>`;
-    const latestHtml = latest
-      ? `<section class="daily-hero-card"><div class="daily-hero-copy"><p class="eyebrow">최신 오늘시황</p><h3><a href="${latest.path}" target="_blank" rel="noopener">${escapeHtml(latest.title || latest.date || "-")}</a></h3><p>${escapeHtml(latest.summary || "요약 대기")}</p><p class="daily-window">${escapeHtml(latest.windowLabel || "-")}</p></div></section>`
-      : "";
-    grid.innerHTML = `<section class="daily-section-head"><p class="eyebrow">오늘 시황</p><h3>오늘시황 문서 목록</h3><p>날짜별로 정리된 시황 문서를 가로 목록으로 확인합니다.</p></section>${dailyDigestControlsHtml(active)}${latestHtml}<div class="daily-history-list">${listHtml}</div>`;
+    grid.innerHTML = `<section class="daily-section-head"><p class="eyebrow">오늘 시황</p><h3>오늘시황 문서 목록</h3><p>날짜별로 정리된 시황 문서를 가로 목록으로 확인합니다.</p></section>${dailyDigestControlsHtml(active)}<div class="daily-history-list">${listHtml}</div>`;
   } else if (state.activeSection === "learning") {
     grid.innerHTML = renderCards(active, (item) => `<article class="data-card"><div class="card-top"><strong>${item.topic}</strong><em>${T.learning}</em></div><p>${item.lesson}</p></article>`);
   } else if (state.activeSection === "spikes") {
