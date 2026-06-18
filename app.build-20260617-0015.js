@@ -96,6 +96,35 @@ function setTabDebugState(section, count) {
 }
 function renderCards(items, mapper) { return items.map(mapper).join(""); }
 function renderMarketBrief() {}
+function normalizeNewsText(value) {
+  return String(value || "")
+    .replace(/<[^>]*>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .toLowerCase();
+}
+function normalizeNewsUrl(value) {
+  return String(value || "")
+    .trim()
+    .replace(/#.*$/, "")
+    .replace(/\/+$/, "")
+    .toLowerCase();
+}
+function dedupeNewsItems(items) {
+  const seen = new Set();
+  return (Array.isArray(items) ? items : []).filter((item) => {
+    const title = normalizeNewsText(item?.title);
+    const summary = normalizeNewsText(item?.summary);
+    const keys = [];
+    if (title && summary) keys.push(`body:${title}||${summary}`);
+    else if (title) keys.push(`title:${title}`);
+    else if (summary) keys.push(`summary:${summary}`);
+    if (!keys.length) return true;
+    if (keys.some((key) => seen.has(key))) return false;
+    keys.forEach((key) => seen.add(key));
+    return true;
+  });
+}
 function browserUserKey() {
   try {
     let value = localStorage.getItem(USER_KEY);
@@ -1685,17 +1714,34 @@ function dailyDigestCardHtml(item, featured = false) {
     `뉴스 ${Number(item?.newsCount || 0)}건`,
     `강한 매수 ${Number(item?.strongBuyReports || 0)}건`
   ].join(" | ");
-  return `<article class="data-card daily-card${featured ? " featured" : ""}">
-    <div class="card-top">
-      <strong><a href="${path}" target="_blank" rel="noopener">${escapeHtml(item?.title || item?.date || "-")}</a></strong>
-      <em>${escapeHtml(item?.date || "-")}</em>
+  return `<article class="daily-list-row${featured ? " featured" : ""}">
+    <div class="daily-list-main">
+      <div class="daily-list-title-row">
+        <strong><a href="${path}" target="_blank" rel="noopener">${escapeHtml(item?.title || item?.date || "-")}</a></strong>
+        <em>${escapeHtml(item?.date || "-")}</em>
+      </div>
+      <p class="daily-window">${escapeHtml(item?.windowLabel || "-")}</p>
+      <p class="daily-list-summary">${escapeHtml(summary || "요약 대기")}</p>
     </div>
-    <p class="daily-window">${escapeHtml(item?.windowLabel || "-")}</p>
-    <p>${escapeHtml(summary || "요약 대기")}</p>
-    <p class="daily-metrics">${escapeHtml(metricLine)}</p>
-    <p class="daily-links"><a href="${path}" target="_blank" rel="noopener">문서 열기</a></p>
+    <div class="daily-list-side">
+      <p class="daily-metrics">${escapeHtml(metricLine)}</p>
+      <p class="daily-links"><a href="${path}" target="_blank" rel="noopener">문서 열기</a></p>
+    </div>
   </article>`;
 }
+
+function renderDailyDigestShowcase() {
+  const mount = el("#dailyDigestShowcaseList");
+  if (!mount) return;
+  const items = filteredDailyHistory(state.dailyHistory || []);
+  const latest = items[0] || null;
+  if (!items.length) {
+    mount.innerHTML = `<article class="data-card"><div class="card-top"><strong>오늘시황 기록 없음</strong><em>-</em></div><p>표시할 시황 문서가 아직 없습니다.</p></article>`;
+    return;
+  }
+  mount.innerHTML = items.slice(0, 8).map((item) => dailyDigestCardHtml(item, latest && item.slug === latest.slug)).join("");
+}
+
 function renderDashboard() {
   const data = state.data;
   if (!data) return;
@@ -1712,6 +1758,7 @@ function renderDashboard() {
   setTabDebugState(state.activeSection, Array.isArray(active) ? active.length : 0);
   renderSignalFeed();
   renderMarketBrief();
+  renderDailyDigestShowcase();
   if (state.activeSection === "watchlist") {
     grid.innerHTML = renderCards(active, (item) => {
       const displayName = !item.name || item.name === item.symbol ? item.symbol : `${item.name} <span>(${item.symbol})</span>`;
@@ -1755,7 +1802,7 @@ function renderDashboard() {
     const latestHtml = latest
       ? `<section class="daily-hero-card"><div class="daily-hero-copy"><p class="eyebrow">최신 오늘시황</p><h3><a href="${latest.path}" target="_blank" rel="noopener">${escapeHtml(latest.title || latest.date || "-")}</a></h3><p>${escapeHtml(latest.summary || "요약 대기")}</p><p class="daily-window">${escapeHtml(latest.windowLabel || "-")}</p></div></section>`
       : "";
-    grid.innerHTML = `${dailyDigestControlsHtml(active)}${latestHtml}<div class="info-grid daily-history-grid">${listHtml}</div>`;
+    grid.innerHTML = `<section class="daily-section-head"><p class="eyebrow">오늘 시황</p><h3>오늘시황 문서 목록</h3><p>날짜별로 정리된 시황 문서를 가로 목록으로 확인합니다.</p></section>${dailyDigestControlsHtml(active)}${latestHtml}<div class="daily-history-list">${listHtml}</div>`;
   } else if (state.activeSection === "learning") {
     grid.innerHTML = renderCards(active, (item) => `<article class="data-card"><div class="card-top"><strong>${item.topic}</strong><em>${T.learning}</em></div><p>${item.lesson}</p></article>`);
   } else if (state.activeSection === "spikes") {
@@ -1782,7 +1829,8 @@ function renderDashboard() {
     }).join("");
     grid.innerHTML = `<div class="table-card"><table class="data-table"><thead><tr><th>\uc885\ubaa9</th><th>\ud604\uc7ac\uac00</th><th>20\uc77c\uc120</th><th>60\uc77c\uc120</th><th>\ud310\ub2e8</th><th>\uadfc\uac70</th></tr></thead><tbody>${rows}</tbody></table></div>`;
   } else if (state.activeSection === "newsList") {
-    grid.innerHTML = `<div class="table-card"><table class="data-table"><thead><tr><th>\uc2dc\uac04</th><th>\uc81c\ubaa9</th><th>\uc694\uc57d</th><th>\ub9c1\ud06c</th></tr></thead><tbody>${active.map((item) => `<tr><td>${item.asOf || "-"}</td><td><strong>${item.title || "-"}</strong></td><td>${item.summary || ""}</td><td>${item.url ? `<a href="${item.url}" target="_blank" rel="noopener">\uc5f4\uae30</a>` : "-"}</td></tr>`).join("")}</tbody></table></div>`;
+    const uniqueNews = dedupeNewsItems(active);
+    grid.innerHTML = `<div class="table-card"><table class="data-table"><thead><tr><th>\uc2dc\uac04</th><th>\uc81c\ubaa9</th><th>\uc694\uc57d</th><th>\ub9c1\ud06c</th></tr></thead><tbody>${uniqueNews.map((item) => `<tr><td>${item.asOf || "-"}</td><td><strong>${item.title || "-"}</strong></td><td>${item.summary || ""}</td><td>${item.url ? `<a href="${item.url}" target="_blank" rel="noopener">\uc5f4\uae30</a>` : "-"}</td></tr>`).join("")}</tbody></table></div>`;
   } else if (["morningNote", "sectorOverview", "deepAnalysis"].includes(state.activeSection)) {
     grid.innerHTML = renderCards(active, (item) => {
       const livePriceLine = item.currentPrice ? `<p class="price ${priceClassForItem(item)}"><span>${T.currentPrice}:</span> ${formatDisplayPrice(item.currentPrice, item)}${item.quotedAt ? ` <small>${fmtDateTimeSeconds(item.quotedAt)}</small>` : ""}</p>` : "";
