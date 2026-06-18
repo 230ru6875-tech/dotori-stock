@@ -1795,11 +1795,18 @@ function renderDashboard() {
     grid.innerHTML = `${sectorFilterControls("growthDiscovery", active)}${grid.innerHTML}`;
   } else if (state.activeSection === "dailyDigest") {
     const filtered = filteredDailyHistory(active);
-    const latest = filtered[0] || null;
-    const listHtml = filtered.length
-      ? filtered.map((item) => dailyDigestCardHtml(item, latest && item.slug === latest.slug)).join("")
-      : `<article class="data-card"><div class="card-top"><strong>오늘시황 기록 없음</strong><em>-</em></div><p>선택한 날짜 범위와 검색어에 맞는 문서가 없습니다.</p></article>`;
-    grid.innerHTML = `<section class="daily-section-head"><p class="eyebrow">오늘 시황</p><h3>오늘시황 문서 목록</h3><p>날짜별로 정리된 시황 문서를 가로 목록으로 확인합니다.</p></section>${dailyDigestControlsHtml(active)}<div class="daily-history-list">${listHtml}</div>`;
+    const rows = filtered.length
+      ? filtered.map((item) => {
+        const path = String(item?.path || "").trim() || `/daily/${escapeHtml(item?.slug || "")}.html`;
+        const content = [
+          item?.windowLabel,
+          item?.summary,
+          `스캐너 ${Number(item?.scannerCount || 0)}건 | 뉴스 ${Number(item?.newsCount || 0)}건 | 강한 매수 ${Number(item?.strongBuyReports || 0)}건`
+        ].filter(Boolean).join(" / ");
+        return `<tr><td>${escapeHtml(item?.date || "-")}</td><td><strong>${escapeHtml(item?.title || item?.date || "-")}</strong></td><td>${escapeHtml(content || "-")}</td><td><a href="${path}" target="_blank" rel="noopener">열기</a></td></tr>`;
+      }).join("")
+      : `<tr><td colspan="4">선택한 날짜 범위와 검색어에 맞는 오늘시황 문서가 없습니다.</td></tr>`;
+    grid.innerHTML = `${dailyDigestControlsHtml(active)}<div class="table-card"><table class="data-table"><thead><tr><th>일자</th><th>제목</th><th>내용</th><th>링크</th></tr></thead><tbody>${rows}</tbody></table></div>`;
   } else if (state.activeSection === "learning") {
     grid.innerHTML = renderCards(active, (item) => `<article class="data-card"><div class="card-top"><strong>${item.topic}</strong><em>${T.learning}</em></div><p>${item.lesson}</p></article>`);
   } else if (state.activeSection === "spikes") {
