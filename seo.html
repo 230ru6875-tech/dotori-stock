@@ -4,70 +4,140 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>검색 노출 안내 | 오늘의 주식</title>
-  <meta name="description" content="오늘의 주식의 검색 노출, 사이트맵, RSS, ads.txt, 콘텐츠 운영 방향을 정리한 안내 문서입니다.">
-  <meta name="keywords" content="주식분석 SEO, 검색 노출, 애드센스 승인, 사이트맵, RSS, ads.txt">
+  <meta name="description" content="오늘의 주식이 어떤 공개 문서와 리포트를 운영하는지, 검색엔진과 애드센스 기준에 맞춰 어떤 콘텐츠 원칙을 지키는지 설명하는 페이지입니다.">
+  <meta name="keywords" content="주식분석 SEO, 검색 노출, 애드센스 승인, 종목 리포트, 주식 정보 사이트">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <link rel="canonical" href="https://dotoristock.com/seo.html">
   <meta property="og:type" content="article">
   <meta property="og:locale" content="ko_KR">
   <meta property="og:site_name" content="오늘의 주식">
   <meta property="og:title" content="검색 노출 안내 | 오늘의 주식">
-  <meta property="og:description" content="사이트맵, RSS, 공개 리포트, 정적 문서 운영 기준을 설명합니다.">
+  <meta property="og:description" content="공개 대시보드, 종목 리포트, 정책 문서, 애드센스 준비 기준을 운영 관점에서 설명합니다.">
   <meta property="og:url" content="https://dotoristock.com/seo.html">
   <link rel="stylesheet" href="./styles.css">
+  <script>
+    window.DOTORI_I18N = {
+      en: {
+        meta: {
+          title: "Search Visibility Guide | Today's Stocks",
+          description: "Explains which public pages Today's Stocks operates and how the site is structured for search visibility and AdSense review."
+        },
+        text: {
+          brand: "Today's Stocks",
+          nav_home: "Home",
+          nav_analysis: "Analysis Guide",
+          nav_about: "About",
+          nav_privacy: "Privacy",
+          nav_terms: "Terms",
+          nav_disclaimer: "Disclaimer",
+          title_main: "Search Visibility Guide",
+          intro: "Today's Stocks is not just a tool screen. It is operated as a public stock-information site with a dashboard, stock reports, analysis guides, and policy pages that explain how the information should be read.",
+          h2_structure: "What the site publishes",
+          p_structure: "The site is organized around public pages that a reader can actually use: a dashboard for comparison, stock reports for individual names, methodology and analysis pages for interpretation, and policy pages that explain limits, privacy, and responsibility.",
+          h2_quality: "Content quality standard",
+          li_quality_1: "We do not rely on empty templates or placeholder-only pages.",
+          li_quality_2: "We try to explain why a stock appears as a candidate, not only what its score or signal is.",
+          li_quality_3: "When a valuation or technical value is missing, we keep that gap visible instead of pretending it is known.",
+          li_quality_4: "Static pages are written as operating documents, not spun keyword blocks.",
+          h2_public: "Public URLs intended for search",
+          li_public_1: "Main page: dashboard and feature overview",
+          li_public_2: "Stock reports: public report list and individual stock pages",
+          li_public_3: "Methodology and analysis guides: interpretation and reading standards",
+          li_public_4: "Policy pages: privacy, terms, disclaimer, and site information",
+          h2_adsense: "AdSense review focus",
+          p_adsense: "For AdSense review, the site is maintained as a content site rather than a thin data shell. The goal is to provide enough original explanation that a visitor can understand what the site does, what it does not do, how the reports are formed, and how to interpret incomplete data.",
+          li_adsense_1: "Public pages must have enough unique text to stand on their own.",
+          li_adsense_2: "Navigation between reports, guides, and policy pages must be clear.",
+          li_adsense_3: "Contact, privacy, terms, and disclaimer pages must stay accessible.",
+          li_adsense_4: "Reports should not repeat the same shallow boilerplate without context.",
+          h2_updates: "How content is maintained",
+          p_updates: "The dashboard and report data can change frequently, but the explanatory layer is maintained separately so that the site still has readable public content even when some market values are delayed or incomplete. This matters both for readers and for search-quality review.",
+          h2_not_shortcuts: "What we do not treat as SEO",
+          li_not_1: "We do not consider repeated keyword stuffing to be a content strategy.",
+          li_not_2: "We do not publish empty category pages just to increase page count.",
+          li_not_3: "We do not frame delayed or missing data as certainty.",
+          li_not_4: "We do not treat ad placement itself as proof of site quality.",
+          h2_contact: "Contact",
+          p_contact: "Questions about crawling, content errors, missing pages, or policy updates can be sent to 230ru6875@gmail.com.",
+          footer_privacy: "Privacy",
+          footer_terms: "Terms",
+          footer_disclaimer: "Disclaimer"
+        }
+      }
+    };
+  </script>
+  <script src="./assets/site-i18n.js" defer></script>
 </head>
 <body>
   <header class="site-header">
     <nav class="nav">
-      <a class="brand" href="./">오늘의 주식</a>
+      <a class="brand" href="./" data-i18n="brand">오늘의 주식</a>
       <div class="nav-links">
-        <a href="./">홈</a>
-        <a href="./stock-analysis.html">주식분석 가이드</a>
-        <a href="./about.html">사이트 정보</a>
-        <a href="./privacy.html">개인정보처리방침</a>
-        <a href="./terms.html">이용약관</a>
-        <a href="./disclaimer.html">투자 고지</a>
+        <a href="./" data-i18n="nav_home">홈</a>
+        <a href="./stock-analysis.html" data-i18n="nav_analysis">주식분석 가이드</a>
+        <a href="./about.html" data-i18n="nav_about">사이트 정보</a>
+        <a href="./privacy.html" data-i18n="nav_privacy">개인정보처리방침</a>
+        <a href="./terms.html" data-i18n="nav_terms">이용약관</a>
+        <a href="./disclaimer.html" data-i18n="nav_disclaimer">투자 고지</a>
       </div>
     </nav>
   </header>
   <main class="plain-page">
     <article>
-      <h1>검색 노출 안내</h1>
-      <p>오늘의 주식은 기능 화면만 있는 사이트가 아니라, 공개 대시보드와 종목 리포트, 주식분석 가이드, 정책 문서를 함께 운영하는 정보 사이트를 목표로 합니다. 검색 노출과 애드센스 승인 역시 이 원칙 위에서 준비합니다.</p>
+      <h1 data-i18n="title_main">검색 노출 안내</h1>
+      <p data-i18n="intro">오늘의 주식은 기능 화면만 모아 둔 사이트가 아니라, 공개 대시보드와 종목 리포트, 주식분석 가이드, 정책 문서를 함께 운영하는 주식 정보 사이트를 목표로 합니다. 검색 노출과 애드센스 승인도 이 구조 위에서 준비합니다.</p>
 
-      <h2>운영 방향</h2>
+      <h2 data-i18n="h2_structure">사이트가 공개하는 문서 구조</h2>
+      <p data-i18n="p_structure">이 사이트는 사용자가 실제로 읽을 수 있는 공개 페이지를 중심으로 구성됩니다. 메인 대시보드는 종목 비교와 흐름 확인에 쓰이고, 종목 리포트는 개별 종목의 가격·뉴스·가치·기술 단서를 묶어 보여주며, 분석 가이드와 방법론 문서는 해석 기준을 설명합니다. 여기에 개인정보처리방침, 이용약관, 투자 고지, 사이트 정보 페이지가 더해져 사이트의 성격과 한계를 분명하게 드러냅니다.</p>
+
+      <h2 data-i18n="h2_quality">콘텐츠 품질 기준</h2>
       <ul>
-        <li>관심종목, 종목스캐너, 급등락, 이평선, 뉴스, 심층분석을 실제 데이터와 함께 공개합니다.</li>
-        <li>정적 설명 문서를 별도로 운영해 기능의 목적과 해석 기준을 함께 제공합니다.</li>
-        <li>투자 권유 표현은 피하고, 정보 제공과 데이터 한계를 분명하게 고지합니다.</li>
+        <li data-i18n="li_quality_1">빈 문서나 의미 없는 템플릿 상태의 페이지를 두지 않습니다.</li>
+        <li data-i18n="li_quality_2">종목이 왜 후보로 남아 있는지, 어떤 조건이 아직 부족한지를 함께 설명하려고 합니다.</li>
+        <li data-i18n="li_quality_3">가치지표나 기술지표가 비어 있으면 억지로 채우지 않고, 확인이 필요하다는 사실 자체를 드러냅니다.</li>
+        <li data-i18n="li_quality_4">정적 문서는 검색용 키워드 나열이 아니라 실제 운영 원칙을 설명하는 문서로 작성합니다.</li>
       </ul>
 
-      <h2>검색엔진에 공개하는 주소</h2>
+      <h2 data-i18n="h2_public">검색엔진에 공개하는 핵심 주소</h2>
       <ul>
-        <li>메인 주소: <code>https://dotoristock.com/</code></li>
-        <li>종목 리포트 목록: <code>https://dotoristock.com/reports/</code></li>
-        <li>사이트맵: <code>https://dotoristock.com/sitemap.xml</code></li>
-        <li>RSS: <code>https://dotoristock.com/rss.xml</code></li>
-        <li>robots.txt: <code>https://dotoristock.com/robots.txt</code></li>
-        <li>ads.txt: <code>https://dotoristock.com/ads.txt</code></li>
+        <li><code>https://dotoristock.com/</code> - 메인 대시보드와 기능 소개</li>
+        <li><code>https://dotoristock.com/reports/</code> - 공개 종목 리포트 목록</li>
+        <li><code>https://dotoristock.com/stock-analysis.html</code> - 주식분석 가이드</li>
+        <li><code>https://dotoristock.com/methodology.html</code> - 분석 방법론</li>
+        <li><code>https://dotoristock.com/about.html</code> - 사이트 정보</li>
+        <li><code>https://dotoristock.com/privacy.html</code>, <code>/terms.html</code>, <code>/disclaimer.html</code> - 정책 문서</li>
+        <li><code>https://dotoristock.com/sitemap.xml</code>, <code>/rss.xml</code>, <code>/robots.txt</code>, <code>/ads.txt</code> - 색인 및 운영 보조 문서</li>
       </ul>
 
-      <h2>콘텐츠 운영 기준</h2>
+      <h2 data-i18n="h2_adsense">애드센스 승인 준비 관점</h2>
+      <p data-i18n="p_adsense">애드센스 기준에서 약하게 보이는 부분은 보통 페이지 수가 아니라 설명의 밀도입니다. 그래서 오늘의 주식은 단순 데이터 껍데기처럼 보이지 않도록, 공개 리포트와 별도로 설명 문서 층을 유지합니다. 방문자는 이 사이트가 무엇을 제공하는지, 무엇을 제공하지 않는지, 종목 리포트가 어떤 재료로 구성되는지, 데이터가 부족할 때는 어떻게 읽어야 하는지를 문서만 읽어도 파악할 수 있어야 합니다.</p>
       <ul>
-        <li>빈 페이지나 설명 없는 템플릿 상태로 두지 않습니다.</li>
-        <li>가격 신호만이 아니라 해석 기준과 리스크도 함께 적습니다.</li>
-        <li>정적 문서, 종목 리포트, 정책 문서가 서로 연결되도록 유지합니다.</li>
-        <li>데이터가 비어 있는 항목은 무리하게 확정 문구로 채우지 않습니다.</li>
+        <li data-i18n="li_adsense_1">정책 문서와 안내 문서가 각자 독립적으로 읽을 만한 분량과 내용을 가져야 합니다.</li>
+        <li data-i18n="li_adsense_2">메인, 리포트, 가이드, 정책 문서 사이의 이동 경로가 명확해야 합니다.</li>
+        <li data-i18n="li_adsense_3">문의 주소와 책임 고지, 개인정보처리방침, 이용약관을 공개 상태로 유지해야 합니다.</li>
+        <li data-i18n="li_adsense_4">같은 문장을 반복하는 얇은 자동 문구만으로 페이지를 채우지 않도록 계속 손봅니다.</li>
       </ul>
 
-      <h2>애드센스 준비 기준</h2>
+      <h2 data-i18n="h2_updates">콘텐츠 유지 방식</h2>
+      <p data-i18n="p_updates">대시보드와 종목 리포트의 데이터는 자주 바뀔 수 있습니다. 하지만 설명 문서 층은 데이터 변동과 별개로 유지합니다. 일부 시장값이 지연되거나 비어 있더라도, 사이트 전체가 여전히 읽을 수 있는 공개 정보 사이트로 남도록 하기 위해서입니다. 이것은 방문자 경험뿐 아니라 검색 품질 평가에도 중요합니다.</p>
+
+      <h2 data-i18n="h2_not_shortcuts">검색 노출을 위한 잘못된 지름길은 쓰지 않습니다</h2>
       <ul>
-        <li>홈, 사이트 정보, 개인정보처리방침, 이용약관, 투자 고지 페이지가 모두 접근 가능해야 합니다.</li>
-        <li>종목 리포트와 주식분석 가이드처럼 방문자가 읽을 수 있는 설명형 페이지를 유지해야 합니다.</li>
-        <li>ads.txt가 공개되어 있어야 하며, 사이트 전체가 정상적으로 크롤링되어야 합니다.</li>
-        <li>자동 생성처럼 보이는 얇은 문구만 반복되지 않도록 정적 설명층을 지속적으로 보강해야 합니다.</li>
+        <li data-i18n="li_not_1">검색어를 과도하게 반복하는 방식으로 콘텐츠를 채우지 않습니다.</li>
+        <li data-i18n="li_not_2">페이지 수만 늘리기 위한 빈 카테고리 페이지를 만들지 않습니다.</li>
+        <li data-i18n="li_not_3">지연되거나 부족한 데이터를 확정값처럼 포장하지 않습니다.</li>
+        <li data-i18n="li_not_4">광고가 붙는 것 자체를 사이트 품질의 근거로 보지 않습니다.</li>
       </ul>
+
+      <h2 data-i18n="h2_contact">문의</h2>
+      <p data-i18n="p_contact">크롤링, 색인, 콘텐츠 오류, 누락 페이지, 정책 문서 수정과 관련한 문의는 230ru6875@gmail.com 으로 보내면 됩니다.</p>
     </article>
   </main>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p>(c) 2026 <span data-i18n="brand">오늘의 주식</span></p>
+      <div><a href="./privacy.html" data-i18n="footer_privacy">개인정보처리방침</a><a href="./terms.html" data-i18n="footer_terms">이용약관</a><a href="./disclaimer.html" data-i18n="footer_disclaimer">투자 고지</a></div>
+    </div>
+  </footer>
 </body>
 </html>
