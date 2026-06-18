@@ -269,6 +269,69 @@ def page_shell(
     schema_html = ""
     if schema:
         schema_html = "\n  <script type=\"application/ld+json\">\n  " + json.dumps(schema, ensure_ascii=False, indent=2).replace("\n", "\n  ") + "\n  </script>"
+    i18n_bundle = {
+        "en": {
+            "text": {
+                "nav.home": "Home",
+                "nav.reports": "Stock Reports",
+                "nav.about": "About",
+                "nav.disclaimer": "Disclaimer",
+                "footer.privacy": "Privacy Policy",
+                "footer.terms": "Terms",
+                "footer.disclaimer": "Disclaimer",
+                "report.breadcrumb": "Stock Reports",
+                "report.notice": "This page is a public information report. It is not a buy, sell, or hold recommendation, and original news and disclosures should be checked before making a decision.",
+                "report.summary": "Summary",
+                "report.item": "Stock",
+                "report.market": "Market",
+                "report.price": "Current Price",
+                "report.signal": "Signal",
+                "report.range": "Expected Range",
+                "report.sections": "Source Sections",
+                "report.updated": "Updated",
+                "report.priceTrend": "Price and Trend",
+                "report.valuation": "Valuation",
+                "report.technical": "Technical Indicators and Volume",
+                "report.marketNote": "Market Context",
+                "report.news": "Related News",
+                "report.missing": "Remaining Checks",
+                "report.clues": "Evidence",
+                "report.confirmations": "Additional Checks",
+                "report.howToRead": "How to Read",
+                "report.howToReadText": "This report is closer to a checklist than a scorecard. Even if a signal looks strong, judgment quality improves only when you also confirm fundamentals, technical indicators, news, FX, and disclosures.",
+                "reports.title": "Stock Reports",
+                "reports.historyLink": "View archived report batches",
+                "history.title": "Report History",
+                "history.breadcrumb": "History",
+                "history.filter": "Date Filter",
+                "history.all": "All",
+                "history.count": "Report Count",
+                "history.date": "Base Date",
+                "history.empty": "No archived history yet.",
+            },
+            "html": {
+                "reports.description": f"These reports are built from the public stock data available on {SITE_NAME}. They show not only price and signal, but also why a name remains a candidate and which values are still missing.",
+                "snapshot.description": "This page is an archive of the reports generated at that time. Use it when comparing earlier views with current ones.",
+                "history.description": "This page keeps archived report batches by generation time so you can compare earlier results with the latest set.",
+            },
+            "values": {
+                "market": {
+                    "국내": "Korea",
+                    "미국": "United States",
+                },
+                "signal": {
+                    "관찰": "Watch",
+                    "관찰 추적": "Watch",
+                    "일부 방어": "Partial Support",
+                    "추세 훼손": "Trend Damage",
+                    "강한 매수": "Strong Buy",
+                    "매수": "Buy",
+                    "주의": "Caution",
+                    "매도": "Sell",
+                },
+            },
+        }
+    }
     return f"""<!doctype html>
 <html lang="ko">
 <head>
@@ -289,6 +352,10 @@ def page_shell(
   <meta name="twitter:title" content="{esc(title)}">
   <meta name="twitter:description" content="{esc(description)}">
   <link rel="stylesheet" href="{esc(asset_prefix)}styles.css">
+  <script>
+    window.DOTORI_I18N = {json.dumps(i18n_bundle, ensure_ascii=False)};
+  </script>
+  <script src="{esc(asset_prefix)}assets/site-i18n.js" defer></script>
   {schema_html}
 </head>
 <body>
@@ -296,10 +363,10 @@ def page_shell(
     <nav class="nav">
       <a class="brand" href="{esc(home_href)}">{esc(SITE_NAME)}</a>
       <div class="nav-links">
-        <a href="{esc(home_href)}">홈</a>
-        <a href="{esc(reports_href)}">종목 리포트</a>
-        <a href="{esc(about_href)}">사이트 정보</a>
-        <a href="{esc(disclaimer_href)}">투자 고지</a>
+        <a href="{esc(home_href)}" data-i18n="nav.home">홈</a>
+        <a href="{esc(reports_href)}" data-i18n="nav.reports">종목 리포트</a>
+        <a href="{esc(about_href)}" data-i18n="nav.about">사이트 정보</a>
+        <a href="{esc(disclaimer_href)}" data-i18n="nav.disclaimer">투자 고지</a>
       </div>
     </nav>
   </header>
@@ -309,7 +376,7 @@ def page_shell(
   <footer class="site-footer">
     <div class="footer-inner">
       <p>(c) 2026 {esc(SITE_NAME)}</p>
-      <div><a href="{esc(privacy_href)}">개인정보처리방침</a><a href="{esc(terms_href)}">이용약관</a><a href="{esc(disclaimer_href)}">투자 고지</a></div>
+      <div><a href="{esc(privacy_href)}" data-i18n="footer.privacy">개인정보처리방침</a><a href="{esc(terms_href)}" data-i18n="footer.terms">이용약관</a><a href="{esc(disclaimer_href)}" data-i18n="footer.disclaimer">투자 고지</a></div>
     </div>
   </footer>
 </body>
@@ -529,8 +596,8 @@ def report_body(item: dict, snapshot: dict, *, reports_home_href: str = "./") ->
     sections = section_labels(item)
     val_rows = valuation_rows(item)
     tech_rows = technical_rows(item)
-    pred_row = f"<tr><th>예상 범위</th><td>{esc(pred)}</td></tr>" if pred != "-" else ""
-    section_row = f"<tr><th>반영 화면</th><td>{esc(sections)}</td></tr>" if sections else ""
+    pred_row = f'<tr><th data-i18n="report.range">예상 범위</th><td>{esc(pred)}</td></tr>' if pred != "-" else ""
+    section_row = f'<tr><th data-i18n="report.sections">반영 화면</th><td>{esc(sections)}</td></tr>' if sections else ""
     evidence = item.get("evidence") if isinstance(item.get("evidence"), dict) else {}
     clues = evidence.get("clues") if isinstance(evidence.get("clues"), list) else []
     clue_list = "".join(f"<li>{esc(clue)}</li>" for clue in clues[:5] if is_meaningful(clue))
@@ -539,52 +606,52 @@ def report_body(item: dict, snapshot: dict, *, reports_home_href: str = "./") ->
 
     extra_sections = ""
     if clue_list:
-        extra_sections += f"<h2>근거 단서</h2><ul>{clue_list}</ul>"
+        extra_sections += f'<h2 data-i18n="report.clues">근거 단서</h2><ul>{clue_list}</ul>'
     if confirmation_list:
-        extra_sections += f"<h2>추가 확인 조건</h2><ul>{confirmation_list}</ul>"
+        extra_sections += f'<h2 data-i18n="report.confirmations">추가 확인 조건</h2><ul>{confirmation_list}</ul>'
 
     return f"""<article>
-      <p class="breadcrumb"><a href="{esc(reports_home_href)}">종목 리포트</a> / {esc(symbol)}</p>
+      <p class="breadcrumb"><a href="{esc(reports_home_href)}" data-i18n="report.breadcrumb">종목 리포트</a> / {esc(symbol)}</p>
       <h1>{esc(name)} 분석결과</h1>
-      <p class="notice">이 페이지는 정보 제공 목적의 공개 리포트입니다. 특정 종목의 매수, 매도, 보유를 권유하지 않으며 실제 판단 전에는 원문 뉴스와 공시를 다시 확인해야 합니다.</p>
+      <p class="notice" data-i18n="report.notice">이 페이지는 정보 제공 목적의 공개 리포트입니다. 특정 종목의 매수, 매도, 보유를 권유하지 않으며 실제 판단 전에는 원문 뉴스와 공시를 다시 확인해야 합니다.</p>
 
-      <h2>요약</h2>
+      <h2 data-i18n="report.summary">요약</h2>
       <table class="plain-table">
         <tbody>
-          <tr><th>종목</th><td>{esc(name)}</td></tr>
-          <tr><th>시장</th><td>{esc(market)}</td></tr>
-          <tr><th>현재가</th><td>{esc(current)}</td></tr>
-          <tr><th>상태 표시</th><td>{esc(signal)}</td></tr>
+          <tr><th data-i18n="report.item">종목</th><td>{esc(name)}</td></tr>
+          <tr><th data-i18n="report.market">시장</th><td data-i18n-value="market">{esc(market)}</td></tr>
+          <tr><th data-i18n="report.price">현재가</th><td>{esc(current)}</td></tr>
+          <tr><th data-i18n="report.signal">상태 표시</th><td data-i18n-value="signal">{esc(signal)}</td></tr>
           {pred_row}
           {section_row}
-          <tr><th>갱신 시각</th><td>{esc(updated)}</td></tr>
+          <tr><th data-i18n="report.updated">갱신 시각</th><td>{esc(updated)}</td></tr>
         </tbody>
       </table>
 
-      <h2>가격과 추세</h2>
+      <h2 data-i18n="report.priceTrend">가격과 추세</h2>
       <p>{esc(trend_paragraph(item))}</p>
 
-      <h2>밸류에이션</h2>
+      <h2 data-i18n="report.valuation">밸류에이션</h2>
       <p>{esc(valuation_paragraph(item, val_rows))}</p>
       {table_html(val_rows)}
 
-      <h2>기술지표와 거래량</h2>
+      <h2 data-i18n="report.technical">기술지표와 거래량</h2>
       <p>{esc(technical_paragraph(item, tech_rows))}</p>
       {table_html(tech_rows)}
 
-      <h2>시장 참고 지표</h2>
+      <h2 data-i18n="report.marketNote">시장 참고 지표</h2>
       <p>{esc(market_note(snapshot))}. 환율과 지수 흐름이 큰 날은 같은 가격대라도 체감 리스크가 달라질 수 있습니다.</p>
 
-      <h2>관련 뉴스</h2>
+      <h2 data-i18n="report.news">관련 뉴스</h2>
       {related_news_html(item, snapshot)}
 
-      <h2>남은 확인 항목</h2>
+      <h2 data-i18n="report.missing">남은 확인 항목</h2>
       <p>{esc(missing_checks_paragraph(item))}</p>
 
       {extra_sections}
 
-      <h2>읽는 방법</h2>
-      <p>이 리포트는 점수표가 아니라 점검표에 가깝습니다. 상태 표시가 강하게 보이더라도 재무지표, 기술지표, 뉴스, 환율, 공시를 함께 확인해야 실제 판단의 질이 올라갑니다.</p>
+      <h2 data-i18n="report.howToRead">읽는 방법</h2>
+      <p data-i18n="report.howToReadText">이 리포트는 점수표가 아니라 점검표에 가깝습니다. 상태 표시가 강하게 보이더라도 재무지표, 기술지표, 뉴스, 환율, 공시를 함께 확인해야 실제 판단의 질이 올라갑니다.</p>
     </article>"""
 
 
@@ -610,9 +677,9 @@ def load_history_manifest() -> list[dict]:
 
 def build_report_index(cards: list[str]) -> str:
     return f"""<article>
-      <h1>종목 리포트</h1>
-      <p>{SITE_NAME}에서 공개 가능한 종목 데이터를 기준으로 만든 리포트 목록입니다. 가격과 신호만이 아니라, 왜 후보로 남아 있는지와 어떤 값이 아직 부족한지를 함께 확인할 수 있게 정리했습니다.</p>
-      <p><a href="./history/">이전 생성 자료 목록 보기</a></p>
+      <h1 data-i18n="reports.title">종목 리포트</h1>
+      <p data-i18n-html="reports.description">{SITE_NAME}에서 공개 가능한 종목 데이터를 기준으로 만든 리포트 목록입니다. 가격과 신호만이 아니라, 왜 후보로 남아 있는지와 어떤 값이 아직 부족한지를 함께 확인할 수 있게 정리했습니다.</p>
+      <p><a href="./history/" data-i18n="reports.historyLink">이전 생성 자료 목록 보기</a></p>
       <div class="info-grid report-index-grid">{''.join(cards)}</div>
     </article>"""
 
@@ -631,13 +698,13 @@ def write_history_snapshot(batch_id: str, generated_meta: list[dict], now_local:
     (batch_dir / "summary.json").write_text(json.dumps(snapshot_summary, ensure_ascii=False, indent=2), encoding="utf-8", newline="\n")
 
     cards = "".join(
-        f"""<article class="info-card"><h2><a href="./{esc(row['filename'])}">{esc(row['name'])}</a></h2><p>현재가: {esc(row['price'])}</p><p>상태 표시: {esc(row['signal'])}</p><p>{esc(row['summary'])}</p></article>"""
+        f"""<article class="info-card"><h2><a href="./{esc(row['filename'])}">{esc(row['name'])}</a></h2><p><span data-i18n="report.price">현재가</span>: {esc(row['price'])}</p><p><span data-i18n="report.signal">상태 표시</span>: <span data-i18n-value="signal">{esc(row['signal'])}</span></p><p>{esc(row['summary'])}</p></article>"""
         for row in generated_meta
     )
     snapshot_body = f"""<article>
-      <p class="breadcrumb"><a href="../">생성 이력</a> / {esc(batch_id)}</p>
+      <p class="breadcrumb"><a href="../" data-i18n="history.breadcrumb">생성 이력</a> / {esc(batch_id)}</p>
       <h1>종목 리포트 생성 이력 {esc(now_local.strftime("%Y-%m-%d %H:%M:%S"))}</h1>
-      <p>이 페이지는 해당 시점에 생성된 종목 리포트를 묶어 둔 아카이브입니다. 과거 판단과 현재 판단을 비교할 때 참고용으로 보시면 됩니다.</p>
+      <p data-i18n-html="snapshot.description">이 페이지는 해당 시점에 생성된 종목 리포트를 묶어 둔 아카이브입니다. 과거 판단과 현재 판단을 비교할 때 참고용으로 보시면 됩니다.</p>
       <div class="info-grid report-index-grid">{cards}</div>
     </article>"""
     (batch_dir / "index.html").write_text(
@@ -679,7 +746,7 @@ def write_history_snapshot(batch_id: str, generated_meta: list[dict], now_local:
 def write_history_index(manifest: list[dict]) -> None:
     HISTORY_DIR.mkdir(exist_ok=True)
     available_dates = sorted({clean_text(entry.get("date")) for entry in manifest if clean_text(entry.get("date"))}, reverse=True)
-    filter_buttons = ['<button type="button" class="history-filter-button active" data-filter-date="all">전체</button>']
+    filter_buttons = ['<button type="button" class="history-filter-button active" data-filter-date="all" data-i18n="history.all">전체</button>']
     filter_buttons.extend(
         f'<button type="button" class="history-filter-button" data-filter-date="{esc(date)}">{esc(date)}</button>'
         for date in available_dates
@@ -694,12 +761,12 @@ def write_history_index(manifest: list[dict]) -> None:
         )
         entry_date = clean_text(entry.get("date"))
         sections.append(
-            f"""<article class="info-card history-entry" data-history-date="{esc(entry_date)}"><h2><a href="./{esc(entry.get('batchId'))}/">{esc(entry.get('generatedAt'))}</a></h2><p>생성 종목 수: {esc(entry.get('count'))}</p><p>기준 날짜: {esc(entry_date)}</p><ul>{top_lines}</ul></article>"""
+            f"""<article class="info-card history-entry" data-history-date="{esc(entry_date)}"><h2><a href="./{esc(entry.get('batchId'))}/">{esc(entry.get('generatedAt'))}</a></h2><p><span data-i18n="history.count">생성 종목 수</span>: {esc(entry.get('count'))}</p><p><span data-i18n="history.date">기준 날짜</span>: {esc(entry_date)}</p><ul>{top_lines}</ul></article>"""
         )
 
     filter_ui = f"""
       <div class="history-filter-wrap">
-        <strong>날짜 필터</strong>
+        <strong data-i18n="history.filter">날짜 필터</strong>
         <div class="history-filter-buttons">{''.join(filter_buttons)}</div>
       </div>
     """
@@ -723,10 +790,10 @@ def write_history_index(manifest: list[dict]) -> None:
       </script>
     """
     body = f"""<article>
-      <h1>종목 리포트 생성 이력</h1>
-      <p>생성 시점별로 보관한 종목 리포트 목록입니다. 최신 리포트와 별도로, 날짜를 골라 이전 결과를 비교할 수 있게 구성했습니다.</p>
+      <h1 data-i18n="history.title">종목 리포트 생성 이력</h1>
+      <p data-i18n-html="history.description">생성 시점별로 보관한 종목 리포트 목록입니다. 최신 리포트와 별도로, 날짜를 골라 이전 결과를 비교할 수 있게 구성했습니다.</p>
       {filter_ui}
-      <div class="info-grid report-index-grid">{''.join(sections) or '<p>아직 저장된 이력이 없습니다.</p>'}</div>
+      <div class="info-grid report-index-grid">{''.join(sections) or '<p data-i18n="history.empty">아직 저장된 이력이 없습니다.</p>'}</div>
     </article>{script}"""
 
     (HISTORY_DIR / "index.html").write_text(
@@ -812,7 +879,7 @@ def build_reports() -> list[str]:
         current_signal = clean_text(item.get("signal") or item.get("decision") or nested_value(item, "watchlist", "signal") or "관찰")
         current_summary = pick_summary_text(item)
         cards.append(
-            f"""<article class="info-card"><h2><a href="./{esc(filename)}">{esc(item['displayName'])}</a></h2><p>현재가: {esc(current_price)}</p><p>상태 표시: {esc(current_signal)}</p><p>{esc(current_summary)}</p></article>"""
+            f"""<article class="info-card"><h2><a href="./{esc(filename)}">{esc(item['displayName'])}</a></h2><p><span data-i18n="report.price">현재가</span>: {esc(current_price)}</p><p><span data-i18n="report.signal">상태 표시</span>: <span data-i18n-value="signal">{esc(current_signal)}</span></p><p>{esc(current_summary)}</p></article>"""
         )
         generated_meta.append(
             {
