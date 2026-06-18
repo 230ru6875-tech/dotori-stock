@@ -855,6 +855,7 @@ def update_sitemap(generated: list[str]) -> None:
     urls = [
         (f"{SITE_URL}/", "daily", "1.0"),
         (f"{SITE_URL}/stock-analysis.html", "weekly", "0.8"),
+        (f"{SITE_URL}/methodology.html", "weekly", "0.8"),
         (f"{SITE_URL}/reports/", "daily", "0.8"),
         (f"{SITE_URL}/reports/history/", "weekly", "0.4"),
         (f"{SITE_URL}/about.html", "monthly", "0.7"),
