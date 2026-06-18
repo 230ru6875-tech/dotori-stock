@@ -1800,7 +1800,8 @@ function renderDashboard() {
         const path = String(item?.path || "").trim() || `/daily/${escapeHtml(item?.slug || "")}.html`;
         const rawSummary = String(item?.summary || "").trim();
         const markerMatch = rawSummary.match(/\/\s*(이번\s+구간에는[\s\S]*)/);
-        const content = markerMatch ? markerMatch[1].trim() : rawSummary;
+        const focusSummary = markerMatch ? markerMatch[1].trim() : rawSummary;
+        const content = [item?.windowLabel, focusSummary].filter(Boolean).join(" / ");
         return `<tr><td>${escapeHtml(item?.date || "-")}</td><td>${escapeHtml(content || "-")}</td><td><a href="${path}" target="_blank" rel="noopener">확인하기</a></td></tr>`;
       }).join("")
       : `<tr><td colspan="3">선택한 날짜 범위와 검색어에 맞는 오늘시황 문서가 없습니다.</td></tr>`;
