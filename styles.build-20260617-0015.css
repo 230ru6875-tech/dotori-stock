@@ -675,6 +675,13 @@ button:hover {
   border-bottom: 0;
 }
 
+.daily-digest-table th:last-child,
+.daily-digest-table td:last-child {
+  text-align: center;
+  white-space: nowrap;
+  width: 96px;
+}
+
 .scanner-table {
   table-layout: fixed;
   min-width: 1280px;

@@ -1798,15 +1798,13 @@ function renderDashboard() {
     const rows = filtered.length
       ? filtered.map((item) => {
         const path = String(item?.path || "").trim() || `/daily/${escapeHtml(item?.slug || "")}.html`;
-        const content = [
-          item?.windowLabel,
-          item?.summary,
-          `스캐너 ${Number(item?.scannerCount || 0)}건 | 뉴스 ${Number(item?.newsCount || 0)}건 | 강한 매수 ${Number(item?.strongBuyReports || 0)}건`
-        ].filter(Boolean).join(" / ");
-        return `<tr><td>${escapeHtml(item?.date || "-")}</td><td><strong>${escapeHtml(item?.title || item?.date || "-")}</strong></td><td>${escapeHtml(content || "-")}</td><td><a href="${path}" target="_blank" rel="noopener">열기</a></td></tr>`;
+        const rawSummary = String(item?.summary || "").trim();
+        const markerMatch = rawSummary.match(/\/\s*(이번\s+구간에는[\s\S]*)/);
+        const content = markerMatch ? markerMatch[1].trim() : rawSummary;
+        return `<tr><td>${escapeHtml(item?.date || "-")}</td><td>${escapeHtml(content || "-")}</td><td><a href="${path}" target="_blank" rel="noopener">확인하기</a></td></tr>`;
       }).join("")
-      : `<tr><td colspan="4">선택한 날짜 범위와 검색어에 맞는 오늘시황 문서가 없습니다.</td></tr>`;
-    grid.innerHTML = `${dailyDigestControlsHtml(active)}<div class="table-card"><table class="data-table"><thead><tr><th>일자</th><th>제목</th><th>내용</th><th>링크</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+      : `<tr><td colspan="3">선택한 날짜 범위와 검색어에 맞는 오늘시황 문서가 없습니다.</td></tr>`;
+    grid.innerHTML = `${dailyDigestControlsHtml(active)}<div class="table-card"><table class="data-table daily-digest-table"><thead><tr><th>일자</th><th>내용</th><th>확인하기</th></tr></thead><tbody>${rows}</tbody></table></div>`;
   } else if (state.activeSection === "learning") {
     grid.innerHTML = renderCards(active, (item) => `<article class="data-card"><div class="card-top"><strong>${item.topic}</strong><em>${T.learning}</em></div><p>${item.lesson}</p></article>`);
   } else if (state.activeSection === "spikes") {
