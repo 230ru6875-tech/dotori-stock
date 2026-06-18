@@ -121,15 +121,6 @@ a:hover {
   margin-bottom: 8px;
 }
 
-.daily-history-grid {
-  align-items: stretch;
-}
-
-.daily-card.featured {
-  border-color: #bfd7d2;
-  box-shadow: 0 10px 24px rgba(15, 118, 110, 0.08);
-}
-
 .daily-window {
   color: var(--muted);
   font-size: 14px;
@@ -140,6 +131,73 @@ a:hover {
 .daily-links {
   font-size: 14px;
   margin-top: 10px;
+}
+
+.daily-showcase-band {
+  background: #ffffff;
+  border-bottom: 1px solid var(--line);
+}
+
+.daily-showcase-head,
+.daily-section-head {
+  margin-bottom: 18px;
+}
+
+.daily-showcase-head h2,
+.daily-section-head h3 {
+  margin-bottom: 8px;
+}
+
+.daily-history-list {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scroll-snap-type: x proximity;
+}
+
+.daily-list-row {
+  align-items: flex-start;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  display: flex;
+  flex: 0 0 560px;
+  gap: 18px;
+  justify-content: space-between;
+  max-width: 86vw;
+  padding: 16px 18px;
+  scroll-snap-align: start;
+}
+
+.daily-list-row.featured {
+  border-color: #bfd7d2;
+  box-shadow: 0 10px 24px rgba(15, 118, 110, 0.08);
+}
+
+.daily-list-main {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.daily-list-side {
+  flex: 0 0 260px;
+}
+
+.daily-list-title-row {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.daily-list-title-row strong {
+  font-size: 18px;
+}
+
+.daily-list-summary {
+  margin: 0;
 }
 
 .hero {
