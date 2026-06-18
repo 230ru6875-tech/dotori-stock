@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>종목 리포트 생성 이력 | 오늘의 주식</title>
-  <meta name="description" content="과거 생성 리포트 목록을 확인하는 아카이브 페이지입니다.">
+  <meta name="description" content="과거 생성 리포트 목록을 날짜별로 확인하는 아카이브 페이지입니다.">
   <meta name="robots" content="noindex, follow">
   <link rel="canonical" href="https://dotoristock.com/reports/history/">
   <link rel="alternate" type="application/rss+xml" title="오늘의 주식 RSS" href="https://dotoristock.com/rss.xml">
@@ -12,11 +12,11 @@
   <meta property="og:locale" content="ko_KR">
   <meta property="og:site_name" content="오늘의 주식">
   <meta property="og:title" content="종목 리포트 생성 이력 | 오늘의 주식">
-  <meta property="og:description" content="과거 생성 리포트 목록을 확인하는 아카이브 페이지입니다.">
+  <meta property="og:description" content="과거 생성 리포트 목록을 날짜별로 확인하는 아카이브 페이지입니다.">
   <meta property="og:url" content="https://dotoristock.com/reports/history/">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="종목 리포트 생성 이력 | 오늘의 주식">
-  <meta name="twitter:description" content="과거 생성 리포트 목록을 확인하는 아카이브 페이지입니다.">
+  <meta name="twitter:description" content="과거 생성 리포트 목록을 날짜별로 확인하는 아카이브 페이지입니다.">
   <link rel="stylesheet" href="../../styles.css">
   
 </head>
@@ -35,9 +35,33 @@
   <main class="plain-page">
     <article>
       <h1>종목 리포트 생성 이력</h1>
-      <p>생성 시점마다 보관한 종목 리포트 목록입니다. 최신 리포트와 별도로 이전 결과를 비교할 수 있도록 유지합니다.</p>
-      <div class="info-grid report-index-grid"><article class="info-card"><h2><a href="./20260618-101130/">2026-06-18T10:11:30+09:00</a></h2><p>생성 종목 수: 24</p><ul><li>LG이노텍(011070) | 1,291,000원 | 강한 매수</li><li>MICRON TECHNOLOGY INC(MU) | $1,080.16 | 강한 매수</li><li>ADVANCED MICRO DEVICES INC(AMD) | $524.53 | 강한 매수</li><li>CROWDSTRIKE HOLDINGS INC(CRWD) | $686.60 | 강한 매수</li><li>GOLDMAN SACHS GROUP INC(GS) | $1,101.99 | 강한 매수</li></ul></article></div>
+      <p>생성 시점별로 보관한 종목 리포트 목록입니다. 최신 리포트와 별도로, 날짜를 골라 이전 결과를 비교할 수 있게 구성했습니다.</p>
+      
+      <div class="history-filter-wrap">
+        <strong>날짜 필터</strong>
+        <div class="history-filter-buttons"><button type="button" class="history-filter-button active" data-filter-date="all">전체</button><button type="button" class="history-filter-button" data-filter-date="2026-06-18">2026-06-18</button></div>
+      </div>
+    
+      <div class="info-grid report-index-grid"><article class="info-card history-entry" data-history-date="2026-06-18"><h2><a href="./20260618-103244/">2026-06-18T10:32:44+09:00</a></h2><p>생성 종목 수: 24</p><p>기준 날짜: 2026-06-18</p><ul><li>LG이노텍(011070) | 1,243,000원 | 강한 매수</li><li>MICRON TECHNOLOGY INC(MU) | $1,080.16 | 강한 매수</li><li>한미반도체(042700) | 331,250원 | 관찰</li><li>대덕전자(353200) | 169,800원 | 강한 매수</li><li>KB금융(105560) | 160,200원 | 강한 매수</li></ul></article><article class="info-card history-entry" data-history-date="2026-06-18"><h2><a href="./20260618-103030/">2026-06-18T10:30:30+09:00</a></h2><p>생성 종목 수: 24</p><p>기준 날짜: 2026-06-18</p><ul><li>LG이노텍(011070) | 1,243,000원 | 강한 매수</li><li>MICRON TECHNOLOGY INC(MU) | $1,080.16 | 강한 매수</li><li>한미반도체(042700) | 331,250원 | 관찰</li><li>대덕전자(353200) | 169,800원 | 강한 매수</li><li>KB금융(105560) | 160,200원 | 강한 매수</li></ul></article><article class="info-card history-entry" data-history-date="2026-06-18"><h2><a href="./20260618-103008/">2026-06-18T10:30:08+09:00</a></h2><p>생성 종목 수: 24</p><p>기준 날짜: 2026-06-18</p><ul><li>LG이노텍(011070) | 1,243,000원 | 강한 매수</li><li>MICRON TECHNOLOGY INC(MU) | $1,080.16 | 강한 매수</li><li>한미반도체(042700) | 331,250원 | 관찰</li><li>대덕전자(353200) | 169,800원 | 강한 매수</li><li>KB금융(105560) | 160,200원 | 강한 매수</li></ul></article><article class="info-card history-entry" data-history-date="2026-06-18"><h2><a href="./20260618-102823/">2026-06-18T10:28:23+09:00</a></h2><p>생성 종목 수: 24</p><p>기준 날짜: 2026-06-18</p><ul><li>LG이노텍(011070) | 1,243,000원 | 강한 매수</li><li>MICRON TECHNOLOGY INC(MU) | $1,080.16 | 강한 매수</li><li>ADVANCED MICRO DEVICES INC(AMD) | $524.53 | 강한 매수</li><li>CROWDSTRIKE HOLDINGS INC(CRWD) | $686.60 | 강한 매수</li><li>GOLDMAN SACHS GROUP INC(GS) | $1,101.99 | 강한 매수</li></ul></article><article class="info-card history-entry" data-history-date="2026-06-18"><h2><a href="./20260618-102659/">2026-06-18T10:26:59+09:00</a></h2><p>생성 종목 수: 24</p><p>기준 날짜: 2026-06-18</p><ul><li>LG이노텍(011070) | 1,243,000원 | 강한 매수</li><li>MICRON TECHNOLOGY INC(MU) | $1,080.16 | 강한 매수</li><li>ADVANCED MICRO DEVICES INC(AMD) | $524.53 | 강한 매수</li><li>CROWDSTRIKE HOLDINGS INC(CRWD) | $686.60 | 강한 매수</li><li>GOLDMAN SACHS GROUP INC(GS) | $1,101.99 | 강한 매수</li></ul></article><article class="info-card history-entry" data-history-date="2026-06-18"><h2><a href="./20260618-102606/">2026-06-18T10:26:06+09:00</a></h2><p>생성 종목 수: 24</p><p>기준 날짜: 2026-06-18</p><ul><li>LG이노텍(011070) | 1,243,000원 | 강한 매수</li><li>MICRON TECHNOLOGY INC(MU) | $1,080.16 | 강한 매수</li><li>ADVANCED MICRO DEVICES INC(AMD) | $524.53 | 강한 매수</li><li>CROWDSTRIKE HOLDINGS INC(CRWD) | $686.60 | 강한 매수</li><li>GOLDMAN SACHS GROUP INC(GS) | $1,101.99 | 강한 매수</li></ul></article><article class="info-card history-entry" data-history-date="2026-06-18"><h2><a href="./20260618-102329/">2026-06-18T10:23:29+09:00</a></h2><p>생성 종목 수: 24</p><p>기준 날짜: 2026-06-18</p><ul><li>LG이노텍(011070) | 1,291,000원 | 강한 매수</li><li>MICRON TECHNOLOGY INC(MU) | $1,080.16 | 강한 매수</li><li>ADVANCED MICRO DEVICES INC(AMD) | $524.53 | 강한 매수</li><li>CROWDSTRIKE HOLDINGS INC(CRWD) | $686.60 | 강한 매수</li><li>GOLDMAN SACHS GROUP INC(GS) | $1,101.99 | 강한 매수</li></ul></article><article class="info-card history-entry" data-history-date="2026-06-18"><h2><a href="./20260618-102313/">2026-06-18T10:23:13+09:00</a></h2><p>생성 종목 수: 24</p><p>기준 날짜: 2026-06-18</p><ul><li>LG이노텍(011070) | 1,291,000원 | 강한 매수</li><li>MICRON TECHNOLOGY INC(MU) | $1,080.16 | 강한 매수</li><li>ADVANCED MICRO DEVICES INC(AMD) | $524.53 | 강한 매수</li><li>CROWDSTRIKE HOLDINGS INC(CRWD) | $686.60 | 강한 매수</li><li>GOLDMAN SACHS GROUP INC(GS) | $1,101.99 | 강한 매수</li></ul></article><article class="info-card history-entry" data-history-date="2026-06-18"><h2><a href="./20260618-102145/">2026-06-18T10:21:45+09:00</a></h2><p>생성 종목 수: 24</p><p>기준 날짜: 2026-06-18</p><ul><li>LG이노텍(011070) | 1,291,000원 | 강한 매수</li><li>MICRON TECHNOLOGY INC(MU) | $1,080.16 | 강한 매수</li><li>ADVANCED MICRO DEVICES INC(AMD) | $524.53 | 강한 매수</li><li>CROWDSTRIKE HOLDINGS INC(CRWD) | $686.60 | 강한 매수</li><li>GOLDMAN SACHS GROUP INC(GS) | $1,101.99 | 강한 매수</li></ul></article><article class="info-card history-entry" data-history-date="2026-06-18"><h2><a href="./20260618-102132/">2026-06-18T10:21:32+09:00</a></h2><p>생성 종목 수: 24</p><p>기준 날짜: 2026-06-18</p><ul><li>LG이노텍(011070) | 1,291,000원 | 강한 매수</li><li>MICRON TECHNOLOGY INC(MU) | $1,080.16 | 강한 매수</li><li>ADVANCED MICRO DEVICES INC(AMD) | $524.53 | 강한 매수</li><li>CROWDSTRIKE HOLDINGS INC(CRWD) | $686.60 | 강한 매수</li><li>GOLDMAN SACHS GROUP INC(GS) | $1,101.99 | 강한 매수</li></ul></article><article class="info-card history-entry" data-history-date="2026-06-18"><h2><a href="./20260618-101849/">2026-06-18T10:18:49+09:00</a></h2><p>생성 종목 수: 24</p><p>기준 날짜: 2026-06-18</p><ul><li>LG이노텍(011070) | 1,291,000원 | 강한 매수</li><li>MICRON TECHNOLOGY INC(MU) | $1,080.16 | 강한 매수</li><li>ADVANCED MICRO DEVICES INC(AMD) | $524.53 | 강한 매수</li><li>CROWDSTRIKE HOLDINGS INC(CRWD) | $686.60 | 강한 매수</li><li>GOLDMAN SACHS GROUP INC(GS) | $1,101.99 | 강한 매수</li></ul></article><article class="info-card history-entry" data-history-date="2026-06-18"><h2><a href="./20260618-101130/">2026-06-18T10:11:30+09:00</a></h2><p>생성 종목 수: 24</p><p>기준 날짜: 2026-06-18</p><ul><li>LG이노텍(011070) | 1,291,000원 | 강한 매수</li><li>MICRON TECHNOLOGY INC(MU) | $1,080.16 | 강한 매수</li><li>ADVANCED MICRO DEVICES INC(AMD) | $524.53 | 강한 매수</li><li>CROWDSTRIKE HOLDINGS INC(CRWD) | $686.60 | 강한 매수</li><li>GOLDMAN SACHS GROUP INC(GS) | $1,101.99 | 강한 매수</li></ul></article></div>
     </article>
+      <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const buttons = Array.from(document.querySelectorAll('[data-filter-date]'));
+        const cards = Array.from(document.querySelectorAll('[data-history-date]'));
+        buttons.forEach(function (button) {
+          button.addEventListener('click', function () {
+            const target = button.getAttribute('data-filter-date');
+            buttons.forEach(function (other) { other.classList.remove('active'); });
+            button.classList.add('active');
+            cards.forEach(function (card) {
+              const cardDate = card.getAttribute('data-history-date');
+              card.style.display = target === 'all' || target === cardDate ? '' : 'none';
+            });
+          });
+        });
+      });
+      </script>
+    
   </main>
   <footer class="site-footer">
     <div class="footer-inner">
