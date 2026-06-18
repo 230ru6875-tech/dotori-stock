@@ -1749,9 +1749,14 @@ function renderDashboard() {
   const exchangeRate = el("#exchangeRate");
   const exchangeNote = el("#exchangeNote");
   setBrandUpdatedAt(data.updatedAt);
-  if (updatedAt) updatedAt.textContent = fmtDateTimeSeconds(new Date().toISOString());
-  if (exchangeRate) exchangeRate.textContent = `${data.exchangeRate.value} ${data.exchangeRate.change}`;
-  if (exchangeNote) exchangeNote.textContent = data.exchangeRate.note || "\uc6b4\uc601 \ub370\uc774\ud130 \uae30\uc900\uc73c\ub85c 5\ucd08\ub9c8\ub2e4 \ud654\uba74\uc744 \uac31\uc2e0\ud569\ub2c8\ub2e4.";
+  const rate = data.exchangeRate || {};
+  if (updatedAt) updatedAt.textContent = fmtDateTimeSeconds(data.updatedAt);
+  if (exchangeRate) exchangeRate.textContent = [rate.value, rate.change].filter(Boolean).join(" ");
+  if (exchangeNote) {
+    const rateUpdatedAt = rate.updatedAt ? `환율 갱신 ${fmtDateTimeSeconds(rate.updatedAt)}` : "";
+    const rateSource = rate.source ? `출처 ${rate.source}` : "";
+    exchangeNote.textContent = [rate.note, rateUpdatedAt, rateSource].filter(Boolean).join(" | ") || "운영 데이터 기준으로 5초마다 화면을 갱신합니다.";
+  }
   const sections = mergedSections(data);
   const active = sections[state.activeSection] || sections.watchlist;
   const grid = el("#contentGrid");

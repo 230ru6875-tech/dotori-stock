@@ -349,6 +349,77 @@ def _safe_float(value: object, default: float = 0.0) -> float:
         return default
 
 
+def _exchange_rate_snapshot(previous: dict | None = None) -> dict:
+    previous_rate = previous.get("exchangeRate", {}) if isinstance(previous, dict) else {}
+    now_iso = datetime.now(KST).isoformat(timespec="seconds")
+
+    def _format_rate(value: object) -> str:
+        rate = _safe_float(value)
+        if rate <= 0:
+            return ""
+        return f"{rate:,.2f}원"
+
+    def _kst_iso_from_utc_text(value: object) -> str:
+        text = str(value or "").strip()
+        if not text:
+            return now_iso
+        try:
+            parsed = datetime.strptime(text, "%a, %d %b %Y %H:%M:%S %z")
+            return parsed.astimezone(KST).isoformat(timespec="seconds")
+        except Exception:
+            return now_iso
+
+    try:
+        payload = _http_json("https://open.er-api.com/v6/latest/USD", timeout=6)
+        rates = payload.get("rates", {}) if isinstance(payload, dict) else {}
+        value = _format_rate(rates.get("KRW"))
+        if value:
+            updated_at = _kst_iso_from_utc_text(payload.get("time_last_update_utc"))
+            return {
+                "label": "오늘의 환율",
+                "value": value,
+                "change": f"기준 {updated_at[:10]} {updated_at[11:16]}",
+                "updatedAt": updated_at,
+                "source": "open.er-api.com USD/KRW",
+                "note": "환율은 공개 환율 API 기준으로 스냅샷 생성 때 갱신합니다.",
+            }
+    except Exception:
+        pass
+
+    try:
+        payload = _http_json("https://api.frankfurter.app/latest", {"from": "USD", "to": "KRW"}, timeout=6)
+        rates = payload.get("rates", {}) if isinstance(payload, dict) else {}
+        value = _format_rate(rates.get("KRW"))
+        if value:
+            date_text = str(payload.get("date") or datetime.now(KST).date().isoformat())
+            updated_at = f"{date_text}T09:00:00+09:00"
+            return {
+                "label": "오늘의 환율",
+                "value": value,
+                "change": f"기준 {date_text} 09:00",
+                "updatedAt": updated_at,
+                "source": "frankfurter.app USD/KRW",
+                "note": "환율은 공개 환율 API 기준으로 스냅샷 생성 때 갱신합니다.",
+            }
+    except Exception:
+        pass
+
+    if isinstance(previous_rate, dict) and previous_rate:
+        fallback = dict(previous_rate)
+        fallback["note"] = "환율 최신 조회 실패로 직전 공개 스냅샷 값을 임시 표시합니다."
+        fallback.setdefault("updatedAt", now_iso)
+        fallback.setdefault("source", "previous public snapshot")
+        return fallback
+    return {
+        "label": "오늘의 환율",
+        "value": "-",
+        "change": "-",
+        "updatedAt": now_iso,
+        "source": "unavailable",
+        "note": "환율 최신 조회가 아직 완료되지 않았습니다.",
+    }
+
+
 def _format_price(value: float, market_text: str) -> str:
     if value <= 0:
         return "-"
@@ -2470,15 +2541,7 @@ def build_snapshot() -> dict:
         "executionOwner": autonomy_policy.get("execution_owner", "pc_autotrade_engine"),
         "note": "웹 자료가 부족할 때 도토리컴이 관심종목과 기본 감시종목을 보충해 공개 스냅샷으로 보냅니다.",
     }
-    previous.setdefault(
-        "exchangeRate",
-        {
-            "label": "오늘의 환율",
-            "value": "-",
-            "change": "-",
-            "note": "도토리 PC 저장자료 기준 공개용 데이터입니다.",
-        },
-    )
+    previous["exchangeRate"] = _exchange_rate_snapshot(previous)
     return previous
 
 
