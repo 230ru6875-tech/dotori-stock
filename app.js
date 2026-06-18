@@ -1,4 +1,4 @@
-const state = { data: null, activeSection: "watchlist", userStocks: [], selectedMovingSymbol: "", scannerMarketFirst: "domestic", scannerMarketFirstManual: false, scannerSectorFilter: "전체", growthSectorFilter: "전체", quotes: {}, liveQuoteCycle: 0, quoteRefreshInFlight: false, quoteRenderTimer: 0 };
+const state = { data: null, dailyHistory: [], activeSection: "watchlist", userStocks: [], selectedMovingSymbol: "", scannerMarketFirst: "domestic", scannerMarketFirstManual: false, scannerSectorFilter: "전체", growthSectorFilter: "전체", dailySearchQuery: "", dailyDateFrom: "", dailyDateTo: "", quotes: {}, liveQuoteCycle: 0, quoteRefreshInFlight: false, quoteRenderTimer: 0 };
 const USER_STOCKS_KEY = "dotori.userStocks.v1";
 const USER_KEY = "dotori.userKey.v1";
 const USER_KEEP_ASKED_KEY = "dotori.keepAsked.v1";
@@ -1589,6 +1589,7 @@ function mergedSections(data) {
     scanner: dedupeRowsBySymbol([...state.userStocks.map(userStockToScanner), ...(data.scanner || [])]).map(applyLiveQuote),
     watchlist: state.userStocks.map(userStockToWatchlist).map(applyLiveQuote),
     learning: [...state.userStocks.map(userStockToLearning), ...data.learning],
+    dailyDigest: state.dailyHistory || [],
     spikes: (data.spikes || []).map(applyLiveQuote),
     moving: [...state.userStocks.map(userStockToMoving), ...data.movingAverages].map(applyLiveQuote),
     growthDiscovery: data.growthDiscovery || [],
@@ -1603,6 +1604,25 @@ function sectorLabelFromItem(item) {
 }
 function currentSectorFilter(section) {
   return section === "growthDiscovery" ? (state.growthSectorFilter || "전체") : (state.scannerSectorFilter || "전체");
+}
+function filteredDailyHistory(items) {
+  const query = String(state.dailySearchQuery || "").trim().toLowerCase();
+  const from = String(state.dailyDateFrom || "").trim();
+  const to = String(state.dailyDateTo || "").trim();
+  return (items || []).filter((item) => {
+    const date = String(item?.date || "");
+    if (from && date < from) return false;
+    if (to && date > to) return false;
+    if (!query) return true;
+    const haystack = [
+      item?.title,
+      item?.summary,
+      item?.windowLabel,
+      item?.date,
+      item?.slug
+    ].join(" ").toLowerCase();
+    return haystack.includes(query);
+  });
 }
 function sectorOptions(items, limit = 10) {
   const counts = new Map();
@@ -1636,6 +1656,45 @@ function confirmationSummaryHtml(item) {
   const stance = evidence.stance || "확인 조건 충족 전에는 정찰 또는 관찰 우선";
   const lines = confirmations.length ? confirmations.slice(0, 2) : [stance];
   return `<div class="confirm-cell">${lines.map((line) => `<p>${escapeHtml(line)}</p>`).join("")}<em>${escapeHtml(stance)}</em></div>`;
+}
+function dailyDigestControlsHtml(items) {
+  const filtered = filteredDailyHistory(items);
+  return `<div class="daily-controls">
+    <div class="daily-control-group">
+      <label for="dailySearchInput">검색</label>
+      <input id="dailySearchInput" type="search" placeholder="제목, 요약, 날짜" value="${escapeHtml(state.dailySearchQuery || "")}">
+    </div>
+    <div class="daily-control-group">
+      <label for="dailyDateFrom">시작일</label>
+      <input id="dailyDateFrom" type="date" value="${escapeHtml(state.dailyDateFrom || "")}">
+    </div>
+    <div class="daily-control-group">
+      <label for="dailyDateTo">종료일</label>
+      <input id="dailyDateTo" type="date" value="${escapeHtml(state.dailyDateTo || "")}">
+    </div>
+    <div class="daily-control-group daily-control-summary">
+      <span>결과 <b>${filtered.length}</b>건</span>
+    </div>
+  </div>`;
+}
+function dailyDigestCardHtml(item, featured = false) {
+  const summary = String(item?.summary || "").trim();
+  const path = String(item?.path || "").trim() || `/daily/${escapeHtml(item?.slug || "")}.html`;
+  const metricLine = [
+    `스캐너 ${Number(item?.scannerCount || 0)}건`,
+    `뉴스 ${Number(item?.newsCount || 0)}건`,
+    `강한 매수 ${Number(item?.strongBuyReports || 0)}건`
+  ].join(" | ");
+  return `<article class="data-card daily-card${featured ? " featured" : ""}">
+    <div class="card-top">
+      <strong><a href="${path}" target="_blank" rel="noopener">${escapeHtml(item?.title || item?.date || "-")}</a></strong>
+      <em>${escapeHtml(item?.date || "-")}</em>
+    </div>
+    <p class="daily-window">${escapeHtml(item?.windowLabel || "-")}</p>
+    <p>${escapeHtml(summary || "요약 대기")}</p>
+    <p class="daily-metrics">${escapeHtml(metricLine)}</p>
+    <p class="daily-links"><a href="${path}" target="_blank" rel="noopener">문서 열기</a></p>
+  </article>`;
 }
 function renderDashboard() {
   const data = state.data;
@@ -1687,6 +1746,16 @@ function renderDashboard() {
     };
     grid.innerHTML = `<div class="table-card"><table class="data-table growth-table"><thead><tr><th>순위</th><th>종목</th><th>성장점수</th><th>판정</th><th>성장축</th><th>현재가</th><th>5일/20일</th><th>거래량</th><th>성장 근거</th></tr></thead><tbody>${groupHtml("\uad6d\ub0b4")}${groupHtml("\ubbf8\uad6d")}</tbody></table></div>`;
     grid.innerHTML = `${sectorFilterControls("growthDiscovery", active)}${grid.innerHTML}`;
+  } else if (state.activeSection === "dailyDigest") {
+    const filtered = filteredDailyHistory(active);
+    const latest = filtered[0] || null;
+    const listHtml = filtered.length
+      ? filtered.map((item) => dailyDigestCardHtml(item, latest && item.slug === latest.slug)).join("")
+      : `<article class="data-card"><div class="card-top"><strong>오늘시황 기록 없음</strong><em>-</em></div><p>선택한 날짜 범위와 검색어에 맞는 문서가 없습니다.</p></article>`;
+    const latestHtml = latest
+      ? `<section class="daily-hero-card"><div class="daily-hero-copy"><p class="eyebrow">최신 오늘시황</p><h3><a href="${latest.path}" target="_blank" rel="noopener">${escapeHtml(latest.title || latest.date || "-")}</a></h3><p>${escapeHtml(latest.summary || "요약 대기")}</p><p class="daily-window">${escapeHtml(latest.windowLabel || "-")}</p></div></section>`
+      : "";
+    grid.innerHTML = `${dailyDigestControlsHtml(active)}${latestHtml}<div class="info-grid daily-history-grid">${listHtml}</div>`;
   } else if (state.activeSection === "learning") {
     grid.innerHTML = renderCards(active, (item) => `<article class="data-card"><div class="card-top"><strong>${item.topic}</strong><em>${T.learning}</em></div><p>${item.lesson}</p></article>`);
   } else if (state.activeSection === "spikes") {
@@ -1755,6 +1824,27 @@ function renderDashboard() {
       renderDashboard();
     });
   });
+  const dailySearchInput = document.querySelector("#dailySearchInput");
+  if (dailySearchInput) {
+    dailySearchInput.addEventListener("input", () => {
+      state.dailySearchQuery = dailySearchInput.value || "";
+      renderDashboard();
+    });
+  }
+  const dailyDateFrom = document.querySelector("#dailyDateFrom");
+  if (dailyDateFrom) {
+    dailyDateFrom.addEventListener("change", () => {
+      state.dailyDateFrom = dailyDateFrom.value || "";
+      renderDashboard();
+    });
+  }
+  const dailyDateTo = document.querySelector("#dailyDateTo");
+  if (dailyDateTo) {
+    dailyDateTo.addEventListener("change", () => {
+      state.dailyDateTo = dailyDateTo.value || "";
+      renderDashboard();
+    });
+  }
   document.querySelectorAll("[data-remove-symbol]").forEach((button) => {
     button.addEventListener("click", (event) => {
       event.stopPropagation();
@@ -1923,9 +2013,16 @@ function drawChart(source = null) {
 
 async function loadData(options = {}) {
   try {
-    const response = await fetch("./data/public-snapshot.json", { cache: "no-store" });
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    state.data = normalizeSnapshotData(await response.json());
+    const [snapshotResponse, dailyResponse] = await Promise.all([
+      fetch("./data/public-snapshot.json", { cache: "no-store" }),
+      fetch("./data/daily-market-history.json", { cache: "no-store" }).catch(() => null)
+    ]);
+    if (!snapshotResponse.ok) throw new Error(`HTTP ${snapshotResponse.status}`);
+    state.data = normalizeSnapshotData(await snapshotResponse.json());
+    if (dailyResponse && dailyResponse.ok) {
+      const dailyPayload = await dailyResponse.json();
+      state.dailyHistory = Array.isArray(dailyPayload) ? dailyPayload : [];
+    }
     setStatus(T.connected);
     renderDashboard();
     if (!options.silent) refreshVisibleQuotes();
@@ -2035,6 +2132,19 @@ document.querySelectorAll("[data-section]").forEach((button) => {
     state.activeSection = button.dataset.section;
     renderDashboard();
     refreshVisibleQuotes();
+  });
+});
+document.querySelectorAll("[data-open-section]").forEach((link) => {
+  link.addEventListener("click", (event) => {
+    const section = link.dataset.openSection;
+    if (!section) return;
+    event.preventDefault();
+    state.activeSection = section;
+    document.querySelectorAll("[data-section]").forEach((item) => item.classList.toggle("active", item.dataset.section === section));
+    renderDashboard();
+    refreshVisibleQuotes();
+    const dashboard = document.querySelector("#dashboard");
+    if (dashboard) dashboard.scrollIntoView({ block: "start", behavior: "smooth" });
   });
 });
 setupBrowserStorageNotice();
