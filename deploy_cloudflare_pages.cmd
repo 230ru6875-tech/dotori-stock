@@ -11,6 +11,9 @@ if "%CLOUDFLARE_API_TOKEN%"=="" (
   exit /b 1
 )
 
+python generate_daily_market_digest.py
+if errorlevel 1 exit /b 1
+
 python generate_static_reports.py
 if errorlevel 1 exit /b 1
 
