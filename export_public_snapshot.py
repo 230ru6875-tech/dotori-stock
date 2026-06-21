@@ -2669,23 +2669,23 @@ def main() -> None:
     payload.setdefault("webDataStatus", {})["tursoUpload"] = upload_status
     payload["researchRequests"] = research_requests
     PUBLIC_SNAPSHOT_PATH.write_text(
-        json.dumps(payload, ensure_ascii=True, indent=2),
+        json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
     DOTORI_COM_REPORT_PATH.write_text(
-        json.dumps(report_payload, ensure_ascii=True, indent=2),
+        json.dumps(report_payload, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
     DOTORI_COM_PUBLIC_AUTONOMY_POLICY_PATH.write_text(
-        json.dumps(_dotori_com_autonomy_policy(), ensure_ascii=True, indent=2),
+        json.dumps(_dotori_com_autonomy_policy(), ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
     DOTORI_SANGHOE_PATH.write_text(
-        json.dumps(build_dotori_sanghoe_payload(), ensure_ascii=True, indent=2),
+        json.dumps(build_dotori_sanghoe_payload(), ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
     SYMBOL_DIRECTORY_PATH.write_text(
-        json.dumps(_sanitize_public_payload(symbol_directory), ensure_ascii=True, indent=2),
+        json.dumps(_sanitize_public_payload(symbol_directory), ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
     print(f"exported {PUBLIC_SNAPSHOT_PATH}")
