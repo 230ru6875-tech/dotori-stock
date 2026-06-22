@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-23T03:00:03+09:00",
+  "updatedAt": "2026-06-23T04:00:03+09:00",
   "exchangeRate": {
     "label": "오늘의 환율",
     "value": "1,531.00원",
@@ -3497,14 +3497,14 @@
       "sourcePartId": "lab.moving_average",
       "sourcePartTitle": "3파트 이평",
       "currentPrice": "$305.11",
-      "ma20": "$263.38",
-      "ma60": "$185.50",
-      "ma20Value": 263.385,
-      "ma60Value": 185.5015,
-      "ma20Gap": "+15.8%",
+      "ma20": "$263.31",
+      "ma60": "$185.48",
+      "ma20Value": 263.3065,
+      "ma60Value": 185.4753,
+      "ma20Gap": "+15.9%",
       "ma60Gap": "+64.5%",
       "decision": "매수이유 훼손",
-      "note": "20일선 대비 +15.8% | 거래량 반영: 오늘 거래량 41,004,760, 20일 평균 대비 0.73배",
+      "note": "20일선 대비 +15.9% | 거래량 반영: 오늘 거래량 41,004,760, 20일 평균 대비 0.73배",
       "score": 100.0,
       "ohlc": [
         {
@@ -4008,12 +4008,12 @@
           "open": 313.435,
           "high": 314.1717,
           "low": 298.18,
-          "close": 306.4099,
-          "volume": 32596870
+          "close": 304.84,
+          "volume": 36116451
         }
       ],
       "ohlcSource": "Yahoo Finance",
-      "ohlcUpdatedAt": "2026-06-23T03:00:06+09:00",
+      "ohlcUpdatedAt": "2026-06-23T04:00:06+09:00",
       "ohlcQuoteSymbol": "MRVL"
     },
     {
@@ -4023,10 +4023,10 @@
       "sourcePartId": "lab.moving_average",
       "sourcePartTitle": "3파트 이평",
       "currentPrice": "$319.55",
-      "ma20": "$311.89",
-      "ma60": "$306.96",
-      "ma20Value": 311.8903,
-      "ma60Value": 306.9633,
+      "ma20": "$311.90",
+      "ma60": "$306.97",
+      "ma20Value": 311.9036,
+      "ma60Value": 306.9677,
       "ma20Gap": "+2.5%",
       "ma60Gap": "+4.1%",
       "decision": "추세훼손",
@@ -4534,12 +4534,12 @@
           "open": 329.7,
           "high": 332.43,
           "low": 326.815,
-          "close": 331.3353,
-          "volume": 4888510
+          "close": 331.6012,
+          "volume": 5495715
         }
       ],
       "ohlcSource": "Yahoo Finance",
-      "ohlcUpdatedAt": "2026-06-23T03:00:09+09:00",
+      "ohlcUpdatedAt": "2026-06-23T04:00:10+09:00",
       "ohlcQuoteSymbol": "JPM"
     },
     {
@@ -4549,10 +4549,10 @@
       "sourcePartId": "lab.moving_average",
       "sourcePartTitle": "3파트 이평",
       "currentPrice": "$147.97",
-      "ma20": "$144.52",
-      "ma60": "$141.16",
-      "ma20Value": 144.5153,
-      "ma60Value": 141.1624,
+      "ma20": "$144.53",
+      "ma60": "$141.17",
+      "ma20Value": 144.5306,
+      "ma60Value": 141.1675,
       "ma20Gap": "+2.4%",
       "ma60Gap": "+4.8%",
       "decision": "추세훼손",
@@ -5058,14 +5058,14 @@
         {
           "date": "2026-06-22",
           "open": 140.66,
-          "high": 144.3399,
+          "high": 144.81,
           "low": 140.31,
-          "close": 144.155,
-          "volume": 1925530
+          "close": 144.4616,
+          "volume": 2194182
         }
       ],
       "ohlcSource": "Yahoo Finance",
-      "ohlcUpdatedAt": "2026-06-23T03:00:11+09:00",
+      "ohlcUpdatedAt": "2026-06-23T04:00:11+09:00",
       "ohlcQuoteSymbol": "PLD"
     },
     {
@@ -5075,14 +5075,14 @@
       "sourcePartId": "lab.moving_average",
       "sourcePartTitle": "3파트 이평",
       "currentPrice": "129,600원",
-      "ma20": "119,890원",
-      "ma60": "92,979원",
-      "ma20Value": 119890.0,
-      "ma60Value": 92979.1667,
-      "ma20Gap": "+8.1%",
-      "ma60Gap": "+39.4%",
+      "ma20": "120,315원",
+      "ma60": "94,266원",
+      "ma20Value": 120315.0,
+      "ma60Value": 94265.8333,
+      "ma20Gap": "+7.7%",
+      "ma60Gap": "+37.5%",
       "decision": "추세훼손",
-      "note": "20일선 대비 +8.1% | 뉴스/유튜브/커뮤니티 과다노출 감점: 언급 12건, 과열출처 12건, 20일 +22.1%, 거래량 0.69배 | -7.0점",
+      "note": "20일선 대비 +7.7% | 뉴스/유튜브/커뮤니티 과다노출 감점: 언급 12건, 과열출처 12건, 20일 +22.1%, 거래량 0.69배 | -7.0점",
       "score": 100.0,
       "ohlc": [
         {
@@ -5572,10 +5572,18 @@
           "low": 121200.0,
           "close": 124300.0,
           "volume": 930246
+        },
+        {
+          "date": "2026-06-22",
+          "open": 119900.0,
+          "high": 137200.0,
+          "low": 119800.0,
+          "close": 134000.0,
+          "volume": 706530
         }
       ],
       "ohlcSource": "Yahoo Finance",
-      "ohlcUpdatedAt": "2026-06-23T03:00:16+09:00",
+      "ohlcUpdatedAt": "2026-06-23T04:00:16+09:00",
       "ohlcQuoteSymbol": "222800.KS"
     },
     {
@@ -5585,14 +5593,14 @@
       "sourcePartId": "lab.moving_average",
       "sourcePartTitle": "3파트 이평",
       "currentPrice": "103,300원",
-      "ma20": "98,855원",
-      "ma60": "97,080원",
-      "ma20Value": 98855.0,
-      "ma60Value": 97080.0,
-      "ma20Gap": "+4.5%",
-      "ma60Gap": "+6.4%",
+      "ma20": "98,990원",
+      "ma60": "97,205원",
+      "ma20Value": 98990.0,
+      "ma60Value": 97205.0,
+      "ma20Gap": "+4.4%",
+      "ma60Gap": "+6.3%",
       "decision": "매수",
-      "note": "20일선 대비 +4.5% | 거래량 반영: 오늘 거래량 1,317,604, 20일 평균 대비 0.79배",
+      "note": "20일선 대비 +4.4% | 거래량 반영: 오늘 거래량 1,317,604, 20일 평균 대비 0.79배",
       "score": 100.0,
       "ohlc": [
         {
@@ -6082,10 +6090,18 @@
           "low": 98700.0,
           "close": 100900.0,
           "volume": 1899794
+        },
+        {
+          "date": "2026-06-22",
+          "open": 100000.0,
+          "high": 100400.0,
+          "low": 97400.0,
+          "close": 97500.0,
+          "volume": 1096436
         }
       ],
       "ohlcSource": "Yahoo Finance",
-      "ohlcUpdatedAt": "2026-06-23T03:00:24+09:00",
+      "ohlcUpdatedAt": "2026-06-23T04:00:24+09:00",
       "ohlcQuoteSymbol": "055550.KS"
     },
     {
@@ -6095,14 +6111,14 @@
       "sourcePartId": "lab.moving_average",
       "sourcePartTitle": "3파트 이평",
       "currentPrice": "447,500원",
-      "ma20": "403,125원",
-      "ma60": "305,875원",
-      "ma20Value": 403125.0,
-      "ma60Value": 305875.0,
-      "ma20Gap": "+11.0%",
-      "ma60Gap": "+46.3%",
+      "ma20": "407,900원",
+      "ma60": "309,683원",
+      "ma20Value": 407900.0,
+      "ma60Value": 309683.3333,
+      "ma20Gap": "+9.7%",
+      "ma60Gap": "+44.5%",
       "decision": "관찰대기",
-      "note": "20일선 대비 +11.0% | 거래량 반영: 오늘 거래량 342,064, 20일 평균 대비 0.62배",
+      "note": "20일선 대비 +9.7% | 거래량 반영: 오늘 거래량 342,064, 20일 평균 대비 0.62배",
       "score": 100.0,
       "ohlc": [
         {
@@ -6592,10 +6608,18 @@
           "low": 478500.0,
           "close": 497000.0,
           "volume": 681949
+        },
+        {
+          "date": "2026-06-22",
+          "open": 486500.0,
+          "high": 491500.0,
+          "low": 450500.0,
+          "close": 450500.0,
+          "volume": 539124
         }
       ],
       "ohlcSource": "Yahoo Finance",
-      "ohlcUpdatedAt": "2026-06-23T03:00:25+09:00",
+      "ohlcUpdatedAt": "2026-06-23T04:00:25+09:00",
       "ohlcQuoteSymbol": "032830.KS"
     },
     {
@@ -6605,12 +6629,12 @@
       "sourcePartId": "lab.moving_average",
       "sourcePartTitle": "3파트 이평",
       "currentPrice": "164,200원",
-      "ma20": "158,585원",
-      "ma60": "156,057원",
-      "ma20Value": 158585.0,
-      "ma60Value": 156056.6667,
+      "ma20": "158,645원",
+      "ma60": "156,225원",
+      "ma20Value": 158645.0,
+      "ma60Value": 156225.0,
       "ma20Gap": "+3.5%",
-      "ma60Gap": "+5.2%",
+      "ma60Gap": "+5.1%",
       "decision": "매수",
       "note": "20일선 대비 +3.5% | 거래량 반영: 오늘 거래량 1,530,191, 20일 평균 대비 0.96배",
       "score": 100.0,
@@ -7102,10 +7126,18 @@
           "low": 155000.0,
           "close": 158300.0,
           "volume": 2181977
+        },
+        {
+          "date": "2026-06-22",
+          "open": 158400.0,
+          "high": 158600.0,
+          "low": 155100.0,
+          "close": 157000.0,
+          "volume": 956909
         }
       ],
       "ohlcSource": "Yahoo Finance",
-      "ohlcUpdatedAt": "2026-06-23T03:00:26+09:00",
+      "ohlcUpdatedAt": "2026-06-23T04:00:26+09:00",
       "ohlcQuoteSymbol": "105560.KS"
     },
     {
@@ -7115,14 +7147,14 @@
       "sourcePartId": "lab.moving_average",
       "sourcePartTitle": "3파트 이평",
       "currentPrice": "57,800원",
-      "ma20": "55,675원",
-      "ma60": "54,953원",
-      "ma20Value": 55675.0,
-      "ma60Value": 54953.3333,
-      "ma20Gap": "+3.8%",
-      "ma60Gap": "+5.2%",
+      "ma20": "55,430원",
+      "ma60": "55,110원",
+      "ma20Value": 55430.0,
+      "ma60Value": 55110.0,
+      "ma20Gap": "+4.3%",
+      "ma60Gap": "+4.9%",
       "decision": "보유",
-      "note": "20일선 대비 +3.8% | 거래량 반영: 오늘 거래량 0, 20일 평균 대비 0.00배",
+      "note": "20일선 대비 +4.3% | 거래량 반영: 오늘 거래량 0, 20일 평균 대비 0.00배",
       "score": 100.0,
       "ohlc": [
         {
@@ -7612,10 +7644,18 @@
           "low": 53700.0,
           "close": 55000.0,
           "volume": 369379
+        },
+        {
+          "date": "2026-06-22",
+          "open": 54100.0,
+          "high": 54500.0,
+          "low": 51900.0,
+          "close": 52500.0,
+          "volume": 192555
         }
       ],
       "ohlcSource": "Yahoo Finance",
-      "ohlcUpdatedAt": "2026-06-23T03:00:31+09:00",
+      "ohlcUpdatedAt": "2026-06-23T04:00:30+09:00",
       "ohlcQuoteSymbol": "008770.KS"
     },
     {
@@ -7625,10 +7665,10 @@
       "sourcePartId": "lab.moving_average",
       "sourcePartTitle": "3파트 이평",
       "currentPrice": "26,450원",
-      "ma20": "25,720원",
-      "ma60": "24,862원",
-      "ma20Value": 25720.0,
-      "ma60Value": 24862.5,
+      "ma20": "25,735원",
+      "ma60": "24,870원",
+      "ma20Value": 25735.0,
+      "ma60Value": 24870.0,
       "ma20Gap": "+2.8%",
       "ma60Gap": "+6.4%",
       "decision": "매도경계",
@@ -8122,10 +8162,18 @@
           "low": 25000.0,
           "close": 25550.0,
           "volume": 91511
+        },
+        {
+          "date": "2026-06-22",
+          "open": 25300.0,
+          "high": 26200.0,
+          "low": 24800.0,
+          "close": 25000.0,
+          "volume": 90920
         }
       ],
       "ohlcSource": "Yahoo Finance",
-      "ohlcUpdatedAt": "2026-06-23T03:00:31+09:00",
+      "ohlcUpdatedAt": "2026-06-23T04:00:31+09:00",
       "ohlcQuoteSymbol": "001800.KS"
     },
     {
@@ -8643,7 +8691,7 @@
         }
       ],
       "ohlcSource": "Yahoo Finance",
-      "ohlcUpdatedAt": "2026-06-23T03:00:32+09:00",
+      "ohlcUpdatedAt": "2026-06-23T04:00:32+09:00",
       "ohlcQuoteSymbol": "069500.KS"
     },
     {
@@ -8653,10 +8701,10 @@
       "sourcePartId": "lab.moving_average",
       "sourcePartTitle": "3파트 이평",
       "currentPrice": "$436.43",
-      "ma20": "$429.94",
-      "ma60": "$396.47",
-      "ma20Value": 429.9435,
-      "ma60Value": 396.4718,
+      "ma20": "$429.92",
+      "ma60": "$396.46",
+      "ma20Value": 429.92,
+      "ma60Value": 396.464,
       "ma20Gap": "+1.5%",
       "ma60Gap": "+10.1%",
       "decision": "추세훼손",
@@ -9164,12 +9212,12 @@
           "open": 476.09,
           "high": 476.31,
           "low": 466.05,
-          "close": 466.92,
-          "volume": 9413569
+          "close": 466.45,
+          "volume": 10199055
         }
       ],
       "ohlcSource": "Yahoo Finance",
-      "ohlcUpdatedAt": "2026-06-23T03:00:08+09:00",
+      "ohlcUpdatedAt": "2026-06-23T04:00:08+09:00",
       "ohlcQuoteSymbol": "TSM"
     },
     {
@@ -9179,10 +9227,10 @@
       "sourcePartId": "lab.moving_average",
       "sourcePartTitle": "3파트 이평",
       "currentPrice": "$341.50",
-      "ma20": "$329.81",
-      "ma60": "$305.46",
-      "ma20Value": 329.8122,
-      "ma60Value": 305.4577,
+      "ma20": "$329.84",
+      "ma60": "$305.47",
+      "ma20Value": 329.8395,
+      "ma60Value": 305.4668,
       "ma20Gap": "+3.5%",
       "ma60Gap": "+11.8%",
       "decision": "추세훼손",
@@ -9690,12 +9738,12 @@
           "open": 357.64,
           "high": 361.28,
           "low": 354.54,
-          "close": 356.605,
-          "volume": 1951223
+          "close": 357.15,
+          "volume": 2352666
         }
       ],
       "ohlcSource": "Yahoo Finance",
-      "ohlcUpdatedAt": "2026-06-23T03:00:10+09:00",
+      "ohlcUpdatedAt": "2026-06-23T04:00:10+09:00",
       "ohlcQuoteSymbol": "GE"
     },
     {
@@ -9705,10 +9753,10 @@
       "sourcePartId": "lab.moving_average",
       "sourcePartTitle": "3파트 이평",
       "currentPrice": "$1,078.37",
-      "ma20": "$1,047.44",
-      "ma60": "$957.24",
-      "ma20Value": 1047.4388,
-      "ma60Value": 957.2353,
+      "ma20": "$1,047.23",
+      "ma60": "$957.16",
+      "ma20Value": 1047.225,
+      "ma60Value": 957.164,
       "ma20Gap": "+3.0%",
       "ma60Gap": "+12.7%",
       "decision": "추세훼손",
@@ -10216,12 +10264,12 @@
           "open": 1109.7,
           "high": 1115.98,
           "low": 1091.6245,
-          "close": 1102.425,
-          "volume": 883492
+          "close": 1098.15,
+          "volume": 1003204
         }
       ],
       "ohlcSource": "Yahoo Finance",
-      "ohlcUpdatedAt": "2026-06-23T03:00:04+09:00",
+      "ohlcUpdatedAt": "2026-06-23T04:00:05+09:00",
       "ohlcQuoteSymbol": "GS"
     },
     {
@@ -10231,14 +10279,14 @@
       "sourcePartId": "lab.moving_average",
       "sourcePartTitle": "3파트 이평",
       "currentPrice": "69,800원",
-      "ma20": "56,192원",
-      "ma60": "50,892원",
-      "ma20Value": 56192.5,
-      "ma60Value": 50892.5,
-      "ma20Gap": "+24.2%",
-      "ma60Gap": "+37.2%",
+      "ma20": "56,522원",
+      "ma60": "51,080원",
+      "ma20Value": 56522.5,
+      "ma60Value": 51080.0,
+      "ma20Gap": "+23.5%",
+      "ma60Gap": "+36.6%",
       "decision": "추세훼손",
-      "note": "20일선 대비 +24.2% | 뉴스/유튜브/커뮤니티 과다노출 감점: 언급 14건, 과열출처 13건, 20일 +52.7%, 거래량 5.13배 | -10.0점",
+      "note": "20일선 대비 +23.5% | 뉴스/유튜브/커뮤니티 과다노출 감점: 언급 14건, 과열출처 13건, 20일 +52.7%, 거래량 5.13배 | -10.0점",
       "score": 95.0,
       "ohlc": [
         {
@@ -10728,10 +10776,18 @@
           "low": 54700.0,
           "close": 56600.0,
           "volume": 10142673
+        },
+        {
+          "date": "2026-06-22",
+          "open": 55100.0,
+          "high": 63500.0,
+          "low": 55000.0,
+          "close": 60000.0,
+          "volume": 7839535
         }
       ],
       "ohlcSource": "Yahoo Finance",
-      "ohlcUpdatedAt": "2026-06-23T03:00:17+09:00",
+      "ohlcUpdatedAt": "2026-06-23T04:00:17+09:00",
       "ohlcQuoteSymbol": "403870.KS"
     },
     {
@@ -11249,7 +11305,7 @@
         }
       ],
       "ohlcSource": "Yahoo Finance",
-      "ohlcUpdatedAt": "2026-06-23T03:00:33+09:00",
+      "ohlcUpdatedAt": "2026-06-23T04:00:32+09:00",
       "ohlcQuoteSymbol": "122630.KS"
     },
     {
@@ -11259,10 +11315,10 @@
       "sourcePartId": "lab.moving_average",
       "sourcePartTitle": "3파트 이평",
       "currentPrice": "$125.26",
-      "ma20": "$123.68",
+      "ma20": "$123.70",
       "ma60": "$126.36",
-      "ma20Value": 123.684,
-      "ma60Value": 126.3585,
+      "ma20Value": 123.6965,
+      "ma60Value": 126.3627,
       "ma20Gap": "+1.3%",
       "ma60Gap": "-0.9%",
       "decision": "추세훼손",
@@ -11770,12 +11826,12 @@
           "open": 123.48,
           "high": 124.69,
           "low": 123.48,
-          "close": 124.14,
-          "volume": 1451651
+          "close": 124.39,
+          "volume": 1641808
         }
       ],
       "ohlcSource": "Yahoo Finance",
-      "ohlcUpdatedAt": "2026-06-23T03:00:12+09:00",
+      "ohlcUpdatedAt": "2026-06-23T04:00:12+09:00",
       "ohlcQuoteSymbol": "DUK"
     },
     {
@@ -11787,8 +11843,8 @@
       "currentPrice": "$933.94",
       "ma20": "$917.15",
       "ma60": "$851.76",
-      "ma20Value": 917.147,
-      "ma60Value": 851.7577,
+      "ma20Value": 917.1535,
+      "ma60Value": 851.7598,
       "ma20Gap": "+1.8%",
       "ma60Gap": "+9.6%",
       "decision": "추세훼손",
@@ -12296,12 +12352,12 @@
           "open": 999.28,
           "high": 1023.25,
           "low": 999.41,
-          "close": 1019.09,
-          "volume": 2098206
+          "close": 1019.22,
+          "volume": 2379024
         }
       ],
       "ohlcSource": "Yahoo Finance",
-      "ohlcUpdatedAt": "2026-06-23T03:00:06+09:00",
+      "ohlcUpdatedAt": "2026-06-23T04:00:07+09:00",
       "ohlcQuoteSymbol": "CAT"
     },
     {
@@ -12311,14 +12367,14 @@
       "sourcePartId": "lab.moving_average",
       "sourcePartTitle": "3파트 이평",
       "currentPrice": "29,350원",
-      "ma20": "26,640원",
-      "ma60": "25,470원",
-      "ma20Value": 26640.0,
-      "ma60Value": 25470.0,
-      "ma20Gap": "+10.2%",
-      "ma60Gap": "+15.2%",
+      "ma20": "26,670원",
+      "ma60": "25,507원",
+      "ma20Value": 26670.0,
+      "ma60Value": 25506.6667,
+      "ma20Gap": "+10.0%",
+      "ma60Gap": "+15.1%",
       "decision": "진입보류",
-      "note": "20일선 대비 +10.2% | 뉴스/유튜브/커뮤니티 과다노출 감점: 언급 14건, 과열출처 13건, 20일 +9.9%, 거래량 4.63배 | -6.0점",
+      "note": "20일선 대비 +10.0% | 뉴스/유튜브/커뮤니티 과다노출 감점: 언급 14건, 과열출처 13건, 20일 +9.9%, 거래량 4.63배 | -6.0점",
       "score": 93.0,
       "ohlc": [
         {
@@ -12808,10 +12864,18 @@
           "low": 27300.0,
           "close": 27950.0,
           "volume": 3870295
+        },
+        {
+          "date": "2026-06-22",
+          "open": 27300.0,
+          "high": 27400.0,
+          "low": 26700.0,
+          "close": 27050.0,
+          "volume": 1838502
         }
       ],
       "ohlcSource": "Yahoo Finance",
-      "ohlcUpdatedAt": "2026-06-23T03:00:16+09:00",
+      "ohlcUpdatedAt": "2026-06-23T04:00:16+09:00",
       "ohlcQuoteSymbol": "003490.KS"
     },
     {
@@ -12821,14 +12885,14 @@
       "sourcePartId": "lab.moving_average",
       "sourcePartTitle": "3파트 이평",
       "currentPrice": "170,200원",
-      "ma20": "161,560원",
-      "ma60": "123,058원",
-      "ma20Value": 161560.0,
-      "ma60Value": 123058.3333,
-      "ma20Gap": "+5.3%",
-      "ma60Gap": "+38.3%",
+      "ma20": "161,990원",
+      "ma60": "124,348원",
+      "ma20Value": 161990.0,
+      "ma60Value": 124348.3333,
+      "ma20Gap": "+5.1%",
+      "ma60Gap": "+36.9%",
       "decision": "매수",
-      "note": "20일선 대비 +5.3% | 뉴스/유튜브/커뮤니티 과다노출 감점: 언급 12건, 과열출처 12건, 20일 +16.0%, 거래량 0.92배 | -4.0점",
+      "note": "20일선 대비 +5.1% | 뉴스/유튜브/커뮤니티 과다노출 감점: 언급 12건, 과열출처 12건, 20일 +16.0%, 거래량 0.92배 | -4.0점",
       "score": 93.0,
       "ohlc": [
         {
@@ -13318,10 +13382,18 @@
           "low": 150200.0,
           "close": 156300.0,
           "volume": 1063186
+        },
+        {
+          "date": "2026-06-22",
+          "open": 154700.0,
+          "high": 163000.0,
+          "low": 151800.0,
+          "close": 155000.0,
+          "volume": 603179
         }
       ],
       "ohlcSource": "Yahoo Finance",
-      "ohlcUpdatedAt": "2026-06-23T03:00:17+09:00",
+      "ohlcUpdatedAt": "2026-06-23T04:00:17+09:00",
       "ohlcQuoteSymbol": "353200.KS"
     },
     {
@@ -13331,14 +13403,14 @@
       "sourcePartId": "lab.moving_average",
       "sourcePartTitle": "3파트 이평",
       "currentPrice": "64,700원",
-      "ma20": "58,062원",
-      "ma60": "55,095원",
-      "ma20Value": 58062.5,
-      "ma60Value": 55095.0,
-      "ma20Gap": "+11.4%",
-      "ma60Gap": "+17.4%",
+      "ma20": "58,152원",
+      "ma60": "55,355원",
+      "ma20Value": 58152.5,
+      "ma60Value": 55355.0,
+      "ma20Gap": "+11.3%",
+      "ma60Gap": "+16.9%",
       "decision": "매수",
-      "note": "20일선 대비 +11.4% | 거래량 반영: 오늘 거래량 2,177,992, 20일 평균 대비 1.99배",
+      "note": "20일선 대비 +11.3% | 거래량 반영: 오늘 거래량 2,177,992, 20일 평균 대비 1.99배",
       "score": 93.0,
       "ohlc": [
         {
@@ -13828,10 +13900,18 @@
           "low": 58700.0,
           "close": 60300.0,
           "volume": 810468
+        },
+        {
+          "date": "2026-06-22",
+          "open": 58100.0,
+          "high": 63800.0,
+          "low": 58100.0,
+          "close": 63800.0,
+          "volume": 984717
         }
       ],
       "ohlcSource": "Yahoo Finance",
-      "ohlcUpdatedAt": "2026-06-23T03:00:25+09:00",
+      "ohlcUpdatedAt": "2026-06-23T04:00:25+09:00",
       "ohlcQuoteSymbol": "005290.KS"
     },
     {
@@ -13841,14 +13921,14 @@
       "sourcePartId": "lab.moving_average",
       "sourcePartTitle": "3파트 이평",
       "currentPrice": "1,243,000원",
-      "ma20": "1,153,600원",
-      "ma60": "709,992원",
-      "ma20Value": 1153600.0,
-      "ma60Value": 709991.6667,
-      "ma20Gap": "+7.7%",
-      "ma60Gap": "+75.1%",
+      "ma20": "1,168,200원",
+      "ma60": "723,958원",
+      "ma20Value": 1168200.0,
+      "ma60Value": 723958.3333,
+      "ma20Gap": "+6.4%",
+      "ma60Gap": "+71.7%",
       "decision": "매수",
-      "note": "20일선 대비 +7.7% | 거래량 반영: 오늘 거래량 317,100, 20일 평균 대비 0.47배",
+      "note": "20일선 대비 +6.4% | 거래량 반영: 오늘 거래량 317,100, 20일 평균 대비 0.47배",
       "score": 93.0,
       "ohlc": [
         {
@@ -14338,10 +14418,18 @@
           "low": 1122000.0,
           "close": 1145000.0,
           "volume": 703406
+        },
+        {
+          "date": "2026-06-22",
+          "open": 1144000.0,
+          "high": 1182000.0,
+          "low": 1115000.0,
+          "close": 1130000.0,
+          "volume": 298767
         }
       ],
       "ohlcSource": "Yahoo Finance",
-      "ohlcUpdatedAt": "2026-06-23T03:00:29+09:00",
+      "ohlcUpdatedAt": "2026-06-23T04:00:29+09:00",
       "ohlcQuoteSymbol": "011070.KS"
     },
     {
@@ -14351,14 +14439,14 @@
       "sourcePartId": "lab.moving_average",
       "sourcePartTitle": "3파트 이평",
       "currentPrice": "$1,080.43",
-      "ma20": "$987.35",
-      "ma60": "$685.10",
-      "ma20Value": 987.3525,
-      "ma60Value": 685.1007,
-      "ma20Gap": "+9.4%",
+      "ma20": "$987.03",
+      "ma60": "$684.99",
+      "ma20Value": 987.0315,
+      "ma60Value": 684.9937,
+      "ma20Gap": "+9.5%",
       "ma60Gap": "+57.7%",
       "decision": "추세훼손",
-      "note": "20일선 대비 +9.4% | 뉴스/유튜브/커뮤니티 과다노출 감점: 언급 2건, 과열출처 2건, 20일 +49.2%, 거래량 0.63배 | -5.0점",
+      "note": "20일선 대비 +9.5% | 뉴스/유튜브/커뮤니티 과다노출 감점: 언급 2건, 과열출처 2건, 20일 +49.2%, 거래량 0.63배 | -5.0점",
       "score": 92.0,
       "ohlc": [
         {
@@ -14862,12 +14950,12 @@
           "open": 1196.1899,
           "high": 1204.5,
           "low": 1168.5699,
-          "close": 1197.6,
-          "volume": 32487188
+          "close": 1191.1801,
+          "volume": 35897230
         }
       ],
       "ohlcSource": "Yahoo Finance",
-      "ohlcUpdatedAt": "2026-06-23T03:00:04+09:00",
+      "ohlcUpdatedAt": "2026-06-23T04:00:04+09:00",
       "ohlcQuoteSymbol": "MU"
     },
     {
@@ -14877,10 +14965,10 @@
       "sourcePartId": "lab.moving_average",
       "sourcePartTitle": "3파트 이평",
       "currentPrice": "$545.51",
-      "ma20": "$506.66",
-      "ma60": "$383.41",
-      "ma20Value": 506.66,
-      "ma60Value": 383.4078,
+      "ma20": "$506.65",
+      "ma60": "$383.40",
+      "ma20Value": 506.6513,
+      "ma60Value": 383.4049,
       "ma20Gap": "+7.7%",
       "ma60Gap": "+42.3%",
       "decision": "추세훼손",
@@ -15388,12 +15476,12 @@
           "open": 545.5,
           "high": 562.9899,
           "low": 535.7101,
-          "close": 545.64,
-          "volume": 15783087
+          "close": 545.465,
+          "volume": 17187810
         }
       ],
       "ohlcSource": "Yahoo Finance",
-      "ohlcUpdatedAt": "2026-06-23T03:00:05+09:00",
+      "ohlcUpdatedAt": "2026-06-23T04:00:05+09:00",
       "ohlcQuoteSymbol": "AMD"
     },
     {
@@ -15403,10 +15491,10 @@
       "sourcePartId": "lab.moving_average",
       "sourcePartTitle": "3파트 이평",
       "currentPrice": "$692.34",
-      "ma20": "$690.99",
-      "ma60": "$542.23",
-      "ma20Value": 690.986,
-      "ma60Value": 542.2277,
+      "ma20": "$690.75",
+      "ma60": "$542.15",
+      "ma20Value": 690.7538,
+      "ma60Value": 542.1503,
       "ma20Gap": "+0.2%",
       "ma60Gap": "+27.7%",
       "decision": "추세훼손",
@@ -15914,12 +16002,12 @@
           "open": 685.07,
           "high": 712.18,
           "low": 676.6421,
-          "close": 682.5,
-          "volume": 2018525
+          "close": 677.8564,
+          "volume": 2210107
         }
       ],
       "ohlcSource": "Yahoo Finance",
-      "ohlcUpdatedAt": "2026-06-23T03:00:07+09:00",
+      "ohlcUpdatedAt": "2026-06-23T04:00:07+09:00",
       "ohlcQuoteSymbol": "CRWD"
     },
     {
@@ -15929,10 +16017,10 @@
       "sourcePartId": "lab.moving_average",
       "sourcePartTitle": "3파트 이평",
       "currentPrice": "$626.33",
-      "ma20": "$585.62",
-      "ma60": "$484.81",
-      "ma20Value": 585.618,
-      "ma60Value": 484.8057,
+      "ma20": "$585.51",
+      "ma60": "$484.77",
+      "ma20Value": 585.5075,
+      "ma60Value": 484.7688,
       "ma20Gap": "+7.0%",
       "ma60Gap": "+29.2%",
       "decision": "추세훼손",
@@ -16440,12 +16528,12 @@
           "open": 654.0,
           "high": 655.94,
           "low": 643.93,
-          "close": 650.14,
-          "volume": 5348848
+          "close": 647.93,
+          "volume": 5921519
         }
       ],
       "ohlcSource": "Yahoo Finance",
-      "ohlcUpdatedAt": "2026-06-23T03:00:08+09:00",
+      "ohlcUpdatedAt": "2026-06-23T04:00:09+09:00",
       "ohlcQuoteSymbol": "SOXX"
     },
     {
@@ -16455,14 +16543,14 @@
       "sourcePartId": "lab.moving_average",
       "sourcePartTitle": "3파트 이평",
       "currentPrice": "2,041,000원",
-      "ma20": "1,826,000원",
-      "ma60": "1,080,933원",
-      "ma20Value": 1826000.0,
-      "ma60Value": 1080933.3333,
-      "ma20Gap": "+11.8%",
-      "ma60Gap": "+88.8%",
+      "ma20": "1,877,200원",
+      "ma60": "1,110,783원",
+      "ma20Value": 1877200.0,
+      "ma60Value": 1110783.3333,
+      "ma20Gap": "+8.7%",
+      "ma60Gap": "+83.7%",
       "decision": "진입보류",
-      "note": "20일선 대비 +11.8% | 뉴스/유튜브/커뮤니티 과다노출 감점: 언급 2건, 과열출처 2건, 20일 +95.2%, 거래량 0.92배 | -8.0점",
+      "note": "20일선 대비 +8.7% | 뉴스/유튜브/커뮤니티 과다노출 감점: 언급 2건, 과열출처 2건, 20일 +95.2%, 거래량 0.92배 | -8.0점",
       "score": 91.0,
       "ohlc": [
         {
@@ -16952,10 +17040,18 @@
           "low": 2169000.0,
           "close": 2270000.0,
           "volume": 1728303
+        },
+        {
+          "date": "2026-06-22",
+          "open": 2215000.0,
+          "high": 2320000.0,
+          "low": 2185000.0,
+          "close": 2228000.0,
+          "volume": 864651
         }
       ],
       "ohlcSource": "Yahoo Finance",
-      "ohlcUpdatedAt": "2026-06-23T03:00:15+09:00",
+      "ohlcUpdatedAt": "2026-06-23T04:00:15+09:00",
       "ohlcQuoteSymbol": "009150.KS"
     },
     {
@@ -17473,7 +17569,7 @@
         }
       ],
       "ohlcSource": "Yahoo Finance",
-      "ohlcUpdatedAt": "2026-06-23T03:00:15+09:00",
+      "ohlcUpdatedAt": "2026-06-23T04:00:15+09:00",
       "ohlcQuoteSymbol": "395160.KS"
     },
     {
@@ -17483,14 +17579,14 @@
       "sourcePartId": "lab.moving_average",
       "sourcePartTitle": "3파트 이평",
       "currentPrice": "$2,092.99",
-      "ma20": "$1,799.13",
-      "ma60": "$1,305.89",
-      "ma20Value": 1799.1292,
-      "ma60Value": 1305.8906,
-      "ma20Gap": "+16.3%",
+      "ma20": "$1,798.84",
+      "ma60": "$1,305.80",
+      "ma20Value": 1798.8437,
+      "ma60Value": 1305.7954,
+      "ma20Gap": "+16.4%",
       "ma60Gap": "+60.3%",
       "decision": "보유",
-      "note": "20일선 대비 +16.3% | 뉴스/유튜브/커뮤니티 과다노출 감점: 언급 6건, 과열출처 5건, 20일 +43.5%, 거래량 0.74배 | -7.0점",
+      "note": "20일선 대비 +16.4% | 뉴스/유튜브/커뮤니티 과다노출 감점: 언급 6건, 과열출처 5건, 20일 +43.5%, 거래량 0.74배 | -7.0점",
       "score": 91.0,
       "ohlc": [
         {
@@ -17994,12 +18090,12 @@
           "open": 2293.3149,
           "high": 2354.3899,
           "low": 2251.2849,
-          "close": 2323.155,
-          "volume": 6824585
+          "close": 2317.4446,
+          "volume": 7322480
         }
       ],
       "ohlcSource": "Yahoo Finance",
-      "ohlcUpdatedAt": "2026-06-23T03:00:18+09:00",
+      "ohlcUpdatedAt": "2026-06-23T04:00:18+09:00",
       "ohlcQuoteSymbol": "SNDK"
     },
     {
@@ -18009,14 +18105,14 @@
       "sourcePartId": "lab.moving_average",
       "sourcePartTitle": "3파트 이평",
       "currentPrice": "327,000원",
-      "ma20": "304,425원",
-      "ma60": "311,150원",
-      "ma20Value": 304425.0,
-      "ma60Value": 311150.0,
-      "ma20Gap": "+7.4%",
+      "ma20": "302,875원",
+      "ma60": "311,233원",
+      "ma20Value": 302875.0,
+      "ma60Value": 311233.3333,
+      "ma20Gap": "+8.0%",
       "ma60Gap": "+5.1%",
       "decision": "일부 방어",
-      "note": "20일선 대비 +7.4% | 거래량 반영: 오늘 거래량 0, 20일 평균 대비 0.00배",
+      "note": "20일선 대비 +8.0% | 거래량 반영: 오늘 거래량 0, 20일 평균 대비 0.00배",
       "score": 91.0,
       "ohlc": [
         {
@@ -18506,10 +18602,18 @@
           "low": 287000.0,
           "close": 295000.0,
           "volume": 4125736
+        },
+        {
+          "date": "2026-06-22",
+          "open": 293500.0,
+          "high": 305500.0,
+          "low": 291000.0,
+          "close": 301500.0,
+          "volume": 883692
         }
       ],
       "ohlcSource": "Yahoo Finance",
-      "ohlcUpdatedAt": "2026-06-23T03:00:37+09:00",
+      "ohlcUpdatedAt": "2026-06-23T04:00:36+09:00",
       "ohlcQuoteSymbol": "042700.KS"
     },
     {
@@ -18519,14 +18623,14 @@
       "sourcePartId": "lab.moving_average",
       "sourcePartTitle": "3파트 이평",
       "currentPrice": "$284.15",
-      "ma20": "$275.25",
-      "ma60": "$216.06",
-      "ma20Value": 275.2495,
-      "ma60Value": 216.0592,
-      "ma20Gap": "+3.2%",
+      "ma20": "$275.19",
+      "ma60": "$216.04",
+      "ma20Value": 275.1932,
+      "ma60Value": 216.0404,
+      "ma20Gap": "+3.3%",
       "ma60Gap": "+31.5%",
       "decision": "추세훼손",
-      "note": "20일선 대비 +3.2% | 뉴스/유튜브/커뮤니티 과다노출 감점: 언급 13건, 과열출처 13건, 20일 +16.6%, 거래량 0.68배 | -4.0점",
+      "note": "20일선 대비 +3.3% | 뉴스/유튜브/커뮤니티 과다노출 감점: 언급 13건, 과열출처 13건, 20일 +16.6%, 거래량 0.68배 | -4.0점",
       "score": 90.0,
       "ohlc": [
         {
@@ -19030,12 +19134,12 @@
           "open": 287.78,
           "high": 295.75,
           "low": 284.26,
-          "close": 286.77,
-          "volume": 3184713
+          "close": 285.645,
+          "volume": 3577711
         }
       ],
       "ohlcSource": "Yahoo Finance",
-      "ohlcUpdatedAt": "2026-06-23T03:00:10+09:00",
+      "ohlcUpdatedAt": "2026-06-23T04:00:10+09:00",
       "ohlcQuoteSymbol": "PANW"
     }
   ],
@@ -19043,7 +19147,7 @@
     {
       "title": "웹 자동수집자료",
       "kind": "dotori-com-research",
-      "updatedAt": "2026-06-23T03:00:37+09:00",
+      "updatedAt": "2026-06-23T04:00:37+09:00",
       "summary": "웹이 자동으로 모은 뉴스와 시장 자료를 웹 리포트 항목에 반영합니다.",
       "sections": [
         {
@@ -22014,7 +22118,7 @@
     {
       "title": "웹 자동수집자료",
       "kind": "dotori-com-research",
-      "updatedAt": "2026-06-23T03:00:37+09:00",
+      "updatedAt": "2026-06-23T04:00:37+09:00",
       "summary": "웹이 자동으로 모은 뉴스와 시장 자료를 웹 리포트 항목에 반영합니다.",
       "sections": [
         {
@@ -22084,7 +22188,7 @@
     {
       "title": "섹터오버뷰",
       "kind": "sector-overview",
-      "updatedAt": "2026-06-23T03:00:37+09:00",
+      "updatedAt": "2026-06-23T04:00:37+09:00",
       "summary": "관심종목과 최신 예측 종목을 업종별로 묶어 산업 흐름과 개별 신호를 확인합니다.",
       "sections": [
         {
@@ -22142,7 +22246,7 @@
     {
       "title": "웹 자동수집자료",
       "kind": "dotori-com-research",
-      "updatedAt": "2026-06-23T03:00:03+09:00",
+      "updatedAt": "2026-06-23T04:00:03+09:00",
       "summary": "웹이 자동으로 모은 뉴스와 시장 자료를 웹 리포트 항목에 반영합니다.",
       "sections": [
         {
@@ -22165,7 +22269,7 @@
     {
       "title": "심층분석",
       "kind": "deep-analysis",
-      "updatedAt": "2026-06-23T03:00:37+09:00",
+      "updatedAt": "2026-06-23T04:00:37+09:00",
       "summary": "현재가, 예측 범위, 수익률, 신호를 같이 보면서 종목별 확인 포인트를 정리합니다.",
       "sections": [
         {
@@ -22728,7 +22832,7 @@
     }
   ],
   "webDataStatus": {
-    "updatedAt": "2026-06-23T03:00:03+09:00",
+    "updatedAt": "2026-06-23T04:00:03+09:00",
     "source": "도토리 PC 통합 추천자료",
     "scannerTargetEach": 30,
     "domesticCount": 30,
