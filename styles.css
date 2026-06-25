@@ -431,6 +431,23 @@ h3 {
   flex-wrap: wrap;
   gap: 8px;
 }
+.dashboard-backtest-button {
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  color: var(--ink);
+  display: inline-flex;
+  min-height: 38px;
+  padding: 7px 12px;
+}
+
+.dashboard-backtest-button:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #ffffff;
+  text-decoration: none;
+}
 
 .signal-feed {
   background: #ffffff;
