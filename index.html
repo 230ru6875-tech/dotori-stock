@@ -62,8 +62,8 @@
           flow_market_desc: "Separate Korea and the U.S., then confirm FX, index tone, and sector strength.",
           flow_compare_title: "Compare names directly",
           flow_compare_desc: "Put watchlist names and public candidates on the same frame to compare price, trend, volume, and news clues.",
-          flow_decision_title: "Separate signal from reason",
-          flow_decision_desc: "Labels such as watch, caution, and strong buy are shown with the underlying reasons and open questions.",
+          flow_decision_title: "Backtest",
+          flow_decision_desc: "Run one or several Korean stock symbols through the same strategy rules, then compare simulated returns, drawdown, win rate, and mock trades before making any real decision.",
           dashboard_title: "Public Dashboard",
           exchange_note: "The screen refreshes from operating data.",
           tab_watchlist: "Watchlist",
@@ -208,8 +208,8 @@
           </article>
           <article>
             <span>03</span>
-            <h3 data-i18n="flow_decision_title">판단 분리</h3>
-            <p data-i18n="flow_decision_desc">관찰, 주의, 강한 매수 같은 문구는 결과이고, 그 아래에 근거와 확인 조건을 따로 남깁니다.</p>
+            <h3 data-i18n="flow_decision_title">백테스트</h3>
+            <p data-i18n="flow_decision_desc">한 종목 또는 여러 종목을 같은 전략 규칙으로 돌려 총수익률, 최대낙폭, 승률, 모의 거래내역을 먼저 비교합니다. 실제 판단 전에 과거 데이터로 위험과 반복성을 확인합니다.</p>
           </article>
           <article>
             <span>04</span>
@@ -257,9 +257,16 @@
           <button data-section="sectorOverview" type="button" data-i18n="tab_sector">섹터오버뷰</button>
           <button data-section="deepAnalysis" type="button" data-i18n="tab_deep">심층분석</button>
           <button data-section="newsList" type="button" data-i18n="tab_news">뉴스목록</button>
-          <a class="dashboard-backtest-button" href="./korea-backtest.html">백테스트</a>
         </div>
       </div>
+      <a class="dashboard-backtest-card" href="./korea-backtest.html">
+        <div>
+          <span>전략 검증</span>
+          <strong>백테스트</strong>
+          <p>종목 1개 또는 여러 개를 입력해 네이버증권 일봉 기준으로 전략별 총수익률, 최대낙폭, 승률, 모의 거래내역을 비교합니다.</p>
+        </div>
+        <em>열기</em>
+      </a>
       <div id="signalFeed" class="signal-feed"></div>
       <div id="contentGrid" class="content-grid"></div>
     </section>
