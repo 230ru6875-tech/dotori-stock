@@ -2,6 +2,11 @@
 
 const state = { dataSets: [], activeIndex: 0 };
 const $ = (id) => document.getElementById(id);
+const STRATEGIES = [
+  { value: "ma", label: "20일선 회복 + 60일선 추세" },
+  { value: "rsi", label: "RSI 과매도 반등" },
+  { value: "breakout", label: "전일 변동성 돌파" }
+];
 
 function parseNumber(value) {
   if (value === undefined || value === null) return NaN;
@@ -290,6 +295,12 @@ function resultScore(result) {
   return result.totalReturn + result.maxDrawdown * 0.45 + result.winRate * 0.05;
 }
 
+function selectedStrategies() {
+  const selected = $("strategySelect").value;
+  if (selected === "all") return STRATEGIES;
+  return STRATEGIES.filter((strategy) => strategy.value === selected);
+}
+
 function renderSummary(results) {
   const sorted = [...results].sort((a, b) => resultScore(b.result) - resultScore(a.result));
   const best = sorted[0];
@@ -302,8 +313,9 @@ function renderSummary(results) {
 
   const rows = sorted.map((item, index) => `
     <tr>
-      <td><button class="small-button result-select" type="button" data-index="${item.index}">${item.symbol}</button></td>
+      <td><button class="small-button result-select" type="button" data-result-id="${item.resultId}">${item.symbol}</button></td>
       <td>${item.name || item.symbol}</td>
+      <td>${item.strategyLabel}</td>
       <td class="${item.result.totalReturn >= 0 ? "up" : "down"}">${formatPct(item.result.totalReturn)}</td>
       <td class="down">${formatPct(item.result.maxDrawdown)}</td>
       <td>${item.result.winRate.toFixed(1)}%</td>
@@ -311,24 +323,24 @@ function renderSummary(results) {
       <td>${index === 0 ? "상위" : "비교"}</td>
     </tr>
   `).join("");
-  $("resultTableBody").innerHTML = rows || '<tr><td colspan="7">결과가 없습니다.</td></tr>';
+  $("resultTableBody").innerHTML = rows || '<tr><td colspan="8">결과가 없습니다.</td></tr>';
 }
 
 function renderDetail(item) {
   if (!item) return;
   const rows = item.rows;
   const result = item.result;
-  $("periodLabel").textContent = `${item.symbol} · ${rows[0].date} - ${rows[rows.length - 1].date} · ${item.source || ""}`;
+  $("periodLabel").textContent = `${item.symbol} · ${item.strategyLabel} · ${rows[0].date} - ${rows[rows.length - 1].date} · ${item.source || ""}`;
   $("tradeCountLabel").textContent = `${result.trades.length}건`;
   drawChart(result.equity);
   const avgTrade = result.trades.length
     ? result.trades.reduce((sum, trade) => sum + trade.returnPct, 0) / result.trades.length
     : 0;
   const notes = [
-    `${item.name || item.symbol} ${rows.length.toLocaleString("ko-KR")}개 일봉으로 계산했습니다.`,
+    `${item.name || item.symbol} ${rows.length.toLocaleString("ko-KR")}개 일봉을 ${item.strategyLabel} 전략으로 계산했습니다.`,
     result.trades.length ? `평균 거래 수익률은 ${formatPct(avgTrade)}입니다.` : "조건에 맞는 진입 신호가 없었습니다.",
     result.maxDrawdown <= -15 ? "최대낙폭이 큽니다. 실전 적용 전 손절과 포지션 크기를 더 보수적으로 조정해야 합니다." : "낙폭은 제한적이지만 다른 기간과 전략으로 재검증해야 합니다.",
-    "데이터는 Yahoo Finance 차트 API 또는 업로드 CSV에서 가져오며, 호가 공백과 체결 실패는 별도 모델링하지 않습니다."
+    "국내 종목 데이터는 네이버증권 차트를 우선 사용하고, 실패 시 보조 차트 데이터 또는 업로드 CSV를 사용합니다. 호가 공백과 체결 실패는 별도 모델링하지 않습니다."
   ];
   $("resultNotes").innerHTML = notes.map((note) => `<li>${note}</li>`).join("");
   const rowsHtml = result.trades.slice(-20).reverse().map((trade) => `
@@ -346,19 +358,24 @@ function renderDetail(item) {
 
 function runAllBacktests() {
   const settings = collectSettings();
+  const strategies = selectedStrategies();
   const results = state.dataSets
     .filter((dataSet) => dataSet.rows && dataSet.rows.length >= 80)
-    .map((dataSet, index) => ({
+    .flatMap((dataSet, dataIndex) => strategies.map((strategy) => ({
       ...dataSet,
-      index,
-      result: runBacktest(dataSet.rows, settings)
-    }));
+      dataIndex,
+      resultId: `${dataIndex}-${strategy.value}`,
+      strategy: strategy.value,
+      strategyLabel: strategy.label,
+      result: runBacktest(dataSet.rows, { ...settings, strategy: strategy.value })
+    })));
   state.results = results;
   renderSummary(results);
-  state.activeIndex = results[0]?.index || 0;
-  renderDetail(results[0]);
+  const sorted = [...results].sort((a, b) => resultScore(b.result) - resultScore(a.result));
+  state.activeResultId = sorted[0]?.resultId || "";
+  renderDetail(sorted[0]);
   if (results.length) {
-    setStatus(`${results.length}개 종목의 백테스트를 완료했습니다. 표의 종목 버튼을 누르면 상세 결과가 바뀝니다.`);
+    setStatus(`${state.dataSets.length}개 종목, ${strategies.length}개 전략의 백테스트를 완료했습니다. 표의 종목 버튼을 누르면 상세 결과가 바뀝니다.`);
   }
 }
 
@@ -416,8 +433,7 @@ window.addEventListener("DOMContentLoaded", () => {
   $("resultTableBody").addEventListener("click", (event) => {
     const button = event.target.closest(".result-select");
     if (!button) return;
-    const index = Number(button.dataset.index);
-    const item = state.results.find((entry) => entry.index === index);
+    const item = state.results.find((entry) => entry.resultId === button.dataset.resultId);
     renderDetail(item);
   });
 });

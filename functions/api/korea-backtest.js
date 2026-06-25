@@ -10,6 +10,13 @@ const RANGE_MAP = {
   "5y": "5y"
 };
 
+const RANGE_DAYS = {
+  "6mo": 210,
+  "1y": 420,
+  "2y": 820,
+  "5y": 1900
+};
+
 function normalizeSymbol(value) {
   return String(value || "").trim().toUpperCase().replace(/[^A-Z0-9.]/g, "");
 }
@@ -30,6 +37,75 @@ function parseSymbols(value) {
 function yahooCandidates(symbol) {
   if (/^\d{6}$/.test(symbol)) return [`${symbol}.KS`, `${symbol}.KQ`];
   return [symbol];
+}
+
+function ymd(date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}${month}${day}`;
+}
+
+function dashedDate(value) {
+  const text = String(value || "");
+  return text.length === 8 ? `${text.slice(0, 4)}-${text.slice(4, 6)}-${text.slice(6, 8)}` : text;
+}
+
+async function fetchNaverName(symbol) {
+  try {
+    const response = await fetch(`https://polling.finance.naver.com/api/realtime/domestic/stock/${symbol}`, {
+      headers: {
+        "accept": "application/json",
+        "referer": `https://finance.naver.com/item/main.naver?code=${symbol}`,
+        "user-agent": "Mozilla/5.0 DotoriWeb/1.0"
+      }
+    });
+    if (!response.ok) return "";
+    const payload = await response.json();
+    return payload?.datas?.[0]?.stockName || "";
+  } catch (_) {
+    return "";
+  }
+}
+
+async function fetchNaverDaily(symbol, range) {
+  const end = new Date();
+  const start = new Date(end);
+  start.setDate(end.getDate() - (RANGE_DAYS[range] || RANGE_DAYS["2y"]));
+  const url = `https://api.finance.naver.com/siseJson.naver?symbol=${encodeURIComponent(symbol)}&requestType=1&startTime=${ymd(start)}&endTime=${ymd(end)}&timeframe=day`;
+  const response = await fetch(url, {
+    headers: {
+      "accept": "*/*",
+      "referer": `https://finance.naver.com/item/sise_day.naver?code=${symbol}`,
+      "user-agent": "Mozilla/5.0 DotoriWeb/1.0"
+    }
+  });
+  if (!response.ok) throw new Error(`naver_http_${response.status}`);
+  const text = await response.text();
+  const rows = [];
+  const rowPattern = /\["(\d{8})"\s*,\s*([0-9.]+)\s*,\s*([0-9.]+)\s*,\s*([0-9.]+)\s*,\s*([0-9.]+)\s*,\s*([0-9.]+)/g;
+  let match;
+  while ((match = rowPattern.exec(text))) {
+    rows.push({
+      date: dashedDate(match[1]),
+      open: Number(match[2]),
+      high: Number(match[3]),
+      low: Number(match[4]),
+      close: Number(match[5]),
+      volume: Number(match[6] || 0)
+    });
+  }
+  if (rows.length < 80) throw new Error("naver_not_enough_daily_rows");
+  const name = await fetchNaverName(symbol);
+  return {
+    ok: true,
+    symbol,
+    yahooSymbol: "",
+    name: name || symbol,
+    currency: "KRW",
+    rows,
+    source: "Naver Finance Chart"
+  };
 }
 
 async function fetchYahooChart(yahooSymbol, range) {
@@ -64,6 +140,13 @@ async function fetchYahooChart(yahooSymbol, range) {
 
 async function fetchOne(symbol, range) {
   const errors = [];
+  if (/^\d{6}$/.test(symbol)) {
+    try {
+      return await fetchNaverDaily(symbol, range);
+    } catch (error) {
+      errors.push(`Naver:${String(error?.message || error)}`);
+    }
+  }
   for (const yahooSymbol of yahooCandidates(symbol)) {
     try {
       const data = await fetchYahooChart(yahooSymbol, range);
