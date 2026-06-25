@@ -345,6 +345,8 @@ function renderDetail(item) {
   $("resultNotes").innerHTML = notes.map((note) => `<li>${note}</li>`).join("");
   const rowsHtml = result.trades.slice(-20).reverse().map((trade) => `
     <tr>
+      <td>${item.name || item.symbol} (${item.symbol})</td>
+      <td>${item.strategyLabel}</td>
       <td>${trade.entryDate}</td>
       <td>${trade.exitDate}</td>
       <td>${formatPrice(trade.entryPrice)}</td>
@@ -353,7 +355,7 @@ function renderDetail(item) {
       <td>${trade.reason}</td>
     </tr>
   `).join("");
-  $("tradeTableBody").innerHTML = rowsHtml || '<tr><td colspan="6">거래내역이 없습니다.</td></tr>';
+  $("tradeTableBody").innerHTML = rowsHtml || '<tr><td colspan="8">거래내역이 없습니다.</td></tr>';
 }
 
 function runAllBacktests() {
