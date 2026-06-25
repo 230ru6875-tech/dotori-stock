@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>한국주식 백테스트 | 오늘의 주식</title>
+  <meta name="description" content="한국주식 일봉 CSV를 업로드해 이동평균, RSI, 변동성 돌파 전략을 빠르게 검증하는 도토리웹 백테스트 도구입니다.">
+  <meta name="keywords" content="한국주식 백테스트, 국내주식 백테스팅, KRX 백테스트, 주식 전략 검증, 도토리웹">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://dotoristock.com/korea-backtest.html">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="오늘의 주식">
+  <meta property="og:title" content="한국주식 백테스트 | 오늘의 주식">
+  <meta property="og:description" content="국내주식 OHLCV CSV로 전략 수익률, 최대낙폭, 승률, 거래내역을 브라우저에서 바로 확인합니다.">
+  <meta property="og:url" content="https://dotoristock.com/korea-backtest.html">
+  <link rel="icon" type="image/png" href="./assets/icons/favicon.png">
+  <link rel="apple-touch-icon" href="./assets/icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./korea-backtest.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="./">오늘의 주식</a>
+      <div class="nav-links">
+        <a href="./">홈</a>
+        <a href="./reports/">종목 리포트</a>
+        <a href="./daily/">오늘시황</a>
+        <a href="./korea-backtest.html" aria-current="page">백테스트</a>
+        <a href="./methodology.html">분석 방법론</a>
+        <a href="./disclaimer.html">투자 고지</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="backtest-page">
+    <section class="backtest-hero">
+      <div class="container">
+        <p class="breadcrumb">홈 / 한국주식 백테스트</p>
+        <div class="backtest-hero-grid">
+          <div>
+            <h1>한국주식 전략을 먼저 검증하십시오</h1>
+            <p class="lead">감으로 매수하기 전에, 같은 규칙을 과거 데이터에 반복 적용해 수익률과 최대낙폭을 확인합니다. 이 도구는 브라우저에서 CSV를 읽어 모의 매매만 수행하며 실제 주문은 내지 않습니다.</p>
+            <p class="notice">투자 참고용 도구입니다. 과거 성과는 미래 수익을 보장하지 않으며, 실전 주문 전에는 증권사 현재가, 수수료, 세금, 호가, 거래정지, 공시를 반드시 다시 확인해야 합니다.</p>
+          </div>
+          <div class="backtest-guide-panel">
+            <h2>사용 방법</h2>
+            <p>종목코드를 쉼표로 입력하면 여러 종목을 한 번에 비교합니다. CSV 업로드는 보조 기능입니다.</p>
+            <code>005930, 000660, 035420</code>
+            <code>date, open, high, low, close, volume</code>
+            <code>날짜, 시가, 고가, 저가, 종가, 거래량</code>
+            <button id="loadSampleButton" type="button">샘플 데이터 불러오기</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container backtest-workbench" aria-label="백테스트 설정">
+      <form id="backtestForm" class="backtest-controls">
+        <div class="backtest-control">
+          <label for="symbolInputBacktest">종목코드</label>
+          <input id="symbolInputBacktest" type="text" value="005930,000660,035420" placeholder="005930, 000660, 035420">
+        </div>
+        <div class="backtest-control">
+          <label for="rangeSelect">조회 기간</label>
+          <select id="rangeSelect">
+            <option value="6mo">6개월</option>
+            <option value="1y">1년</option>
+            <option value="2y" selected>2년</option>
+            <option value="5y">5년</option>
+          </select>
+        </div>
+        <div class="backtest-control">
+          <label for="strategySelect">전략</label>
+          <select id="strategySelect">
+            <option value="ma">20일선 회복 + 60일선 추세</option>
+            <option value="rsi">RSI 과매도 반등</option>
+            <option value="breakout">전일 변동성 돌파</option>
+          </select>
+        </div>
+        <div class="backtest-control">
+          <label for="initialCash">초기자금</label>
+          <input id="initialCash" type="number" min="100000" step="100000" value="10000000">
+        </div>
+        <div class="backtest-control">
+          <label for="feeRate">왕복 비용(%)</label>
+          <input id="feeRate" type="number" min="0" step="0.01" value="0.25">
+        </div>
+        <div class="backtest-control">
+          <label for="holdingDays">최대 보유일</label>
+          <input id="holdingDays" type="number" min="1" max="60" step="1" value="7">
+        </div>
+        <div class="backtest-control">
+          <label for="stopLoss">손절(%)</label>
+          <input id="stopLoss" type="number" min="0" max="50" step="0.5" value="5">
+        </div>
+        <div class="backtest-control">
+          <label for="takeProfit">익절(%)</label>
+          <input id="takeProfit" type="number" min="0" max="100" step="0.5" value="12">
+        </div>
+        <div class="backtest-control">
+          <label for="csvFile">CSV 직접 업로드</label>
+          <input id="csvFile" type="file" accept=".csv,text/csv">
+        </div>
+        <button type="submit">백테스트 실행</button>
+      </form>
+
+      <div id="backtestStatus" class="backtest-status">샘플 데이터를 불러오거나 CSV를 업로드한 뒤 실행하십시오.</div>
+
+      <section class="backtest-metrics" aria-label="백테스트 결과 요약">
+        <article class="backtest-metric">
+          <span>총수익률</span>
+          <strong id="metricReturn">-</strong>
+        </article>
+        <article class="backtest-metric">
+          <span>최대낙폭</span>
+          <strong id="metricDrawdown">-</strong>
+        </article>
+        <article class="backtest-metric">
+          <span>승률</span>
+          <strong id="metricWinRate">-</strong>
+        </article>
+        <article class="backtest-metric">
+          <span>거래횟수</span>
+          <strong id="metricTrades">-</strong>
+        </article>
+      </section>
+
+      <section class="backtest-grid">
+        <article class="backtest-section">
+          <div class="section-title-row">
+            <h2>자산 곡선</h2>
+            <span id="periodLabel" class="small-muted">-</span>
+          </div>
+          <canvas id="equityChart" width="900" height="360" aria-label="백테스트 자산 곡선"></canvas>
+        </article>
+        <aside class="backtest-section">
+          <h2>판정 요약</h2>
+          <ul id="resultNotes" class="backtest-notes">
+            <li>결과가 아직 없습니다.</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section class="backtest-section">
+        <div class="section-title-row">
+          <h2>종목별 비교</h2>
+          <span class="small-muted">수익률, 낙폭, 승률 기준</span>
+        </div>
+        <div class="table-scroll">
+          <table class="plain-table backtest-result-table">
+            <thead>
+              <tr>
+                <th>종목</th>
+                <th>이름</th>
+                <th>총수익률</th>
+                <th>최대낙폭</th>
+                <th>승률</th>
+                <th>거래</th>
+                <th>구분</th>
+              </tr>
+            </thead>
+            <tbody id="resultTableBody">
+              <tr><td colspan="7">결과가 없습니다.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="backtest-section">
+        <div class="section-title-row">
+          <h2>최근 거래내역</h2>
+          <span id="tradeCountLabel" class="small-muted">0건</span>
+        </div>
+        <div class="table-scroll">
+          <table class="plain-table backtest-trade-table">
+            <thead>
+              <tr>
+                <th>진입일</th>
+                <th>청산일</th>
+                <th>진입가</th>
+                <th>청산가</th>
+                <th>수익률</th>
+                <th>사유</th>
+              </tr>
+            </thead>
+            <tbody id="tradeTableBody">
+              <tr><td colspan="6">거래내역이 없습니다.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p>(c) 2026 오늘의 주식</p>
+      <div>
+        <a href="./privacy.html">개인정보처리방침</a>
+        <a href="./terms.html">이용약관</a>
+        <a href="./disclaimer.html">투자 고지</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
