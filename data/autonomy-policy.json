@@ -29,12 +29,5 @@
     "dotori_com": "verification_crosscheck_and_trade_candidate_classification"
   },
   "public_site_can_hold_secrets": false,
-  "requires_existing_safety_gates": true,
-  "notes": [
-    "Tori collectors remain research_only.",
-    "Tori1 collects domestic market and Korean morning/evening newspaper inputs.",
-    "Tori2 collects overseas market and global economic newspaper inputs.",
-    "Tori3 is not used by default; Dotori.com owns verification and classification.",
-    "Dotori.com may express data collection and trading autonomy, but real order execution must stay in the existing local broker engine."
-  ]
+  "requires_existing_safety_gates": true
 }
