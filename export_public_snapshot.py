@@ -2465,7 +2465,7 @@ def build_snapshot() -> dict:
             previous = json.loads(PUBLIC_SNAPSHOT_PATH.read_text(encoding="utf-8"))
         except Exception:
             previous = {}
-    predictions = json.loads(PREDICTIONS_PATH.read_text(encoding="utf-8", errors="replace"))
+    predictions = _read_json_dict(PREDICTIONS_PATH)
     items = predictions.get("items", []) if isinstance(predictions, dict) else []
     if not isinstance(items, list):
         items = []
@@ -2550,7 +2550,7 @@ def build_symbol_directory(
     research_requests: list[dict] | None = None,
     research_metrics: list[dict] | None = None,
 ) -> dict:
-    predictions = json.loads(PREDICTIONS_PATH.read_text(encoding="utf-8", errors="replace"))
+    predictions = _read_json_dict(PREDICTIONS_PATH)
     items = predictions.get("items", []) if isinstance(predictions, dict) else []
     directory: dict[str, dict] = {}
     if not isinstance(items, list):

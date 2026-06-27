@@ -1,4 +1,4 @@
-const state = { data: null, dailyHistory: [], dotoriLearning: null, latestBacktest: null, activeSection: "watchlist", userStocks: [], selectedMovingSymbol: "", scannerMarketFirst: "domestic", scannerMarketFirstManual: false, scannerSectorFilter: "전체", growthSectorFilter: "전체", dailySearchQuery: "", dailyDateFrom: "", dailyDateTo: "", quotes: {}, liveQuoteCycle: 0, quoteRefreshInFlight: false, quoteRenderTimer: 0, movingAverageRefreshInFlight: false, movingAverageRefreshAt: 0 };
+const state = { data: null, dailyHistory: [], dotoriLearning: null, sanghoe: null, activeSection: "watchlist", userStocks: [], selectedMovingSymbol: "", scannerMarketFirst: "domestic", scannerMarketFirstManual: false, scannerSectorFilter: "전체", growthSectorFilter: "전체", dailySearchQuery: "", dailyDateFrom: "", dailyDateTo: "", quotes: {}, liveQuoteCycle: 0, quoteRefreshInFlight: false, quoteRenderTimer: 0 };
 const USER_STOCKS_KEY = "dotori.userStocks.v1";
 const USER_KEY = "dotori.userKey.v1";
 const USER_KEEP_ASKED_KEY = "dotori.keepAsked.v1";
@@ -12,7 +12,6 @@ const WATCHLIST_QUOTE_REFRESH_MS = 2000;
 const DISPLAY_MARKET_LIMIT = 30;
 const LIVE_QUOTE_BATCH_SIZE = 30;
 const LIVE_QUOTE_MARKET_SPLIT = 15;
-const MOVING_AVERAGE_REFRESH_MS = 15 * 60 * 1000;
 const MARKET_CLOSE_GRACE_MINUTES = 5;
 const DOMESTIC_MARKET_START_KST_MINUTES = 8 * 60 + 30;
 const DOMESTIC_MARKET_END_KST_MINUTES = 18 * 60;
@@ -87,7 +86,7 @@ function setStatus(message) {
 function setBrandUpdatedAt(iso) {
   const target = el("#brandUpdatedAt");
   if (!target) return;
-  const text = fmtDateTimeSeconds(iso);
+  const text = fmtDateTimeSeconds(iso || new Date().toISOString());
   target.textContent = text && text !== "-" ? `(${text})` : "";
 }
 function latestUpdatedAt(...values) {
@@ -116,6 +115,41 @@ function setBuildVersion() {
   const target = el("#buildVersion");
   if (!target) return;
   target.textContent = currentKstHourBuildLabel();
+}
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+function formatHermesPlanList(items) {
+  const rows = (Array.isArray(items) ? items : []).slice(0, 8).map((item) => {
+    const name = String(item?.name || item?.symbol || "").trim();
+    const symbol = String(item?.symbol || "").trim();
+    if (!name && !symbol) return "";
+    if (!symbol || name === symbol) return name || symbol;
+    return `${name}(${symbol})`;
+  }).filter(Boolean);
+  return rows.length ? rows.join(", ") : "없음";
+}
+function renderHermesPlanLines() {
+  const mount = el("#hermesPlanLines");
+  if (!mount) return;
+  const payload = state.sanghoe || {};
+  const candidates = Array.isArray(payload.candidates) ? payload.candidates : [];
+  const buyRows = candidates.filter((item) => String(item?.sideRaw || "").toLowerCase() === "buy_candidate");
+  const sellRows = candidates.filter((item) => String(item?.sideRaw || "").toLowerCase() === "sell_watch");
+  const watchRows = candidates.filter((item) => {
+    const side = String(item?.sideRaw || "").toLowerCase();
+    return side && side !== "buy_candidate" && side !== "sell_watch";
+  });
+  mount.innerHTML = [
+    `<p class="hero-plan-line"><span class="hero-plan-label">오늘의 매수 후보 :</span>${escapeHtml(formatHermesPlanList(buyRows))}</p>`,
+    `<p class="hero-plan-line"><span class="hero-plan-label">오늘의 매도 후보 :</span>${escapeHtml(formatHermesPlanList(sellRows))}</p>`,
+    `<p class="hero-plan-line"><span class="hero-plan-label">오늘의 관찰 후보 :</span>${escapeHtml(formatHermesPlanList(watchRows))}</p>`
+  ].join("");
 }
 function setTabDebugState(section, count) {
   const target = el("#tabDebugState");
@@ -561,64 +595,6 @@ async function lookupQuoteBatch(symbols) {
     return {};
   }
 }
-function averageClose(rows, count) {
-  const closes = (rows || []).map((row) => Number(row?.close)).filter(Number.isFinite);
-  if (!closes.length) return 0;
-  const slice = closes.slice(-count);
-  return slice.reduce((sum, value) => sum + value, 0) / Math.max(slice.length, 1);
-}
-function movingDecisionFromDaily(current, ma20, ma60) {
-  if (![current, ma20, ma60].every((value) => Number.isFinite(value) && value > 0)) return "\uad00\ucc30";
-  if (current >= ma20 && ma20 >= ma60) return "\ub9e4\uc218";
-  if (current < ma20 && ma20 < ma60) return "\ub9e4\ub3c4";
-  if (current < ma20) return "\ucd94\uc138\ud6fc\uc190";
-  return "\uad00\ucc30";
-}
-async function refreshMovingAveragesFromDaily() {
-  if (state.movingAverageRefreshInFlight || state.activeSection !== "moving") return;
-  const now = Date.now();
-  if (now - Number(state.movingAverageRefreshAt || 0) < MOVING_AVERAGE_REFRESH_MS) return;
-  const baseRows = Array.isArray(state.data?.movingAverages) ? state.data.movingAverages : [];
-  const symbols = uniqueSymbols(baseRows.filter((item) => /^\d{6}$/.test(normalizeSymbol(item?.symbol)))).slice(0, 12);
-  if (!symbols.length) return;
-  state.movingAverageRefreshInFlight = true;
-  state.movingAverageRefreshAt = now;
-  try {
-    const params = new URLSearchParams({ symbols: symbols.join(","), range: "6mo" });
-    const response = await fetch(`/api/korea-backtest?${params.toString()}`, { cache: "no-store" });
-    if (!response.ok || !String(response.headers.get("content-type") || "").includes("application/json")) return;
-    const payload = await response.json();
-    const resultMap = new Map((payload.results || []).filter((item) => item?.ok && Array.isArray(item.rows)).map((item) => [normalizeSymbol(item.symbol), item]));
-    if (!resultMap.size) return;
-    state.data.movingAverages = baseRows.map((row) => {
-      const symbol = normalizeSymbol(row?.symbol);
-      const result = resultMap.get(symbol);
-      if (!result) return row;
-      const rows = result.rows.filter((item) => Number.isFinite(Number(item?.close)));
-      const latest = rows[rows.length - 1] || {};
-      const current = Number(latest.close);
-      const ma20 = averageClose(rows, 20);
-      const ma60 = averageClose(rows, 60);
-      return {
-        ...row,
-        name: stripSymbolFromName(result.name, symbol) || row.name,
-        market: T.domestic,
-        currentPrice: current,
-        ma20,
-        ma60,
-        decision: movingDecisionFromDaily(current, ma20, ma60),
-        note: `Naver ${latest.date || ""} \uc885\uac00 \uae30\uc900 20/60\uc77c\uc120 \uac31\uc2e0`,
-        ohlc: rows.slice(-80),
-        ohlcSource: "Naver Finance Chart"
-      };
-    });
-    renderDashboard();
-  } catch (error) {
-    console.warn("moving_average_refresh_failed", error);
-  } finally {
-    state.movingAverageRefreshInFlight = false;
-  }
-}
 async function saveWebWatchlistInterest(item, action = "add") {
   return Promise.resolve({ ok: true, localOnly: true, symbol: item?.symbol || "", action });
 }
@@ -788,7 +764,6 @@ function formatDisplayPrice(value, item) {
 function formatDisplayPriceRange(value, item) {
   const raw = String(value || "").trim();
   if (!raw || /조회|대기|-/.test(raw)) return raw;
-  if (/%/.test(raw) || /\b(return|yield|pct)\b/i.test(raw)) return escapeHtml(raw);
   const parts = raw.split("~").map((part) => part.trim()).filter(Boolean);
   if (parts.length !== 2) return formatDisplayPrice(raw, item);
   return `${formatDisplayPrice(parts[0], item)} ~ ${formatDisplayPrice(parts[1], item)}`;
@@ -1835,43 +1810,6 @@ function formatDotoriNumber(value, suffix = "") {
   return `${number.toLocaleString("ko-KR", { maximumFractionDigits: 2 })}${suffix}`;
 }
 
-function renderLatestBacktestLearningCard() {
-  const latest = state.latestBacktest || {};
-  const summary = latest.summary || {};
-  const trades = Array.isArray(latest.trades) ? latest.trades : [];
-  const topProfits = Array.isArray(latest.top_profits) ? latest.top_profits : [];
-  const topLosses = Array.isArray(latest.top_losses) ? latest.top_losses : [];
-  const savedAt = latest.saved_at || summary.saved_at || "";
-  const runId = latest.run_id || summary.run_id || "-";
-  const strategy = summary.strategy_name || "-";
-  const targetSymbols = Array.isArray(summary.target_symbols) && summary.target_symbols.length ? summary.target_symbols.join(", ") : "-";
-  const lastTrades = trades.slice(-3).reverse().map((trade) => {
-    const symbol = trade.symbol || trade.name || "-";
-    const action = trade.action || trade.side || trade.reason || "-";
-    const pct = trade.return_pct ?? trade.returnPct ?? trade.pnl_pct;
-    return `<li>${escapeHtml(symbol)} / ${escapeHtml(action)} / ${formatDotoriNumber(pct, "%")}</li>`;
-  }).join("");
-  const profitRows = topProfits.slice(0, 3).map((item) => `<li>${escapeHtml(item.symbol || item.name || "-")} ${formatDotoriNumber(item.return_pct ?? item.returnPct ?? item.pnl_pct, "%")}</li>`).join("");
-  const lossRows = topLosses.slice(0, 3).map((item) => `<li>${escapeHtml(item.symbol || item.name || "-")} ${formatDotoriNumber(item.return_pct ?? item.returnPct ?? item.pnl_pct, "%")}</li>`).join("");
-  return `<article class="data-card report-card">
-    <div class="card-top"><strong>최신 백테스트 반영</strong><em>${escapeHtml(fmtDateTimeSeconds(savedAt) || "-")}</em></div>
-    <p>가장 최근 저장된 백테스트 실행 결과를 기준으로 AI학습결과를 다시 해석합니다. 오래된 학습 JSON보다 이 카드의 실행 시각과 성과를 먼저 확인하십시오.</p>
-    <div class="info-grid">
-      <div><b>실행 ID</b><p>${escapeHtml(runId)}</p></div>
-      <div><b>전략</b><p>${escapeHtml(strategy)}</p></div>
-      <div><b>대상 종목</b><p>${escapeHtml(targetSymbols)}</p></div>
-      <div><b>총수익률</b><p>${formatDotoriNumber(summary.total_return_pct, "%")}</p></div>
-      <div><b>최대낙폭</b><p>${formatDotoriNumber(summary.max_drawdown_pct, "%")}</p></div>
-      <div><b>승률/거래</b><p>${formatDotoriNumber(summary.win_rate_pct, "%")} / ${formatDotoriNumber(summary.trade_count)}</p></div>
-    </div>
-    <div class="info-grid">
-      <div><b>최근 모의 거래</b><ul>${lastTrades || "<li>최근 모의 거래 없음</li>"}</ul></div>
-      <div><b>상위 수익</b><ul>${profitRows || "<li>상위 수익 없음</li>"}</ul></div>
-      <div><b>상위 손실</b><ul>${lossRows || "<li>상위 손실 없음</li>"}</ul></div>
-    </div>
-  </article>`;
-}
-
 function renderDotoriLearningDashboard() {
   const payload = state.dotoriLearning || {};
   const koreaRows = Array.isArray(payload?.korea?.rankings) ? payload.korea.rankings : [];
@@ -1888,7 +1826,7 @@ function renderDotoriLearningDashboard() {
   ].join(" / ");
   const rowHtml = (item) => `<tr><td>${escapeHtml(item.rank || "-")}</td><td><strong>${escapeHtml(item.name || item.symbol || "-")}</strong> <span>(${escapeHtml(item.symbol || "-")})</span></td><td>${escapeHtml(item.sector || "-")}</td><td>${formatDotoriNumber(item.price)}</td><td><b>${formatDotoriNumber(item.score)}</b></td><td><b class="${signalClass(item.signal || "")}">${escapeHtml(item.signal || "-")}</b></td><td>${formatDotoriNumber(Number(item.confidence) * 100, "%")}</td><td>${escapeHtml(item.reason || "-")}</td></tr>`;
   const groupHtml = (title, rows) => `<tr class="market-group-row"><td colspan="8">${title}</td></tr>${rows.length ? rows.slice(0, DISPLAY_MARKET_LIMIT).map(rowHtml).join("") : `<tr><td colspan="8">${title} 데이터가 아직 없습니다.</td></tr>`}`;
-  return `${renderLatestBacktestLearningCard()}<div class="table-card"><table class="data-table"><thead><tr><th colspan="4">갱신 ${escapeHtml(updated)}</th><th colspan="4">${escapeHtml(summaryLine)}</th></tr><tr><th colspan="4">한국 선정 ${escapeHtml(selectedKr || "-")}</th><th colspan="4">미국 선정 ${escapeHtml(selectedUs || "-")}</th></tr><tr><th>순위</th><th>종목</th><th>섹터</th><th>현재가</th><th>점수</th><th>신호</th><th>신뢰도</th><th>사유</th></tr></thead><tbody>${groupHtml("한국 후보", koreaRows)}${groupHtml("미국 후보", usRows)}</tbody></table></div>`;
+  return `<div class="table-card"><table class="data-table"><thead><tr><th colspan="4">갱신 ${escapeHtml(updated)}</th><th colspan="4">${escapeHtml(summaryLine)}</th></tr><tr><th colspan="4">한국 선정 ${escapeHtml(selectedKr || "-")}</th><th colspan="4">미국 선정 ${escapeHtml(selectedUs || "-")}</th></tr><tr><th>순위</th><th>종목</th><th>섹터</th><th>현재가</th><th>점수</th><th>신호</th><th>신뢰도</th><th>사유</th></tr></thead><tbody>${groupHtml("한국 후보", koreaRows)}${groupHtml("미국 후보", usRows)}</tbody></table></div>`;
 }
 
 function renderDashboard() {
@@ -1898,9 +1836,9 @@ function renderDashboard() {
   const exchangeRate = el("#exchangeRate");
   const exchangeNote = el("#exchangeNote");
   setBuildVersion();
-  setBrandUpdatedAt(latestUpdatedAt(data.updatedAt, state.dotoriLearning?.generatedAt, state.latestBacktest?.saved_at));
+  setBrandUpdatedAt(new Date().toISOString());
   const rate = data.exchangeRate || {};
-  if (updatedAt) updatedAt.textContent = fmtDateTimeSeconds(latestUpdatedAt(data.updatedAt, state.dotoriLearning?.generatedAt, state.latestBacktest?.saved_at));
+  if (updatedAt) updatedAt.textContent = fmtDateTimeSeconds(latestUpdatedAt(data.updatedAt, state.dotoriLearning?.generatedAt));
   if (exchangeRate) exchangeRate.textContent = [rate.value, rate.change].filter(Boolean).join(" ");
   if (exchangeNote) {
     const rateUpdatedAt = rate.updatedAt ? `환율 갱신 ${fmtDateTimeSeconds(rate.updatedAt)}` : "";
@@ -1972,7 +1910,7 @@ function renderDashboard() {
     const rowHtml = (item, index, direction) => {
       const changeClass = direction === "down" ? "down" : "up";
       const label = direction === "down" ? "급락" : "급등";
-      return `<tr><td>${index + 1}</td><td>${label}</td><td class="scanner-name-cell"><strong>${item.name || item.symbol}</strong> <span>(${item.symbol || "-"})</span></td><td>${displayMarket(item.market || marketName(item.symbol))}</td><td>${item.range || "-"}</td><td><b class="${changeClass}">${item.change || "-"}</b></td><td>${formatDisplayPrice(item.currentPrice, item) || "-"}</td><td><b class="${signalClass(item.signal || "")}">${item.signal || "-"}</b></td><td>${item.note || ""}</td></tr>`;
+      return `<tr><td>${index + 1}</td><td>${label}</td><td><strong>${item.name || item.symbol}</strong> <span>(${item.symbol || "-"})</span></td><td>${displayMarket(item.market || marketName(item.symbol))}</td><td>${item.range || "-"}</td><td><b class="${changeClass}">${item.change || "-"}</b></td><td>${formatDisplayPrice(item.currentPrice, item) || "-"}</td><td><b class="${signalClass(item.signal || "")}">${item.signal || "-"}</b></td><td>${item.note || ""}</td></tr>`;
     };
     const groupHtml = (marketLabel, direction, title) => {
       const rows = directionRows(direction, marketLabel).slice(0, DISPLAY_MARKET_LIMIT);
@@ -1985,7 +1923,7 @@ function renderDashboard() {
       const symbol = normalizeSymbol(item.symbol);
       const selected = symbol && symbol === selectedSymbol;
       const detailRow = selected ? `<tr class="moving-detail-row"><td colspan="6">${movingDetailHtml(item)}</td></tr>` : "";
-      return `<tr class="clickable-row ${selected ? "selected-row" : ""}" data-moving-symbol="${item.symbol || ""}" data-chart-symbol="${item.symbol || ""}"><td class="scanner-name-cell"><strong>${item.name || item.symbol}</strong> <span>(${item.symbol || "-"})</span></td><td>${formatDisplayPrice(item.currentPrice, item) || "-"}</td><td>${formatDisplayPrice(item.ma20, item) || "-"}</td><td>${formatDisplayPrice(item.ma60, item) || "-"}</td><td><b class="${signalClass(item.decision || "")}">${item.decision || "-"}</b></td><td>${item.note || item.movingAverage || ""}</td></tr>${detailRow}`;
+      return `<tr class="clickable-row ${selected ? "selected-row" : ""}" data-moving-symbol="${item.symbol || ""}" data-chart-symbol="${item.symbol || ""}"><td><strong>${item.name || item.symbol}</strong> <span>(${item.symbol || "-"})</span></td><td>${formatDisplayPrice(item.currentPrice, item) || "-"}</td><td>${formatDisplayPrice(item.ma20, item) || "-"}</td><td>${formatDisplayPrice(item.ma60, item) || "-"}</td><td><b class="${signalClass(item.decision || "")}">${item.decision || "-"}</b></td><td>${item.note || item.movingAverage || ""}</td></tr>${detailRow}`;
     }).join("");
     grid.innerHTML = `<div class="table-card"><table class="data-table"><thead><tr><th>\uc885\ubaa9</th><th>\ud604\uc7ac\uac00</th><th>20\uc77c\uc120</th><th>60\uc77c\uc120</th><th>\ud310\ub2e8</th><th>\uadfc\uac70</th></tr></thead><tbody>${rows}</tbody></table></div>`;
   } else if (state.activeSection === "newsList") {
@@ -2065,7 +2003,6 @@ function renderDashboard() {
       renderDashboard();
     });
   });
-  if (state.activeSection === "moving") refreshMovingAveragesFromDaily();
 }
 function updateTopChart(symbol) {
   const source = chartSourceForSymbol(symbol);
@@ -2222,11 +2159,11 @@ function drawChart(source = null) {
 
 async function loadData(options = {}) {
   try {
-    const [snapshotResponse, dailyResponse, learningResponse, backtestResponse] = await Promise.all([
+    const [snapshotResponse, dailyResponse, learningResponse, sanghoeResponse] = await Promise.all([
       fetch("./data/public-snapshot.json", { cache: "no-store" }),
       fetch("./data/daily-market-history.json", { cache: "no-store" }).catch(() => null),
       fetch("./data/dotoristock-learning.json", { cache: "no-store" }).catch(() => null),
-      fetch("./data/backtests/latest.json", { cache: "no-store" }).catch(() => null)
+      fetch("./data/dotori-sanghoe.json", { cache: "no-store" }).catch(() => null)
     ]);
     if (!snapshotResponse.ok) throw new Error(`HTTP ${snapshotResponse.status}`);
     state.data = normalizeSnapshotData(await snapshotResponse.json());
@@ -2237,10 +2174,12 @@ async function loadData(options = {}) {
     if (learningResponse && learningResponse.ok) {
       state.dotoriLearning = await learningResponse.json();
     }
-    if (backtestResponse && backtestResponse.ok) {
-      state.latestBacktest = await backtestResponse.json();
+    if (sanghoeResponse && sanghoeResponse.ok) {
+      state.sanghoe = await sanghoeResponse.json();
     }
     setStatus(T.connected);
+    setBrandUpdatedAt(new Date().toISOString());
+    renderHermesPlanLines();
     renderDashboard();
     if (!options.silent) refreshVisibleQuotes();
   } catch (error) {
@@ -2348,7 +2287,6 @@ document.querySelectorAll("[data-section]").forEach((button) => {
     button.classList.add("active");
     state.activeSection = button.dataset.section;
     renderDashboard();
-    if (state.activeSection === "moving") refreshMovingAveragesFromDaily();
     refreshVisibleQuotes();
   });
 });
@@ -2360,7 +2298,6 @@ document.querySelectorAll("[data-open-section]").forEach((link) => {
     state.activeSection = section;
     document.querySelectorAll("[data-section]").forEach((item) => item.classList.toggle("active", item.dataset.section === section));
     renderDashboard();
-    if (state.activeSection === "moving") refreshMovingAveragesFromDaily();
     refreshVisibleQuotes();
     const dashboard = document.querySelector("#dashboard");
     if (dashboard) dashboard.scrollIntoView({ block: "start", behavior: "smooth" });

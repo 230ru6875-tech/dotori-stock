@@ -1,0 +1,31 @@
+{
+  "updatedAt": "2026-06-27T22:39:54+09:00",
+  "source": "도토리증권사",
+  "service": {
+    "name": "도토리증권사",
+    "scannerName": "도토리스캐너",
+    "collectorName": "토리",
+    "role": "자동매매 후보, 보유, 주문 상태를 도토리스캐너와 분리해 보여주는 화면",
+    "executionOwner": "도토리 PC 3파트 자동매매 엔진",
+    "publicNotice": "이 화면은 공개 요약이며 주문 실행 화면이 아닙니다."
+  },
+  "summary": {
+    "planTimestamp": "-",
+    "candidateCount": 0,
+    "buyCandidateCount": 0,
+    "sellWatchCount": 0,
+    "mockPositionCount": 0,
+    "pausedBrokerCount": 0
+  },
+  "candidates": [],
+  "positions": [],
+  "orders": [],
+  "brokerPause": {
+    "updatedAt": "-",
+    "items": []
+  },
+  "sellReview": {
+    "updatedAt": "-",
+    "lessons": []
+  }
+}

@@ -53,7 +53,9 @@
           symbol_hint: "Saved symbols stay in your browser and are reflected in watchlist cards and report comparisons.",
           hero_eyebrow: "Evidence first, open gaps second",
           hero_title: "A stock screen that shows why a name is on the list, not just where the price is",
-          hero_lead: "Today's Stocks puts current price, moving averages, spikes, volume, related news, sector flow, and deep-analysis notes on one screen. Strong labels matter less than the evidence and the remaining checks.",
+          hero_lead_line_1: "Current price, moving averages, sharp moves, volume, related news, sector flow, and deep-analysis notes are gathered on one screen.",
+          hero_lead_line_2: "The point is not a strong label but the reason the candidate surfaced.",
+          hero_lead_line_3: "Open checks stay visible so the next verification step is clear.",
           hero_notice: "This site is for information only and does not recommend buying or selling any specific stock. Before placing an order, verify the live broker quote, filings, earnings, volume, FX, and market conditions yourself.",
           flow_eyebrow: "Analysis flow",
           flow_title: "You see why a candidate surfaced and what is still missing",
@@ -62,8 +64,8 @@
           flow_market_desc: "Separate Korea and the U.S., then confirm FX, index tone, and sector strength.",
           flow_compare_title: "Compare names directly",
           flow_compare_desc: "Put watchlist names and public candidates on the same frame to compare price, trend, volume, and news clues.",
-          flow_decision_title: "Backtest",
-          flow_decision_desc: "Run one or several Korean stock symbols through the same strategy rules, then compare simulated returns, drawdown, win rate, and mock trades before making any real decision.",
+          flow_decision_title: "Separate signal from reason",
+          flow_decision_desc: "Labels such as watch, caution, and strong buy are shown with the underlying reasons and open questions.",
           dashboard_title: "Public Dashboard",
           exchange_note: "The screen refreshes from operating data.",
           tab_watchlist: "Watchlist",
@@ -145,6 +147,7 @@
         <a href="#features" data-i18n="nav_features">기능</a>
         <a href="#guide" data-i18n="nav_guide">읽는 방법</a>
         <a href="#faq" data-i18n="nav_faq">FAQ</a>
+        <a href="#dashboard" data-open-section="dailyDigest">오늘시황</a>
         <a href="./reports/" data-i18n="nav_reports">종목 리포트</a>
         <a href="./methodology.html" data-i18n="nav_methodology">분석 방법론</a>
         <a href="./stock-analysis.html" data-i18n="nav_analysis">주식분석 가이드</a>
@@ -181,7 +184,12 @@
         <div>
           <p class="eyebrow" data-i18n="hero_eyebrow">근거 우선, 확인 조건 병기</p>
           <h1 data-i18n="hero_title">가격만이 아니라 왜 후보가 되었는지를 함께 보는 주식 정보 화면</h1>
-          <p class="lead" data-i18n="hero_lead">오늘의 주식은 관심종목의 현재가, 이평선, 급등락, 거래량, 관련 뉴스, 섹터 흐름, 심층분석 메모를 한 화면에 모아 보여줍니다. 강한 문구보다 중요한 것은 근거와 남은 확인 조건이라는 기준으로 정리합니다.</p>
+          <div class="hero-summary-lines" aria-label="오늘의 주식 요약">
+            <p class="lead lead-line" data-i18n="hero_lead_line_1">오늘의 주식은 관심종목의 현재가, 이평선, 급등락, 거래량, 관련 뉴스, 섹터 흐름, 심층분석 메모를 한 화면에 모아 보여줍니다.</p>
+            <p class="lead lead-line" data-i18n="hero_lead_line_2">강한 문구보다 중요한 것은 왜 후보가 되었는지에 대한 근거입니다.</p>
+            <p class="lead lead-line" data-i18n="hero_lead_line_3">남은 확인 조건도 함께 남겨 다음 판단 순서를 바로 볼 수 있게 정리합니다.</p>
+          </div>
+          <div id="hermesPlanLines" class="hero-plan-lines" aria-label="헤르메스 오늘의 후보"></div>
           <p class="notice" data-i18n="hero_notice">이 사이트는 정보 제공 목적이며 특정 종목의 매수나 매도를 권유하지 않습니다. 실제 주문 전에는 증권사 화면에서 현재가, 공시, 실적, 거래량, 환율, 시장 상황을 직접 다시 확인해야 합니다.</p>
         </div>
       </div>
@@ -207,8 +215,8 @@
           </article>
           <article>
             <span>03</span>
-            <h3 data-i18n="flow_decision_title">백테스트</h3>
-            <p data-i18n="flow_decision_desc">한 종목 또는 여러 종목을 같은 전략 규칙으로 돌려 총수익률, 최대낙폭, 승률, 모의 거래내역을 먼저 비교합니다. 실제 판단 전에 과거 데이터로 위험과 반복성을 확인합니다.</p>
+            <h3 data-i18n="flow_decision_title">판단 분리</h3>
+            <p data-i18n="flow_decision_desc">관찰, 주의, 강한 매수 같은 문구는 결과이고, 그 아래에 근거와 확인 조건을 따로 남깁니다.</p>
           </article>
           <article>
             <span>04</span>
@@ -258,14 +266,6 @@
           <button data-section="newsList" type="button" data-i18n="tab_news">뉴스목록</button>
         </div>
       </div>
-      <a class="dashboard-backtest-card" href="./korea-backtest.html">
-        <div>
-          <span>전략 검증</span>
-          <strong>백테스트</strong>
-          <p>종목 1개 또는 여러 개를 입력해 네이버증권 일봉 기준으로 전략별 총수익률, 최대낙폭, 승률, 모의 거래내역을 비교합니다.</p>
-        </div>
-        <em>열기</em>
-      </a>
       <div id="signalFeed" class="signal-feed"></div>
       <div id="contentGrid" class="content-grid"></div>
     </section>
@@ -319,13 +319,12 @@
         <a href="./reports/" data-i18n="footer_reports">종목 리포트</a>
         <a href="./methodology.html" data-i18n="footer_methodology">분석 방법론</a>
         <a href="./stock-analysis.html" data-i18n="footer_analysis">주식분석 가이드</a>
-        <a href="./korea-backtest.html">백테스트</a>
         <a href="./privacy.html" data-i18n="footer_privacy">개인정보처리방침</a>
         <a href="./terms.html" data-i18n="footer_terms">이용약관</a>
         <a href="./disclaimer.html" data-i18n="footer_disclaimer">투자 고지</a>
       </div>
     </div>
   </footer>
-  <script src="./app.build-20260617-0015.js?v=20260625-5" defer></script>
+  <script src="./app.build-20260617-0015.js?v=20260620-2335" defer></script>
 </body>
 </html>
