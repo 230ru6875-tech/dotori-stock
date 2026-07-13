@@ -199,6 +199,46 @@ def fetch_news() -> list[dict[str, Any]]:
     return rows
 
 
+def make_morning_note_from_news(snapshot: dict[str, Any]) -> None:
+    news_rows = [row for row in snapshot.get("newsList", []) if isinstance(row, dict)]
+    titles = [str(row.get("title") or "").strip() for row in news_rows if str(row.get("title") or "").strip()]
+    primary_titles = titles[:6]
+    market_titles = [
+        title for title in titles
+        if any(keyword in title for keyword in ("코스피", "코스닥", "증시", "시장", "주식", "환율", "금리"))
+    ][:5]
+    if not market_titles:
+        market_titles = primary_titles[:3]
+    exchange = snapshot.get("exchangeRate", {}) if isinstance(snapshot.get("exchangeRate"), dict) else {}
+    market_checks = list(market_titles)
+    if exchange.get("value"):
+        market_checks.append(f"USD/KRW {exchange.get('value')} - {exchange.get('source') or '환율 데이터'}")
+    snapshot["morningNote"] = [{
+        "title": "모닝노트",
+        "kind": "morning-note",
+        "updatedAt": datetime.now(timezone.utc).isoformat(),
+        "summary": f"Google News RSS 기준 주요 경제·증시 뉴스 {len(news_rows)}건을 모아 오늘 장 전에 확인할 흐름을 정리합니다.",
+        "sections": [
+            {
+                "heading": "주요 경제뉴스",
+                "items": primary_titles or ["경제 뉴스 수집 대기 중"],
+            },
+            {
+                "heading": "시장 체크",
+                "items": market_checks or ["증시·환율·금리 관련 뉴스 확인 대기"],
+            },
+            {
+                "heading": "확인할 흐름",
+                "items": [
+                    "뉴스 제목과 실제 가격 반응이 같은 방향인지 확인",
+                    "장 시작 직후 추격보다 거래대금과 지수 방향 먼저 확인",
+                    "급락·급등 뉴스는 분할 접근과 손절 기준을 먼저 점검",
+                ],
+            },
+        ],
+    }]
+
+
 def refresh_exchange(snapshot: dict[str, Any]) -> None:
     try:
         request = urllib.request.Request("https://open.er-api.com/v6/latest/USD", headers={"User-Agent": "DotoriWeb/1.0"})
@@ -230,6 +270,7 @@ def main() -> dict[str, Any]:
     make_analysis_sections(snapshot, brief, monitor, forecast)
     snapshot["newsList"] = fetch_news()
     refresh_exchange(snapshot)
+    make_morning_note_from_news(snapshot)
     snapshot["updatedAt"] = snapshot.get("exchangeRate", {}).get("updatedAt") or datetime.now(timezone.utc).isoformat()
     snapshot.setdefault("webDataStatus", {})["newsCount"] = len(snapshot["newsList"])
     snapshot["webDataStatus"]["movingAveragesCount"] = len(snapshot["movingAverages"])
