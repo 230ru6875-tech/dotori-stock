@@ -595,6 +595,26 @@ async function lookupQuoteBatch(symbols) {
     return {};
   }
 }
+async function refreshExchangeRateOnAccess() {
+  try {
+    const response = await fetch("https://open.er-api.com/v6/latest/USD", { cache: "no-store" });
+    if (!response.ok) return;
+    const payload = await response.json();
+    const value = Number(payload?.rates?.KRW);
+    if (!Number.isFinite(value) || value <= 0) return;
+    state.data.exchangeRate = {
+      label: "오늘의 환율",
+      value: `${value.toLocaleString("ko-KR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}원`,
+      change: "접속 시 실시간 기준",
+      updatedAt: new Date().toISOString(),
+      source: "ExchangeRate-API USD/KRW",
+      note: "사용자 접속 시 환율을 추가 갱신했습니다."
+    };
+    renderDashboard();
+  } catch {
+    // Keep the last verified snapshot when the external rate endpoint is unavailable.
+  }
+}
 async function saveWebWatchlistInterest(item, action = "add") {
   return Promise.resolve({ ok: true, localOnly: true, symbol: item?.symbol || "", action });
 }
@@ -728,7 +748,7 @@ function formatDollar(value) {
 function setupBrowserStorageNotice() {
   const card = el("#browserPrivacyCard");
   if (card) {
-    card.innerHTML = `<h3>성장주 찾기</h3><p>실적, 가격 흐름, 거래량, 뉴스 단서를 함께 보며 국내와 미국 성장 후보를 나누어 확인합니다.</p>`;
+    card.innerHTML = `<h3>성장주 찾기</h3><p>실적·가격 흐름·거래량·뉴스 단서를 함께 보며 성장 후보를 나눕니다. 국내 후보에는 PER·ROE·시가총액·외국인 비중을 이용한 로컬 성장·가치 프록시를 표시합니다.</p>`;
   }
   window.addEventListener("beforeunload", (event) => {
     if (!state.userStocks.length) return;
@@ -1683,7 +1703,7 @@ function mergedSections(data) {
     dailyDigest: state.dailyHistory || [],
     spikes: (data.spikes || []).map(applyLiveQuote),
     moving: [...state.userStocks.map(userStockToMoving), ...data.movingAverages].map(applyLiveQuote),
-    growthDiscovery: data.growthDiscovery || [],
+    growthDiscovery: (data.growthDiscovery || []).map(applyLiveQuote),
     morningNote: data.morningNote || data.analysis || [],
     sectorOverview: data.sectorOverview || [],
     deepAnalysis: [...state.userStocks.map(userStockToAnalysis), ...(data.deepAnalysis || [])].map(applyLiveQuote),
@@ -1812,8 +1832,8 @@ function formatDotoriNumber(value, suffix = "") {
 
 function renderDotoriLearningDashboard() {
   const payload = state.dotoriLearning || {};
-  const koreaRows = Array.isArray(payload?.korea?.rankings) ? payload.korea.rankings : [];
-  const usRows = Array.isArray(payload?.us?.rankings) ? payload.us.rankings : [];
+  const koreaRows = (Array.isArray(payload?.korea?.rankings) ? payload.korea.rankings : []).map(applyLiveQuote);
+  const usRows = (Array.isArray(payload?.us?.rankings) ? payload.us.rankings : []).map(applyLiveQuote);
   const usSummary = payload?.us?.summary || {};
   const updated = payload.generatedAt ? fmtDateTimeSeconds(payload.generatedAt) : "-";
   const selectedKr = Array.isArray(payload?.korea?.selectedSymbols) ? payload.korea.selectedSymbols.join(", ") : "-";
@@ -1838,7 +1858,8 @@ function renderDashboard() {
   setBuildVersion();
   setBrandUpdatedAt(new Date().toISOString());
   const rate = data.exchangeRate || {};
-  if (updatedAt) updatedAt.textContent = fmtDateTimeSeconds(latestUpdatedAt(data.updatedAt, state.dotoriLearning?.generatedAt));
+  // The update label must describe the public market snapshot, not the UI build time.
+  if (updatedAt) updatedAt.textContent = fmtDateTimeSeconds(data.updatedAt);
   if (exchangeRate) exchangeRate.textContent = [rate.value, rate.change].filter(Boolean).join(" ");
   if (exchangeNote) {
     const rateUpdatedAt = rate.updatedAt ? `환율 갱신 ${fmtDateTimeSeconds(rate.updatedAt)}` : "";
@@ -1878,7 +1899,11 @@ function renderDashboard() {
       const notes = Array.isArray(item.notes) ? item.notes.slice(0, 3) : [];
       const noteHtml = notes.length ? notes.map((line) => `<p>${escapeHtml(line)}</p>`).join("") : `<p>${escapeHtml(item.reason || "성장 단서 확인 필요")}</p>`;
       const links = item.symbol ? `<a class="market-link" href="${naverStockUrl(item)}" target="_blank" rel="noopener">네이버증권</a>${marketGroupLabel(item) === "\ubbf8\uad6d" ? ` <a class="market-link" href="${tossStockUrl(item.symbol)}" target="_blank" rel="noopener">토스증권</a>` : ""}` : "";
-      return `<tr><td>${item.rank || "-"}</td><td class="scanner-name-cell"><strong>${escapeHtml(item.name || item.symbol || "-")}</strong> <span>(${escapeHtml(item.symbol || "-")})</span></td><td><b>${escapeHtml(String(item.score ?? "-"))}</b></td><td><b class="${signalClass(item.verdict || "")}">${escapeHtml(item.verdict || "-")}</b></td><td>${escapeHtml(item.theme || "-")}</td><td>${escapeHtml(item.currentPriceText || formatDisplayPrice(item.currentPrice, item) || "-")}</td><td>${escapeHtml(item.return5d || "-")} / ${escapeHtml(item.return20d || "-")}</td><td>${escapeHtml(item.volumeRatio || "-")}</td><td><div class="evidence-cell">${noteHtml}${links}</div></td></tr>`;
+      const proxy = item.valuationProxy || {};
+      const proxyHtml = item.growthValueScore != null
+        ? `<div class="growth-proxy"><b>프록시 ${escapeHtml(String(item.growthValueScore))}</b><br>PER ${escapeHtml(String(proxy.per ?? "-"))} / ROE ${escapeHtml(String(proxy.roe ?? "-"))}%<br>외국인 ${escapeHtml(String(proxy.foreignPct ?? "-"))}%</div>`
+        : "-";
+      return `<tr><td>${item.rank || "-"}</td><td class="scanner-name-cell"><strong>${escapeHtml(item.name || item.symbol || "-")}</strong> <span>(${escapeHtml(item.symbol || "-")})</span></td><td><b>${escapeHtml(String(item.score ?? "-"))}</b></td><td><b class="${signalClass(item.verdict || "")}">${escapeHtml(item.verdict || "-")}</b></td><td>${escapeHtml(item.theme || "-")}</td><td>${escapeHtml(item.currentPriceText || formatDisplayPrice(item.currentPrice, item) || "-")}</td><td>${escapeHtml(item.return5d || "-")} / ${escapeHtml(item.return20d || "-")}</td><td>${escapeHtml(item.volumeRatio || "-")}</td><td>${proxyHtml}<div class="evidence-cell">${noteHtml}${links}</div></td></tr>`;
     };
     const groupHtml = (marketLabel) => {
       const rows = filtered.filter((item) => marketGroupLabel(item) === marketLabel).slice(0, DISPLAY_MARKET_LIMIT);
@@ -2181,6 +2206,7 @@ async function loadData(options = {}) {
     setBrandUpdatedAt(new Date().toISOString());
     renderHermesPlanLines();
     renderDashboard();
+    refreshExchangeRateOnAccess();
     if (!options.silent) refreshVisibleQuotes();
   } catch (error) {
     if (!options.silent) setStatus(T.loadFail);

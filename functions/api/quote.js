@@ -2,6 +2,11 @@ const JSON_HEADERS = {
   "content-type": "application/json; charset=utf-8",
   "cache-control": "no-store"
 };
+const DOMESTIC_FETCH_TIMEOUT_MS = 1600;
+const US_FETCH_TIMEOUT_MS = 2200;
+const DOMESTIC_TOSS_TIMEOUT_MS = 1700;
+const US_TOSS_TIMEOUT_MS = 2400;
+const BATCH_SYMBOL_LIMIT = 30;
 
 function normalizeSymbol(value) {
   return String(value || "").trim().toUpperCase().replace(/[^A-Z0-9.]/g, "");
@@ -35,9 +40,9 @@ function naverCompanyName(html, symbol) {
   return cleanName(h2Match?.[1] || "", symbol);
 }
 
-async function fetchText(url) {
+async function fetchText(url, timeoutMs = US_FETCH_TIMEOUT_MS) {
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 3500);
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
   try {
     const response = await fetch(url, {
       signal: controller.signal,
@@ -53,9 +58,9 @@ async function fetchText(url) {
   }
 }
 
-async function fetchJson(url) {
+async function fetchJson(url, timeoutMs = US_FETCH_TIMEOUT_MS) {
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 3500);
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
   try {
     const response = await fetch(url, {
       signal: controller.signal,
@@ -72,7 +77,7 @@ async function fetchJson(url) {
   }
 }
 
-async function fetchJsonWithTimeout(url, options = {}, timeoutMs = 3500) {
+async function fetchJsonWithTimeout(url, options = {}, timeoutMs = US_FETCH_TIMEOUT_MS) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeoutMs);
   try {
@@ -135,6 +140,7 @@ async function tossAccessToken(env = {}) {
 
 async function fetchTossOpenApi(path, env = {}) {
   const token = await tossAccessToken(env);
+  const isDomesticPath = /market-calendar\/KR|\/prices\?symbols=\d|\/stocks\?symbols=\d/i.test(path);
   return await fetchJsonWithTimeout(
     `https://openapi.tossinvest.com${path}`,
     {
@@ -143,7 +149,7 @@ async function fetchTossOpenApi(path, env = {}) {
         "authorization": `Bearer ${token}`
       }
     },
-    3000
+    isDomesticPath ? DOMESTIC_TOSS_TIMEOUT_MS : US_TOSS_TIMEOUT_MS
   );
 }
 
@@ -188,7 +194,7 @@ function naverRealtimePrice(payload) {
 }
 
 async function quoteDomesticRealtime(symbol) {
-  const payload = await fetchJson(`https://polling.finance.naver.com/api/realtime/domestic/stock/${symbol}`);
+  const payload = await fetchJson(`https://polling.finance.naver.com/api/realtime/domestic/stock/${symbol}`, DOMESTIC_FETCH_TIMEOUT_MS);
   const row = Array.isArray(payload?.datas) ? payload.datas[0] : null;
   return {
     name: cleanName(row?.stockName || "", symbol),
@@ -205,7 +211,7 @@ async function quoteDomestic(symbol, env = {}) {
   try {
     realtime = await quoteDomesticRealtime(symbol);
   } catch (_) {}
-  const html = realtime.currentPrice && realtime.name ? "" : await fetchText(`https://finance.naver.com/item/main.naver?code=${symbol}`);
+  const html = realtime.currentPrice && realtime.name ? "" : await fetchText(`https://finance.naver.com/item/main.naver?code=${symbol}`, DOMESTIC_FETCH_TIMEOUT_MS);
   const titleMatch = html.match(/<title[^>]*>([^<]+)<\/title>/i);
   const priceMatch = html.match(/<p[^>]+class=["']no_today["'][\s\S]*?<span[^>]+class=["']blind["']>([^<]+)<\/span>/i);
   return {
@@ -221,6 +227,8 @@ async function quoteYahoo(symbol) {
   const payload = await fetchJsonWithTimeout(
     `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?range=1d&interval=1m`,
     { headers: { "user-agent": "Mozilla/5.0 DotoriWeb/1.0" } }
+    ,
+    US_FETCH_TIMEOUT_MS
   );
   const result = payload?.chart?.result?.[0];
   const meta = result?.meta || {};
@@ -300,7 +308,8 @@ async function quoteNasdaq(symbol) {
         "origin": "https://www.nasdaq.com",
         "referer": "https://www.nasdaq.com/"
       }
-    }
+    },
+    US_FETCH_TIMEOUT_MS
   );
   const data = payload?.data || {};
   const primary = data.primaryData || {};
@@ -361,14 +370,58 @@ async function quoteUs(symbol, env = {}) {
   }
 }
 
+function parseSymbolsParam(url) {
+  const raw = url.searchParams.get("symbols");
+  if (!raw) return [];
+  const seen = new Set();
+  return raw
+    .split(",")
+    .map((item) => normalizeSymbol(item))
+    .filter((symbol) => {
+      if (!symbol || seen.has(symbol)) return false;
+      seen.add(symbol);
+      return true;
+    })
+    .slice(0, BATCH_SYMBOL_LIMIT);
+}
+
+async function quoteSingle(symbol, env = {}) {
+  return /^\d{6}$/.test(symbol) ? await quoteDomestic(symbol, env) : await quoteUs(symbol, env);
+}
+
 export async function onRequestGet(context) {
   const url = new URL(context.request.url);
+  const symbols = parseSymbolsParam(url);
+  if (symbols.length) {
+    const settled = await Promise.allSettled(symbols.map(async (symbol) => [symbol, await quoteSingle(symbol, context.env)]));
+    const quotes = {};
+    const errors = {};
+    settled.forEach((entry, index) => {
+      const symbol = symbols[index];
+      if (entry.status === "fulfilled") {
+        const quote = Array.isArray(entry.value) ? entry.value[1] : entry.value;
+        quotes[symbol] = { ...quote, quotedAt: new Date().toISOString() };
+      } else {
+        errors[symbol] = String(entry.reason?.message || entry.reason || "quote_failed");
+      }
+    });
+    return new Response(JSON.stringify({
+      ok: true,
+      batch: true,
+      requested: symbols.length,
+      succeeded: Object.keys(quotes).length,
+      failed: Object.keys(errors).length,
+      quotes,
+      errors,
+      quotedAt: new Date().toISOString()
+    }), { headers: JSON_HEADERS });
+  }
   const symbol = normalizeSymbol(url.searchParams.get("symbol"));
   if (!symbol) {
     return new Response(JSON.stringify({ ok: false, error: "symbol_required" }), { status: 400, headers: JSON_HEADERS });
   }
   try {
-    const quote = /^\d{6}$/.test(symbol) ? await quoteDomestic(symbol, context.env) : await quoteUs(symbol, context.env);
+    const quote = await quoteSingle(symbol, context.env);
     return new Response(JSON.stringify({ ok: true, ...quote, quotedAt: new Date().toISOString() }), { headers: JSON_HEADERS });
   } catch (error) {
     return new Response(JSON.stringify({ ok: false, symbol, error: String(error?.message || error) }), { status: 502, headers: JSON_HEADERS });

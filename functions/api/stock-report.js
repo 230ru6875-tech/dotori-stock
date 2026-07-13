@@ -17,7 +17,7 @@ const TXT = {
   analysis: "\uBD84\uC11D",
   noPurchase: "\uAD6C\uC785\uAC00 \uBBF8\uC785\uB825"
 };
-const REPORT_SCHEMA_VERSION = 2;
+const REPORT_SCHEMA_VERSION = 3;
 const PUBLIC_DATA_FALLBACK_BASES = [
   "https://dotoristock.com"
 ];
@@ -89,6 +89,27 @@ async function ensureTursoSchema(env) {
   await tursoExecute(env, "CREATE TABLE IF NOT EXISTS stock_report_history (id INTEGER PRIMARY KEY AUTOINCREMENT, symbol TEXT NOT NULL, payload TEXT NOT NULL, saved_at TEXT NOT NULL)");
   await tursoExecute(
     env,
+    "CREATE TABLE IF NOT EXISTS stock_research_metrics (" +
+      "symbol TEXT PRIMARY KEY, " +
+      "name TEXT, " +
+      "market TEXT, " +
+      "current_price REAL, " +
+      "currency TEXT, " +
+      "per_value REAL, " +
+      "pbr_value REAL, " +
+      "psr_value REAL, " +
+      "stochastic_k REAL, " +
+      "stochastic_d REAL, " +
+      "ma20 REAL, " +
+      "ma60 REAL, " +
+      "latest_volume REAL, " +
+      "avg_volume20 REAL, " +
+      "payload TEXT NOT NULL, " +
+      "updated_at TEXT NOT NULL" +
+    ")"
+  );
+  await tursoExecute(
+    env,
     "CREATE TABLE IF NOT EXISTS stock_research_requests (" +
       "symbol TEXT PRIMARY KEY, " +
       "name TEXT NOT NULL, " +
@@ -104,12 +125,122 @@ async function ensureTursoSchema(env) {
   return true;
 }
 
+async function loadTursoResearchMetrics(env, symbol) {
+  if (!(await ensureTursoSchema(env))) return null;
+  const result = await tursoExecute(env, "SELECT payload, updated_at FROM stock_research_metrics WHERE symbol = ? LIMIT 1", [symbol]);
+  const rows = tursoRows(result);
+  if (!rows.length || !rows[0].payload) return null;
+  const payload = JSON.parse(rows[0].payload);
+  if (!payload || typeof payload !== "object") return null;
+  payload.updatedAt = rows[0].updated_at || payload.updatedAt || "";
+  return payload;
+}
+
+function mergeDefined(target, source) {
+  const out = { ...(target || {}) };
+  Object.entries(source || {}).forEach(([key, value]) => {
+    if (value === undefined || value === null || value === "") return;
+    out[key] = value;
+  });
+  return out;
+}
+
+function applyResearchMetrics(payload, metrics) {
+  if (!payload || typeof payload !== "object" || !metrics || typeof metrics !== "object") return payload;
+  const market = String(payload.market || payload.watchlist?.market || metrics.market || "").trim();
+  const metricsCurrent = Number(metrics.currentPrice || 0);
+  const currentPrice = metricsCurrent > 0
+    ? formatPriceByMarket(metricsCurrent, market)
+    : (payload.currentPrice || payload.watchlist?.currentPrice || "");
+  const valuation = mergeDefined(payload.valuation, metrics.valuation);
+  const movingSource = metrics.moving || {};
+  const technicalSource = metrics.technical || {};
+  const moving = {
+    ...(payload.moving || {}),
+    ...movingSource,
+    ma20: textValue(payload.moving?.ma20 || "") || formatPriceByMarket(movingSource.ma20, market) || payload.moving?.ma20 || "",
+    ma60: textValue(payload.moving?.ma60 || "") || formatPriceByMarket(movingSource.ma60, market) || payload.moving?.ma60 || "",
+    currentPrice: currentPrice || payload.moving?.currentPrice || ""
+  };
+  const technical = {
+    ...(payload.technical || {}),
+    ...technicalSource,
+    stochastic: mergeDefined(payload.technical?.stochastic, technicalSource.stochastic),
+    volume: mergeDefined(payload.technical?.volume, technicalSource.volume)
+  };
+  const chartAnalysis = mergeDefined(payload.chartAnalysis, metrics.chartAnalysis);
+  const supplyDemandFilter = mergeDefined(payload.supplyDemandFilter, metrics.supplyDemandFilter);
+  const tradeAnalysis = mergeDefined(payload.tradeAnalysis, metrics.tradeAnalysis);
+  const fairValue = fairValueAnalysis(currentPrice || payload.currentPrice || "", valuation, market || payload.market || "");
+  const watchlist = {
+    ...(payload.watchlist || {}),
+    currentPrice: currentPrice || payload.watchlist?.currentPrice || "",
+    valuation,
+    fairValue,
+    technical,
+    movingAverage: payload.watchlist?.movingAverage || moving.decision || "",
+    signal: payload.watchlist?.signal || tradeAnalysis.action || "",
+    memo: payload.watchlist?.memo || tradeAnalysis.summary || chartAnalysis.summary || supplyDemandFilter.summary || ""
+  };
+  const analysis = {
+    ...(payload.analysis || {}),
+    body: payload.analysis?.body || tradeAnalysis.summary || chartAnalysis.summary || supplyDemandFilter.summary || "",
+    valuation,
+    fairValue,
+    technical,
+    chartAnalysis,
+    supplyDemandFilter,
+    tradeAnalysis
+  };
+  const scanner = {
+    ...(payload.scanner || {}),
+    currentPrice: currentPrice || payload.scanner?.currentPrice || "",
+    summary: payload.scanner?.summary || tradeAnalysis.summary || chartAnalysis.summary || supplyDemandFilter.summary || ""
+  };
+  return {
+    ...payload,
+    name: payload.name || metrics.name || payload.watchlist?.name || payload.symbol,
+    market: payload.market || metrics.market || payload.watchlist?.market || "",
+    currentPrice: currentPrice || payload.currentPrice || "",
+    valuation,
+    fairValue,
+    technical,
+    chartAnalysis,
+    supplyDemandFilter,
+    tradeAnalysis,
+    moving,
+    watchlist,
+    scanner,
+    analysis,
+    researchMetricsUpdatedAt: metrics.updatedAt || ""
+  };
+}
+
 async function loadTursoReport(env, symbol) {
   if (!(await ensureTursoSchema(env))) return null;
   const result = await tursoExecute(env, "SELECT payload FROM stock_reports WHERE symbol = ? LIMIT 1", [symbol]);
   const rows = tursoRows(result);
-  if (!rows.length || !rows[0].payload) return null;
-  return JSON.parse(rows[0].payload);
+  const report = (!rows.length || !rows[0].payload) ? null : JSON.parse(rows[0].payload);
+  const metrics = await loadTursoResearchMetrics(env, symbol).catch(() => null);
+  if (report && metrics) return applyResearchMetrics(report, metrics);
+  if (report) return report;
+  if (metrics) {
+    return applyResearchMetrics({
+      ok: true,
+      schemaVersion: REPORT_SCHEMA_VERSION,
+      symbol,
+      name: metrics.name || symbol,
+      market: metrics.market || "",
+      currentPrice: "",
+      valuation: emptyValuation(metrics.source || "Tori Research"),
+      fairValue: fairValueAnalysis("", emptyValuation(metrics.source || "Tori Research"), metrics.market || ""),
+      technical: technicalAnalysis({}),
+      watchlist: { symbol, name: metrics.name || symbol, market: metrics.market || "", currentPrice: "", signal: TXT.observe, movingAverage: "", memo: "" },
+      moving: { name: metrics.name || symbol, symbol, ma20: "", ma60: "", decision: TXT.wait },
+      analysis: { title: `${TXT.analysis} - ${metrics.name || symbol}`, body: TXT.wait }
+    }, metrics);
+  }
+  return null;
 }
 
 async function saveTursoReport(env, symbol, payload) {
@@ -1096,6 +1227,7 @@ export async function onRequestGet(context) {
       const cachedPayload = await syncResearchRequest(context.env, cached).catch(() => ({ ...cached, researchRequest: null }));
       return new Response(JSON.stringify({ ...cachedPayload, storage: "turso" }), { headers: JSON_HEADERS });
     }
+    const researchMetrics = await loadTursoResearchMetrics(context.env, symbol).catch(() => null);
     const [published, publishedSnapshot] = await Promise.all([
       lookupPublishedSymbolData(url.origin, symbol),
       lookupPublishedSnapshotSymbol(url.origin, symbol)
@@ -1149,7 +1281,7 @@ export async function onRequestGet(context) {
       : `${TXT.mockInvestment}: ${TXT.noPurchase}`;
     const scannerSummary = publishedMemo || (news.length ? news.join(" / ") : TXT.wait);
     const analysisBody = [publishedRange, publishedMemo, news[0] || ""].filter(Boolean).join(" / ") || TXT.wait;
-    const payload = {
+    let payload = {
       ok: true,
       schemaVersion: REPORT_SCHEMA_VERSION,
       symbol,
@@ -1207,6 +1339,7 @@ export async function onRequestGet(context) {
       },
       sources: [base.source, oilRisk.source, "Naver News Search"].filter(Boolean)
     };
+    if (researchMetrics) payload = applyResearchMetrics(payload, researchMetrics);
     const finalPayload = await syncResearchRequest(context.env, payload).catch(() => ({ ...payload, researchRequest: null }));
     if (!localOnly) {
       await saveTursoReport(context.env, symbol, finalPayload).catch((error) => {
