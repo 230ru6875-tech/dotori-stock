@@ -1,23 +1,15 @@
 {
-  "updated_at": "2026-07-17T02:10:14.328973Z",
+  "updated_at": "2026-07-17T02:10:21.585335Z",
   "source": "dotoristock_dotoriweb_live_bridge",
-  "status_updated_at": "2026-07-17T02:05:50.960382Z",
-  "widget_updated_at": "2026-07-17T02:10:14.190837Z",
+  "status_updated_at": "2026-07-17T02:10:21.002297Z",
+  "widget_updated_at": null,
   "macro_updated_at": "2026-07-17T01:58:20.140853Z",
   "market_focus": "KR",
   "market_limits": {
     "KR": 40,
     "US": 5
   },
-  "virtual_market_priority": {
-    "mode": "KR_PRIORITY",
-    "kr_market_open": true,
-    "focus_market": "KR",
-    "candidate_limits": {
-      "KR": 40,
-      "US": 5
-    }
-  },
+  "virtual_market_priority": null,
   "virtual_market_summary": {
     "KR": {
       "realized_trades": 149,
@@ -78,8 +70,8 @@
     "015760",
     "032640",
     "068270",
-    "SOFI",
     "JPM",
+    "SOFI",
     "COST",
     "000660",
     "042660",
@@ -2274,7 +2266,7 @@
     }
   },
   "widget_forecasts": {
-    "updated_at": "2026-07-17T02:10:14.190837Z",
+    "updated_at": null,
     "symbols": {
       "005930": {
         "symbol": "005930",
@@ -10977,7 +10969,7 @@
       "name": "Micron Technology",
       "market": "US",
       "sector": "반도체",
-      "latest_price": 826.0,
+      "latest_price": 823.33,
       "score": 0.5545147474626237,
       "profit_selection_rank": 34,
       "strategy_id": "09",
@@ -11087,7 +11079,7 @@
       "name": "SanDisk",
       "market": "US",
       "sector": "반도체",
-      "latest_price": 1369.58,
+      "latest_price": 1362.11,
       "score": 0.5140841021109809,
       "profit_selection_rank": 35,
       "strategy_id": "09",
@@ -11197,7 +11189,7 @@
       "name": "Costco",
       "market": "US",
       "sector": "소비재",
-      "latest_price": 947.51,
+      "latest_price": 947.6,
       "score": 0.28228216453031046,
       "profit_selection_rank": 36,
       "strategy_id": "04",
@@ -11307,7 +11299,7 @@
       "name": "SoFi Technologies",
       "market": "US",
       "sector": "기타",
-      "latest_price": 17.19,
+      "latest_price": 17.18,
       "score": 0.458840617721658,
       "profit_selection_rank": 37,
       "strategy_id": "09",
@@ -11417,7 +11409,7 @@
       "name": "JPMorgan Chase",
       "market": "US",
       "sector": "금융",
-      "latest_price": 341.75,
+      "latest_price": 341.99,
       "score": 0.27118072290411915,
       "profit_selection_rank": 38,
       "strategy_id": "04",
