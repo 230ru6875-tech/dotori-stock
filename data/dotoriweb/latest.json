@@ -1,23 +1,15 @@
 {
-  "updated_at": "2026-07-17T03:54:38.833796Z",
+  "updated_at": "2026-07-17T03:54:42.057898Z",
   "source": "dotoristock_dotoriweb_live_bridge",
-  "status_updated_at": "2026-07-17T03:47:28.404452Z",
-  "widget_updated_at": "2026-07-17T03:54:38.751255Z",
+  "status_updated_at": "2026-07-17T03:54:41.737862Z",
+  "widget_updated_at": null,
   "macro_updated_at": "2026-07-17T03:43:48.048354Z",
   "market_focus": "KR",
   "market_limits": {
     "KR": 40,
     "US": 5
   },
-  "virtual_market_priority": {
-    "mode": "KR_PRIORITY",
-    "kr_market_open": true,
-    "focus_market": "KR",
-    "candidate_limits": {
-      "KR": 40,
-      "US": 5
-    }
-  },
+  "virtual_market_priority": null,
   "virtual_market_summary": {
     "KR": {
       "realized_trades": 149,
@@ -78,9 +70,9 @@
     "015760",
     "032640",
     "068270",
-    "JPM",
     "COST",
-    "GOOG",
+    "XOM",
+    "GE",
     "000660",
     "042660",
     "105560",
@@ -2292,7 +2284,7 @@
     }
   },
   "widget_forecasts": {
-    "updated_at": "2026-07-17T03:54:38.751255Z",
+    "updated_at": null,
     "symbols": {
       "005930": {
         "symbol": "005930",
@@ -11396,7 +11388,7 @@
       "name": "Micron Technology",
       "market": "US",
       "sector": "반도체",
-      "latest_price": 835.39,
+      "latest_price": 833.3,
       "score": 0.5728900567540385,
       "profit_selection_rank": 39,
       "strategy_id": "09",
@@ -11506,7 +11498,7 @@
       "name": "SanDisk",
       "market": "US",
       "sector": "반도체",
-      "latest_price": 1370.1,
+      "latest_price": 1370.12,
       "score": 0.5320964233196577,
       "profit_selection_rank": 40,
       "strategy_id": "09",
