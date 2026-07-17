@@ -1,9 +1,9 @@
 {
-  "updated_at": "2026-07-17T02:33:41.919337Z",
+  "updated_at": "2026-07-17T02:36:57.543023Z",
   "source": "dotoristock_dotoriweb_live_bridge",
-  "status_updated_at": "2026-07-17T02:33:41.632446Z",
+  "status_updated_at": "2026-07-17T02:36:57.290230Z",
   "widget_updated_at": null,
-  "macro_updated_at": "2026-07-17T02:15:25.396235Z",
+  "macro_updated_at": "2026-07-17T02:34:45.478101Z",
   "market_focus": "KR",
   "market_limits": {
     "KR": 40,
@@ -2251,29 +2251,29 @@
     "russell2000_pct": -0.0569,
     "vix": 16.73,
     "vixy_pct": 2.4925,
-    "dxy_pct": 0.0318,
+    "dxy_pct": 0.0208,
     "us2y_pct": 0.6345,
     "us10y_pct": 0.5281,
     "kospi200_night_pct": -9.721,
-    "wti_pct": -0.4774,
+    "wti_pct": -0.5905,
     "cpi_mom_pct": 0.0,
     "ppi_mom_pct": 0.0,
     "core_ppi_mom_pct": 0.0,
-    "issues_bias": -0.15,
+    "issues_bias": 0.2,
     "issues_headlines": [],
     "issue_titles": [
+      "IGLB vs SCHQ: Corporate Bonds Beat Treasuries on Yield and Trailing Returns",
       "Dow Jones Futures Fall, Netflix Dives, SpaceX Scrubs Launch After Latest AI Sell-Off",
       "UBS doubles down on its S&P 500 target",
       "Nasdaq, Dow, S&P 500 Futures Slip As Chip Selloff Overshadows Strong Earnings Season: NFLX, SNDK, SPCX, MRVL Stocks In Focus",
       "3 Big Reasons to Love Nicolet Bankshares (NIC)",
       "2 Reasons to Like BDC (and 1 Not So Much)",
       "3 Reasons to Sell DECK and 1 Stock to Buy Instead",
-      "3 Reasons PPLI is Risky and 1 Stock to Buy Instead",
-      "Review & Preview: No More Easy Money in AI"
+      "3 Reasons PPLI is Risky and 1 Stock to Buy Instead"
     ],
     "geopolitics": {
       "risk_level": "neutral",
-      "summary": "vix=16.73, vixy=+2.49%, wti=-0.48%"
+      "summary": "vix=16.73, vixy=+2.49%, wti=-0.59%"
     }
   },
   "widget_forecasts": {
@@ -11039,7 +11039,7 @@
       "name": "Micron Technology",
       "market": "US",
       "sector": "반도체",
-      "latest_price": 821.69,
+      "latest_price": 821.5,
       "score": 0.5575486896917089,
       "profit_selection_rank": 34,
       "strategy_id": "09",
@@ -11149,7 +11149,7 @@
       "name": "SanDisk",
       "market": "US",
       "sector": "반도체",
-      "latest_price": 1352.67,
+      "latest_price": 1354.4,
       "score": 0.517233141230017,
       "profit_selection_rank": 35,
       "strategy_id": "09",
@@ -11259,7 +11259,7 @@
       "name": "Costco",
       "market": "US",
       "sector": "소비재",
-      "latest_price": 947.66,
+      "latest_price": 947.96,
       "score": 0.29329808219231984,
       "profit_selection_rank": 36,
       "strategy_id": "04",
@@ -11713,7 +11713,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z"
+      "quote_at": "2026-07-17T02:36:51.266937Z"
     },
     {
       "symbol": "TSLA",
@@ -11872,7 +11872,7 @@
       "observed_low_reference_intraday": 386.85,
       "regime": null,
       "sector": null,
-      "current_price": 386.87,
+      "current_price": 386.9,
       "distance_from_low_pct": 0.1931033911193314,
       "distance_from_high_pct": -2.7501256913021632,
       "unrealized_pnl_pct": -2.159838138593817,
@@ -11887,7 +11887,7 @@
       "ask_qty": 10,
       "trade_strength": 72.78,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z"
+      "quote_at": "2026-07-17T02:36:51.266937Z"
     },
     {
       "symbol": "ARM",
@@ -11896,7 +11896,7 @@
       "strategy_id": "07",
       "strategy_name": "첫캔들 박스 돌파",
       "name": "Arm Holdings",
-      "last_price": 252.99,
+      "last_price": 252.51,
       "observed_low_since_entry": 252.62,
       "observed_high_since_entry": 309.97,
       "forecast_10m_direction": "up",
@@ -12046,7 +12046,7 @@
       "observed_low_reference_intraday": 253.03,
       "regime": null,
       "sector": null,
-      "current_price": 252.99,
+      "current_price": 252.51,
       "distance_from_low_pct": 0.3443907845776195,
       "distance_from_high_pct": -18.221118172726403,
       "unrealized_pnl_pct": -17.83676909114481,
@@ -12061,7 +12061,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z"
+      "quote_at": "2026-07-17T02:36:51.266937Z"
     },
     {
       "symbol": "CVX",
@@ -12192,7 +12192,7 @@
       "ask_qty": 1,
       "trade_strength": 0.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z"
+      "quote_at": "2026-07-17T02:36:51.266937Z"
     },
     {
       "symbol": "WMT",
@@ -12351,7 +12351,7 @@
       },
       "regime": null,
       "sector": null,
-      "current_price": 116.08,
+      "current_price": 116.16,
       "distance_from_low_pct": 3.087927781574451,
       "distance_from_high_pct": 0.0,
       "unrealized_pnl_pct": 0.6071118820468291,
@@ -12366,7 +12366,7 @@
       "ask_qty": 40,
       "trade_strength": 500.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z"
+      "quote_at": "2026-07-17T02:36:51.266937Z"
     },
     {
       "symbol": "JNJ",
@@ -12497,7 +12497,7 @@
       "ask_qty": 50,
       "trade_strength": 0.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z"
+      "quote_at": "2026-07-17T02:36:51.266937Z"
     },
     {
       "symbol": "AMAT",
@@ -12656,7 +12656,7 @@
       },
       "regime": null,
       "sector": null,
-      "current_price": 551.19,
+      "current_price": 550.87,
       "distance_from_low_pct": 0.04171654514455447,
       "distance_from_high_pct": -10.713071630918646,
       "unrealized_pnl_pct": -10.030013375526037,
@@ -12671,7 +12671,7 @@
       "ask_qty": 8,
       "trade_strength": 109.26,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z"
+      "quote_at": "2026-07-17T02:36:51.266937Z"
     },
     {
       "symbol": "CLF",
@@ -12802,7 +12802,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z"
+      "quote_at": "2026-07-17T02:36:51.266937Z"
     },
     {
       "symbol": "CAT",
@@ -12918,7 +12918,7 @@
       },
       "regime": null,
       "sector": null,
-      "current_price": 872.0,
+      "current_price": 868.76,
       "distance_from_low_pct": 0.34406968849609587,
       "distance_from_high_pct": -9.461858731427741,
       "unrealized_pnl_pct": -9.206615755734148,
@@ -12933,7 +12933,7 @@
       "ask_qty": 1,
       "trade_strength": 0.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z"
+      "quote_at": "2026-07-17T02:36:51.266937Z"
     },
     {
       "symbol": "DE",
@@ -13064,7 +13064,7 @@
       "ask_qty": 1,
       "trade_strength": 0.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z"
+      "quote_at": "2026-07-17T02:36:51.266937Z"
     },
     {
       "symbol": "BA",
@@ -13195,7 +13195,7 @@
       "ask_qty": 1,
       "trade_strength": 0.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z"
+      "quote_at": "2026-07-17T02:36:51.266937Z"
     },
     {
       "symbol": "AMD",
@@ -13354,7 +13354,7 @@
       },
       "regime": null,
       "sector": null,
-      "current_price": 486.31,
+      "current_price": 487.11,
       "distance_from_low_pct": 0.045073654448990474,
       "distance_from_high_pct": -13.814465741819347,
       "unrealized_pnl_pct": -13.791642391822457,
@@ -13369,7 +13369,7 @@
       "ask_qty": 5,
       "trade_strength": 171.98,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z"
+      "quote_at": "2026-07-17T02:36:51.266937Z"
     },
     {
       "symbol": "192080",
@@ -13394,7 +13394,7 @@
       "volume": 38470.0,
       "trade_strength": 102.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z",
+      "quote_at": "2026-07-17T02:36:51.266937Z",
       "open": 61100.0,
       "high": 62100.0,
       "low": 59900.0,
@@ -13680,7 +13680,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z"
+      "quote_at": "2026-07-17T02:36:51.266937Z"
     },
     {
       "symbol": "071970",
@@ -13705,7 +13705,7 @@
       "volume": 268391.0,
       "trade_strength": 90.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z",
+      "quote_at": "2026-07-17T02:36:51.266937Z",
       "open": 59700.0,
       "high": 61000.0,
       "low": 55500.0,
@@ -13883,7 +13883,7 @@
       "volume": 727087.0,
       "trade_strength": 87.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z",
+      "quote_at": "2026-07-17T02:36:51.266937Z",
       "open": 175700.0,
       "high": 177500.0,
       "low": 171200.0,
@@ -14169,7 +14169,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z"
+      "quote_at": "2026-07-17T02:36:51.266937Z"
     },
     {
       "symbol": "036540",
@@ -14302,7 +14302,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z"
+      "quote_at": "2026-07-17T02:36:51.266937Z"
     },
     {
       "symbol": "403870",
@@ -14435,7 +14435,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z"
+      "quote_at": "2026-07-17T02:36:51.266937Z"
     },
     {
       "symbol": "042700",
@@ -14568,7 +14568,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z"
+      "quote_at": "2026-07-17T02:36:51.266937Z"
     },
     {
       "symbol": "086790",
@@ -14593,7 +14593,7 @@
       "volume": 1263470.0,
       "trade_strength": 111.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z",
+      "quote_at": "2026-07-17T02:36:51.266937Z",
       "open": 136800.0,
       "high": 142500.0,
       "low": 133200.0,
@@ -14763,15 +14763,15 @@
       "strategy_name": "거래량 돌파",
       "regime": "변동성/거래량 회복",
       "close_bet_window": false,
-      "last_price": 822.5,
-      "bid_price": 821.04,
-      "ask_price": 822.45,
-      "bid_qty": 11,
-      "ask_qty": 20,
-      "volume": 382103.0,
-      "trade_strength": 96.0,
+      "last_price": 821.79,
+      "bid_price": 820.75,
+      "ask_price": 821.89,
+      "bid_qty": 3,
+      "ask_qty": 1,
+      "volume": 387333.0,
+      "trade_strength": 95.52,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z",
+      "quote_at": "2026-07-17T02:36:51.266937Z",
       "open": 836.1,
       "high": 837.77,
       "low": 814.66,
@@ -14918,7 +14918,7 @@
       "observed_high_since_entry": 997.23,
       "forecast_10m_direction": "flat",
       "forecast_1h_direction": "flat",
-      "current_price": 821.69,
+      "current_price": 821.5,
       "distance_from_low_pct": 0.7413388138578947,
       "distance_from_high_pct": -17.42125688156193,
       "unrealized_pnl_pct": -6.949152542372882,
@@ -15053,7 +15053,7 @@
       "ask_qty": 90,
       "trade_strength": 3.82,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z"
+      "quote_at": "2026-07-17T02:36:51.266937Z"
     },
     {
       "symbol": "CRWD",
@@ -15169,7 +15169,7 @@
       },
       "regime": null,
       "sector": null,
-      "current_price": 202.36,
+      "current_price": 202.77,
       "distance_from_low_pct": 0.6364765534184746,
       "distance_from_high_pct": -4.830281060213737,
       "unrealized_pnl_pct": -4.830281060213737,
@@ -15184,7 +15184,7 @@
       "ask_qty": 90,
       "trade_strength": 500.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z"
+      "quote_at": "2026-07-17T02:36:51.266937Z"
     },
     {
       "symbol": "QQQ",
@@ -15343,7 +15343,7 @@
       },
       "regime": null,
       "sector": null,
-      "current_price": 699.04,
+      "current_price": 699.01,
       "distance_from_low_pct": 0.021451555237761433,
       "distance_from_high_pct": -3.4524647644289863,
       "unrealized_pnl_pct": -3.4524647644289863,
@@ -15358,7 +15358,7 @@
       "ask_qty": 740,
       "trade_strength": 163.81,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z"
+      "quote_at": "2026-07-17T02:36:51.266937Z"
     },
     {
       "symbol": "DDOG",
@@ -15517,7 +15517,7 @@
       },
       "regime": null,
       "sector": null,
-      "current_price": 260.21,
+      "current_price": 260.01,
       "distance_from_low_pct": 1.1092763477416279,
       "distance_from_high_pct": -4.47470817120622,
       "unrealized_pnl_pct": -4.47470817120622,
@@ -15532,7 +15532,7 @@
       "ask_qty": 1,
       "trade_strength": 0.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z"
+      "quote_at": "2026-07-17T02:36:51.266937Z"
     },
     {
       "symbol": "QNDX",
@@ -15663,7 +15663,7 @@
       "ask_qty": null,
       "trade_strength": 0.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z"
+      "quote_at": "2026-07-17T02:36:51.266937Z"
     },
     {
       "symbol": "SOFI",
@@ -15672,7 +15672,7 @@
       "strategy_id": "04",
       "strategy_name": "혼조 관망",
       "name": "SoFi Technologies",
-      "last_price": 17.18,
+      "last_price": 17.16,
       "observed_low_since_entry": 17.17,
       "observed_high_since_entry": 18.61,
       "forecast_10m_direction": "flat",
@@ -15819,22 +15819,22 @@
       },
       "regime": null,
       "sector": null,
-      "current_price": 17.17,
+      "current_price": 17.16,
       "distance_from_low_pct": 0.05824111822945177,
       "distance_from_high_pct": -7.684040838258999,
       "unrealized_pnl_pct": -7.684040838258999,
       "aggregate_pnl_pct": -7.784040838258999,
       "open": 17.3,
       "high": 17.31,
-      "low": 17.15,
-      "volume": 42550.0,
-      "bid_price": 17.07,
-      "ask_price": 17.19,
-      "bid_qty": 12626,
-      "ask_qty": 180,
-      "trade_strength": 56.59,
+      "low": 17.14,
+      "volume": 46377.0,
+      "bid_price": 17.06,
+      "ask_price": 17.17,
+      "bid_qty": 10953,
+      "ask_qty": 164,
+      "trade_strength": 66.02,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z"
+      "quote_at": "2026-07-17T02:36:51.266937Z"
     },
     {
       "symbol": "005930",
@@ -15859,7 +15859,7 @@
       "volume": 44712225.0,
       "trade_strength": 74.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z",
+      "quote_at": "2026-07-17T02:36:51.266937Z",
       "open": 269000.0,
       "high": 269000.0,
       "low": 251000.0,
@@ -16037,7 +16037,7 @@
       "volume": 1502554.0,
       "trade_strength": 100.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z",
+      "quote_at": "2026-07-17T02:36:51.266937Z",
       "open": 190000.0,
       "high": 190000.0,
       "low": 177500.0,
@@ -16215,7 +16215,7 @@
       "volume": 1329363.0,
       "trade_strength": 85.07,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z",
+      "quote_at": "2026-07-17T02:36:51.266937Z",
       "open": 138200.0,
       "high": 144500.0,
       "low": 133500.0,
@@ -16393,7 +16393,7 @@
       "volume": 802798.0,
       "trade_strength": 70.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z",
+      "quote_at": "2026-07-17T02:36:51.266937Z",
       "open": 449500.0,
       "high": 466000.0,
       "low": 425000.0,
@@ -16571,7 +16571,7 @@
       "volume": 2477932.0,
       "trade_strength": 85.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z",
+      "quote_at": "2026-07-17T02:36:51.266937Z",
       "open": 33800.0,
       "high": 34500.0,
       "low": 33450.0,
@@ -16749,7 +16749,7 @@
       "volume": 1638767.0,
       "trade_strength": 99.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z",
+      "quote_at": "2026-07-17T02:36:51.266937Z",
       "open": 107000.0,
       "high": 112400.0,
       "low": 105000.0,
@@ -16927,7 +16927,7 @@
       "volume": 319491.0,
       "trade_strength": 110.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z",
+      "quote_at": "2026-07-17T02:36:51.266937Z",
       "open": 34000.0,
       "high": 34900.0,
       "low": 33750.0,
@@ -17105,7 +17105,7 @@
       "volume": 113308.0,
       "trade_strength": 133.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z",
+      "quote_at": "2026-07-17T02:36:51.266937Z",
       "open": 25800.0,
       "high": 26400.0,
       "low": 25600.0,
@@ -17283,7 +17283,7 @@
       "volume": 278109.0,
       "trade_strength": 79.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z",
+      "quote_at": "2026-07-17T02:36:51.266937Z",
       "open": 100500.0,
       "high": 102300.0,
       "low": 98000.0,
@@ -17461,7 +17461,7 @@
       "volume": 1228247.0,
       "trade_strength": 90.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z",
+      "quote_at": "2026-07-17T02:36:51.266937Z",
       "open": 431500.0,
       "high": 431500.0,
       "low": 412000.0,
@@ -17639,7 +17639,7 @@
       "volume": 411643.0,
       "trade_strength": 85.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z",
+      "quote_at": "2026-07-17T02:36:51.266937Z",
       "open": 312000.0,
       "high": 320000.0,
       "low": 305500.0,
@@ -17817,7 +17817,7 @@
       "volume": 97557.0,
       "trade_strength": 92.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z",
+      "quote_at": "2026-07-17T02:36:51.266937Z",
       "open": 58700.0,
       "high": 59000.0,
       "low": 56800.0,
@@ -17995,7 +17995,7 @@
       "volume": 346916.0,
       "trade_strength": 110.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z",
+      "quote_at": "2026-07-17T02:36:51.266937Z",
       "open": 196500.0,
       "high": 201500.0,
       "low": 192500.0,
@@ -18173,7 +18173,7 @@
       "volume": 395425.0,
       "trade_strength": 77.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z",
+      "quote_at": "2026-07-17T02:36:51.266937Z",
       "open": 319000.0,
       "high": 344000.0,
       "low": 318000.0,
@@ -18500,7 +18500,7 @@
       "ask_qty": 1,
       "trade_strength": 0.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z"
+      "quote_at": "2026-07-17T02:36:51.266937Z"
     },
     {
       "symbol": "JPM",
@@ -18518,14 +18518,14 @@
       "regime": "혼조/관망",
       "close_bet_window": false,
       "last_price": 341.5,
-      "bid_price": 338.75,
+      "bid_price": 339.0,
       "ask_price": 341.72,
-      "bid_qty": 40,
+      "bid_qty": 27,
       "ask_qty": 6,
       "volume": 665.0,
       "trade_strength": 28.38,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z",
+      "quote_at": "2026-07-17T02:36:51.266937Z",
       "open": 342.0,
       "high": 342.95,
       "low": 341.5,
@@ -18835,7 +18835,7 @@
       },
       "regime": null,
       "sector": null,
-      "current_price": 746.52,
+      "current_price": 746.38,
       "distance_from_low_pct": 0.009376590671639207,
       "distance_from_high_pct": -1.086366105377501,
       "unrealized_pnl_pct": -0.8959859827970651,
@@ -18850,7 +18850,7 @@
       "ask_qty": 43,
       "trade_strength": 179.55,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z"
+      "quote_at": "2026-07-17T02:36:51.266937Z"
     },
     {
       "symbol": "GS",
@@ -18966,7 +18966,7 @@
       },
       "regime": null,
       "sector": null,
-      "current_price": 1082.91,
+      "current_price": 1082.5,
       "distance_from_low_pct": 0.1441707869322073,
       "distance_from_high_pct": -6.406225707820146,
       "unrealized_pnl_pct": -6.406128700922853,
@@ -18981,7 +18981,7 @@
       "ask_qty": 1,
       "trade_strength": 0.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z"
+      "quote_at": "2026-07-17T02:36:51.266937Z"
     },
     {
       "symbol": "VALE",
@@ -19097,7 +19097,7 @@
       },
       "regime": null,
       "sector": null,
-      "current_price": 14.25,
+      "current_price": 14.2,
       "distance_from_low_pct": 0.5659924628435009,
       "distance_from_high_pct": -1.1789181692094308,
       "unrealized_pnl_pct": -0.6276150627615107,
@@ -19112,7 +19112,7 @@
       "ask_qty": 5,
       "trade_strength": 0.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z"
+      "quote_at": "2026-07-17T02:36:51.266937Z"
     },
     {
       "symbol": "F",
@@ -19243,7 +19243,7 @@
       "ask_qty": 1060,
       "trade_strength": 0.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z"
+      "quote_at": "2026-07-17T02:36:51.266937Z"
     },
     {
       "symbol": "AMZN",
@@ -19402,7 +19402,7 @@
       },
       "regime": null,
       "sector": null,
-      "current_price": 247.81,
+      "current_price": 248.04,
       "distance_from_low_pct": 0.0,
       "distance_from_high_pct": -3.5420964540111455,
       "unrealized_pnl_pct": -2.9983951148862875,
@@ -19417,7 +19417,7 @@
       "ask_qty": 33,
       "trade_strength": 68.79,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z"
+      "quote_at": "2026-07-17T02:36:51.266937Z"
     },
     {
       "symbol": "GOOG",
@@ -19426,7 +19426,7 @@
       "strategy_id": "09",
       "strategy_name": "거래량 돌파",
       "name": "Alphabet",
-      "last_price": 351.27,
+      "last_price": 351.46,
       "observed_low_since_entry": 351.45,
       "observed_high_since_entry": 373.2101,
       "forecast_10m_direction": "flat",
@@ -19573,22 +19573,22 @@
       },
       "regime": null,
       "sector": null,
-      "current_price": 351.28,
+      "current_price": 351.46,
       "distance_from_low_pct": 0.08536064874093974,
       "distance_from_high_pct": -5.750139130747001,
       "unrealized_pnl_pct": -5.750139130747001,
       "aggregate_pnl_pct": -5.850139130747001,
       "open": 356.75,
       "high": 356.89,
-      "low": 351.27,
-      "volume": 34885.0,
-      "bid_price": 350.8,
-      "ask_price": 351.43,
-      "bid_qty": 6,
-      "ask_qty": 86,
-      "trade_strength": 71.35,
+      "low": 351.16,
+      "volume": 37336.0,
+      "bid_price": 351.0,
+      "ask_price": 351.7,
+      "bid_qty": 283,
+      "ask_qty": 120,
+      "trade_strength": 66.96,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z"
+      "quote_at": "2026-07-17T02:36:51.266937Z"
     },
     {
       "symbol": "PFE",
@@ -19762,7 +19762,7 @@
       "ask_qty": 11,
       "trade_strength": 0.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z"
+      "quote_at": "2026-07-17T02:36:51.266937Z"
     },
     {
       "symbol": "XOM",
@@ -19780,14 +19780,14 @@
       "regime": "혼조/관망",
       "close_bet_window": false,
       "last_price": 146.54,
-      "bid_price": 145.95,
+      "bid_price": 146.0,
       "ask_price": 146.7,
-      "bid_qty": 85,
-      "ask_qty": 1,
+      "bid_qty": 16,
+      "ask_qty": 35,
       "volume": 969.0,
       "trade_strength": 82.49,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z",
+      "quote_at": "2026-07-17T02:36:51.266937Z",
       "open": 145.98,
       "high": 146.6,
       "low": 145.95,
@@ -20097,7 +20097,7 @@
       },
       "regime": null,
       "sector": null,
-      "current_price": 1168.17,
+      "current_price": 1166.6,
       "distance_from_low_pct": 0.38683056821111617,
       "distance_from_high_pct": -1.783010933557616,
       "unrealized_pnl_pct": -1.6726097005468676,
@@ -20112,7 +20112,7 @@
       "ask_qty": 6,
       "trade_strength": 49.85,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z"
+      "quote_at": "2026-07-17T02:36:51.266937Z"
     },
     {
       "symbol": "CRM",
@@ -20271,7 +20271,7 @@
       },
       "regime": null,
       "sector": null,
-      "current_price": 170.5,
+      "current_price": 170.57,
       "distance_from_low_pct": 0.07032348804500987,
       "distance_from_high_pct": -1.9747416762342151,
       "unrealized_pnl_pct": -1.9747416762342151,
@@ -20286,7 +20286,7 @@
       "ask_qty": 25,
       "trade_strength": 0.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z"
+      "quote_at": "2026-07-17T02:36:51.266937Z"
     },
     {
       "symbol": "COST",
@@ -20303,17 +20303,17 @@
       "strategy_name": "혼조 관망",
       "regime": "혼조/관망",
       "close_bet_window": false,
-      "last_price": 947.66,
-      "bid_price": 943.93,
-      "ask_price": 947.66,
-      "bid_qty": 10,
-      "ask_qty": 11,
-      "volume": 995.0,
-      "trade_strength": 320.34,
+      "last_price": 949.0,
+      "bid_price": 942.01,
+      "ask_price": 949.61,
+      "bid_qty": 3,
+      "ask_qty": 1,
+      "volume": 1209.0,
+      "trade_strength": 411.02,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z",
+      "quote_at": "2026-07-17T02:36:51.266937Z",
       "open": 942.94,
-      "high": 947.66,
+      "high": 949.0,
       "low": 942.92,
       "profit_selection_rank": 42,
       "profit_selection_score": 1.923,
@@ -20458,7 +20458,7 @@
       "observed_high_since_entry": 947.51,
       "forecast_10m_direction": "flat",
       "forecast_1h_direction": "flat",
-      "current_price": 947.66,
+      "current_price": 947.96,
       "distance_from_low_pct": 0.7223327411410407,
       "distance_from_high_pct": -0.0749332460871166,
       "unrealized_pnl_pct": 0.3040479696587717,
@@ -20621,7 +20621,7 @@
       },
       "regime": null,
       "sector": null,
-      "current_price": 653.8,
+      "current_price": 656.51,
       "distance_from_low_pct": 1.1373516208591283,
       "distance_from_high_pct": -1.650412603150786,
       "unrealized_pnl_pct": -1.1013880506940188,
@@ -20636,7 +20636,7 @@
       "ask_qty": 25,
       "trade_strength": 50.98,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z"
+      "quote_at": "2026-07-17T02:36:51.266937Z"
     },
     {
       "symbol": "GE",
@@ -20645,7 +20645,7 @@
       "strategy_id": "09",
       "strategy_name": "거래량 돌파",
       "name": "GE Aerospace",
-      "last_price": 347.01,
+      "last_price": 347.97,
       "observed_low_since_entry": 347.0,
       "observed_high_since_entry": 350.6,
       "forecast_10m_direction": "up",
@@ -20800,14 +20800,14 @@
       "open": 348.18,
       "high": 349.49,
       "low": 347.0,
-      "volume": 1353.0,
+      "volume": 1358.0,
       "bid_price": 342.63,
       "ask_price": 348.99,
       "bid_qty": 1,
       "ask_qty": 15,
-      "trade_strength": 162.7,
+      "trade_strength": 163.67,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z"
+      "quote_at": "2026-07-17T02:36:51.266937Z"
     },
     {
       "symbol": "010950",
@@ -20832,7 +20832,7 @@
       "volume": 688153.0,
       "trade_strength": 121.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z",
+      "quote_at": "2026-07-17T02:36:51.266937Z",
       "open": 142300.0,
       "high": 146400.0,
       "low": 138600.0,
@@ -21010,7 +21010,7 @@
       "volume": 1126778.0,
       "trade_strength": 163.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z",
+      "quote_at": "2026-07-17T02:36:51.266937Z",
       "open": 14220.0,
       "high": 14630.0,
       "low": 14170.0,
@@ -21188,7 +21188,7 @@
       "volume": 9472935.0,
       "trade_strength": 73.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z",
+      "quote_at": "2026-07-17T02:36:51.266937Z",
       "open": 1987000.0,
       "high": 1987000.0,
       "low": 1802000.0,
@@ -21366,7 +21366,7 @@
       "volume": 1124655.0,
       "trade_strength": 121.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z",
+      "quote_at": "2026-07-17T02:36:51.266937Z",
       "open": 142200.0,
       "high": 150500.0,
       "low": 142200.0,
@@ -21544,7 +21544,7 @@
       "volume": 982379.0,
       "trade_strength": 88.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z",
+      "quote_at": "2026-07-17T02:36:51.266937Z",
       "open": 1391000.0,
       "high": 1391000.0,
       "low": 1257000.0,
@@ -21722,7 +21722,7 @@
       "volume": 433775.0,
       "trade_strength": 91.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z",
+      "quote_at": "2026-07-17T02:36:51.266937Z",
       "open": 117800.0,
       "high": 118900.0,
       "low": 108600.0,
@@ -21900,7 +21900,7 @@
       "volume": 309313.0,
       "trade_strength": 133.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z",
+      "quote_at": "2026-07-17T02:36:51.266937Z",
       "open": 340000.0,
       "high": 355500.0,
       "low": 335000.0,
@@ -22070,15 +22070,15 @@
       "strategy_name": "거래량 돌파",
       "regime": "변동성/거래량 회복",
       "close_bet_window": false,
-      "last_price": 1354.02,
-      "bid_price": 1351.2,
-      "ask_price": 1355.48,
-      "bid_qty": 114,
-      "ask_qty": 8,
-      "volume": 150586.0,
-      "trade_strength": 101.75,
+      "last_price": 1354.1,
+      "bid_price": 1351.56,
+      "ask_price": 1354.1,
+      "bid_qty": 20,
+      "ask_qty": 1,
+      "volume": 152832.0,
+      "trade_strength": 102.37,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-17T02:33:37.613516Z",
+      "quote_at": "2026-07-17T02:36:51.266937Z",
       "open": 1372.7,
       "high": 1391.0,
       "low": 1341.0,
@@ -22225,7 +22225,7 @@
       "observed_high_since_entry": 1379.21,
       "forecast_10m_direction": "down",
       "forecast_1h_direction": "down",
-      "current_price": 1352.67,
+      "current_price": 1354.4,
       "distance_from_low_pct": 0.0,
       "distance_from_high_pct": -1.7553527019090631,
       "unrealized_pnl_pct": -1.991985765330473,
