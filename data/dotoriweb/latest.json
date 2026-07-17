@@ -1,23 +1,15 @@
 {
-  "updated_at": "2026-07-17T18:47:04.636778Z",
+  "updated_at": "2026-07-17T18:47:09.574044Z",
   "source": "dotoristock_dotoriweb_live_bridge",
-  "status_updated_at": "2026-07-17T18:45:28.364462Z",
-  "widget_updated_at": "2026-07-17T18:47:04.565198Z",
+  "status_updated_at": "2026-07-17T18:47:09.181652Z",
+  "widget_updated_at": null,
   "macro_updated_at": "2026-07-17T18:37:49.432370Z",
   "market_focus": "US",
   "market_limits": {
     "KR": 5,
     "US": 40
   },
-  "virtual_market_priority": {
-    "mode": "US_PRIORITY",
-    "kr_market_open": false,
-    "focus_market": "US",
-    "candidate_limits": {
-      "KR": 5,
-      "US": 40
-    }
-  },
+  "virtual_market_priority": null,
   "virtual_market_summary": {
     "KR": {
       "realized_trades": 149,
@@ -68,16 +60,16 @@
     "MU",
     "SNDK",
     "005930",
+    "BAC",
+    "SOFI",
     "WMT",
     "XOM",
     "GOOG",
-    "SOFI",
-    "GE",
+    "QQQ",
     "AMZN",
-    "BAC",
+    "GE",
     "F",
     "PFE",
-    "QQQ",
     "005380",
     "028260",
     "055550",
@@ -2244,107 +2236,11 @@
   "prediction_guard": {
     "blocked_count": 0,
     "blocked_symbols": [],
-    "cooldown_count": 10,
-    "cooldown_symbols": [
-      "MU",
-      "ACHR",
-      "F",
-      "CRWD",
-      "SNDK",
-      "AMD",
-      "SNOW",
-      "GE",
-      "AMAT",
-      "NET"
-    ],
+    "cooldown_count": 0,
+    "cooldown_symbols": [],
     "real_trade_switch_allowed": true
   },
-  "prediction_cooldowns": {
-    "MU": {
-      "symbol": "MU",
-      "triggered_at": "2026-07-17T16:00:14.131463Z",
-      "expires_at": "2026-07-17T22:00:14.131463Z",
-      "reason": "forecast_large_miss",
-      "error_pct": 3.2813
-    },
-    "SNDK": {
-      "symbol": "SNDK",
-      "triggered_at": "2026-07-17T18:00:43.424683Z",
-      "expires_at": "2026-07-18T00:00:43.424683Z",
-      "reason": "forecast_large_miss",
-      "error_pct": 2.7781
-    },
-    "AMD": {
-      "symbol": "AMD",
-      "triggered_at": "2026-07-17T16:00:14.131463Z",
-      "expires_at": "2026-07-17T22:00:14.131463Z",
-      "reason": "forecast_large_miss",
-      "error_pct": 2.8409
-    },
-    "ACHR": {
-      "symbol": "ACHR",
-      "triggered_at": "2026-07-17T16:00:14.131463Z",
-      "expires_at": "2026-07-17T22:00:14.131463Z",
-      "reason": "forecast_large_miss",
-      "error_pct": 2.1493
-    },
-    "AMAT": {
-      "symbol": "AMAT",
-      "triggered_at": "2026-07-17T16:00:14.131463Z",
-      "expires_at": "2026-07-17T22:00:14.131463Z",
-      "reason": "forecast_large_miss",
-      "error_pct": 2.618
-    },
-    "CRWD": {
-      "symbol": "CRWD",
-      "triggered_at": "2026-07-17T14:02:33.653962Z",
-      "expires_at": "2026-07-17T20:02:33.653962Z",
-      "reason": "forecast_large_miss",
-      "error_pct": 4.2091
-    },
-    "F": {
-      "symbol": "F",
-      "triggered_at": "2026-07-17T14:02:33.653962Z",
-      "expires_at": "2026-07-17T20:02:33.653962Z",
-      "reason": "forecast_large_miss",
-      "error_pct": 2.4538
-    },
-    "SNOW": {
-      "symbol": "SNOW",
-      "triggered_at": "2026-07-17T14:02:33.653962Z",
-      "expires_at": "2026-07-17T20:02:33.653962Z",
-      "reason": "forecast_large_miss",
-      "error_pct": 2.1648
-    },
-    "NET": {
-      "symbol": "NET",
-      "triggered_at": "2026-07-17T14:02:33.653962Z",
-      "expires_at": "2026-07-17T20:02:33.653962Z",
-      "reason": "forecast_large_miss",
-      "error_pct": 4.4991
-    },
-    "GE": {
-      "symbol": "GE",
-      "triggered_at": "2026-07-17T14:02:33.653962Z",
-      "expires_at": "2026-07-17T20:02:33.653962Z",
-      "reason": "forecast_large_miss",
-      "error_pct": 2.8287
-    },
-    "CRM": {
-      "symbol": "CRM",
-      "triggered_at": "2026-07-17T14:02:33.653962Z",
-      "expires_at": "2026-07-17T20:02:33.653962Z",
-      "reason": "forecast_large_miss",
-      "error_pct": 2.8748
-    },
-    "ARM": {
-      "symbol": "ARM",
-      "triggered_at": "2026-07-17T16:00:14.131463Z",
-      "expires_at": "2026-07-17T22:00:14.131463Z",
-      "reason": "forecast_large_miss",
-      "error_pct": 2.5931
-    }
-  },
+  "prediction_cooldowns": {},
   "macro_summary": {
     "nasdaq_pct": -1.2939,
     "nasdaq100_pct": -1.2749,
@@ -2379,7 +2275,7 @@
     }
   },
   "widget_forecasts": {
-    "updated_at": "2026-07-17T18:47:04.565198Z",
+    "updated_at": null,
     "symbols": {
       "MU": {
         "symbol": "MU",
@@ -7199,7 +7095,7 @@
       "name": "Micron Technology",
       "market": "US",
       "sector": "반도체",
-      "latest_price": 869.58,
+      "latest_price": 870.68,
       "score": 0.7564334086716067,
       "profit_selection_rank": 1,
       "strategy_id": "09",
@@ -7214,13 +7110,7 @@
         "score": 1.0,
         "reason": "orderbook_aligned"
       },
-      "prediction_cooldown": {
-        "symbol": "MU",
-        "triggered_at": "2026-07-17T16:00:14.131463Z",
-        "expires_at": "2026-07-17T22:00:14.131463Z",
-        "reason": "forecast_large_miss",
-        "error_pct": 3.2813
-      },
+      "prediction_cooldown": null,
       "indicator_2026": {
         "preset": "2026볼밴",
         "available": true,
@@ -7317,7 +7207,7 @@
       "name": "SoFi Technologies",
       "market": "US",
       "sector": "기타",
-      "latest_price": 17.3075,
+      "latest_price": 17.31,
       "score": 0.7724931617833981,
       "profit_selection_rank": 2,
       "strategy_id": "09",
@@ -7429,7 +7319,7 @@
       "name": "Meta Platforms",
       "market": "US",
       "sector": "플랫폼",
-      "latest_price": 646.0105,
+      "latest_price": 646.715,
       "score": 0.702357001654109,
       "profit_selection_rank": 3,
       "strategy_id": "09",
@@ -7541,7 +7431,7 @@
       "name": "Invesco QQQ",
       "market": "US",
       "sector": "지수",
-      "latest_price": 696.47,
+      "latest_price": 696.97,
       "score": 0.7388315150844486,
       "profit_selection_rank": 4,
       "strategy_id": "09",
@@ -7653,7 +7543,7 @@
       "name": "Alphabet",
       "market": "US",
       "sector": "소프트웨어",
-      "latest_price": 343.92,
+      "latest_price": 344.01,
       "score": 0.6989623189367891,
       "profit_selection_rank": 5,
       "strategy_id": "09",
@@ -7765,7 +7655,7 @@
       "name": "Archer Aviation",
       "market": "US",
       "sector": "기타",
-      "latest_price": 4.475,
+      "latest_price": 4.4757,
       "score": 0.695722674162333,
       "profit_selection_rank": 6,
       "strategy_id": "09",
@@ -7780,13 +7670,7 @@
         "score": 1.0,
         "reason": "orderbook_aligned"
       },
-      "prediction_cooldown": {
-        "symbol": "ACHR",
-        "triggered_at": "2026-07-17T16:00:14.131463Z",
-        "expires_at": "2026-07-17T22:00:14.131463Z",
-        "reason": "forecast_large_miss",
-        "error_pct": 2.1493
-      },
+      "prediction_cooldown": null,
       "indicator_2026": {
         "preset": "2026볼밴",
         "available": true,
@@ -7883,7 +7767,7 @@
       "name": "Ford",
       "market": "US",
       "sector": "자동차",
-      "latest_price": 14.335,
+      "latest_price": 14.3472,
       "score": 0.7345783323114501,
       "profit_selection_rank": 7,
       "strategy_id": "09",
@@ -7898,13 +7782,7 @@
         "score": 1.0,
         "reason": "orderbook_aligned"
       },
-      "prediction_cooldown": {
-        "symbol": "F",
-        "triggered_at": "2026-07-17T14:02:33.653962Z",
-        "expires_at": "2026-07-17T20:02:33.653962Z",
-        "reason": "forecast_large_miss",
-        "error_pct": 2.4538
-      },
+      "prediction_cooldown": null,
       "indicator_2026": {
         "preset": "2026볼밴",
         "available": true,
@@ -8001,7 +7879,7 @@
       "name": "CrowdStrike",
       "market": "US",
       "sector": "소프트웨어",
-      "latest_price": 203.6395,
+      "latest_price": 203.87,
       "score": 0.6625098441314949,
       "profit_selection_rank": 8,
       "strategy_id": "09",
@@ -8016,13 +7894,7 @@
         "score": 1.0,
         "reason": "orderbook_aligned"
       },
-      "prediction_cooldown": {
-        "symbol": "CRWD",
-        "triggered_at": "2026-07-17T14:02:33.653962Z",
-        "expires_at": "2026-07-17T20:02:33.653962Z",
-        "reason": "forecast_large_miss",
-        "error_pct": 4.2091
-      },
+      "prediction_cooldown": null,
       "indicator_2026": {
         "preset": "2026볼밴",
         "available": true,
@@ -8119,7 +7991,7 @@
       "name": "Pfizer",
       "market": "US",
       "sector": "바이오",
-      "latest_price": 25.065,
+      "latest_price": 25.055,
       "score": 0.7150156177070661,
       "profit_selection_rank": 9,
       "strategy_id": "09",
@@ -8231,7 +8103,7 @@
       "name": "Exxon Mobil",
       "market": "US",
       "sector": "에너지",
-      "latest_price": 147.725,
+      "latest_price": 147.82,
       "score": 0.6668626575888307,
       "profit_selection_rank": 10,
       "strategy_id": "09",
@@ -8343,7 +8215,7 @@
       "name": "Amazon",
       "market": "US",
       "sector": "플랫폼",
-      "latest_price": 247.42,
+      "latest_price": 247.56,
       "score": 0.7262622542872877,
       "profit_selection_rank": 11,
       "strategy_id": "09",
@@ -8455,7 +8327,7 @@
       "name": "SanDisk",
       "market": "US",
       "sector": "반도체",
-      "latest_price": 1411.13,
+      "latest_price": 1414.52,
       "score": 0.7018458574197134,
       "profit_selection_rank": 12,
       "strategy_id": "09",
@@ -8470,13 +8342,7 @@
         "score": 1.0,
         "reason": "orderbook_aligned"
       },
-      "prediction_cooldown": {
-        "symbol": "SNDK",
-        "triggered_at": "2026-07-17T18:00:43.424683Z",
-        "expires_at": "2026-07-18T00:00:43.424683Z",
-        "reason": "forecast_large_miss",
-        "error_pct": 2.7781
-      },
+      "prediction_cooldown": null,
       "indicator_2026": {
         "preset": "2026볼밴",
         "available": true,
@@ -8573,7 +8439,7 @@
       "name": "Walmart",
       "market": "US",
       "sector": "소비재",
-      "latest_price": 114.51,
+      "latest_price": 114.4499,
       "score": 0.696160777683291,
       "profit_selection_rank": 13,
       "strategy_id": "09",
@@ -8685,7 +8551,7 @@
       "name": "SPDR S&P 500 ETF",
       "market": "US",
       "sector": "지수",
-      "latest_price": 743.33,
+      "latest_price": 743.69,
       "score": 0.7343290244743359,
       "profit_selection_rank": 14,
       "strategy_id": "09",
@@ -8797,7 +8663,7 @@
       "name": "Tesla",
       "market": "US",
       "sector": "자동차",
-      "latest_price": 380.8301,
+      "latest_price": 381.09,
       "score": 0.7222049694607496,
       "profit_selection_rank": 15,
       "strategy_id": "09",
@@ -8909,7 +8775,7 @@
       "name": "Advanced Micro Devices",
       "market": "US",
       "sector": "반도체",
-      "latest_price": 495.24,
+      "latest_price": 495.745,
       "score": 0.7199542885881941,
       "profit_selection_rank": 16,
       "strategy_id": "09",
@@ -8924,13 +8790,7 @@
         "score": 1.0,
         "reason": "orderbook_aligned"
       },
-      "prediction_cooldown": {
-        "symbol": "AMD",
-        "triggered_at": "2026-07-17T16:00:14.131463Z",
-        "expires_at": "2026-07-17T22:00:14.131463Z",
-        "reason": "forecast_large_miss",
-        "error_pct": 2.8409
-      },
+      "prediction_cooldown": null,
       "indicator_2026": {
         "preset": "2026볼밴",
         "available": true,
@@ -9027,7 +8887,7 @@
       "name": "Bank of America",
       "market": "US",
       "sector": "금융",
-      "latest_price": 61.145,
+      "latest_price": 61.17,
       "score": 0.7082487974200733,
       "profit_selection_rank": 17,
       "strategy_id": "09",
@@ -9139,7 +8999,7 @@
       "name": "Chevron",
       "market": "US",
       "sector": "에너지",
-      "latest_price": 186.6799,
+      "latest_price": 186.75,
       "score": 0.6328079979639254,
       "profit_selection_rank": 18,
       "strategy_id": "09",
@@ -9251,7 +9111,7 @@
       "name": "Goldman Sachs",
       "market": "US",
       "sector": "금융",
-      "latest_price": 1069.85,
+      "latest_price": 1071.24,
       "score": 0.582616683745037,
       "profit_selection_rank": 19,
       "strategy_id": "09",
@@ -9363,7 +9223,7 @@
       "name": "Costco",
       "market": "US",
       "sector": "소비재",
-      "latest_price": 938.98,
+      "latest_price": 938.78,
       "score": 0.5999911829270542,
       "profit_selection_rank": 20,
       "strategy_id": "09",
@@ -9475,7 +9335,7 @@
       "name": "Snowflake",
       "market": "US",
       "sector": "소프트웨어",
-      "latest_price": 267.625,
+      "latest_price": 267.82,
       "score": 0.6125550552101973,
       "profit_selection_rank": 21,
       "strategy_id": "09",
@@ -9490,13 +9350,7 @@
         "score": 1.0,
         "reason": "orderbook_aligned"
       },
-      "prediction_cooldown": {
-        "symbol": "SNOW",
-        "triggered_at": "2026-07-17T14:02:33.653962Z",
-        "expires_at": "2026-07-17T20:02:33.653962Z",
-        "reason": "forecast_large_miss",
-        "error_pct": 2.1648
-      },
+      "prediction_cooldown": null,
       "indicator_2026": {
         "preset": "2026볼밴",
         "available": true,
@@ -9593,7 +9447,7 @@
       "name": "GE Aerospace",
       "market": "US",
       "sector": "산업",
-      "latest_price": 349.17,
+      "latest_price": 348.83,
       "score": 0.626012316616351,
       "profit_selection_rank": 22,
       "strategy_id": "09",
@@ -9608,13 +9462,7 @@
         "score": 1.0,
         "reason": "orderbook_aligned"
       },
-      "prediction_cooldown": {
-        "symbol": "GE",
-        "triggered_at": "2026-07-17T14:02:33.653962Z",
-        "expires_at": "2026-07-17T20:02:33.653962Z",
-        "reason": "forecast_large_miss",
-        "error_pct": 2.8287
-      },
+      "prediction_cooldown": null,
       "indicator_2026": {
         "preset": "2026볼밴",
         "available": true,
@@ -9711,7 +9559,7 @@
       "name": "Applied Materials",
       "market": "US",
       "sector": "반도체",
-      "latest_price": 531.995,
+      "latest_price": 532.125,
       "score": 0.664438166460113,
       "profit_selection_rank": 23,
       "strategy_id": "09",
@@ -9726,13 +9574,7 @@
         "score": 1.0,
         "reason": "orderbook_aligned"
       },
-      "prediction_cooldown": {
-        "symbol": "AMAT",
-        "triggered_at": "2026-07-17T16:00:14.131463Z",
-        "expires_at": "2026-07-17T22:00:14.131463Z",
-        "reason": "forecast_large_miss",
-        "error_pct": 2.618
-      },
+      "prediction_cooldown": null,
       "indicator_2026": {
         "preset": "2026볼밴",
         "available": true,
@@ -9829,7 +9671,7 @@
       "name": "Cloudflare",
       "market": "US",
       "sector": "소프트웨어",
-      "latest_price": 276.61,
+      "latest_price": 276.86,
       "score": 0.6007439225480741,
       "profit_selection_rank": 24,
       "strategy_id": "09",
@@ -9844,13 +9686,7 @@
         "score": 1.0,
         "reason": "orderbook_aligned"
       },
-      "prediction_cooldown": {
-        "symbol": "NET",
-        "triggered_at": "2026-07-17T14:02:33.653962Z",
-        "expires_at": "2026-07-17T20:02:33.653962Z",
-        "reason": "forecast_large_miss",
-        "error_pct": 4.4991
-      },
+      "prediction_cooldown": null,
       "indicator_2026": {
         "preset": "2026볼밴",
         "available": true,
@@ -10171,7 +10007,7 @@
       "name": "Johnson & Johnson",
       "market": "US",
       "sector": "바이오",
-      "latest_price": 252.78,
+      "latest_price": 252.8008,
       "score": 0.6428110323762263,
       "profit_selection_rank": 27,
       "strategy_id": "09",
@@ -10283,7 +10119,7 @@
       "name": "JPMorgan Chase",
       "market": "US",
       "sector": "금융",
-      "latest_price": 342.325,
+      "latest_price": 342.54,
       "score": 0.6390053796179279,
       "profit_selection_rank": 28,
       "strategy_id": "09",
@@ -10395,7 +10231,7 @@
       "name": "Visa",
       "market": "US",
       "sector": "금융",
-      "latest_price": 358.05,
+      "latest_price": 358.135,
       "score": 0.6353186218310258,
       "profit_selection_rank": 29,
       "strategy_id": "09",
@@ -10507,7 +10343,7 @@
       "name": "Eli Lilly",
       "market": "US",
       "sector": "바이오",
-      "latest_price": 1173.19,
+      "latest_price": 1173.5999,
       "score": 0.5906842320366212,
       "profit_selection_rank": 30,
       "strategy_id": "09",
@@ -10619,7 +10455,7 @@
       "name": "Boeing",
       "market": "US",
       "sector": "산업",
-      "latest_price": 214.58,
+      "latest_price": 214.6,
       "score": 0.61015659656257,
       "profit_selection_rank": 31,
       "strategy_id": "09",
@@ -10731,7 +10567,7 @@
       "name": "Caterpillar",
       "market": "US",
       "sector": "산업",
-      "latest_price": 883.08,
+      "latest_price": 883.22,
       "score": 0.6048802918016607,
       "profit_selection_rank": 32,
       "strategy_id": "09",
@@ -10843,7 +10679,7 @@
       "name": "Deere",
       "market": "US",
       "sector": "산업",
-      "latest_price": 597.43,
+      "latest_price": 597.61,
       "score": 0.5425335286328958,
       "profit_selection_rank": 33,
       "strategy_id": "09",
