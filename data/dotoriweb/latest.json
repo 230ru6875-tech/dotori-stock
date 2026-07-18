@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-07-18T20:08:06.389893Z",
+  "updated_at": "2026-07-18T20:11:19.677363Z",
   "source": "dotoristock_dotoriweb_live_bridge",
-  "status_updated_at": "2026-07-18T20:08:05.989556Z",
+  "status_updated_at": "2026-07-18T20:11:19.404300Z",
   "widget_updated_at": null,
   "macro_updated_at": "2026-07-18T20:01:19.220259Z",
   "market_focus": "US",
@@ -60,16 +60,16 @@
     "MU",
     "SNDK",
     "005930",
-    "SOFI",
     "GE",
+    "XOM",
     "BAC",
-    "CRM",
     "F",
     "AMZN",
     "WMT",
+    "CRM",
     "PFE",
     "SPY",
-    "XOM",
+    "SOFI",
     "005490",
     "000270",
     "001800",
@@ -3924,7 +3924,7 @@
           "adaptive_length": 50,
           "squeeze_score": 100.0,
           "upper": 4.48,
-          "middle": 4.4645,
+          "middle": 4.4646,
           "lower": 4.45
         },
         "market_phase": {
@@ -7657,7 +7657,7 @@
         "adaptive_length": 50,
         "squeeze_score": 100.0,
         "upper": 4.48,
-        "middle": 4.4645,
+        "middle": 4.4646,
         "lower": 4.45
       },
       "indicator_2026_signal": "하락우위",
@@ -7686,7 +7686,7 @@
           "adaptive_length": 50,
           "squeeze_score": 100.0,
           "upper": 4.48,
-          "middle": 4.4645,
+          "middle": 4.4646,
           "lower": 4.45
         },
         "market_phase": {
@@ -10802,10 +10802,10 @@
       "predicted_sell_high": 23.6,
       "predicted_price_source": "fallback",
       "current_price_signal": {
-        "state": "untrusted",
-        "trust": false,
-        "score": 0.4,
-        "reason": "orderbook_missing,history_missing,tape_missing"
+        "state": "trusted",
+        "trust": true,
+        "score": 0.55,
+        "reason": "orderbook_missing,history_missing"
       },
       "prediction_cooldown": null,
       "indicator_2026": {
@@ -10878,10 +10878,10 @@
       "predicted_sell_high": 1069.24,
       "predicted_price_source": "fallback",
       "current_price_signal": {
-        "state": "untrusted",
-        "trust": false,
-        "score": 0.4,
-        "reason": "orderbook_missing,history_missing,tape_missing"
+        "state": "trusted",
+        "trust": true,
+        "score": 0.55,
+        "reason": "orderbook_missing,history_missing"
       },
       "prediction_cooldown": null,
       "indicator_2026": {
@@ -11033,10 +11033,10 @@
       "predicted_sell_high": 599.23,
       "predicted_price_source": "fallback",
       "current_price_signal": {
-        "state": "untrusted",
-        "trust": false,
-        "score": 0.4,
-        "reason": "orderbook_missing,history_missing,tape_missing"
+        "state": "trusted",
+        "trust": true,
+        "score": 0.55,
+        "reason": "orderbook_missing,history_missing"
       },
       "prediction_cooldown": null,
       "indicator_2026": {
@@ -11109,10 +11109,10 @@
       "predicted_sell_high": 881.53,
       "predicted_price_source": "fallback",
       "current_price_signal": {
-        "state": "untrusted",
-        "trust": false,
-        "score": 0.4,
-        "reason": "orderbook_missing,history_missing,tape_missing"
+        "state": "trusted",
+        "trust": true,
+        "score": 0.55,
+        "reason": "orderbook_missing,history_missing"
       },
       "prediction_cooldown": null,
       "indicator_2026": {
@@ -11270,7 +11270,7 @@
       "volume": 4201041.0,
       "trade_strength": 92.96,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "open": 195.38,
       "high": 198.44,
       "low": 192.97,
@@ -11326,7 +11326,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:24.096150Z",
+        "checked_at": "2026-07-18T20:08:09.216191Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -11444,7 +11444,7 @@
       "volume": 31394594.0,
       "trade_strength": 98.09,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "open": 381.78,
       "high": 385.68,
       "low": 377.22,
@@ -11500,7 +11500,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:08.865048Z",
+        "checked_at": "2026-07-18T20:07:53.015513Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -11636,7 +11636,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:29.975155Z",
+        "checked_at": "2026-07-18T20:08:14.804836Z",
         "source": "toss_api_quote"
       },
       "indicator_snapshot": {
@@ -11723,7 +11723,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "regime": null,
       "sector": null,
       "current_price": 266.9,
@@ -11751,7 +11751,7 @@
       "volume": 10167706.0,
       "trade_strength": 133.95,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "open": 252.59,
       "high": 255.66,
       "low": 251.95,
@@ -11807,7 +11807,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:16.354845Z",
+        "checked_at": "2026-07-18T20:08:01.083319Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -11927,7 +11927,7 @@
       "volume": 18310010.0,
       "trade_strength": 117.89,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "open": 9.32,
       "high": 9.48,
       "low": 9.23,
@@ -11983,7 +11983,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:12.906187Z",
+        "checked_at": "2026-07-18T20:07:57.537394Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -12103,7 +12103,7 @@
       "volume": 4220491.0,
       "trade_strength": 82.26,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "open": 211.5,
       "high": 216.96,
       "low": 211.0,
@@ -12159,7 +12159,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:23.089909Z",
+        "checked_at": "2026-07-18T20:08:08.148903Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -12279,7 +12279,7 @@
       "volume": 32115875.0,
       "trade_strength": 121.79,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "open": 476.88,
       "high": 505.87,
       "low": 460.21,
@@ -12335,7 +12335,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:07.724335Z",
+        "checked_at": "2026-07-18T20:07:51.839371Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -12493,7 +12493,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:31.121665Z",
+        "checked_at": "2026-07-18T20:08:16.035855Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -12558,7 +12558,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "regime": null,
       "sector": null,
       "current_price": 61200.0,
@@ -12624,7 +12624,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:32.246376Z",
+        "checked_at": "2026-07-18T20:08:17.216523Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -12689,7 +12689,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "regime": null,
       "sector": null,
       "current_price": 18300.0,
@@ -12755,7 +12755,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:33.393867Z",
+        "checked_at": "2026-07-18T20:08:18.457003Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -12820,7 +12820,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "regime": null,
       "sector": null,
       "current_price": 57600.0,
@@ -12886,7 +12886,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:34.499467Z",
+        "checked_at": "2026-07-18T20:08:19.603996Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -12951,7 +12951,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "regime": null,
       "sector": null,
       "current_price": 174500.0,
@@ -13017,7 +13017,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:35.689643Z",
+        "checked_at": "2026-07-18T20:08:20.704849Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -13082,7 +13082,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "regime": null,
       "sector": null,
       "current_price": 5940.0,
@@ -13148,7 +13148,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:36.925676Z",
+        "checked_at": "2026-07-18T20:08:21.853706Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -13213,7 +13213,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "regime": null,
       "sector": null,
       "current_price": 5620.0,
@@ -13279,7 +13279,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:38.105909Z",
+        "checked_at": "2026-07-18T20:08:22.944966Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -13344,7 +13344,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "regime": null,
       "sector": null,
       "current_price": 42500.0,
@@ -13410,7 +13410,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:39.286697Z",
+        "checked_at": "2026-07-18T20:08:24.152838Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -13475,7 +13475,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "regime": null,
       "sector": null,
       "current_price": 239500.0,
@@ -13541,7 +13541,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:40.452367Z",
+        "checked_at": "2026-07-18T20:08:25.298215Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -13606,7 +13606,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "regime": null,
       "sector": null,
       "current_price": 137200.0,
@@ -13634,7 +13634,7 @@
       "volume": 25382214.0,
       "trade_strength": 94.31,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "open": 4.34,
       "high": 4.59,
       "low": 4.3,
@@ -13690,7 +13690,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:09.913784Z",
+        "checked_at": "2026-07-18T20:07:54.123487Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -13810,7 +13810,7 @@
       "volume": 9102630.0,
       "trade_strength": 83.54,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "open": 200.4,
       "high": 209.5,
       "low": 199.52,
@@ -13866,7 +13866,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:18.589476Z",
+        "checked_at": "2026-07-18T20:08:03.457397Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -13986,7 +13986,7 @@
       "volume": 54109267.0,
       "trade_strength": 82.8,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "open": 691.65,
       "high": 702.3,
       "low": 686.76,
@@ -14042,7 +14042,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:06.633730Z",
+        "checked_at": "2026-07-18T20:07:50.849171Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -14162,7 +14162,7 @@
       "volume": 3508997.0,
       "trade_strength": 146.69,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "open": 255.9,
       "high": 264.47,
       "low": 248.61,
@@ -14218,7 +14218,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:26.375080Z",
+        "checked_at": "2026-07-18T20:08:11.394061Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -14376,7 +14376,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:41.550420Z",
+        "checked_at": "2026-07-18T20:08:26.339246Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -14438,7 +14438,7 @@
       "ask_qty": null,
       "trade_strength": 82.8,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "regime": null,
       "sector": null,
       "current_price": 23.54,
@@ -14466,7 +14466,7 @@
       "volume": 89973828.0,
       "trade_strength": 99.82,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "open": 16.83,
       "high": 17.57,
       "low": 16.47,
@@ -14522,7 +14522,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:01.448033Z",
+        "checked_at": "2026-07-18T20:07:45.164122Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -14646,7 +14646,7 @@
       "volume": 44712225.0,
       "trade_strength": 74.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "open": 269000.0,
       "high": 269000.0,
       "low": 251000.0,
@@ -14698,7 +14698,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:05:52.686672Z",
+        "checked_at": "2026-07-18T20:07:34.090081Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -14856,7 +14856,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:42.562344Z",
+        "checked_at": "2026-07-18T20:08:27.566204Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -14921,7 +14921,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "regime": null,
       "sector": null,
       "current_price": 180300.0,
@@ -14987,7 +14987,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:43.640063Z",
+        "checked_at": "2026-07-18T20:08:28.723593Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -15052,7 +15052,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "regime": null,
       "sector": null,
       "current_price": 138000.0,
@@ -15118,7 +15118,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:44.769003Z",
+        "checked_at": "2026-07-18T20:08:29.676592Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -15183,7 +15183,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "regime": null,
       "sector": null,
       "current_price": 430000.0,
@@ -15249,7 +15249,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:46.009058Z",
+        "checked_at": "2026-07-18T20:08:30.834891Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -15314,7 +15314,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "regime": null,
       "sector": null,
       "current_price": 34050.0,
@@ -15380,7 +15380,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:47.166412Z",
+        "checked_at": "2026-07-18T20:08:31.934592Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -15445,7 +15445,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "regime": null,
       "sector": null,
       "current_price": 107500.0,
@@ -15511,7 +15511,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:48.382981Z",
+        "checked_at": "2026-07-18T20:08:33.092650Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -15576,7 +15576,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "regime": null,
       "sector": null,
       "current_price": 33950.0,
@@ -15608,7 +15608,7 @@
       "volume": 113308.0,
       "trade_strength": 133.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "open": 25800.0,
       "high": 26400.0,
       "low": 25600.0,
@@ -15660,7 +15660,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:04.410505Z",
+        "checked_at": "2026-07-18T20:07:48.663226Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -15818,7 +15818,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:49.594387Z",
+        "checked_at": "2026-07-18T20:08:34.192846Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -15883,7 +15883,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "regime": null,
       "sector": null,
       "current_price": 98100.0,
@@ -15949,7 +15949,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:50.836266Z",
+        "checked_at": "2026-07-18T20:08:35.294712Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -16014,7 +16014,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "regime": null,
       "sector": null,
       "current_price": 421500.0,
@@ -16046,7 +16046,7 @@
       "volume": 411643.0,
       "trade_strength": 85.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "open": 312000.0,
       "high": 320000.0,
       "low": 305500.0,
@@ -16098,7 +16098,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:02.260331Z",
+        "checked_at": "2026-07-18T20:07:46.348424Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -16256,7 +16256,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:51.907911Z",
+        "checked_at": "2026-07-18T20:08:36.322684Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -16321,7 +16321,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "regime": null,
       "sector": null,
       "current_price": 56800.0,
@@ -16387,7 +16387,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:53.025565Z",
+        "checked_at": "2026-07-18T20:08:37.438391Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -16452,7 +16452,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "regime": null,
       "sector": null,
       "current_price": 198500.0,
@@ -16518,7 +16518,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:54.295189Z",
+        "checked_at": "2026-07-18T20:08:38.544918Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -16583,7 +16583,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "regime": null,
       "sector": null,
       "current_price": 324500.0,
@@ -16611,7 +16611,7 @@
       "volume": 45045229.0,
       "trade_strength": 92.3,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "open": 61.25,
       "high": 62.11,
       "low": 60.66,
@@ -16667,7 +16667,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:05:55.239539Z",
+        "checked_at": "2026-07-18T20:07:37.437640Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -16787,7 +16787,7 @@
       "volume": 9250854.0,
       "trade_strength": 78.98,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "open": 339.03,
       "high": 346.12,
       "low": 335.05,
@@ -16843,7 +16843,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:17.501741Z",
+        "checked_at": "2026-07-18T20:08:02.323654Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -16963,7 +16963,7 @@
       "volume": 62650961.0,
       "trade_strength": 110.42,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "open": 742.08,
       "high": 747.29,
       "low": 740.8,
@@ -17019,7 +17019,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:05:59.675055Z",
+        "checked_at": "2026-07-18T20:07:42.856101Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -17177,7 +17177,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:55.576604Z",
+        "checked_at": "2026-07-18T20:08:39.628384Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -17239,7 +17239,7 @@
       "ask_qty": null,
       "trade_strength": 101.13,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "regime": null,
       "sector": null,
       "current_price": 1066.57,
@@ -17267,7 +17267,7 @@
       "volume": 12201198.0,
       "trade_strength": 52.18,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "open": 14.01,
       "high": 14.29,
       "low": 14.01,
@@ -17323,7 +17323,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:13.995315Z",
+        "checked_at": "2026-07-18T20:07:58.762505Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -17481,7 +17481,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:56.790647Z",
+        "checked_at": "2026-07-18T20:08:40.678296Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -17546,7 +17546,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "regime": null,
       "sector": null,
       "current_price": 345.84,
@@ -17574,7 +17574,7 @@
       "volume": 2757541.0,
       "trade_strength": 115.58,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "open": 1159.44,
       "high": 1187.95,
       "low": 1151.01,
@@ -17630,7 +17630,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:27.573305Z",
+        "checked_at": "2026-07-18T20:08:12.452738Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -17750,7 +17750,7 @@
       "volume": 10191465.0,
       "trade_strength": 101.61,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "open": 171.5,
       "high": 175.43,
       "low": 169.75,
@@ -17806,7 +17806,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:05:56.134883Z",
+        "checked_at": "2026-07-18T20:07:38.538693Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -17926,7 +17926,7 @@
       "volume": 22267862.0,
       "trade_strength": 76.93,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "open": 647.7,
       "high": 652.2,
       "low": 626.0,
@@ -17982,7 +17982,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:11.945777Z",
+        "checked_at": "2026-07-18T20:07:56.438600Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -18140,7 +18140,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:58.018315Z",
+        "checked_at": "2026-07-18T20:08:41.743629Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -18205,7 +18205,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "regime": null,
       "sector": null,
       "current_price": 143800.0,
@@ -18271,7 +18271,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:59.272729Z",
+        "checked_at": "2026-07-18T20:08:42.859803Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -18336,7 +18336,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "regime": null,
       "sector": null,
       "current_price": 14520.0,
@@ -18402,7 +18402,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:07:00.465225Z",
+        "checked_at": "2026-07-18T20:08:44.026838Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -18467,7 +18467,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "regime": null,
       "sector": null,
       "current_price": 1830000.0,
@@ -18499,7 +18499,7 @@
       "volume": 1124655.0,
       "trade_strength": 121.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "open": 142200.0,
       "high": 150500.0,
       "low": 142200.0,
@@ -18551,7 +18551,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:03.260398Z",
+        "checked_at": "2026-07-18T20:07:47.510907Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -18709,7 +18709,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:07:01.611540Z",
+        "checked_at": "2026-07-18T20:08:45.107457Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -18774,7 +18774,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "regime": null,
       "sector": null,
       "current_price": 1282000.0,
@@ -18840,7 +18840,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:07:02.700502Z",
+        "checked_at": "2026-07-18T20:08:46.263833Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -18905,7 +18905,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "regime": null,
       "sector": null,
       "current_price": 109300.0,
@@ -18971,7 +18971,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:07:03.725183Z",
+        "checked_at": "2026-07-18T20:08:47.392353Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -19036,7 +19036,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "regime": null,
       "sector": null,
       "current_price": 353500.0,
@@ -19102,7 +19102,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:07:04.856212Z",
+        "checked_at": "2026-07-18T20:08:48.505092Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -19201,7 +19201,7 @@
         }
       },
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "regime": null,
       "sector": null,
       "current_price": 34150.0,
@@ -19267,7 +19267,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:07:05.967919Z",
+        "checked_at": "2026-07-18T20:08:49.649100Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -19332,7 +19332,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "regime": null,
       "sector": null,
       "current_price": 22200.0,
@@ -19398,7 +19398,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:07:07.137569Z",
+        "checked_at": "2026-07-18T20:08:50.737180Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -19463,7 +19463,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "regime": null,
       "sector": null,
       "current_price": 85900.0,
@@ -19529,7 +19529,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:07:08.369238Z",
+        "checked_at": "2026-07-18T20:08:51.786143Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -19594,7 +19594,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "regime": null,
       "sector": null,
       "current_price": 189700.0,
@@ -19626,7 +19626,7 @@
       "volume": 220300.0,
       "trade_strength": 106.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "open": 13800.0,
       "high": 14090.0,
       "low": 13630.0,
@@ -19678,7 +19678,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:05.466313Z",
+        "checked_at": "2026-07-18T20:07:49.657523Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -19798,7 +19798,7 @@
       "volume": 7400403.0,
       "trade_strength": 89.33,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "open": 363.57,
       "high": 364.62,
       "low": 357.0,
@@ -19854,7 +19854,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:19.643050Z",
+        "checked_at": "2026-07-18T20:08:04.648438Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -19974,7 +19974,7 @@
       "volume": 28289808.0,
       "trade_strength": 119.61,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "open": 116.96,
       "high": 118.09,
       "low": 113.6,
@@ -20030,7 +20030,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:05:57.908296Z",
+        "checked_at": "2026-07-18T20:07:40.692506Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -20150,7 +20150,7 @@
       "volume": 45629587.0,
       "trade_strength": 64.22,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "open": 25.4,
       "high": 25.65,
       "low": 24.97,
@@ -20206,7 +20206,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:05:58.789076Z",
+        "checked_at": "2026-07-18T20:07:41.777020Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -20364,7 +20364,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:07:09.505739Z",
+        "checked_at": "2026-07-18T20:08:52.985664Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -20426,7 +20426,7 @@
       "ask_qty": null,
       "trade_strength": 112.88,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "regime": null,
       "sector": null,
       "current_price": 597.74,
@@ -20454,7 +20454,7 @@
       "volume": 7058330.0,
       "trade_strength": 79.43,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "open": 187.47,
       "high": 188.15,
       "low": 185.5,
@@ -20510,7 +20510,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:20.851251Z",
+        "checked_at": "2026-07-18T20:08:05.866624Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -20630,7 +20630,7 @@
       "volume": 2508007.0,
       "trade_strength": 159.93,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "open": 961.52,
       "high": 964.33,
       "low": 933.76,
@@ -20686,7 +20686,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:28.761485Z",
+        "checked_at": "2026-07-18T20:08:13.649034Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -20806,7 +20806,7 @@
       "volume": 19031354.0,
       "trade_strength": 61.16,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "open": 149.03,
       "high": 150.0,
       "low": 147.17,
@@ -20862,7 +20862,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:05:54.381726Z",
+        "checked_at": "2026-07-18T20:07:36.218811Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -20982,7 +20982,7 @@
       "volume": 5596251.0,
       "trade_strength": 120.69,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "open": 346.99,
       "high": 357.06,
       "low": 343.02,
@@ -21038,7 +21038,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:05:53.523152Z",
+        "checked_at": "2026-07-18T20:07:35.192127Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -21158,7 +21158,7 @@
       "volume": 45456460.0,
       "trade_strength": 104.3,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "open": 14.04,
       "high": 14.5,
       "low": 13.85,
@@ -21214,7 +21214,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:00.594935Z",
+        "checked_at": "2026-07-18T20:07:43.944318Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -21334,7 +21334,7 @@
       "volume": 43572361.0,
       "trade_strength": 195.7,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "open": 244.46,
       "high": 250.24,
       "low": 243.59,
@@ -21390,7 +21390,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:05:57.043370Z",
+        "checked_at": "2026-07-18T20:07:39.631879Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -21510,7 +21510,7 @@
       "volume": 10326483.0,
       "trade_strength": 175.4,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "open": 532.4,
       "high": 551.18,
       "low": 513.22,
@@ -21566,7 +21566,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:15.208134Z",
+        "checked_at": "2026-07-18T20:07:59.990248Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -21686,7 +21686,7 @@
       "volume": 63346278.0,
       "trade_strength": 113.25,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "open": 822.52,
       "high": 903.96,
       "low": 804.0,
@@ -21742,7 +21742,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:05:50.950149Z",
+        "checked_at": "2026-07-18T20:07:32.027438Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -21862,7 +21862,7 @@
       "volume": 5456768.0,
       "trade_strength": 195.01,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "open": 262.61,
       "high": 274.25,
       "low": 259.48,
@@ -21918,7 +21918,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:22.026263Z",
+        "checked_at": "2026-07-18T20:08:06.997561Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -22076,7 +22076,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:07:10.685801Z",
+        "checked_at": "2026-07-18T20:08:54.163339Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -22138,7 +22138,7 @@
       "ask_qty": null,
       "trade_strength": 110.72,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "regime": null,
       "sector": null,
       "current_price": 879.33,
@@ -22204,7 +22204,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:07:11.949183Z",
+        "checked_at": "2026-07-18T20:08:55.331740Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -22269,7 +22269,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "regime": null,
       "sector": null,
       "current_price": 315.99,
@@ -22297,7 +22297,7 @@
       "volume": 19810859.0,
       "trade_strength": 96.97,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "open": 1365.2,
       "high": 1501.2,
       "low": 1325.03,
@@ -22353,7 +22353,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:05:51.804552Z",
+        "checked_at": "2026-07-18T20:07:33.043753Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -22473,7 +22473,7 @@
       "volume": 22762721.0,
       "trade_strength": 110.62,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "open": 87.74,
       "high": 89.79,
       "low": 86.5,
@@ -22529,7 +22529,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:10.987910Z",
+        "checked_at": "2026-07-18T20:07:55.280901Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -22649,7 +22649,7 @@
       "volume": 3920400.0,
       "trade_strength": 35.68,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T20:08:04.390399Z",
+      "quote_at": "2026-07-18T20:11:14.315109Z",
       "open": 225.95,
       "high": 230.47,
       "low": 224.53,
@@ -22705,7 +22705,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T20:06:25.218384Z",
+        "checked_at": "2026-07-18T20:08:10.255766Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -22810,7 +22810,7 @@
   "state_mode": "virtual",
   "news_research": {
     "is_weekday_update": false,
-    "updated_at": "2026-07-18T20:03:28.372526Z",
+    "updated_at": "2026-07-18T20:08:28.405975Z",
     "headline_count": 8,
     "headlines": [
       "Dow Jones Futures: Iran Attack Kills Two U.S. Troops; Google, Tesla, AMD Ahead",
@@ -22982,6 +22982,6 @@
     "this_week": 0,
     "this_month": 0,
     "all_time": 0,
-    "last_updated": "2026-07-18T20:08:06.389893Z"
+    "last_updated": "2026-07-18T20:11:19.677363Z"
   }
 }
