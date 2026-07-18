@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-07-18T08:47:32.513984Z",
+  "updated_at": "2026-07-18T08:50:50.085697Z",
   "source": "dotoristock_dotoriweb_live_bridge",
-  "status_updated_at": "2026-07-18T08:47:32.253308Z",
+  "status_updated_at": "2026-07-18T08:50:49.693477Z",
   "widget_updated_at": null,
   "macro_updated_at": "2026-07-18T08:39:34.491763Z",
   "market_focus": "US",
@@ -63,11 +63,11 @@
     "BAC",
     "WMT",
     "XOM",
-    "GOOG",
-    "SOFI",
     "GE",
-    "AMZN",
+    "SOFI",
     "F",
+    "AMZN",
+    "GOOG",
     "PFE",
     "SPY",
     "005380",
@@ -2832,7 +2832,7 @@
           "signal": "하락우위",
           "description": "중심선과 적응 추세가 하방, 매도 우위 구간",
           "adaptive_length": 50,
-          "squeeze_score": 91.67,
+          "squeeze_score": 88.33,
           "upper": 25.08,
           "middle": 25.0708,
           "lower": 25.06
@@ -2907,7 +2907,7 @@
           "signal": "하락우위",
           "description": "중심선과 적응 추세가 하방, 매도 우위 구간",
           "adaptive_length": 44,
-          "squeeze_score": 86.67,
+          "squeeze_score": 90.0,
           "upper": 14.22,
           "middle": 14.2151,
           "lower": 14.21
@@ -3057,9 +3057,9 @@
           "signal": "스퀴즈 대기",
           "description": "밴드 폭 수축 상태, 방향성 확정 전 대기 구간",
           "adaptive_length": 48,
-          "squeeze_score": 8.33,
+          "squeeze_score": 3.33,
           "upper": 246.88,
-          "middle": 246.7913,
+          "middle": 246.7903,
           "lower": 246.71
         },
         "market_phase": {
@@ -3207,7 +3207,7 @@
           "signal": "스퀴즈 대기",
           "description": "밴드 폭 수축 상태, 방향성 확정 전 대기 구간",
           "adaptive_length": 34,
-          "squeeze_score": 3.33,
+          "squeeze_score": 6.67,
           "upper": 742.64,
           "middle": 742.5229,
           "lower": 742.42
@@ -3284,7 +3284,7 @@
           "adaptive_length": 37,
           "squeeze_score": 16.67,
           "upper": 421500.0,
-          "middle": 421249.2523,
+          "middle": 421249.4329,
           "lower": 421000.0
         },
         "market_phase": {
@@ -3357,9 +3357,9 @@
           "signal": "S2 하락지속",
           "description": "중심선 아래 재하락, 기존 하락 추세 연장 구간",
           "adaptive_length": 37,
-          "squeeze_score": 40.0,
+          "squeeze_score": 30.0,
           "upper": 341500.0,
-          "middle": 341112.2475,
+          "middle": 341109.7758,
           "lower": 340500.0
         },
         "market_phase": {
@@ -3434,7 +3434,7 @@
           "adaptive_length": 50,
           "squeeze_score": 98.33,
           "upper": 107500.0,
-          "middle": 107361.6714,
+          "middle": 107362.7296,
           "lower": 107300.0
         },
         "market_phase": {
@@ -3509,7 +3509,7 @@
           "adaptive_length": 50,
           "squeeze_score": 3.33,
           "upper": 34150.0,
-          "middle": 34121.0094,
+          "middle": 34120.5087,
           "lower": 34100.0
         },
         "market_phase": {
@@ -3582,9 +3582,9 @@
           "signal": "S2 추세지속",
           "description": "중심선 위 재가속, 기존 상승 추세 연장 구간",
           "adaptive_length": 37,
-          "squeeze_score": 26.67,
+          "squeeze_score": 25.0,
           "upper": 693.76,
-          "middle": 693.6688,
+          "middle": 693.6687,
           "lower": 693.53
         },
         "market_phase": {
@@ -3659,7 +3659,7 @@
           "adaptive_length": 49,
           "squeeze_score": 100.0,
           "upper": 492.5,
-          "middle": 492.3011,
+          "middle": 492.3019,
           "lower": 492.1
         },
         "market_phase": {
@@ -3732,9 +3732,9 @@
           "signal": "스퀴즈 대기",
           "description": "밴드 폭 수축 상태, 방향성 확정 전 대기 구간",
           "adaptive_length": 48,
-          "squeeze_score": 6.67,
+          "squeeze_score": 1.67,
           "upper": 380.05,
-          "middle": 380.0351,
+          "middle": 380.0349,
           "lower": 380.01
         },
         "market_phase": {
@@ -3809,7 +3809,7 @@
           "adaptive_length": 50,
           "squeeze_score": 100.0,
           "upper": 4.48,
-          "middle": 4.4646,
+          "middle": 4.4647,
           "lower": 4.45
         },
         "market_phase": {
@@ -3882,9 +3882,9 @@
           "signal": "상승우위",
           "description": "중심선과 적응 추세가 상방, 매수 우위 구간",
           "adaptive_length": 48,
-          "squeeze_score": 75.0,
+          "squeeze_score": 81.67,
           "upper": 640.25,
-          "middle": 640.1355,
+          "middle": 640.138,
           "lower": 640.01
         },
         "market_phase": {
@@ -3954,18 +3954,18 @@
         "indicator_2026": {
           "preset": "2026볼밴",
           "available": true,
-          "signal": "중립",
-          "description": "추세와 밴드 신호가 약해 추가 확인이 필요",
+          "signal": "스퀴즈 대기",
+          "description": "밴드 폭 수축 상태, 방향성 확정 전 대기 구간",
           "adaptive_length": 48,
-          "squeeze_score": 81.4,
+          "squeeze_score": 3.33,
           "upper": 14.29,
-          "middle": 14.2105,
+          "middle": 14.2123,
           "lower": 14.15
         },
         "market_phase": {
           "phase": "보합",
           "score": -5.4365,
-          "reason": "trend20=-0.07% trend6=+0.00% trend3=-0.56% trend2=+0.00% strength=52.18 imbalance=+0.00 sync=+0.00 band=중립",
+          "reason": "trend20=-0.07% trend6=+0.00% trend3=-0.56% trend2=+0.00% strength=52.18 imbalance=+0.00 sync=+0.00 band=스퀴즈 대기",
           "trend_20_pct": -0.0703,
           "trend_6_pct": 0.0,
           "trend_3_pct": -0.5598,
@@ -4032,9 +4032,9 @@
           "signal": "스퀴즈 대기",
           "description": "밴드 폭 수축 상태, 방향성 확정 전 대기 구간",
           "adaptive_length": 47,
-          "squeeze_score": 13.95,
+          "squeeze_score": 0.0,
           "upper": 523.0,
-          "middle": 522.6231,
+          "middle": 522.6391,
           "lower": 522.19
         },
         "market_phase": {
@@ -4107,9 +4107,9 @@
           "signal": "하락우위",
           "description": "중심선과 적응 추세가 하방, 매도 우위 구간",
           "adaptive_length": 44,
-          "squeeze_score": 23.81,
+          "squeeze_score": 100.0,
           "upper": 253.57,
-          "middle": 253.335,
+          "middle": 253.3269,
           "lower": 253.12
         },
         "market_phase": {
@@ -4182,9 +4182,9 @@
           "signal": "S2 하락지속",
           "description": "중심선 아래 재하락, 기존 하락 추세 연장 구간",
           "adaptive_length": 45,
-          "squeeze_score": 13.64,
+          "squeeze_score": 78.33,
           "upper": 342.38,
-          "middle": 341.7439,
+          "middle": 341.7422,
           "lower": 341.21
         },
         "market_phase": {
@@ -4257,9 +4257,9 @@
           "signal": "S2 하락지속",
           "description": "중심선 아래 재하락, 기존 하락 추세 연장 구간",
           "adaptive_length": 44,
-          "squeeze_score": 90.7,
+          "squeeze_score": 45.0,
           "upper": 203.3,
-          "middle": 202.7791,
+          "middle": 202.7795,
           "lower": 202.5
         },
         "market_phase": {
@@ -4332,9 +4332,9 @@
           "signal": "하락우위",
           "description": "중심선과 적응 추세가 하방, 매도 우위 구간",
           "adaptive_length": 43,
-          "squeeze_score": 76.19,
+          "squeeze_score": 100.0,
           "upper": 358.95,
-          "middle": 358.5458,
+          "middle": 358.5195,
           "lower": 358.02
         },
         "market_phase": {
@@ -4407,9 +4407,9 @@
           "signal": "중립",
           "description": "추세와 밴드 신호가 약해 추가 확인이 필요",
           "adaptive_length": 47,
-          "squeeze_score": 23.81,
+          "squeeze_score": 26.67,
           "upper": 187.97,
-          "middle": 187.7333,
+          "middle": 187.7351,
           "lower": 187.56
         },
         "market_phase": {
@@ -4482,9 +4482,9 @@
           "signal": "하락우위",
           "description": "중심선과 적응 추세가 하방, 매도 우위 구간",
           "adaptive_length": 50,
-          "squeeze_score": 74.47,
+          "squeeze_score": 45.0,
           "upper": 272.0,
-          "middle": 268.8971,
+          "middle": 269.0184,
           "lower": 267.55
         },
         "market_phase": {
@@ -4554,18 +4554,18 @@
         "indicator_2026": {
           "preset": "2026볼밴",
           "available": true,
-          "signal": "스퀴즈 대기",
-          "description": "밴드 폭 수축 상태, 방향성 확정 전 대기 구간",
+          "signal": "하락우위",
+          "description": "중심선과 적응 추세가 하방, 매도 우위 구간",
           "adaptive_length": 47,
-          "squeeze_score": 12.5,
+          "squeeze_score": 20.0,
           "upper": 214.6,
-          "middle": 214.4151,
+          "middle": 214.4191,
           "lower": 214.22
         },
         "market_phase": {
-          "phase": "보합",
+          "phase": "하락지속",
           "score": -1.7977,
-          "reason": "trend20=+0.08% trend6=-0.09% trend3=+0.00% trend2=+0.00% strength=82.26 imbalance=+0.00 sync=+0.00 band=스퀴즈 대기",
+          "reason": "trend20=+0.08% trend6=-0.09% trend3=+0.00% trend2=+0.00% strength=82.26 imbalance=+0.00 sync=+0.00 band=하락우위",
           "trend_20_pct": 0.084,
           "trend_6_pct": -0.0932,
           "trend_3_pct": 0.0,
@@ -4632,9 +4632,9 @@
           "signal": "하락우위",
           "description": "중심선과 적응 추세가 하방, 매도 우위 구간",
           "adaptive_length": 45,
-          "squeeze_score": 23.81,
+          "squeeze_score": 93.33,
           "upper": 881.0,
-          "middle": 880.2497,
+          "middle": 880.191,
           "lower": 879.33
         },
         "market_phase": {
@@ -4707,9 +4707,9 @@
           "signal": "중립",
           "description": "추세와 밴드 신호가 약해 추가 확인이 필요",
           "adaptive_length": 48,
-          "squeeze_score": 95.45,
+          "squeeze_score": 96.67,
           "upper": 277.37,
-          "middle": 276.217,
+          "middle": 276.1871,
           "lower": 274.11
         },
         "market_phase": {
@@ -4779,18 +4779,18 @@
         "indicator_2026": {
           "preset": "2026볼밴",
           "available": true,
-          "signal": "스퀴즈 대기",
-          "description": "밴드 폭 수축 상태, 방향성 확정 전 대기 구간",
+          "signal": "중립",
+          "description": "추세와 밴드 신호가 약해 추가 확인이 필요",
           "adaptive_length": 46,
-          "squeeze_score": 7.5,
+          "squeeze_score": 40.0,
           "upper": 1176.75,
-          "middle": 1174.8834,
+          "middle": 1174.7829,
           "lower": 1170.0
         },
         "market_phase": {
           "phase": "보합",
           "score": 0.6112,
-          "reason": "trend20=-0.27% trend6=-0.22% trend3=-0.29% trend2=-0.23% strength=115.58 imbalance=+0.00 sync=+0.00 band=스퀴즈 대기",
+          "reason": "trend20=-0.27% trend6=-0.22% trend3=-0.29% trend2=-0.23% strength=115.58 imbalance=+0.00 sync=+0.00 band=중립",
           "trend_20_pct": -0.2745,
           "trend_6_pct": -0.2219,
           "trend_3_pct": -0.2872,
@@ -4857,9 +4857,9 @@
           "signal": "S2 하락지속",
           "description": "중심선 아래 재하락, 기존 하락 추세 연장 구간",
           "adaptive_length": 43,
-          "squeeze_score": 81.82,
+          "squeeze_score": 63.33,
           "upper": 941.6,
-          "middle": 940.387,
+          "middle": 940.3789,
           "lower": 938.96
         },
         "market_phase": {
@@ -4932,9 +4932,9 @@
           "signal": "S2 추세지속",
           "description": "중심선 위 재가속, 기존 상승 추세 연장 구간",
           "adaptive_length": 40,
-          "squeeze_score": 41.86,
+          "squeeze_score": 0.0,
           "upper": 1071.15,
-          "middle": 1068.0105,
+          "middle": 1068.175,
           "lower": 1066.4
         },
         "market_phase": {
@@ -5007,9 +5007,9 @@
           "signal": "하락우위",
           "description": "중심선과 적응 추세가 하방, 매도 우위 구간",
           "adaptive_length": 47,
-          "squeeze_score": 25.0,
+          "squeeze_score": 100.0,
           "upper": 597.99,
-          "middle": 597.6246,
+          "middle": 597.6184,
           "lower": 597.25
         },
         "market_phase": {
@@ -5082,9 +5082,9 @@
           "signal": "하락우위",
           "description": "중심선과 적응 추세가 하방, 매도 우위 구간",
           "adaptive_length": 42,
-          "squeeze_score": 20.45,
+          "squeeze_score": 80.0,
           "upper": 24.0,
-          "middle": 23.7199,
+          "middle": 23.7177,
           "lower": 23.54
         },
         "market_phase": {
@@ -7149,9 +7149,9 @@
         "signal": "S2 추세지속",
         "description": "중심선 위 재가속, 기존 상승 추세 연장 구간",
         "adaptive_length": 37,
-        "squeeze_score": 26.67,
+        "squeeze_score": 25.0,
         "upper": 693.76,
-        "middle": 693.6688,
+        "middle": 693.6687,
         "lower": 693.53
       },
       "indicator_2026_signal": "S2 추세지속",
@@ -7178,9 +7178,9 @@
           "signal": "S2 추세지속",
           "description": "중심선 위 재가속, 기존 상승 추세 연장 구간",
           "adaptive_length": 37,
-          "squeeze_score": 26.67,
+          "squeeze_score": 25.0,
           "upper": 693.76,
-          "middle": 693.6688,
+          "middle": 693.6687,
           "lower": 693.53
         },
         "market_phase": {
@@ -7259,9 +7259,9 @@
         "signal": "상승우위",
         "description": "중심선과 적응 추세가 상방, 매수 우위 구간",
         "adaptive_length": 48,
-        "squeeze_score": 75.0,
+        "squeeze_score": 81.67,
         "upper": 640.25,
-        "middle": 640.1355,
+        "middle": 640.138,
         "lower": 640.01
       },
       "indicator_2026_signal": "상승우위",
@@ -7288,9 +7288,9 @@
           "signal": "상승우위",
           "description": "중심선과 적응 추세가 상방, 매수 우위 구간",
           "adaptive_length": 48,
-          "squeeze_score": 75.0,
+          "squeeze_score": 81.67,
           "upper": 640.25,
-          "middle": 640.1355,
+          "middle": 640.138,
           "lower": 640.01
         },
         "market_phase": {
@@ -7371,7 +7371,7 @@
         "adaptive_length": 50,
         "squeeze_score": 100.0,
         "upper": 4.48,
-        "middle": 4.4646,
+        "middle": 4.4647,
         "lower": 4.45
       },
       "indicator_2026_signal": "하락우위",
@@ -7400,7 +7400,7 @@
           "adaptive_length": 50,
           "squeeze_score": 100.0,
           "upper": 4.48,
-          "middle": 4.4646,
+          "middle": 4.4647,
           "lower": 4.45
         },
         "market_phase": {
@@ -7589,9 +7589,9 @@
         "signal": "S2 하락지속",
         "description": "중심선 아래 재하락, 기존 하락 추세 연장 구간",
         "adaptive_length": 44,
-        "squeeze_score": 90.7,
+        "squeeze_score": 45.0,
         "upper": 203.3,
-        "middle": 202.7791,
+        "middle": 202.7795,
         "lower": 202.5
       },
       "indicator_2026_signal": "S2 하락지속",
@@ -7618,9 +7618,9 @@
           "signal": "S2 하락지속",
           "description": "중심선 아래 재하락, 기존 하락 추세 연장 구간",
           "adaptive_length": 44,
-          "squeeze_score": 90.7,
+          "squeeze_score": 45.0,
           "upper": 203.3,
-          "middle": 202.7791,
+          "middle": 202.7795,
           "lower": 202.5
         },
         "market_phase": {
@@ -7809,7 +7809,7 @@
         "signal": "하락우위",
         "description": "중심선과 적응 추세가 하방, 매도 우위 구간",
         "adaptive_length": 50,
-        "squeeze_score": 91.67,
+        "squeeze_score": 88.33,
         "upper": 25.08,
         "middle": 25.0708,
         "lower": 25.06
@@ -7838,7 +7838,7 @@
           "signal": "하락우위",
           "description": "중심선과 적응 추세가 하방, 매도 우위 구간",
           "adaptive_length": 50,
-          "squeeze_score": 91.67,
+          "squeeze_score": 88.33,
           "upper": 25.08,
           "middle": 25.0708,
           "lower": 25.06
@@ -7919,7 +7919,7 @@
         "signal": "하락우위",
         "description": "중심선과 적응 추세가 하방, 매도 우위 구간",
         "adaptive_length": 44,
-        "squeeze_score": 86.67,
+        "squeeze_score": 90.0,
         "upper": 14.22,
         "middle": 14.2151,
         "lower": 14.21
@@ -7948,7 +7948,7 @@
           "signal": "하락우위",
           "description": "중심선과 적응 추세가 하방, 매도 우위 구간",
           "adaptive_length": 44,
-          "squeeze_score": 86.67,
+          "squeeze_score": 90.0,
           "upper": 14.22,
           "middle": 14.2151,
           "lower": 14.21
@@ -8139,9 +8139,9 @@
         "signal": "스퀴즈 대기",
         "description": "밴드 폭 수축 상태, 방향성 확정 전 대기 구간",
         "adaptive_length": 48,
-        "squeeze_score": 8.33,
+        "squeeze_score": 3.33,
         "upper": 246.88,
-        "middle": 246.7913,
+        "middle": 246.7903,
         "lower": 246.71
       },
       "indicator_2026_signal": "스퀴즈 대기",
@@ -8168,9 +8168,9 @@
           "signal": "스퀴즈 대기",
           "description": "밴드 폭 수축 상태, 방향성 확정 전 대기 구간",
           "adaptive_length": 48,
-          "squeeze_score": 8.33,
+          "squeeze_score": 3.33,
           "upper": 246.88,
-          "middle": 246.7913,
+          "middle": 246.7903,
           "lower": 246.71
         },
         "market_phase": {
@@ -8249,7 +8249,7 @@
         "signal": "스퀴즈 대기",
         "description": "밴드 폭 수축 상태, 방향성 확정 전 대기 구간",
         "adaptive_length": 34,
-        "squeeze_score": 3.33,
+        "squeeze_score": 6.67,
         "upper": 742.64,
         "middle": 742.5229,
         "lower": 742.42
@@ -8278,7 +8278,7 @@
           "signal": "스퀴즈 대기",
           "description": "밴드 폭 수축 상태, 방향성 확정 전 대기 구간",
           "adaptive_length": 34,
-          "squeeze_score": 3.33,
+          "squeeze_score": 6.67,
           "upper": 742.64,
           "middle": 742.5229,
           "lower": 742.42
@@ -8359,9 +8359,9 @@
         "signal": "하락우위",
         "description": "중심선과 적응 추세가 하방, 매도 우위 구간",
         "adaptive_length": 50,
-        "squeeze_score": 74.47,
+        "squeeze_score": 45.0,
         "upper": 272.0,
-        "middle": 268.8971,
+        "middle": 269.0184,
         "lower": 267.55
       },
       "indicator_2026_signal": "하락우위",
@@ -8388,9 +8388,9 @@
           "signal": "하락우위",
           "description": "중심선과 적응 추세가 하방, 매도 우위 구간",
           "adaptive_length": 50,
-          "squeeze_score": 74.47,
+          "squeeze_score": 45.0,
           "upper": 272.0,
-          "middle": 268.8971,
+          "middle": 269.0184,
           "lower": 267.55
         },
         "market_phase": {
@@ -8691,7 +8691,7 @@
         "adaptive_length": 49,
         "squeeze_score": 100.0,
         "upper": 492.5,
-        "middle": 492.3011,
+        "middle": 492.3019,
         "lower": 492.1
       },
       "indicator_2026_signal": "하락우위",
@@ -8720,7 +8720,7 @@
           "adaptive_length": 49,
           "squeeze_score": 100.0,
           "upper": 492.5,
-          "middle": 492.3011,
+          "middle": 492.3019,
           "lower": 492.1
         },
         "market_phase": {
@@ -8799,9 +8799,9 @@
         "signal": "스퀴즈 대기",
         "description": "밴드 폭 수축 상태, 방향성 확정 전 대기 구간",
         "adaptive_length": 48,
-        "squeeze_score": 6.67,
+        "squeeze_score": 1.67,
         "upper": 380.05,
-        "middle": 380.0351,
+        "middle": 380.0349,
         "lower": 380.01
       },
       "indicator_2026_signal": "스퀴즈 대기",
@@ -8828,9 +8828,9 @@
           "signal": "스퀴즈 대기",
           "description": "밴드 폭 수축 상태, 방향성 확정 전 대기 구간",
           "adaptive_length": 48,
-          "squeeze_score": 6.67,
+          "squeeze_score": 1.67,
           "upper": 380.05,
-          "middle": 380.0351,
+          "middle": 380.0349,
           "lower": 380.01
         },
         "market_phase": {
@@ -8909,9 +8909,9 @@
         "signal": "중립",
         "description": "추세와 밴드 신호가 약해 추가 확인이 필요",
         "adaptive_length": 47,
-        "squeeze_score": 23.81,
+        "squeeze_score": 26.67,
         "upper": 187.97,
-        "middle": 187.7333,
+        "middle": 187.7351,
         "lower": 187.56
       },
       "indicator_2026_signal": "중립",
@@ -8938,9 +8938,9 @@
           "signal": "중립",
           "description": "추세와 밴드 신호가 약해 추가 확인이 필요",
           "adaptive_length": 47,
-          "squeeze_score": 23.81,
+          "squeeze_score": 26.67,
           "upper": 187.97,
-          "middle": 187.7333,
+          "middle": 187.7351,
           "lower": 187.56
         },
         "market_phase": {
@@ -9019,9 +9019,9 @@
         "signal": "S2 추세지속",
         "description": "중심선 위 재가속, 기존 상승 추세 연장 구간",
         "adaptive_length": 40,
-        "squeeze_score": 41.86,
+        "squeeze_score": 0.0,
         "upper": 1071.15,
-        "middle": 1068.0105,
+        "middle": 1068.175,
         "lower": 1066.4
       },
       "indicator_2026_signal": "S2 추세지속",
@@ -9048,9 +9048,9 @@
           "signal": "S2 추세지속",
           "description": "중심선 위 재가속, 기존 상승 추세 연장 구간",
           "adaptive_length": 40,
-          "squeeze_score": 41.86,
+          "squeeze_score": 0.0,
           "upper": 1071.15,
-          "middle": 1068.0105,
+          "middle": 1068.175,
           "lower": 1066.4
         },
         "market_phase": {
@@ -9129,9 +9129,9 @@
         "signal": "중립",
         "description": "추세와 밴드 신호가 약해 추가 확인이 필요",
         "adaptive_length": 48,
-        "squeeze_score": 95.45,
+        "squeeze_score": 96.67,
         "upper": 277.37,
-        "middle": 276.217,
+        "middle": 276.1871,
         "lower": 274.11
       },
       "indicator_2026_signal": "중립",
@@ -9158,9 +9158,9 @@
           "signal": "중립",
           "description": "추세와 밴드 신호가 약해 추가 확인이 필요",
           "adaptive_length": 48,
-          "squeeze_score": 95.45,
+          "squeeze_score": 96.67,
           "upper": 277.37,
-          "middle": 276.217,
+          "middle": 276.1871,
           "lower": 274.11
         },
         "market_phase": {
@@ -9239,9 +9239,9 @@
         "signal": "스퀴즈 대기",
         "description": "밴드 폭 수축 상태, 방향성 확정 전 대기 구간",
         "adaptive_length": 47,
-        "squeeze_score": 13.95,
+        "squeeze_score": 0.0,
         "upper": 523.0,
-        "middle": 522.6231,
+        "middle": 522.6391,
         "lower": 522.19
       },
       "indicator_2026_signal": "스퀴즈 대기",
@@ -9268,9 +9268,9 @@
           "signal": "스퀴즈 대기",
           "description": "밴드 폭 수축 상태, 방향성 확정 전 대기 구간",
           "adaptive_length": 47,
-          "squeeze_score": 13.95,
+          "squeeze_score": 0.0,
           "upper": 523.0,
-          "middle": 522.6231,
+          "middle": 522.6391,
           "lower": 522.19
         },
         "market_phase": {
@@ -9349,9 +9349,9 @@
         "signal": "S2 하락지속",
         "description": "중심선 아래 재하락, 기존 하락 추세 연장 구간",
         "adaptive_length": 43,
-        "squeeze_score": 81.82,
+        "squeeze_score": 63.33,
         "upper": 941.6,
-        "middle": 940.387,
+        "middle": 940.3789,
         "lower": 938.96
       },
       "indicator_2026_signal": "S2 하락지속",
@@ -9378,9 +9378,9 @@
           "signal": "S2 하락지속",
           "description": "중심선 아래 재하락, 기존 하락 추세 연장 구간",
           "adaptive_length": 43,
-          "squeeze_score": 81.82,
+          "squeeze_score": 63.33,
           "upper": 941.6,
-          "middle": 940.387,
+          "middle": 940.3789,
           "lower": 938.96
         },
         "market_phase": {
@@ -9566,16 +9566,16 @@
       "indicator_2026": {
         "preset": "2026볼밴",
         "available": true,
-        "signal": "중립",
-        "description": "추세와 밴드 신호가 약해 추가 확인이 필요",
+        "signal": "스퀴즈 대기",
+        "description": "밴드 폭 수축 상태, 방향성 확정 전 대기 구간",
         "adaptive_length": 48,
-        "squeeze_score": 81.4,
+        "squeeze_score": 3.33,
         "upper": 14.29,
-        "middle": 14.2105,
+        "middle": 14.2123,
         "lower": 14.15
       },
-      "indicator_2026_signal": "중립",
-      "indicator_2026_description": "추세와 밴드 신호가 약해 추가 확인이 필요",
+      "indicator_2026_signal": "스퀴즈 대기",
+      "indicator_2026_description": "밴드 폭 수축 상태, 방향성 확정 전 대기 구간",
       "hermes_widget_forecast": {
         "symbol": "VALE",
         "market": "US",
@@ -9595,18 +9595,18 @@
         "indicator_2026": {
           "preset": "2026볼밴",
           "available": true,
-          "signal": "중립",
-          "description": "추세와 밴드 신호가 약해 추가 확인이 필요",
+          "signal": "스퀴즈 대기",
+          "description": "밴드 폭 수축 상태, 방향성 확정 전 대기 구간",
           "adaptive_length": 48,
-          "squeeze_score": 81.4,
+          "squeeze_score": 3.33,
           "upper": 14.29,
-          "middle": 14.2105,
+          "middle": 14.2123,
           "lower": 14.15
         },
         "market_phase": {
           "phase": "보합",
           "score": -5.4365,
-          "reason": "trend20=-0.07% trend6=+0.00% trend3=-0.56% trend2=+0.00% strength=52.18 imbalance=+0.00 sync=+0.00 band=중립",
+          "reason": "trend20=-0.07% trend6=+0.00% trend3=-0.56% trend2=+0.00% strength=52.18 imbalance=+0.00 sync=+0.00 band=스퀴즈 대기",
           "trend_20_pct": -0.0703,
           "trend_6_pct": 0.0,
           "trend_3_pct": -0.5598,
@@ -9679,9 +9679,9 @@
         "signal": "하락우위",
         "description": "중심선과 적응 추세가 하방, 매도 우위 구간",
         "adaptive_length": 44,
-        "squeeze_score": 23.81,
+        "squeeze_score": 100.0,
         "upper": 253.57,
-        "middle": 253.335,
+        "middle": 253.3269,
         "lower": 253.12
       },
       "indicator_2026_signal": "하락우위",
@@ -9708,9 +9708,9 @@
           "signal": "하락우위",
           "description": "중심선과 적응 추세가 하방, 매도 우위 구간",
           "adaptive_length": 44,
-          "squeeze_score": 23.81,
+          "squeeze_score": 100.0,
           "upper": 253.57,
-          "middle": 253.335,
+          "middle": 253.3269,
           "lower": 253.12
         },
         "market_phase": {
@@ -9789,9 +9789,9 @@
         "signal": "S2 하락지속",
         "description": "중심선 아래 재하락, 기존 하락 추세 연장 구간",
         "adaptive_length": 45,
-        "squeeze_score": 13.64,
+        "squeeze_score": 78.33,
         "upper": 342.38,
-        "middle": 341.7439,
+        "middle": 341.7422,
         "lower": 341.21
       },
       "indicator_2026_signal": "S2 하락지속",
@@ -9818,9 +9818,9 @@
           "signal": "S2 하락지속",
           "description": "중심선 아래 재하락, 기존 하락 추세 연장 구간",
           "adaptive_length": 45,
-          "squeeze_score": 13.64,
+          "squeeze_score": 78.33,
           "upper": 342.38,
-          "middle": 341.7439,
+          "middle": 341.7422,
           "lower": 341.21
         },
         "market_phase": {
@@ -9899,9 +9899,9 @@
         "signal": "하락우위",
         "description": "중심선과 적응 추세가 하방, 매도 우위 구간",
         "adaptive_length": 45,
-        "squeeze_score": 23.81,
+        "squeeze_score": 93.33,
         "upper": 881.0,
-        "middle": 880.2497,
+        "middle": 880.191,
         "lower": 879.33
       },
       "indicator_2026_signal": "하락우위",
@@ -9928,9 +9928,9 @@
           "signal": "하락우위",
           "description": "중심선과 적응 추세가 하방, 매도 우위 구간",
           "adaptive_length": 45,
-          "squeeze_score": 23.81,
+          "squeeze_score": 93.33,
           "upper": 881.0,
-          "middle": 880.2497,
+          "middle": 880.191,
           "lower": 879.33
         },
         "market_phase": {
@@ -10009,9 +10009,9 @@
         "signal": "하락우위",
         "description": "중심선과 적응 추세가 하방, 매도 우위 구간",
         "adaptive_length": 43,
-        "squeeze_score": 76.19,
+        "squeeze_score": 100.0,
         "upper": 358.95,
-        "middle": 358.5458,
+        "middle": 358.5195,
         "lower": 358.02
       },
       "indicator_2026_signal": "하락우위",
@@ -10038,9 +10038,9 @@
           "signal": "하락우위",
           "description": "중심선과 적응 추세가 하방, 매도 우위 구간",
           "adaptive_length": 43,
-          "squeeze_score": 76.19,
+          "squeeze_score": 100.0,
           "upper": 358.95,
-          "middle": 358.5458,
+          "middle": 358.5195,
           "lower": 358.02
         },
         "market_phase": {
@@ -10119,9 +10119,9 @@
         "signal": "하락우위",
         "description": "중심선과 적응 추세가 하방, 매도 우위 구간",
         "adaptive_length": 42,
-        "squeeze_score": 20.45,
+        "squeeze_score": 80.0,
         "upper": 24.0,
-        "middle": 23.7199,
+        "middle": 23.7177,
         "lower": 23.54
       },
       "indicator_2026_signal": "하락우위",
@@ -10148,9 +10148,9 @@
           "signal": "하락우위",
           "description": "중심선과 적응 추세가 하방, 매도 우위 구간",
           "adaptive_length": 42,
-          "squeeze_score": 20.45,
+          "squeeze_score": 80.0,
           "upper": 24.0,
-          "middle": 23.7199,
+          "middle": 23.7177,
           "lower": 23.54
         },
         "market_phase": {
@@ -10226,16 +10226,16 @@
       "indicator_2026": {
         "preset": "2026볼밴",
         "available": true,
-        "signal": "스퀴즈 대기",
-        "description": "밴드 폭 수축 상태, 방향성 확정 전 대기 구간",
+        "signal": "하락우위",
+        "description": "중심선과 적응 추세가 하방, 매도 우위 구간",
         "adaptive_length": 47,
-        "squeeze_score": 12.5,
+        "squeeze_score": 20.0,
         "upper": 214.6,
-        "middle": 214.4151,
+        "middle": 214.4191,
         "lower": 214.22
       },
-      "indicator_2026_signal": "스퀴즈 대기",
-      "indicator_2026_description": "밴드 폭 수축 상태, 방향성 확정 전 대기 구간",
+      "indicator_2026_signal": "하락우위",
+      "indicator_2026_description": "중심선과 적응 추세가 하방, 매도 우위 구간",
       "hermes_widget_forecast": {
         "symbol": "BA",
         "market": "US",
@@ -10255,18 +10255,18 @@
         "indicator_2026": {
           "preset": "2026볼밴",
           "available": true,
-          "signal": "스퀴즈 대기",
-          "description": "밴드 폭 수축 상태, 방향성 확정 전 대기 구간",
+          "signal": "하락우위",
+          "description": "중심선과 적응 추세가 하방, 매도 우위 구간",
           "adaptive_length": 47,
-          "squeeze_score": 12.5,
+          "squeeze_score": 20.0,
           "upper": 214.6,
-          "middle": 214.4151,
+          "middle": 214.4191,
           "lower": 214.22
         },
         "market_phase": {
-          "phase": "보합",
+          "phase": "하락지속",
           "score": -1.7977,
-          "reason": "trend20=+0.08% trend6=-0.09% trend3=+0.00% trend2=+0.00% strength=82.26 imbalance=+0.00 sync=+0.00 band=스퀴즈 대기",
+          "reason": "trend20=+0.08% trend6=-0.09% trend3=+0.00% trend2=+0.00% strength=82.26 imbalance=+0.00 sync=+0.00 band=하락우위",
           "trend_20_pct": 0.084,
           "trend_6_pct": -0.0932,
           "trend_3_pct": 0.0,
@@ -10336,16 +10336,16 @@
       "indicator_2026": {
         "preset": "2026볼밴",
         "available": true,
-        "signal": "스퀴즈 대기",
-        "description": "밴드 폭 수축 상태, 방향성 확정 전 대기 구간",
+        "signal": "중립",
+        "description": "추세와 밴드 신호가 약해 추가 확인이 필요",
         "adaptive_length": 46,
-        "squeeze_score": 7.5,
+        "squeeze_score": 40.0,
         "upper": 1176.75,
-        "middle": 1174.8834,
+        "middle": 1174.7829,
         "lower": 1170.0
       },
-      "indicator_2026_signal": "스퀴즈 대기",
-      "indicator_2026_description": "밴드 폭 수축 상태, 방향성 확정 전 대기 구간",
+      "indicator_2026_signal": "중립",
+      "indicator_2026_description": "추세와 밴드 신호가 약해 추가 확인이 필요",
       "hermes_widget_forecast": {
         "symbol": "LLY",
         "market": "US",
@@ -10365,18 +10365,18 @@
         "indicator_2026": {
           "preset": "2026볼밴",
           "available": true,
-          "signal": "스퀴즈 대기",
-          "description": "밴드 폭 수축 상태, 방향성 확정 전 대기 구간",
+          "signal": "중립",
+          "description": "추세와 밴드 신호가 약해 추가 확인이 필요",
           "adaptive_length": 46,
-          "squeeze_score": 7.5,
+          "squeeze_score": 40.0,
           "upper": 1176.75,
-          "middle": 1174.8834,
+          "middle": 1174.7829,
           "lower": 1170.0
         },
         "market_phase": {
           "phase": "보합",
           "score": 0.6112,
-          "reason": "trend20=-0.27% trend6=-0.22% trend3=-0.29% trend2=-0.23% strength=115.58 imbalance=+0.00 sync=+0.00 band=스퀴즈 대기",
+          "reason": "trend20=-0.27% trend6=-0.22% trend3=-0.29% trend2=-0.23% strength=115.58 imbalance=+0.00 sync=+0.00 band=중립",
           "trend_20_pct": -0.2745,
           "trend_6_pct": -0.2219,
           "trend_3_pct": -0.2872,
@@ -10449,9 +10449,9 @@
         "signal": "하락우위",
         "description": "중심선과 적응 추세가 하방, 매도 우위 구간",
         "adaptive_length": 47,
-        "squeeze_score": 25.0,
+        "squeeze_score": 100.0,
         "upper": 597.99,
-        "middle": 597.6246,
+        "middle": 597.6184,
         "lower": 597.25
       },
       "indicator_2026_signal": "하락우위",
@@ -10478,9 +10478,9 @@
           "signal": "하락우위",
           "description": "중심선과 적응 추세가 하방, 매도 우위 구간",
           "adaptive_length": 47,
-          "squeeze_score": 25.0,
+          "squeeze_score": 100.0,
           "upper": 597.99,
-          "middle": 597.6246,
+          "middle": 597.6184,
           "lower": 597.25
         },
         "market_phase": {
@@ -11066,7 +11066,7 @@
         "adaptive_length": 50,
         "squeeze_score": 3.33,
         "upper": 34150.0,
-        "middle": 34121.0094,
+        "middle": 34120.5087,
         "lower": 34100.0
       },
       "indicator_2026_signal": "스퀴즈 대기",
@@ -11095,7 +11095,7 @@
           "adaptive_length": 50,
           "squeeze_score": 3.33,
           "upper": 34150.0,
-          "middle": 34121.0094,
+          "middle": 34120.5087,
           "lower": 34100.0
         },
         "market_phase": {
@@ -11179,7 +11179,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:42:04.086387Z",
+        "checked_at": "2026-07-18T08:46:53.740322Z",
         "source": "toss_api_quote"
       },
       "indicator_snapshot": {
@@ -11269,7 +11269,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "regime": null,
       "sector": null,
       "current_price": 193.938,
@@ -11297,7 +11297,7 @@
       "volume": 31394594.0,
       "trade_strength": 98.09,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "open": 381.78,
       "high": 385.68,
       "low": 377.22,
@@ -11353,7 +11353,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:41:01.500754Z",
+        "checked_at": "2026-07-18T08:45:52.192455Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -11489,7 +11489,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:42:07.379527Z",
+        "checked_at": "2026-07-18T08:46:56.917475Z",
         "source": "toss_api_quote"
       },
       "indicator_snapshot": {
@@ -11576,7 +11576,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "regime": null,
       "sector": null,
       "current_price": 266.9,
@@ -11604,7 +11604,7 @@
       "volume": 10167706.0,
       "trade_strength": 133.95,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "open": 252.59,
       "high": 255.66,
       "low": 251.95,
@@ -11660,7 +11660,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:41:17.694713Z",
+        "checked_at": "2026-07-18T08:46:08.383645Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -11818,7 +11818,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:42:10.786688Z",
+        "checked_at": "2026-07-18T08:47:00.092250Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -11883,7 +11883,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "regime": null,
       "sector": null,
       "current_price": 9.27,
@@ -11911,7 +11911,7 @@
       "volume": 4220491.0,
       "trade_strength": 82.26,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "open": 211.5,
       "high": 216.96,
       "low": 211.0,
@@ -11942,7 +11942,7 @@
         "adl_divergence": "none",
         "volume_state": "available",
         "orderbook_tape_state": "missing/available",
-        "bollinger_state": "스퀴즈 대기",
+        "bollinger_state": "하락우위",
         "fundamentals_state": "missing",
         "source": "toss_api_quote",
         "news_state": "unavailable"
@@ -11967,7 +11967,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:41:38.445909Z",
+        "checked_at": "2026-07-18T08:46:27.754772Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -12001,9 +12001,9 @@
         "sync_note": null,
         "close_forecast_locked": false,
         "market_phase": {
-          "phase": "보합",
+          "phase": "하락지속",
           "score": -1.7977,
-          "reason": "trend20=+0.08% trend6=-0.09% trend3=+0.00% trend2=+0.00% strength=82.26 imbalance=+0.00 sync=+0.00 band=스퀴즈 대기",
+          "reason": "trend20=+0.08% trend6=-0.09% trend3=+0.00% trend2=+0.00% strength=82.26 imbalance=+0.00 sync=+0.00 band=하락우위",
           "trend_20_pct": 0.084,
           "trend_6_pct": -0.0932,
           "trend_3_pct": 0.0,
@@ -12026,9 +12026,9 @@
         }
       },
       "hermes_market_phase": {
-        "phase": "보합",
+        "phase": "하락지속",
         "score": -1.7977,
-        "reason": "trend20=+0.08% trend6=-0.09% trend3=+0.00% trend2=+0.00% strength=82.26 imbalance=+0.00 sync=+0.00 band=스퀴즈 대기",
+        "reason": "trend20=+0.08% trend6=-0.09% trend3=+0.00% trend2=+0.00% strength=82.26 imbalance=+0.00 sync=+0.00 band=하락우위",
         "trend_20_pct": 0.084,
         "trend_6_pct": -0.0932,
         "trend_3_pct": 0.0,
@@ -12087,7 +12087,7 @@
       "volume": 32115875.0,
       "trade_strength": 121.79,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "open": 476.88,
       "high": 505.87,
       "low": 460.21,
@@ -12143,7 +12143,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:40:58.248894Z",
+        "checked_at": "2026-07-18T08:45:48.822104Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -12301,7 +12301,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:42:14.004247Z",
+        "checked_at": "2026-07-18T08:47:03.288444Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -12366,7 +12366,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "regime": null,
       "sector": null,
       "current_price": 61200.0,
@@ -12432,7 +12432,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:42:17.082345Z",
+        "checked_at": "2026-07-18T08:47:06.592304Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -12497,7 +12497,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "regime": null,
       "sector": null,
       "current_price": 18300.0,
@@ -12563,7 +12563,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:42:20.326742Z",
+        "checked_at": "2026-07-18T08:47:10.043331Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -12628,7 +12628,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "regime": null,
       "sector": null,
       "current_price": 57600.0,
@@ -12694,7 +12694,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:42:23.714792Z",
+        "checked_at": "2026-07-18T08:47:13.379261Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -12759,7 +12759,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "regime": null,
       "sector": null,
       "current_price": 174500.0,
@@ -12825,7 +12825,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:42:27.012986Z",
+        "checked_at": "2026-07-18T08:47:16.583337Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -12890,7 +12890,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "regime": null,
       "sector": null,
       "current_price": 5940.0,
@@ -12956,7 +12956,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:42:30.279633Z",
+        "checked_at": "2026-07-18T08:47:19.830274Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -13021,7 +13021,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "regime": null,
       "sector": null,
       "current_price": 5620.0,
@@ -13087,7 +13087,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:42:33.710617Z",
+        "checked_at": "2026-07-18T08:47:23.055062Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -13152,7 +13152,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "regime": null,
       "sector": null,
       "current_price": 42500.0,
@@ -13218,7 +13218,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:42:37.042305Z",
+        "checked_at": "2026-07-18T08:47:26.646048Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -13283,7 +13283,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "regime": null,
       "sector": null,
       "current_price": 239500.0,
@@ -13349,7 +13349,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:42:41.566192Z",
+        "checked_at": "2026-07-18T08:47:30.156549Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -13414,7 +13414,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "regime": null,
       "sector": null,
       "current_price": 137200.0,
@@ -13442,7 +13442,7 @@
       "volume": 25382214.0,
       "trade_strength": 94.31,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "open": 4.34,
       "high": 4.59,
       "low": 4.3,
@@ -13498,7 +13498,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:41:04.669776Z",
+        "checked_at": "2026-07-18T08:45:55.633158Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -13618,7 +13618,7 @@
       "volume": 9102630.0,
       "trade_strength": 83.54,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "open": 200.4,
       "high": 209.5,
       "low": 199.52,
@@ -13674,7 +13674,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:41:24.639136Z",
+        "checked_at": "2026-07-18T08:46:14.752723Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -13794,7 +13794,7 @@
       "volume": 54109267.0,
       "trade_strength": 82.8,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "open": 691.65,
       "high": 702.3,
       "low": 686.76,
@@ -13850,7 +13850,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:40:54.789231Z",
+        "checked_at": "2026-07-18T08:45:45.522755Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -14008,7 +14008,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:42:45.291442Z",
+        "checked_at": "2026-07-18T08:47:33.402839Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -14073,7 +14073,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "regime": null,
       "sector": null,
       "current_price": 256.3487,
@@ -14101,7 +14101,7 @@
       "volume": 630787.0,
       "trade_strength": 82.8,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "open": 23.43,
       "high": 23.77,
       "low": 23.26,
@@ -14157,7 +14157,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:42:00.851119Z",
+        "checked_at": "2026-07-18T08:46:50.571170Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -14277,7 +14277,7 @@
       "volume": 89973828.0,
       "trade_strength": 99.82,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "open": 16.83,
       "high": 17.57,
       "low": 16.47,
@@ -14333,7 +14333,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:40:08.999488Z",
+        "checked_at": "2026-07-18T08:45:00.076963Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -14457,7 +14457,7 @@
       "volume": 44712225.0,
       "trade_strength": 74.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "open": 269000.0,
       "high": 269000.0,
       "low": 251000.0,
@@ -14509,7 +14509,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:40:05.447946Z",
+        "checked_at": "2026-07-18T08:44:56.622024Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -14667,7 +14667,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:42:49.007138Z",
+        "checked_at": "2026-07-18T08:47:36.711843Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -14732,7 +14732,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "regime": null,
       "sector": null,
       "current_price": 180300.0,
@@ -14798,7 +14798,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:42:52.423243Z",
+        "checked_at": "2026-07-18T08:47:39.940429Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -14863,7 +14863,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "regime": null,
       "sector": null,
       "current_price": 138000.0,
@@ -14929,7 +14929,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:42:55.815753Z",
+        "checked_at": "2026-07-18T08:47:43.137933Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -14994,7 +14994,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "regime": null,
       "sector": null,
       "current_price": 430000.0,
@@ -15060,7 +15060,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:42:59.114672Z",
+        "checked_at": "2026-07-18T08:47:46.404812Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -15125,7 +15125,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "regime": null,
       "sector": null,
       "current_price": 34050.0,
@@ -15157,7 +15157,7 @@
       "volume": 1638767.0,
       "trade_strength": 99.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "open": 107000.0,
       "high": 112400.0,
       "low": 105000.0,
@@ -15209,7 +15209,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:40:48.242252Z",
+        "checked_at": "2026-07-18T08:45:38.991069Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -15367,7 +15367,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:43:02.489029Z",
+        "checked_at": "2026-07-18T08:47:49.967565Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -15432,7 +15432,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "regime": null,
       "sector": null,
       "current_price": 33950.0,
@@ -15498,7 +15498,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:43:06.163948Z",
+        "checked_at": "2026-07-18T08:47:53.017852Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -15563,7 +15563,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "regime": null,
       "sector": null,
       "current_price": 26200.0,
@@ -15629,7 +15629,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:43:09.892014Z",
+        "checked_at": "2026-07-18T08:47:56.290488Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -15694,7 +15694,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "regime": null,
       "sector": null,
       "current_price": 98100.0,
@@ -15726,7 +15726,7 @@
       "volume": 1228247.0,
       "trade_strength": 90.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "open": 431500.0,
       "high": 431500.0,
       "low": 412000.0,
@@ -15778,7 +15778,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:40:41.850827Z",
+        "checked_at": "2026-07-18T08:45:32.511242Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -15936,7 +15936,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:43:13.274484Z",
+        "checked_at": "2026-07-18T08:47:59.676179Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -16001,7 +16001,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "regime": null,
       "sector": null,
       "current_price": 309000.0,
@@ -16067,7 +16067,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:43:16.588306Z",
+        "checked_at": "2026-07-18T08:48:03.001816Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -16132,7 +16132,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "regime": null,
       "sector": null,
       "current_price": 56800.0,
@@ -16198,7 +16198,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:43:20.029068Z",
+        "checked_at": "2026-07-18T08:48:06.502687Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -16263,7 +16263,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "regime": null,
       "sector": null,
       "current_price": 198500.0,
@@ -16329,7 +16329,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:43:23.305513Z",
+        "checked_at": "2026-07-18T08:48:09.657774Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -16394,7 +16394,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "regime": null,
       "sector": null,
       "current_price": 324500.0,
@@ -16422,7 +16422,7 @@
       "volume": 45045229.0,
       "trade_strength": 92.3,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "open": 61.25,
       "high": 62.11,
       "low": 60.66,
@@ -16478,7 +16478,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:40:15.660753Z",
+        "checked_at": "2026-07-18T08:45:06.338872Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -16598,7 +16598,7 @@
       "volume": 9250854.0,
       "trade_strength": 78.98,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "open": 339.03,
       "high": 346.12,
       "low": 335.05,
@@ -16654,7 +16654,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:41:21.040895Z",
+        "checked_at": "2026-07-18T08:46:11.671834Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -16774,7 +16774,7 @@
       "volume": 62650961.0,
       "trade_strength": 110.42,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "open": 742.08,
       "high": 747.29,
       "low": 740.8,
@@ -16830,7 +16830,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:40:38.664587Z",
+        "checked_at": "2026-07-18T08:45:29.511056Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -16950,7 +16950,7 @@
       "volume": 2162709.0,
       "trade_strength": 101.13,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "open": 1071.64,
       "high": 1085.93,
       "low": 1047.15,
@@ -17006,7 +17006,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:41:54.525529Z",
+        "checked_at": "2026-07-18T08:46:44.061247Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -17126,7 +17126,7 @@
       "volume": 12201198.0,
       "trade_strength": 52.18,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "open": 14.01,
       "high": 14.29,
       "low": 14.01,
@@ -17157,7 +17157,7 @@
         "adl_divergence": "none",
         "volume_state": "available",
         "orderbook_tape_state": "missing/available",
-        "bollinger_state": "중립",
+        "bollinger_state": "스퀴즈 대기",
         "fundamentals_state": "missing",
         "source": "toss_api_quote",
         "news_state": "unavailable"
@@ -17182,7 +17182,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:41:11.343539Z",
+        "checked_at": "2026-07-18T08:46:02.043602Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -17218,7 +17218,7 @@
         "market_phase": {
           "phase": "보합",
           "score": -5.4365,
-          "reason": "trend20=-0.07% trend6=+0.00% trend3=-0.56% trend2=+0.00% strength=52.18 imbalance=+0.00 sync=+0.00 band=중립",
+          "reason": "trend20=-0.07% trend6=+0.00% trend3=-0.56% trend2=+0.00% strength=52.18 imbalance=+0.00 sync=+0.00 band=스퀴즈 대기",
           "trend_20_pct": -0.0703,
           "trend_6_pct": 0.0,
           "trend_3_pct": -0.5598,
@@ -17243,7 +17243,7 @@
       "hermes_market_phase": {
         "phase": "보합",
         "score": -5.4365,
-        "reason": "trend20=-0.07% trend6=+0.00% trend3=-0.56% trend2=+0.00% strength=52.18 imbalance=+0.00 sync=+0.00 band=중립",
+        "reason": "trend20=-0.07% trend6=+0.00% trend3=-0.56% trend2=+0.00% strength=52.18 imbalance=+0.00 sync=+0.00 band=스퀴즈 대기",
         "trend_20_pct": -0.0703,
         "trend_6_pct": 0.0,
         "trend_3_pct": -0.5598,
@@ -17302,7 +17302,7 @@
       "volume": 22023945.0,
       "trade_strength": 97.77,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "open": 345.77,
       "high": 348.17,
       "low": 341.12,
@@ -17358,7 +17358,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:40:12.231609Z",
+        "checked_at": "2026-07-18T08:45:03.167258Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -17478,7 +17478,7 @@
       "volume": 2757541.0,
       "trade_strength": 115.58,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "open": 1159.44,
       "high": 1187.95,
       "low": 1151.01,
@@ -17509,7 +17509,7 @@
         "adl_divergence": "none",
         "volume_state": "available",
         "orderbook_tape_state": "missing/available",
-        "bollinger_state": "스퀴즈 대기",
+        "bollinger_state": "중립",
         "fundamentals_state": "missing",
         "source": "toss_api_quote",
         "news_state": "unavailable"
@@ -17534,7 +17534,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:41:48.063372Z",
+        "checked_at": "2026-07-18T08:46:37.548413Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -17570,7 +17570,7 @@
         "market_phase": {
           "phase": "보합",
           "score": 0.6112,
-          "reason": "trend20=-0.27% trend6=-0.22% trend3=-0.29% trend2=-0.23% strength=115.58 imbalance=+0.00 sync=+0.00 band=스퀴즈 대기",
+          "reason": "trend20=-0.27% trend6=-0.22% trend3=-0.29% trend2=-0.23% strength=115.58 imbalance=+0.00 sync=+0.00 band=중립",
           "trend_20_pct": -0.2745,
           "trend_6_pct": -0.2219,
           "trend_3_pct": -0.2872,
@@ -17595,7 +17595,7 @@
       "hermes_market_phase": {
         "phase": "보합",
         "score": 0.6112,
-        "reason": "trend20=-0.27% trend6=-0.22% trend3=-0.29% trend2=-0.23% strength=115.58 imbalance=+0.00 sync=+0.00 band=스퀴즈 대기",
+        "reason": "trend20=-0.27% trend6=-0.22% trend3=-0.29% trend2=-0.23% strength=115.58 imbalance=+0.00 sync=+0.00 band=중립",
         "trend_20_pct": -0.2745,
         "trend_6_pct": -0.2219,
         "trend_3_pct": -0.2872,
@@ -17692,7 +17692,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:43:26.936756Z",
+        "checked_at": "2026-07-18T08:48:12.844365Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -17757,7 +17757,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "regime": null,
       "sector": null,
       "current_price": 170.34,
@@ -17785,7 +17785,7 @@
       "volume": 22267862.0,
       "trade_strength": 76.93,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "open": 647.7,
       "high": 652.2,
       "low": 626.0,
@@ -17841,7 +17841,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:41:08.056917Z",
+        "checked_at": "2026-07-18T08:45:58.806490Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -17999,7 +17999,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:43:30.292721Z",
+        "checked_at": "2026-07-18T08:48:16.228155Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -18064,7 +18064,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "regime": null,
       "sector": null,
       "current_price": 143800.0,
@@ -18130,7 +18130,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:43:33.822705Z",
+        "checked_at": "2026-07-18T08:48:19.507488Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -18195,7 +18195,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "regime": null,
       "sector": null,
       "current_price": 14520.0,
@@ -18261,7 +18261,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:43:37.449827Z",
+        "checked_at": "2026-07-18T08:48:22.718017Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -18326,7 +18326,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "regime": null,
       "sector": null,
       "current_price": 1830000.0,
@@ -18392,7 +18392,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:43:41.109477Z",
+        "checked_at": "2026-07-18T08:48:26.171001Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -18457,7 +18457,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "regime": null,
       "sector": null,
       "current_price": 147500.0,
@@ -18523,7 +18523,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:43:44.493152Z",
+        "checked_at": "2026-07-18T08:48:29.458406Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -18588,7 +18588,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "regime": null,
       "sector": null,
       "current_price": 1282000.0,
@@ -18654,7 +18654,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:43:47.776377Z",
+        "checked_at": "2026-07-18T08:48:32.613886Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -18719,7 +18719,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "regime": null,
       "sector": null,
       "current_price": 109300.0,
@@ -18785,7 +18785,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:43:51.072160Z",
+        "checked_at": "2026-07-18T08:48:35.842805Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -18850,7 +18850,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "regime": null,
       "sector": null,
       "current_price": 353500.0,
@@ -18882,7 +18882,7 @@
       "volume": 10442410.0,
       "trade_strength": 81.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "open": 43000.0,
       "high": 43000.0,
       "low": 32900.0,
@@ -18934,7 +18934,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:40:51.493156Z",
+        "checked_at": "2026-07-18T08:45:42.323309Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -19092,7 +19092,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:43:54.257275Z",
+        "checked_at": "2026-07-18T08:48:39.186114Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -19157,7 +19157,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "regime": null,
       "sector": null,
       "current_price": 22200.0,
@@ -19223,7 +19223,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:43:57.348339Z",
+        "checked_at": "2026-07-18T08:48:42.602315Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -19288,7 +19288,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "regime": null,
       "sector": null,
       "current_price": 85900.0,
@@ -19354,7 +19354,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:44:00.700684Z",
+        "checked_at": "2026-07-18T08:48:45.891649Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -19419,7 +19419,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "regime": null,
       "sector": null,
       "current_price": 189700.0,
@@ -19485,7 +19485,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:44:04.126834Z",
+        "checked_at": "2026-07-18T08:48:49.234569Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -19550,7 +19550,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "regime": null,
       "sector": null,
       "current_price": 13730.0,
@@ -19578,7 +19578,7 @@
       "volume": 7400403.0,
       "trade_strength": 89.33,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "open": 363.57,
       "high": 364.62,
       "low": 357.0,
@@ -19634,7 +19634,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:41:28.153852Z",
+        "checked_at": "2026-07-18T08:46:17.939116Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -19754,7 +19754,7 @@
       "volume": 28289808.0,
       "trade_strength": 119.61,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "open": 116.96,
       "high": 118.09,
       "low": 113.6,
@@ -19810,7 +19810,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:40:35.424869Z",
+        "checked_at": "2026-07-18T08:45:26.196359Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -19930,7 +19930,7 @@
       "volume": 45629587.0,
       "trade_strength": 64.22,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "open": 25.4,
       "high": 25.65,
       "low": 24.97,
@@ -19986,7 +19986,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:40:22.524081Z",
+        "checked_at": "2026-07-18T08:45:12.829397Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -20106,7 +20106,7 @@
       "volume": 938780.0,
       "trade_strength": 112.88,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "open": 596.05,
       "high": 614.92,
       "low": 595.74,
@@ -20162,7 +20162,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:41:57.593297Z",
+        "checked_at": "2026-07-18T08:46:47.237028Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -20282,7 +20282,7 @@
       "volume": 7058330.0,
       "trade_strength": 79.43,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "open": 187.47,
       "high": 188.15,
       "low": 185.5,
@@ -20338,7 +20338,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:41:31.653944Z",
+        "checked_at": "2026-07-18T08:46:21.316251Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -20458,7 +20458,7 @@
       "volume": 2508007.0,
       "trade_strength": 159.93,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "open": 961.52,
       "high": 964.33,
       "low": 933.76,
@@ -20514,7 +20514,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:41:51.370559Z",
+        "checked_at": "2026-07-18T08:46:40.821348Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -20634,7 +20634,7 @@
       "volume": 19031354.0,
       "trade_strength": 61.16,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "open": 149.03,
       "high": 150.0,
       "low": 147.17,
@@ -20690,7 +20690,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:40:29.078281Z",
+        "checked_at": "2026-07-18T08:45:19.589144Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -20810,7 +20810,7 @@
       "volume": 5596251.0,
       "trade_strength": 120.69,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "open": 346.99,
       "high": 357.06,
       "low": 343.02,
@@ -20866,7 +20866,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:40:19.162367Z",
+        "checked_at": "2026-07-18T08:45:09.711102Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -20986,7 +20986,7 @@
       "volume": 45456460.0,
       "trade_strength": 104.3,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "open": 14.04,
       "high": 14.5,
       "low": 13.85,
@@ -21042,7 +21042,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:40:25.939327Z",
+        "checked_at": "2026-07-18T08:45:16.062816Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -21162,7 +21162,7 @@
       "volume": 43572361.0,
       "trade_strength": 195.7,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "open": 244.46,
       "high": 250.24,
       "low": 243.59,
@@ -21218,7 +21218,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:40:32.201326Z",
+        "checked_at": "2026-07-18T08:45:22.916343Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -21338,7 +21338,7 @@
       "volume": 10326483.0,
       "trade_strength": 175.4,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "open": 532.4,
       "high": 551.18,
       "low": 513.22,
@@ -21394,7 +21394,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:41:14.444573Z",
+        "checked_at": "2026-07-18T08:46:05.245490Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -21514,7 +21514,7 @@
       "volume": 63346278.0,
       "trade_strength": 113.25,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "open": 822.52,
       "high": 903.96,
       "low": 804.0,
@@ -21570,7 +21570,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:39:58.658813Z",
+        "checked_at": "2026-07-18T08:44:50.014098Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -21690,7 +21690,7 @@
       "volume": 5456768.0,
       "trade_strength": 195.01,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "open": 262.61,
       "high": 274.25,
       "low": 259.48,
@@ -21746,7 +21746,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:41:35.230583Z",
+        "checked_at": "2026-07-18T08:46:24.444814Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -21866,7 +21866,7 @@
       "volume": 3377169.0,
       "trade_strength": 110.72,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T08:47:27.679976Z",
+      "quote_at": "2026-07-18T08:50:43.489894Z",
       "open": 841.73,
       "high": 893.19,
       "low": 838.33,
@@ -21922,7 +21922,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T08:41:41.722656Z",
+        "checked_at": "2026-07-18T08:46:31.069256Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
