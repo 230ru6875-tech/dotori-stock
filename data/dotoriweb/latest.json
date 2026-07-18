@@ -1,23 +1,15 @@
 {
-  "updated_at": "2026-07-18T18:33:16.447873Z",
+  "updated_at": "2026-07-18T18:33:17.782645Z",
   "source": "dotoristock_dotoriweb_live_bridge",
-  "status_updated_at": "2026-07-18T18:32:18.884547Z",
-  "widget_updated_at": "2026-07-18T18:33:16.381570Z",
+  "status_updated_at": "2026-07-18T18:33:17.332464Z",
+  "widget_updated_at": null,
   "macro_updated_at": "2026-07-18T18:27:26.013322Z",
   "market_focus": "US",
   "market_limits": {
     "KR": 5,
     "US": 40
   },
-  "virtual_market_priority": {
-    "mode": "US_PRIORITY",
-    "kr_market_open": false,
-    "focus_market": "US",
-    "candidate_limits": {
-      "KR": 5,
-      "US": 40
-    }
-  },
+  "virtual_market_priority": null,
   "virtual_market_summary": {
     "KR": {
       "realized_trades": 149,
@@ -70,14 +62,14 @@
     "005930",
     "CRM",
     "SOFI",
-    "GE",
-    "XOM",
-    "AMZN",
     "BAC",
+    "F",
+    "AMZN",
+    "GE",
     "WMT",
+    "XOM",
     "PFE",
     "SPY",
-    "F",
     "005490",
     "000270",
     "001800",
@@ -2400,7 +2392,7 @@
     }
   },
   "widget_forecasts": {
-    "updated_at": "2026-07-18T18:33:16.381570Z",
+    "updated_at": null,
     "symbols": {
       "MU": {
         "symbol": "MU",
@@ -22091,6 +22083,6 @@
     "this_week": 0,
     "this_month": 0,
     "all_time": 0,
-    "last_updated": "2026-07-18T18:33:16.447873Z"
+    "last_updated": "2026-07-18T18:33:17.782645Z"
   }
 }
