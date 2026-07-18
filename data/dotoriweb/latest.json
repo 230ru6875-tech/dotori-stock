@@ -1,9 +1,9 @@
 {
-  "updated_at": "2026-07-18T01:06:40.563815Z",
+  "updated_at": "2026-07-18T01:09:56.727816Z",
   "source": "dotoristock_dotoriweb_live_bridge",
-  "status_updated_at": "2026-07-18T01:06:40.294668Z",
+  "status_updated_at": "2026-07-18T01:09:56.418896Z",
   "widget_updated_at": null,
-  "macro_updated_at": "2026-07-18T00:51:55.822825Z",
+  "macro_updated_at": "2026-07-18T01:07:23.813869Z",
   "market_focus": "US",
   "market_limits": {
     "KR": 5,
@@ -60,13 +60,13 @@
     "MU",
     "SNDK",
     "005930",
-    "BAC",
+    "GOOG",
     "SOFI",
+    "GE",
+    "AMZN",
+    "BAC",
     "WMT",
     "XOM",
-    "GE",
-    "GOOG",
-    "AMZN",
     "F",
     "PFE",
     "SPY",
@@ -2257,17 +2257,17 @@
     "cpi_mom_pct": 0.0,
     "ppi_mom_pct": 0.0,
     "core_ppi_mom_pct": 0.0,
-    "issues_bias": -0.9,
+    "issues_bias": -0.75,
     "issues_headlines": [],
     "issue_titles": [
       "If Volatility Stays Low, Here’s What Happens to DIVO’s Monthly Income",
       "Why ConocoPhillips Stock Flew Higher on Friday",
+      "Review & Preview: It Could Have Been Worse",
       "nLIGHT (LASR) Stock Trades Up, Here Is Why",
       "Forget the Russell 2000. This Small-Cap ETF May Be the Smarter Buy",
+      "Can ‘The Odyssey’ Beat the World Cup?",
       "Abbott Just Showed Its Growth Engine Has More Than One Cylinder",
-      "The Unanswered Questions Driving the Stock Market Drop",
-      "Griffon (GFF) Suffers a Larger Drop Than the General Market: Key Insights",
-      "Doximity (DOCS) Declines More Than Market: Some Information for Investors"
+      "The Unanswered Questions Driving the Stock Market Drop"
     ],
     "geopolitics": {
       "risk_level": "high",
@@ -2502,81 +2502,6 @@
         "sync_note": "memory_semis avg=+0.06% aligned=2/3 sox_pct=-1.63%",
         "close_forecast_locked": false
       },
-      "GE": {
-        "symbol": "GE",
-        "market": "US",
-        "name": "GE Aerospace",
-        "latest_price": 349.01,
-        "predicted_buy_low": 348.4068,
-        "predicted_sell_high": 350.15319999999997,
-        "predicted_price_source": "model",
-        "target_time_30m": "2026-07-18T01:30:00Z",
-        "target_time_1h": "2026-07-18T02:00:00Z",
-        "current_price_signal": {
-          "state": "trusted",
-          "trust": true,
-          "score": 0.65,
-          "reason": "orderbook_missing"
-        },
-        "indicator_2026": {
-          "preset": "2026볼밴",
-          "available": true,
-          "signal": "중립",
-          "description": "추세와 밴드 신호가 약해 추가 확인이 필요",
-          "adaptive_length": 48,
-          "squeeze_score": 36.67,
-          "upper": 349.7,
-          "middle": 349.2098,
-          "lower": 348.73
-        },
-        "market_phase": {
-          "phase": "보합",
-          "score": 1.7786,
-          "reason": "trend20=-0.04% trend6=-0.16% trend3=-0.14% trend2=+0.00% strength=120.69 imbalance=+0.00 sync=+0.00 band=중립",
-          "trend_20_pct": -0.0401,
-          "trend_6_pct": -0.1573,
-          "trend_3_pct": -0.1402,
-          "trend_2_pct": 0.0029,
-          "trade_strength": 120.69,
-          "imbalance": 0.0,
-          "sync_score": 0.0,
-          "off_high_pct": 0.1977,
-          "rebound_from_low_pct": 0.0516,
-          "profile": {
-            "trend_2_up_threshold": 0.06,
-            "trend_2_down_threshold": -0.06,
-            "trend_3_rebound_threshold": 0.1,
-            "min_trade_strength_up": 101.0,
-            "max_trade_strength_down": 99.0,
-            "min_trade_strength_rebound": 100.0,
-            "imbalance_up_threshold": 0.08,
-            "imbalance_down_threshold": -0.08
-          }
-        },
-        "forecast_30m_price": 349.1,
-        "forecast_1h_price": 349.14,
-        "forecast_close_price": 349.14,
-        "forecast_direction": "up",
-        "tomorrow_center_price": 348.86,
-        "tomorrow_low_price": 348.49,
-        "tomorrow_high_price": 349.53,
-        "reason_summary": "ema5=349.22, ema20=349.23, ema_align=-0.00%, trend=-0.16%, vol=0.07%, range=0.25%, conviction=+0.10, confidence=0.21, sector=산업, vwap=gray, adl=neutral, imbalance=+0.00, sector_score=+0.15, symbol_score=+1.00, flow_score=+0.12, sync_score=+0.00, news=unavailable, evidence=1/3",
-        "source": "hermes_judgement_v2",
-        "macro_summary": "sector=산업, nasdaq=-1.40%, sp500=-1.01%, vix=18.77, dxy=+0.02%, cpi=+0.00, us2y=-0.21%, us10y=-0.61%, core_ppi=+0.00%, wti=+3.57%, geo=high, issues=-0.90, earnings=+0.15, symbol_news=+1.00",
-        "confidence": 0.2137,
-        "conviction": 0.104,
-        "evidence_score": 1,
-        "recent_vol_pct": 0.0714,
-        "recent_range_pct": 0.2493,
-        "sector": "산업",
-        "sector_score": 0.15,
-        "symbol_score": 1.0,
-        "flow_score": 0.12,
-        "sync_score": 0.0,
-        "sync_cluster": null,
-        "sync_note": null,
-        "close_forecast_locked": false
-      },
       "SOFI": {
         "symbol": "SOFI",
         "market": "US",
@@ -2652,13 +2577,13 @@
         "sync_note": null,
         "close_forecast_locked": false
       },
-      "GOOG": {
-        "symbol": "GOOG",
+      "GE": {
+        "symbol": "GE",
         "market": "US",
-        "name": "Alphabet",
-        "latest_price": 345.8,
-        "predicted_buy_low": 344.9754,
-        "predicted_sell_high": 346.70459999999997,
+        "name": "GE Aerospace",
+        "latest_price": 349.01,
+        "predicted_buy_low": 348.4068,
+        "predicted_sell_high": 350.15319999999997,
         "predicted_price_source": "model",
         "target_time_30m": "2026-07-18T01:30:00Z",
         "target_time_1h": "2026-07-18T02:00:00Z",
@@ -2673,25 +2598,25 @@
           "available": true,
           "signal": "중립",
           "description": "추세와 밴드 신호가 약해 추가 확인이 필요",
-          "adaptive_length": 49,
-          "squeeze_score": 96.67,
-          "upper": 345.84,
-          "middle": 345.7572,
-          "lower": 345.61
+          "adaptive_length": 48,
+          "squeeze_score": 36.67,
+          "upper": 349.7,
+          "middle": 349.2098,
+          "lower": 348.73
         },
         "market_phase": {
           "phase": "보합",
-          "score": -0.1915,
-          "reason": "trend20=-0.01% trend6=+0.03% trend3=+0.03% trend2=-0.01% strength=97.77 imbalance=+0.00 sync=+0.00 band=중립",
-          "trend_20_pct": -0.0116,
-          "trend_6_pct": 0.0289,
-          "trend_3_pct": 0.0289,
-          "trend_2_pct": -0.0116,
-          "trade_strength": 97.77,
+          "score": 1.7786,
+          "reason": "trend20=-0.04% trend6=-0.16% trend3=-0.14% trend2=+0.00% strength=120.69 imbalance=+0.00 sync=+0.00 band=중립",
+          "trend_20_pct": -0.0401,
+          "trend_6_pct": -0.1573,
+          "trend_3_pct": -0.1402,
+          "trend_2_pct": 0.0029,
+          "trade_strength": 120.69,
           "imbalance": 0.0,
           "sync_score": 0.0,
-          "off_high_pct": 0.0116,
-          "rebound_from_low_pct": 0.055,
+          "off_high_pct": 0.1977,
+          "rebound_from_low_pct": 0.0516,
           "profile": {
             "trend_2_up_threshold": 0.06,
             "trend_2_down_threshold": -0.06,
@@ -2703,112 +2628,37 @@
             "imbalance_down_threshold": -0.08
           }
         },
-        "forecast_30m_price": 345.66,
-        "forecast_1h_price": 345.61,
-        "forecast_close_price": 345.61,
-        "forecast_direction": "down",
-        "tomorrow_center_price": 345.76,
-        "tomorrow_low_price": 345.28,
-        "tomorrow_high_price": 346.32,
-        "reason_summary": "ema5=345.75, ema20=345.76, ema_align=-0.00%, trend=+0.03%, vol=0.02%, range=0.07%, conviction=-0.16, confidence=0.22, sector=소프트웨어, vwap=gray, adl=neutral, imbalance=+0.00, sector_score=+0.30, symbol_score=-0.17, flow_score=+0.12, sync_score=+0.00, news=unavailable, evidence=1/3",
+        "forecast_30m_price": 349.1,
+        "forecast_1h_price": 349.14,
+        "forecast_close_price": 349.14,
+        "forecast_direction": "up",
+        "tomorrow_center_price": 348.86,
+        "tomorrow_low_price": 348.49,
+        "tomorrow_high_price": 349.53,
+        "reason_summary": "ema5=349.22, ema20=349.23, ema_align=-0.00%, trend=-0.16%, vol=0.07%, range=0.25%, conviction=+0.10, confidence=0.21, sector=산업, vwap=gray, adl=neutral, imbalance=+0.00, sector_score=+0.15, symbol_score=+1.00, flow_score=+0.12, sync_score=+0.00, news=unavailable, evidence=1/3",
         "source": "hermes_judgement_v2",
-        "macro_summary": "sector=소프트웨어, nasdaq=-1.40%, sp500=-1.01%, vix=18.77, dxy=+0.02%, cpi=+0.00, us2y=-0.21%, us10y=-0.61%, core_ppi=+0.00%, wti=+3.57%, geo=high, issues=-0.90, earnings=+0.30, symbol_news=-0.15",
-        "confidence": 0.22,
-        "conviction": -0.1588,
+        "macro_summary": "sector=산업, nasdaq=-1.40%, sp500=-1.01%, vix=18.77, dxy=+0.02%, cpi=+0.00, us2y=-0.21%, us10y=-0.61%, core_ppi=+0.00%, wti=+3.57%, geo=high, issues=-0.90, earnings=+0.15, symbol_news=+1.00",
+        "confidence": 0.2137,
+        "conviction": 0.104,
         "evidence_score": 1,
-        "recent_vol_pct": 0.0244,
-        "recent_range_pct": 0.0665,
-        "sector": "소프트웨어",
-        "sector_score": 0.3,
-        "symbol_score": -0.1711,
+        "recent_vol_pct": 0.0714,
+        "recent_range_pct": 0.2493,
+        "sector": "산업",
+        "sector_score": 0.15,
+        "symbol_score": 1.0,
         "flow_score": 0.12,
         "sync_score": 0.0,
         "sync_cluster": null,
         "sync_note": null,
         "close_forecast_locked": false
       },
-      "PFE": {
-        "symbol": "PFE",
+      "SPY": {
+        "symbol": "SPY",
         "market": "US",
-        "name": "Pfizer",
-        "latest_price": 25.07,
-        "predicted_buy_low": 25.0173,
-        "predicted_sell_high": 25.142699999999998,
-        "predicted_price_source": "model",
-        "target_time_30m": "2026-07-18T01:30:00Z",
-        "target_time_1h": "2026-07-18T02:00:00Z",
-        "current_price_signal": {
-          "state": "trusted",
-          "trust": true,
-          "score": 0.65,
-          "reason": "orderbook_missing"
-        },
-        "indicator_2026": {
-          "preset": "2026볼밴",
-          "available": true,
-          "signal": "하락우위",
-          "description": "중심선과 적응 추세가 하방, 매도 우위 구간",
-          "adaptive_length": 50,
-          "squeeze_score": 91.67,
-          "upper": 25.08,
-          "middle": 25.0708,
-          "lower": 25.06
-        },
-        "market_phase": {
-          "phase": "하락지속",
-          "score": -3.5341,
-          "reason": "trend20=+0.00% trend6=+0.00% trend3=+0.04% trend2=+0.00% strength=64.22 imbalance=+0.00 sync=+0.00 band=하락우위",
-          "trend_20_pct": 0.0,
-          "trend_6_pct": 0.0,
-          "trend_3_pct": 0.0399,
-          "trend_2_pct": 0.0,
-          "trade_strength": 64.22,
-          "imbalance": 0.0,
-          "sync_score": 0.0,
-          "off_high_pct": 0.0399,
-          "rebound_from_low_pct": 0.0399,
-          "profile": {
-            "trend_2_up_threshold": 0.06,
-            "trend_2_down_threshold": -0.06,
-            "trend_3_rebound_threshold": 0.1,
-            "min_trade_strength_up": 101.0,
-            "max_trade_strength_down": 99.0,
-            "min_trade_strength_rebound": 100.0,
-            "imbalance_up_threshold": 0.08,
-            "imbalance_down_threshold": -0.08
-          }
-        },
-        "forecast_30m_price": 25.07,
-        "forecast_1h_price": 25.07,
-        "forecast_close_price": 25.07,
-        "forecast_direction": "flat",
-        "tomorrow_center_price": 25.07,
-        "tomorrow_low_price": 25.04,
-        "tomorrow_high_price": 25.1,
-        "reason_summary": "ema5=25.07, ema20=25.07, ema_align=+0.01%, trend=+0.00%, vol=0.03%, range=0.08%, conviction=+0.08, confidence=0.18, sector=바이오, vwap=gray, adl=neutral, imbalance=+0.00, sector_score=+0.85, symbol_score=+0.00, flow_score=+0.12, sync_score=+0.00, news=unavailable, evidence=1/3",
-        "source": "hermes_judgement_v2",
-        "macro_summary": "sector=바이오, nasdaq=-1.40%, sp500=-1.01%, vix=18.77, dxy=+0.02%, cpi=+0.00, us2y=-0.21%, us10y=-0.61%, core_ppi=+0.00%, wti=+3.57%, geo=high, issues=-0.90, earnings=+0.85, symbol_news=+0.00",
-        "confidence": 0.1775,
-        "conviction": 0.0786,
-        "evidence_score": 1,
-        "recent_vol_pct": 0.0252,
-        "recent_range_pct": 0.0798,
-        "sector": "바이오",
-        "sector_score": 0.85,
-        "symbol_score": 0.0048,
-        "flow_score": 0.12,
-        "sync_score": 0.0,
-        "sync_cluster": null,
-        "sync_note": null,
-        "close_forecast_locked": false
-      },
-      "AMZN": {
-        "symbol": "AMZN",
-        "market": "US",
-        "name": "Amazon",
-        "latest_price": 246.8,
-        "predicted_buy_low": 246.09,
-        "predicted_sell_high": 247.33,
+        "name": "SPDR S&P 500 ETF",
+        "latest_price": 742.58,
+        "predicted_buy_low": 740.62988475,
+        "predicted_sell_high": 744.34231525,
         "predicted_price_source": "model",
         "target_time_30m": "2026-07-18T01:30:00Z",
         "target_time_1h": "2026-07-18T02:00:00Z",
@@ -2823,25 +2673,25 @@
           "available": true,
           "signal": "스퀴즈 대기",
           "description": "밴드 폭 수축 상태, 방향성 확정 전 대기 구간",
-          "adaptive_length": 48,
-          "squeeze_score": 8.33,
-          "upper": 246.88,
-          "middle": 246.7913,
-          "lower": 246.71
+          "adaptive_length": 34,
+          "squeeze_score": 3.33,
+          "upper": 742.64,
+          "middle": 742.5229,
+          "lower": 742.42
         },
         "market_phase": {
           "phase": "보합",
-          "score": 9.5461,
-          "reason": "trend20=+0.02% trend6=+0.00% trend3=+0.00% trend2=-0.02% strength=195.70 imbalance=+0.00 sync=+0.00 band=스퀴즈 대기",
-          "trend_20_pct": 0.0162,
+          "score": 1.0479,
+          "reason": "trend20=+0.01% trend6=+0.00% trend3=+0.00% trend2=+0.00% strength=110.42 imbalance=+0.00 sync=+0.00 band=스퀴즈 대기",
+          "trend_20_pct": 0.0108,
           "trend_6_pct": 0.0,
           "trend_3_pct": 0.0,
-          "trend_2_pct": -0.0243,
-          "trade_strength": 195.7,
+          "trend_2_pct": 0.0,
+          "trade_strength": 110.42,
           "imbalance": 0.0,
           "sync_score": 0.0,
-          "off_high_pct": 0.0243,
-          "rebound_from_low_pct": 0.0365,
+          "off_high_pct": 0.0081,
+          "rebound_from_low_pct": 0.0135,
           "profile": {
             "trend_2_up_threshold": 0.06,
             "trend_2_down_threshold": -0.06,
@@ -2853,24 +2703,24 @@
             "imbalance_down_threshold": -0.08
           }
         },
-        "forecast_30m_price": 246.86,
-        "forecast_1h_price": 246.88,
-        "forecast_close_price": 246.88,
-        "forecast_direction": "up",
-        "tomorrow_center_price": 246.84,
-        "tomorrow_low_price": 246.43,
-        "tomorrow_high_price": 247.17,
-        "reason_summary": "ema5=246.82, ema20=246.79, ema_align=+0.01%, trend=+0.00%, vol=0.02%, range=0.06%, conviction=+0.10, confidence=0.20, sector=플랫폼, vwap=gray, adl=neutral, imbalance=+0.00, sector_score=+0.30, symbol_score=+0.34, flow_score=+0.12, sync_score=+0.00, news=unavailable, evidence=1/3",
+        "forecast_30m_price": 742.58,
+        "forecast_1h_price": 742.58,
+        "forecast_close_price": 742.58,
+        "forecast_direction": "flat",
+        "tomorrow_center_price": 742.66,
+        "tomorrow_low_price": 741.74,
+        "tomorrow_high_price": 743.42,
+        "reason_summary": "ema5=742.58, ema20=742.57, ema_align=+0.00%, trend=+0.00%, vol=0.00%, range=0.02%, conviction=+0.07, confidence=0.17, sector=지수, vwap=gray, adl=neutral, imbalance=+0.00, sector_score=+0.15, symbol_score=+0.75, flow_score=+0.12, sync_score=+0.00, news=unavailable, evidence=1/3",
         "source": "hermes_judgement_v2",
-        "macro_summary": "sector=플랫폼, nasdaq=-1.40%, sp500=-1.01%, vix=18.77, dxy=+0.02%, cpi=+0.00, us2y=-0.21%, us10y=-0.61%, core_ppi=+0.00%, wti=+3.57%, geo=high, issues=-0.90, earnings=+0.30, symbol_news=+0.30",
-        "confidence": 0.1993,
-        "conviction": 0.0977,
+        "macro_summary": "sector=지수, nasdaq=-1.40%, sp500=-1.01%, vix=18.77, dxy=+0.02%, cpi=+0.00, us2y=-0.21%, us10y=-0.61%, core_ppi=+0.00%, wti=+3.57%, geo=high, issues=-0.90, earnings=+0.15, symbol_news=+0.65",
+        "confidence": 0.1683,
+        "conviction": 0.0733,
         "evidence_score": 1,
-        "recent_vol_pct": 0.0162,
-        "recent_range_pct": 0.0608,
-        "sector": "플랫폼",
-        "sector_score": 0.3,
-        "symbol_score": 0.3406,
+        "recent_vol_pct": 0.0023,
+        "recent_range_pct": 0.0215,
+        "sector": "지수",
+        "sector_score": 0.15,
+        "symbol_score": 0.746,
         "flow_score": 0.12,
         "sync_score": 0.0,
         "sync_cluster": null,
@@ -2952,6 +2802,81 @@
         "sync_note": null,
         "close_forecast_locked": false
       },
+      "AMZN": {
+        "symbol": "AMZN",
+        "market": "US",
+        "name": "Amazon",
+        "latest_price": 246.8,
+        "predicted_buy_low": 246.09,
+        "predicted_sell_high": 247.33,
+        "predicted_price_source": "model",
+        "target_time_30m": "2026-07-18T01:30:00Z",
+        "target_time_1h": "2026-07-18T02:00:00Z",
+        "current_price_signal": {
+          "state": "trusted",
+          "trust": true,
+          "score": 0.65,
+          "reason": "orderbook_missing"
+        },
+        "indicator_2026": {
+          "preset": "2026볼밴",
+          "available": true,
+          "signal": "스퀴즈 대기",
+          "description": "밴드 폭 수축 상태, 방향성 확정 전 대기 구간",
+          "adaptive_length": 48,
+          "squeeze_score": 8.33,
+          "upper": 246.88,
+          "middle": 246.7913,
+          "lower": 246.71
+        },
+        "market_phase": {
+          "phase": "보합",
+          "score": 9.5461,
+          "reason": "trend20=+0.02% trend6=+0.00% trend3=+0.00% trend2=-0.02% strength=195.70 imbalance=+0.00 sync=+0.00 band=스퀴즈 대기",
+          "trend_20_pct": 0.0162,
+          "trend_6_pct": 0.0,
+          "trend_3_pct": 0.0,
+          "trend_2_pct": -0.0243,
+          "trade_strength": 195.7,
+          "imbalance": 0.0,
+          "sync_score": 0.0,
+          "off_high_pct": 0.0243,
+          "rebound_from_low_pct": 0.0365,
+          "profile": {
+            "trend_2_up_threshold": 0.06,
+            "trend_2_down_threshold": -0.06,
+            "trend_3_rebound_threshold": 0.1,
+            "min_trade_strength_up": 101.0,
+            "max_trade_strength_down": 99.0,
+            "min_trade_strength_rebound": 100.0,
+            "imbalance_up_threshold": 0.08,
+            "imbalance_down_threshold": -0.08
+          }
+        },
+        "forecast_30m_price": 246.86,
+        "forecast_1h_price": 246.88,
+        "forecast_close_price": 246.88,
+        "forecast_direction": "up",
+        "tomorrow_center_price": 246.84,
+        "tomorrow_low_price": 246.43,
+        "tomorrow_high_price": 247.17,
+        "reason_summary": "ema5=246.82, ema20=246.79, ema_align=+0.01%, trend=+0.00%, vol=0.02%, range=0.06%, conviction=+0.10, confidence=0.20, sector=플랫폼, vwap=gray, adl=neutral, imbalance=+0.00, sector_score=+0.30, symbol_score=+0.34, flow_score=+0.12, sync_score=+0.00, news=unavailable, evidence=1/3",
+        "source": "hermes_judgement_v2",
+        "macro_summary": "sector=플랫폼, nasdaq=-1.40%, sp500=-1.01%, vix=18.77, dxy=+0.02%, cpi=+0.00, us2y=-0.21%, us10y=-0.61%, core_ppi=+0.00%, wti=+3.57%, geo=high, issues=-0.90, earnings=+0.30, symbol_news=+0.30",
+        "confidence": 0.1993,
+        "conviction": 0.0977,
+        "evidence_score": 1,
+        "recent_vol_pct": 0.0162,
+        "recent_range_pct": 0.0608,
+        "sector": "플랫폼",
+        "sector_score": 0.3,
+        "symbol_score": 0.3406,
+        "flow_score": 0.12,
+        "sync_score": 0.0,
+        "sync_cluster": null,
+        "sync_note": null,
+        "close_forecast_locked": false
+      },
       "WMT": {
         "symbol": "WMT",
         "market": "US",
@@ -3021,6 +2946,81 @@
         "sector": "소비재",
         "sector_score": 0.0,
         "symbol_score": -0.1715,
+        "flow_score": 0.12,
+        "sync_score": 0.0,
+        "sync_cluster": null,
+        "sync_note": null,
+        "close_forecast_locked": false
+      },
+      "GOOG": {
+        "symbol": "GOOG",
+        "market": "US",
+        "name": "Alphabet",
+        "latest_price": 345.8,
+        "predicted_buy_low": 344.9754,
+        "predicted_sell_high": 346.70459999999997,
+        "predicted_price_source": "model",
+        "target_time_30m": "2026-07-18T01:30:00Z",
+        "target_time_1h": "2026-07-18T02:00:00Z",
+        "current_price_signal": {
+          "state": "trusted",
+          "trust": true,
+          "score": 0.65,
+          "reason": "orderbook_missing"
+        },
+        "indicator_2026": {
+          "preset": "2026볼밴",
+          "available": true,
+          "signal": "중립",
+          "description": "추세와 밴드 신호가 약해 추가 확인이 필요",
+          "adaptive_length": 49,
+          "squeeze_score": 96.67,
+          "upper": 345.84,
+          "middle": 345.7572,
+          "lower": 345.61
+        },
+        "market_phase": {
+          "phase": "보합",
+          "score": -0.1915,
+          "reason": "trend20=-0.01% trend6=+0.03% trend3=+0.03% trend2=-0.01% strength=97.77 imbalance=+0.00 sync=+0.00 band=중립",
+          "trend_20_pct": -0.0116,
+          "trend_6_pct": 0.0289,
+          "trend_3_pct": 0.0289,
+          "trend_2_pct": -0.0116,
+          "trade_strength": 97.77,
+          "imbalance": 0.0,
+          "sync_score": 0.0,
+          "off_high_pct": 0.0116,
+          "rebound_from_low_pct": 0.055,
+          "profile": {
+            "trend_2_up_threshold": 0.06,
+            "trend_2_down_threshold": -0.06,
+            "trend_3_rebound_threshold": 0.1,
+            "min_trade_strength_up": 101.0,
+            "max_trade_strength_down": 99.0,
+            "min_trade_strength_rebound": 100.0,
+            "imbalance_up_threshold": 0.08,
+            "imbalance_down_threshold": -0.08
+          }
+        },
+        "forecast_30m_price": 345.66,
+        "forecast_1h_price": 345.61,
+        "forecast_close_price": 345.61,
+        "forecast_direction": "down",
+        "tomorrow_center_price": 345.76,
+        "tomorrow_low_price": 345.28,
+        "tomorrow_high_price": 346.32,
+        "reason_summary": "ema5=345.75, ema20=345.76, ema_align=-0.00%, trend=+0.03%, vol=0.02%, range=0.07%, conviction=-0.16, confidence=0.22, sector=소프트웨어, vwap=gray, adl=neutral, imbalance=+0.00, sector_score=+0.30, symbol_score=-0.17, flow_score=+0.12, sync_score=+0.00, news=unavailable, evidence=1/3",
+        "source": "hermes_judgement_v2",
+        "macro_summary": "sector=소프트웨어, nasdaq=-1.40%, sp500=-1.01%, vix=18.77, dxy=+0.02%, cpi=+0.00, us2y=-0.21%, us10y=-0.61%, core_ppi=+0.00%, wti=+3.57%, geo=high, issues=-0.90, earnings=+0.30, symbol_news=-0.15",
+        "confidence": 0.22,
+        "conviction": -0.1588,
+        "evidence_score": 1,
+        "recent_vol_pct": 0.0244,
+        "recent_range_pct": 0.0665,
+        "sector": "소프트웨어",
+        "sector_score": 0.3,
+        "symbol_score": -0.1711,
         "flow_score": 0.12,
         "sync_score": 0.0,
         "sync_cluster": null,
@@ -3177,13 +3177,13 @@
         "sync_note": null,
         "close_forecast_locked": false
       },
-      "SPY": {
-        "symbol": "SPY",
+      "PFE": {
+        "symbol": "PFE",
         "market": "US",
-        "name": "SPDR S&P 500 ETF",
-        "latest_price": 742.58,
-        "predicted_buy_low": 740.62988475,
-        "predicted_sell_high": 744.34231525,
+        "name": "Pfizer",
+        "latest_price": 25.07,
+        "predicted_buy_low": 25.0173,
+        "predicted_sell_high": 25.142699999999998,
         "predicted_price_source": "model",
         "target_time_30m": "2026-07-18T01:30:00Z",
         "target_time_1h": "2026-07-18T02:00:00Z",
@@ -3196,27 +3196,27 @@
         "indicator_2026": {
           "preset": "2026볼밴",
           "available": true,
-          "signal": "스퀴즈 대기",
-          "description": "밴드 폭 수축 상태, 방향성 확정 전 대기 구간",
-          "adaptive_length": 34,
-          "squeeze_score": 3.33,
-          "upper": 742.64,
-          "middle": 742.5229,
-          "lower": 742.42
+          "signal": "하락우위",
+          "description": "중심선과 적응 추세가 하방, 매도 우위 구간",
+          "adaptive_length": 50,
+          "squeeze_score": 91.67,
+          "upper": 25.08,
+          "middle": 25.0708,
+          "lower": 25.06
         },
         "market_phase": {
-          "phase": "보합",
-          "score": 1.0479,
-          "reason": "trend20=+0.01% trend6=+0.00% trend3=+0.00% trend2=+0.00% strength=110.42 imbalance=+0.00 sync=+0.00 band=스퀴즈 대기",
-          "trend_20_pct": 0.0108,
+          "phase": "하락지속",
+          "score": -3.5341,
+          "reason": "trend20=+0.00% trend6=+0.00% trend3=+0.04% trend2=+0.00% strength=64.22 imbalance=+0.00 sync=+0.00 band=하락우위",
+          "trend_20_pct": 0.0,
           "trend_6_pct": 0.0,
-          "trend_3_pct": 0.0,
+          "trend_3_pct": 0.0399,
           "trend_2_pct": 0.0,
-          "trade_strength": 110.42,
+          "trade_strength": 64.22,
           "imbalance": 0.0,
           "sync_score": 0.0,
-          "off_high_pct": 0.0081,
-          "rebound_from_low_pct": 0.0135,
+          "off_high_pct": 0.0399,
+          "rebound_from_low_pct": 0.0399,
           "profile": {
             "trend_2_up_threshold": 0.06,
             "trend_2_down_threshold": -0.06,
@@ -3228,24 +3228,24 @@
             "imbalance_down_threshold": -0.08
           }
         },
-        "forecast_30m_price": 742.58,
-        "forecast_1h_price": 742.58,
-        "forecast_close_price": 742.58,
+        "forecast_30m_price": 25.07,
+        "forecast_1h_price": 25.07,
+        "forecast_close_price": 25.07,
         "forecast_direction": "flat",
-        "tomorrow_center_price": 742.66,
-        "tomorrow_low_price": 741.74,
-        "tomorrow_high_price": 743.42,
-        "reason_summary": "ema5=742.58, ema20=742.57, ema_align=+0.00%, trend=+0.00%, vol=0.00%, range=0.02%, conviction=+0.07, confidence=0.17, sector=지수, vwap=gray, adl=neutral, imbalance=+0.00, sector_score=+0.15, symbol_score=+0.75, flow_score=+0.12, sync_score=+0.00, news=unavailable, evidence=1/3",
+        "tomorrow_center_price": 25.07,
+        "tomorrow_low_price": 25.04,
+        "tomorrow_high_price": 25.1,
+        "reason_summary": "ema5=25.07, ema20=25.07, ema_align=+0.01%, trend=+0.00%, vol=0.03%, range=0.08%, conviction=+0.08, confidence=0.18, sector=바이오, vwap=gray, adl=neutral, imbalance=+0.00, sector_score=+0.85, symbol_score=+0.00, flow_score=+0.12, sync_score=+0.00, news=unavailable, evidence=1/3",
         "source": "hermes_judgement_v2",
-        "macro_summary": "sector=지수, nasdaq=-1.40%, sp500=-1.01%, vix=18.77, dxy=+0.02%, cpi=+0.00, us2y=-0.21%, us10y=-0.61%, core_ppi=+0.00%, wti=+3.57%, geo=high, issues=-0.90, earnings=+0.15, symbol_news=+0.65",
-        "confidence": 0.1683,
-        "conviction": 0.0733,
+        "macro_summary": "sector=바이오, nasdaq=-1.40%, sp500=-1.01%, vix=18.77, dxy=+0.02%, cpi=+0.00, us2y=-0.21%, us10y=-0.61%, core_ppi=+0.00%, wti=+3.57%, geo=high, issues=-0.90, earnings=+0.85, symbol_news=+0.00",
+        "confidence": 0.1775,
+        "conviction": 0.0786,
         "evidence_score": 1,
-        "recent_vol_pct": 0.0023,
-        "recent_range_pct": 0.0215,
-        "sector": "지수",
-        "sector_score": 0.15,
-        "symbol_score": 0.746,
+        "recent_vol_pct": 0.0252,
+        "recent_range_pct": 0.0798,
+        "sector": "바이오",
+        "sector_score": 0.85,
+        "symbol_score": 0.0048,
         "flow_score": 0.12,
         "sync_score": 0.0,
         "sync_cluster": null,
@@ -11106,7 +11106,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:56:22.429748Z",
+        "checked_at": "2026-07-18T01:05:31.513735Z",
         "source": "toss_wts_quote_ticks"
       },
       "indicator_snapshot": {
@@ -11203,7 +11203,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z"
+      "quote_at": "2026-07-18T01:09:52.826268Z"
     },
     {
       "symbol": "TSLA",
@@ -11211,7 +11211,7 @@
       "market": "US",
       "market_priority": 1,
       "session": "live",
-      "time_bucket": 20,
+      "time_bucket": 21,
       "sector": "자동차",
       "latest_price": 380.03,
       "change_pct": null,
@@ -11224,7 +11224,7 @@
       "volume": 31394594.0,
       "trade_strength": 98.09,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z",
+      "quote_at": "2026-07-18T01:09:52.826268Z",
       "open": 381.78,
       "high": 385.68,
       "low": 377.22,
@@ -11280,7 +11280,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:55:43.031149Z",
+        "checked_at": "2026-07-18T01:04:51.486835Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -11416,7 +11416,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:56:24.461031Z",
+        "checked_at": "2026-07-18T01:05:33.569804Z",
         "source": "toss_wts_quote_ticks"
       },
       "indicator_snapshot": {
@@ -11510,7 +11510,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z"
+      "quote_at": "2026-07-18T01:09:52.826268Z"
     },
     {
       "symbol": "JNJ",
@@ -11518,7 +11518,7 @@
       "market": "US",
       "market_priority": 1,
       "session": "live",
-      "time_bucket": 20,
+      "time_bucket": 21,
       "sector": "바이오",
       "latest_price": 253.57,
       "change_pct": null,
@@ -11531,7 +11531,7 @@
       "volume": 10167706.0,
       "trade_strength": 133.95,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z",
+      "quote_at": "2026-07-18T01:09:52.826268Z",
       "open": 252.59,
       "high": 255.66,
       "low": 251.95,
@@ -11587,7 +11587,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:55:53.492281Z",
+        "checked_at": "2026-07-18T01:05:01.858956Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -11745,7 +11745,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:56:26.468140Z",
+        "checked_at": "2026-07-18T01:05:35.739419Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -11817,7 +11817,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z"
+      "quote_at": "2026-07-18T01:09:52.826268Z"
     },
     {
       "symbol": "BA",
@@ -11825,7 +11825,7 @@
       "market": "US",
       "market_priority": 1,
       "session": "live",
-      "time_bucket": 20,
+      "time_bucket": 21,
       "sector": "산업",
       "latest_price": 214.25,
       "change_pct": null,
@@ -11838,7 +11838,7 @@
       "volume": 4220491.0,
       "trade_strength": 82.26,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z",
+      "quote_at": "2026-07-18T01:09:52.826268Z",
       "open": 211.5,
       "high": 216.96,
       "low": 211.0,
@@ -11894,7 +11894,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:56:05.910509Z",
+        "checked_at": "2026-07-18T01:05:14.759131Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -12001,7 +12001,7 @@
       "market": "US",
       "market_priority": 1,
       "session": "live",
-      "time_bucket": 20,
+      "time_bucket": 21,
       "sector": "반도체",
       "latest_price": 492.5,
       "change_pct": null,
@@ -12014,7 +12014,7 @@
       "volume": 32115875.0,
       "trade_strength": 121.79,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z",
+      "quote_at": "2026-07-18T01:09:52.826268Z",
       "open": 476.88,
       "high": 505.87,
       "low": 460.21,
@@ -12070,7 +12070,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:55:41.020048Z",
+        "checked_at": "2026-07-18T01:04:49.386303Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -12228,7 +12228,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:56:28.391667Z",
+        "checked_at": "2026-07-18T01:05:37.867782Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -12300,7 +12300,7 @@
       "ask_qty": 61,
       "trade_strength": 102.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z"
+      "quote_at": "2026-07-18T01:09:52.826268Z"
     },
     {
       "symbol": "138930",
@@ -12359,7 +12359,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:56:30.378842Z",
+        "checked_at": "2026-07-18T01:05:39.926945Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -12431,7 +12431,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z"
+      "quote_at": "2026-07-18T01:09:52.826268Z"
     },
     {
       "symbol": "071970",
@@ -12490,7 +12490,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:56:32.405326Z",
+        "checked_at": "2026-07-18T01:05:41.884291Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -12562,7 +12562,7 @@
       "ask_qty": 102,
       "trade_strength": 90.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z"
+      "quote_at": "2026-07-18T01:09:52.826268Z"
     },
     {
       "symbol": "068270",
@@ -12621,7 +12621,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:56:34.470121Z",
+        "checked_at": "2026-07-18T01:05:44.103620Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -12693,7 +12693,7 @@
       "ask_qty": 91,
       "trade_strength": 87.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z"
+      "quote_at": "2026-07-18T01:09:52.826268Z"
     },
     {
       "symbol": "049630",
@@ -12752,7 +12752,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:56:36.767109Z",
+        "checked_at": "2026-07-18T01:05:46.361277Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -12824,7 +12824,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z"
+      "quote_at": "2026-07-18T01:09:52.826268Z"
     },
     {
       "symbol": "036540",
@@ -12883,7 +12883,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:56:38.892420Z",
+        "checked_at": "2026-07-18T01:05:48.721913Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -12955,7 +12955,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z"
+      "quote_at": "2026-07-18T01:09:52.826268Z"
     },
     {
       "symbol": "403870",
@@ -13014,7 +13014,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:56:41.065704Z",
+        "checked_at": "2026-07-18T01:05:51.107647Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -13086,7 +13086,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z"
+      "quote_at": "2026-07-18T01:09:52.826268Z"
     },
     {
       "symbol": "042700",
@@ -13145,7 +13145,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:56:43.212183Z",
+        "checked_at": "2026-07-18T01:05:53.269297Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -13217,7 +13217,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z"
+      "quote_at": "2026-07-18T01:09:52.826268Z"
     },
     {
       "symbol": "086790",
@@ -13276,7 +13276,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:56:45.292548Z",
+        "checked_at": "2026-07-18T01:05:55.475732Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -13348,7 +13348,7 @@
       "ask_qty": 132,
       "trade_strength": 111.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z"
+      "quote_at": "2026-07-18T01:09:52.826268Z"
     },
     {
       "symbol": "ACHR",
@@ -13356,7 +13356,7 @@
       "market": "US",
       "market_priority": 1,
       "session": "live",
-      "time_bucket": 20,
+      "time_bucket": 21,
       "sector": "기타",
       "latest_price": 4.47,
       "change_pct": null,
@@ -13369,7 +13369,7 @@
       "volume": 25382214.0,
       "trade_strength": 94.31,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z",
+      "quote_at": "2026-07-18T01:09:52.826268Z",
       "open": 4.34,
       "high": 4.59,
       "low": 4.3,
@@ -13425,7 +13425,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:55:45.039229Z",
+        "checked_at": "2026-07-18T01:04:53.402343Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -13532,7 +13532,7 @@
       "market": "US",
       "market_priority": 1,
       "session": "live",
-      "time_bucket": 20,
+      "time_bucket": 21,
       "sector": "소프트웨어",
       "latest_price": 202.7684,
       "change_pct": null,
@@ -13545,7 +13545,7 @@
       "volume": 9102630.0,
       "trade_strength": 83.54,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z",
+      "quote_at": "2026-07-18T01:09:52.826268Z",
       "open": 200.4,
       "high": 209.5,
       "low": 199.52,
@@ -13601,7 +13601,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:55:57.634460Z",
+        "checked_at": "2026-07-18T01:05:06.172900Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -13708,7 +13708,7 @@
       "market": "US",
       "market_priority": 1,
       "session": "live",
-      "time_bucket": 20,
+      "time_bucket": 21,
       "sector": "지수",
       "latest_price": 693.76,
       "change_pct": null,
@@ -13721,7 +13721,7 @@
       "volume": 54109267.0,
       "trade_strength": 82.8,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z",
+      "quote_at": "2026-07-18T01:09:52.826268Z",
       "open": 691.65,
       "high": 702.3,
       "low": 686.76,
@@ -13777,7 +13777,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:55:38.917275Z",
+        "checked_at": "2026-07-18T01:04:47.134727Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -13935,7 +13935,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:56:47.484427Z",
+        "checked_at": "2026-07-18T01:05:57.505208Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -14007,7 +14007,7 @@
       "ask_qty": 1,
       "trade_strength": 0.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z"
+      "quote_at": "2026-07-18T01:09:52.826268Z"
     },
     {
       "symbol": "QNDX",
@@ -14015,7 +14015,7 @@
       "market": "US",
       "market_priority": 1,
       "session": "live",
-      "time_bucket": 20,
+      "time_bucket": 21,
       "sector": "기타",
       "latest_price": 23.54,
       "change_pct": null,
@@ -14028,7 +14028,7 @@
       "volume": 630787.0,
       "trade_strength": 82.8,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z",
+      "quote_at": "2026-07-18T01:09:52.826268Z",
       "open": 23.43,
       "high": 23.77,
       "low": 23.26,
@@ -14084,7 +14084,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:56:20.475166Z",
+        "checked_at": "2026-07-18T01:05:29.397959Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -14191,7 +14191,7 @@
       "market": "US",
       "market_priority": 1,
       "session": "live",
-      "time_bucket": 20,
+      "time_bucket": 21,
       "sector": "기타",
       "latest_price": 17.3,
       "change_pct": null,
@@ -14204,7 +14204,7 @@
       "volume": 89973828.0,
       "trade_strength": 99.82,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z",
+      "quote_at": "2026-07-18T01:09:52.826268Z",
       "open": 16.83,
       "high": 17.57,
       "low": 16.47,
@@ -14260,7 +14260,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:55:12.250560Z",
+        "checked_at": "2026-07-18T01:04:18.085565Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -14367,7 +14367,7 @@
       "market": "KR",
       "market_priority": 0,
       "session": "live",
-      "time_bucket": 9,
+      "time_bucket": 10,
       "sector": "반도체",
       "latest_price": 253500.0,
       "change_pct": null,
@@ -14384,7 +14384,7 @@
       "volume": 44712225.0,
       "trade_strength": 74.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z",
+      "quote_at": "2026-07-18T01:09:52.826268Z",
       "open": 269000.0,
       "high": 269000.0,
       "low": 251000.0,
@@ -14436,7 +14436,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:55:08.365503Z",
+        "checked_at": "2026-07-18T01:04:16.082105Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -14594,7 +14594,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:56:49.364755Z",
+        "checked_at": "2026-07-18T01:05:59.752243Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -14666,7 +14666,7 @@
       "ask_qty": 16,
       "trade_strength": 100.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z"
+      "quote_at": "2026-07-18T01:09:52.826268Z"
     },
     {
       "symbol": "353200",
@@ -14725,7 +14725,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:56:51.381095Z",
+        "checked_at": "2026-07-18T01:06:01.785810Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -14797,7 +14797,7 @@
       "ask_qty": 360,
       "trade_strength": 85.07,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z"
+      "quote_at": "2026-07-18T01:09:52.826268Z"
     },
     {
       "symbol": "006400",
@@ -14856,7 +14856,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:56:53.499583Z",
+        "checked_at": "2026-07-18T01:06:03.816220Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -14928,7 +14928,7 @@
       "ask_qty": 808,
       "trade_strength": 70.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z"
+      "quote_at": "2026-07-18T01:09:52.826268Z"
     },
     {
       "symbol": "015760",
@@ -14987,7 +14987,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:56:55.497443Z",
+        "checked_at": "2026-07-18T01:06:05.829253Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -15059,7 +15059,7 @@
       "ask_qty": 8259,
       "trade_strength": 85.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z"
+      "quote_at": "2026-07-18T01:09:52.826268Z"
     },
     {
       "symbol": "055550",
@@ -15067,7 +15067,7 @@
       "market": "KR",
       "market_priority": 0,
       "session": "live",
-      "time_bucket": 9,
+      "time_bucket": 10,
       "sector": "금융",
       "latest_price": 107500.0,
       "change_pct": null,
@@ -15084,7 +15084,7 @@
       "volume": 1638767.0,
       "trade_strength": 99.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z",
+      "quote_at": "2026-07-18T01:09:52.826268Z",
       "open": 107000.0,
       "high": 112400.0,
       "low": 105000.0,
@@ -15136,7 +15136,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:55:35.039044Z",
+        "checked_at": "2026-07-18T01:04:43.112414Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -15294,7 +15294,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:56:57.537556Z",
+        "checked_at": "2026-07-18T01:06:07.937088Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -15366,7 +15366,7 @@
       "ask_qty": 1748,
       "trade_strength": 110.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z"
+      "quote_at": "2026-07-18T01:09:52.826268Z"
     },
     {
       "symbol": "001800",
@@ -15425,7 +15425,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:56:59.490597Z",
+        "checked_at": "2026-07-18T01:06:09.911563Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -15497,7 +15497,7 @@
       "ask_qty": 458,
       "trade_strength": 133.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z"
+      "quote_at": "2026-07-18T01:09:52.826268Z"
     },
     {
       "symbol": "003550",
@@ -15556,7 +15556,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:57:01.612752Z",
+        "checked_at": "2026-07-18T01:06:12.002078Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -15628,7 +15628,7 @@
       "ask_qty": 34,
       "trade_strength": 79.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z"
+      "quote_at": "2026-07-18T01:09:52.826268Z"
     },
     {
       "symbol": "005380",
@@ -15636,7 +15636,7 @@
       "market": "KR",
       "market_priority": 0,
       "session": "live",
-      "time_bucket": 9,
+      "time_bucket": 10,
       "sector": "자동차",
       "latest_price": 421500.0,
       "change_pct": null,
@@ -15653,7 +15653,7 @@
       "volume": 1228247.0,
       "trade_strength": 90.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z",
+      "quote_at": "2026-07-18T01:09:52.826268Z",
       "open": 431500.0,
       "high": 431500.0,
       "low": 412000.0,
@@ -15705,7 +15705,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:55:30.834275Z",
+        "checked_at": "2026-07-18T01:04:39.135854Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -15863,7 +15863,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:57:03.704667Z",
+        "checked_at": "2026-07-18T01:06:14.146536Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -15935,7 +15935,7 @@
       "ask_qty": 128,
       "trade_strength": 85.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z"
+      "quote_at": "2026-07-18T01:09:52.826268Z"
     },
     {
       "symbol": "011210",
@@ -15994,7 +15994,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:57:05.733616Z",
+        "checked_at": "2026-07-18T01:06:16.254101Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -16066,7 +16066,7 @@
       "ask_qty": 1322,
       "trade_strength": 92.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z"
+      "quote_at": "2026-07-18T01:09:52.826268Z"
     },
     {
       "symbol": "018260",
@@ -16125,7 +16125,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:57:07.700719Z",
+        "checked_at": "2026-07-18T01:06:18.227067Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -16197,7 +16197,7 @@
       "ask_qty": 25,
       "trade_strength": 110.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z"
+      "quote_at": "2026-07-18T01:09:52.826268Z"
     },
     {
       "symbol": "032830",
@@ -16256,7 +16256,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:57:09.756312Z",
+        "checked_at": "2026-07-18T01:06:20.576332Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -16328,7 +16328,7 @@
       "ask_qty": 41,
       "trade_strength": 77.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z"
+      "quote_at": "2026-07-18T01:09:52.826268Z"
     },
     {
       "symbol": "BAC",
@@ -16336,7 +16336,7 @@
       "market": "US",
       "market_priority": 1,
       "session": "live",
-      "time_bucket": 20,
+      "time_bucket": 21,
       "sector": "금융",
       "latest_price": 61.2801,
       "change_pct": null,
@@ -16349,7 +16349,7 @@
       "volume": 45045229.0,
       "trade_strength": 92.3,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z",
+      "quote_at": "2026-07-18T01:09:52.826268Z",
       "open": 61.25,
       "high": 62.11,
       "low": 60.66,
@@ -16405,7 +16405,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:55:16.096829Z",
+        "checked_at": "2026-07-18T01:04:24.301405Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -16512,7 +16512,7 @@
       "market": "US",
       "market_priority": 1,
       "session": "live",
-      "time_bucket": 20,
+      "time_bucket": 21,
       "sector": "금융",
       "latest_price": 342.38,
       "change_pct": null,
@@ -16525,7 +16525,7 @@
       "volume": 9250854.0,
       "trade_strength": 78.98,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z",
+      "quote_at": "2026-07-18T01:09:52.826268Z",
       "open": 339.03,
       "high": 346.12,
       "low": 335.05,
@@ -16581,7 +16581,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:55:55.485345Z",
+        "checked_at": "2026-07-18T01:05:03.962618Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -16688,7 +16688,7 @@
       "market": "US",
       "market_priority": 1,
       "session": "live",
-      "time_bucket": 20,
+      "time_bucket": 21,
       "sector": "지수",
       "latest_price": 742.4861,
       "change_pct": null,
@@ -16701,7 +16701,7 @@
       "volume": 62650961.0,
       "trade_strength": 110.42,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z",
+      "quote_at": "2026-07-18T01:09:52.826268Z",
       "open": 742.08,
       "high": 747.29,
       "low": 740.8,
@@ -16757,7 +16757,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:55:28.658363Z",
+        "checked_at": "2026-07-18T01:04:22.346810Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -16864,7 +16864,7 @@
       "market": "US",
       "market_priority": 1,
       "session": "live",
-      "time_bucket": 20,
+      "time_bucket": 21,
       "sector": "금융",
       "latest_price": 1066.57,
       "change_pct": null,
@@ -16877,7 +16877,7 @@
       "volume": 2162709.0,
       "trade_strength": 101.13,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z",
+      "quote_at": "2026-07-18T01:09:52.826268Z",
       "open": 1071.64,
       "high": 1085.93,
       "low": 1047.15,
@@ -16933,7 +16933,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:56:16.466383Z",
+        "checked_at": "2026-07-18T01:05:25.019615Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -17040,7 +17040,7 @@
       "market": "US",
       "market_priority": 1,
       "session": "live",
-      "time_bucket": 20,
+      "time_bucket": 21,
       "sector": "기타",
       "latest_price": 14.18,
       "change_pct": null,
@@ -17053,7 +17053,7 @@
       "volume": 12201198.0,
       "trade_strength": 52.18,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z",
+      "quote_at": "2026-07-18T01:09:52.826268Z",
       "open": 14.01,
       "high": 14.29,
       "low": 14.01,
@@ -17109,7 +17109,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:55:49.295573Z",
+        "checked_at": "2026-07-18T01:04:57.647161Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -17216,7 +17216,7 @@
       "market": "US",
       "market_priority": 1,
       "session": "live",
-      "time_bucket": 20,
+      "time_bucket": 21,
       "sector": "소프트웨어",
       "latest_price": 345.84,
       "change_pct": null,
@@ -17229,7 +17229,7 @@
       "volume": 22023945.0,
       "trade_strength": 97.77,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z",
+      "quote_at": "2026-07-18T01:09:52.826268Z",
       "open": 345.77,
       "high": 348.17,
       "low": 341.12,
@@ -17285,7 +17285,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:55:22.156413Z",
+        "checked_at": "2026-07-18T01:04:30.353843Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -17392,7 +17392,7 @@
       "market": "US",
       "market_priority": 1,
       "session": "live",
-      "time_bucket": 20,
+      "time_bucket": 21,
       "sector": "바이오",
       "latest_price": 1176.53,
       "change_pct": null,
@@ -17405,7 +17405,7 @@
       "volume": 2757541.0,
       "trade_strength": 115.58,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z",
+      "quote_at": "2026-07-18T01:09:52.826268Z",
       "open": 1159.44,
       "high": 1187.95,
       "low": 1151.01,
@@ -17461,7 +17461,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:56:12.287314Z",
+        "checked_at": "2026-07-18T01:05:20.678164Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -17619,7 +17619,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:57:11.774959Z",
+        "checked_at": "2026-07-18T01:06:22.858345Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -17691,7 +17691,7 @@
       "ask_qty": 25,
       "trade_strength": 0.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z"
+      "quote_at": "2026-07-18T01:09:52.826268Z"
     },
     {
       "symbol": "META",
@@ -17699,7 +17699,7 @@
       "market": "US",
       "market_priority": 1,
       "session": "live",
-      "time_bucket": 20,
+      "time_bucket": 21,
       "sector": "플랫폼",
       "latest_price": 640.2113,
       "change_pct": null,
@@ -17712,7 +17712,7 @@
       "volume": 22267862.0,
       "trade_strength": 76.93,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z",
+      "quote_at": "2026-07-18T01:09:52.826268Z",
       "open": 647.7,
       "high": 652.2,
       "low": 626.0,
@@ -17768,7 +17768,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:55:47.134248Z",
+        "checked_at": "2026-07-18T01:04:55.486894Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -17926,7 +17926,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:57:13.651741Z",
+        "checked_at": "2026-07-18T01:06:24.927518Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -17998,7 +17998,7 @@
       "ask_qty": 60,
       "trade_strength": 121.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z"
+      "quote_at": "2026-07-18T01:09:52.826268Z"
     },
     {
       "symbol": "032640",
@@ -18057,7 +18057,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:57:15.707284Z",
+        "checked_at": "2026-07-18T01:06:27.047132Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -18129,7 +18129,7 @@
       "ask_qty": 766,
       "trade_strength": 163.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z"
+      "quote_at": "2026-07-18T01:09:52.826268Z"
     },
     {
       "symbol": "000660",
@@ -18188,7 +18188,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:57:17.756899Z",
+        "checked_at": "2026-07-18T01:06:29.137813Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -18260,7 +18260,7 @@
       "ask_qty": 1106,
       "trade_strength": 73.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z"
+      "quote_at": "2026-07-18T01:09:52.826268Z"
     },
     {
       "symbol": "000270",
@@ -18319,7 +18319,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:57:19.810710Z",
+        "checked_at": "2026-07-18T01:06:31.200852Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -18391,7 +18391,7 @@
       "ask_qty": 82,
       "trade_strength": 121.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z"
+      "quote_at": "2026-07-18T01:09:52.826268Z"
     },
     {
       "symbol": "009150",
@@ -18450,7 +18450,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:57:21.964013Z",
+        "checked_at": "2026-07-18T01:06:33.312504Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -18522,7 +18522,7 @@
       "ask_qty": 69,
       "trade_strength": 88.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z"
+      "quote_at": "2026-07-18T01:09:52.826268Z"
     },
     {
       "symbol": "000990",
@@ -18581,7 +18581,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:57:24.051408Z",
+        "checked_at": "2026-07-18T01:06:35.289610Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -18653,7 +18653,7 @@
       "ask_qty": 36,
       "trade_strength": 91.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z"
+      "quote_at": "2026-07-18T01:09:52.826268Z"
     },
     {
       "symbol": "009540",
@@ -18712,7 +18712,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:57:26.140806Z",
+        "checked_at": "2026-07-18T01:06:37.278592Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -18784,7 +18784,7 @@
       "ask_qty": 18,
       "trade_strength": 133.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z"
+      "quote_at": "2026-07-18T01:09:52.826268Z"
     },
     {
       "symbol": "028300",
@@ -18792,7 +18792,7 @@
       "market": "KR",
       "market_priority": 0,
       "session": "live",
-      "time_bucket": 9,
+      "time_bucket": 10,
       "sector": "기타",
       "latest_price": 34150.0,
       "change_pct": null,
@@ -18809,7 +18809,7 @@
       "volume": 10442410.0,
       "trade_strength": 81.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z",
+      "quote_at": "2026-07-18T01:09:52.826268Z",
       "open": 43000.0,
       "high": 43000.0,
       "low": 32900.0,
@@ -18861,7 +18861,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:55:36.848483Z",
+        "checked_at": "2026-07-18T01:04:45.099104Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -19019,7 +19019,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:57:28.235703Z",
+        "checked_at": "2026-07-18T01:06:39.439033Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -19091,7 +19091,7 @@
       "ask_qty": 16913,
       "trade_strength": 88.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z"
+      "quote_at": "2026-07-18T01:09:52.826268Z"
     },
     {
       "symbol": "042660",
@@ -19150,7 +19150,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:57:30.333171Z",
+        "checked_at": "2026-07-18T01:06:41.691575Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -19222,7 +19222,7 @@
       "ask_qty": 2518,
       "trade_strength": 89.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z"
+      "quote_at": "2026-07-18T01:09:52.826268Z"
     },
     {
       "symbol": "035420",
@@ -19281,7 +19281,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:57:32.395350Z",
+        "checked_at": "2026-07-18T01:06:43.977614Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -19353,7 +19353,7 @@
       "ask_qty": 84,
       "trade_strength": 97.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z"
+      "quote_at": "2026-07-18T01:09:52.826268Z"
     },
     {
       "symbol": "003690",
@@ -19412,7 +19412,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:57:34.554684Z",
+        "checked_at": "2026-07-18T01:06:46.224699Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -19484,7 +19484,7 @@
       "ask_qty": 678,
       "trade_strength": 106.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z"
+      "quote_at": "2026-07-18T01:09:52.826268Z"
     },
     {
       "symbol": "V",
@@ -19492,7 +19492,7 @@
       "market": "US",
       "market_priority": 1,
       "session": "live",
-      "time_bucket": 20,
+      "time_bucket": 21,
       "sector": "금융",
       "latest_price": 358.6,
       "change_pct": null,
@@ -19505,7 +19505,7 @@
       "volume": 7400403.0,
       "trade_strength": 89.33,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z",
+      "quote_at": "2026-07-18T01:09:52.826268Z",
       "open": 363.57,
       "high": 364.62,
       "low": 357.0,
@@ -19561,7 +19561,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:55:59.766006Z",
+        "checked_at": "2026-07-18T01:05:08.392804Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -19668,7 +19668,7 @@
       "market": "US",
       "market_priority": 1,
       "session": "live",
-      "time_bucket": 20,
+      "time_bucket": 21,
       "sector": "소비재",
       "latest_price": 114.3,
       "change_pct": null,
@@ -19681,7 +19681,7 @@
       "volume": 28289808.0,
       "trade_strength": 119.61,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z",
+      "quote_at": "2026-07-18T01:09:52.826268Z",
       "open": 116.96,
       "high": 118.09,
       "low": 113.6,
@@ -19737,7 +19737,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:55:20.125854Z",
+        "checked_at": "2026-07-18T01:04:28.203795Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -19844,7 +19844,7 @@
       "market": "US",
       "market_priority": 1,
       "session": "live",
-      "time_bucket": 20,
+      "time_bucket": 21,
       "sector": "바이오",
       "latest_price": 25.08,
       "change_pct": null,
@@ -19857,7 +19857,7 @@
       "volume": 45629587.0,
       "trade_strength": 64.22,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z",
+      "quote_at": "2026-07-18T01:09:52.826268Z",
       "open": 25.4,
       "high": 25.65,
       "low": 24.97,
@@ -19913,7 +19913,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:55:26.401777Z",
+        "checked_at": "2026-07-18T01:04:37.011141Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -20020,7 +20020,7 @@
       "market": "US",
       "market_priority": 1,
       "session": "live",
-      "time_bucket": 20,
+      "time_bucket": 21,
       "sector": "산업",
       "latest_price": 597.74,
       "change_pct": null,
@@ -20033,7 +20033,7 @@
       "volume": 938780.0,
       "trade_strength": 112.88,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z",
+      "quote_at": "2026-07-18T01:09:52.826268Z",
       "open": 596.05,
       "high": 614.92,
       "low": 595.74,
@@ -20089,7 +20089,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:56:18.500527Z",
+        "checked_at": "2026-07-18T01:05:27.263842Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -20196,7 +20196,7 @@
       "market": "US",
       "market_priority": 1,
       "session": "live",
-      "time_bucket": 20,
+      "time_bucket": 21,
       "sector": "에너지",
       "latest_price": 187.912,
       "change_pct": null,
@@ -20209,7 +20209,7 @@
       "volume": 7058330.0,
       "trade_strength": 79.43,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z",
+      "quote_at": "2026-07-18T01:09:52.826268Z",
       "open": 187.47,
       "high": 188.15,
       "low": 185.5,
@@ -20265,7 +20265,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:56:01.795093Z",
+        "checked_at": "2026-07-18T01:05:10.458201Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -20372,7 +20372,7 @@
       "market": "US",
       "market_priority": 1,
       "session": "live",
-      "time_bucket": 20,
+      "time_bucket": 21,
       "sector": "소비재",
       "latest_price": 940.225,
       "change_pct": null,
@@ -20385,7 +20385,7 @@
       "volume": 2508007.0,
       "trade_strength": 159.93,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z",
+      "quote_at": "2026-07-18T01:09:52.826268Z",
       "open": 961.52,
       "high": 964.33,
       "low": 933.76,
@@ -20441,7 +20441,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:56:14.367793Z",
+        "checked_at": "2026-07-18T01:05:22.917694Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -20548,7 +20548,7 @@
       "market": "US",
       "market_priority": 1,
       "session": "live",
-      "time_bucket": 20,
+      "time_bucket": 21,
       "sector": "에너지",
       "latest_price": 147.8,
       "change_pct": null,
@@ -20561,7 +20561,7 @@
       "volume": 19031354.0,
       "trade_strength": 61.16,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z",
+      "quote_at": "2026-07-18T01:09:52.826268Z",
       "open": 149.03,
       "high": 150.0,
       "low": 147.17,
@@ -20617,7 +20617,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:55:10.364966Z",
+        "checked_at": "2026-07-18T01:04:32.708731Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -20724,7 +20724,7 @@
       "market": "US",
       "market_priority": 1,
       "session": "live",
-      "time_bucket": 20,
+      "time_bucket": 21,
       "sector": "산업",
       "latest_price": 349.28,
       "change_pct": null,
@@ -20737,7 +20737,7 @@
       "volume": 5596251.0,
       "trade_strength": 120.69,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z",
+      "quote_at": "2026-07-18T01:09:52.826268Z",
       "open": 346.99,
       "high": 357.06,
       "low": 343.02,
@@ -20793,7 +20793,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:55:14.163667Z",
+        "checked_at": "2026-07-18T01:04:20.224663Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -20900,7 +20900,7 @@
       "market": "US",
       "market_priority": 1,
       "session": "live",
-      "time_bucket": 20,
+      "time_bucket": 21,
       "sector": "자동차",
       "latest_price": 14.22,
       "change_pct": null,
@@ -20913,7 +20913,7 @@
       "volume": 45456460.0,
       "trade_strength": 104.3,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z",
+      "quote_at": "2026-07-18T01:09:52.826268Z",
       "open": 14.04,
       "high": 14.5,
       "low": 13.85,
@@ -20969,7 +20969,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:55:24.273059Z",
+        "checked_at": "2026-07-18T01:04:34.865468Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -21076,7 +21076,7 @@
       "market": "US",
       "market_priority": 1,
       "session": "live",
-      "time_bucket": 20,
+      "time_bucket": 21,
       "sector": "플랫폼",
       "latest_price": 246.71,
       "change_pct": null,
@@ -21089,7 +21089,7 @@
       "volume": 43572361.0,
       "trade_strength": 195.7,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z",
+      "quote_at": "2026-07-18T01:09:52.826268Z",
       "open": 244.46,
       "high": 250.24,
       "low": 243.59,
@@ -21145,7 +21145,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:55:18.162903Z",
+        "checked_at": "2026-07-18T01:04:26.270183Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -21252,7 +21252,7 @@
       "market": "US",
       "market_priority": 1,
       "session": "live",
-      "time_bucket": 20,
+      "time_bucket": 21,
       "sector": "반도체",
       "latest_price": 522.24,
       "change_pct": null,
@@ -21265,7 +21265,7 @@
       "volume": 10326483.0,
       "trade_strength": 175.4,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z",
+      "quote_at": "2026-07-18T01:09:52.826268Z",
       "open": 532.4,
       "high": 551.18,
       "low": 513.22,
@@ -21321,7 +21321,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:55:51.362012Z",
+        "checked_at": "2026-07-18T01:04:59.720143Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -21428,7 +21428,7 @@
       "market": "US",
       "market_priority": 1,
       "session": "live",
-      "time_bucket": 20,
+      "time_bucket": 21,
       "sector": "반도체",
       "latest_price": 848.95,
       "change_pct": null,
@@ -21441,7 +21441,7 @@
       "volume": 63346278.0,
       "trade_strength": 113.25,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z",
+      "quote_at": "2026-07-18T01:09:52.826268Z",
       "open": 822.52,
       "high": 903.96,
       "low": 804.0,
@@ -21497,7 +21497,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:55:04.223854Z",
+        "checked_at": "2026-07-18T01:04:11.845821Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -21604,7 +21604,7 @@
       "market": "US",
       "market_priority": 1,
       "session": "live",
-      "time_bucket": 20,
+      "time_bucket": 21,
       "sector": "소프트웨어",
       "latest_price": 268.06,
       "change_pct": null,
@@ -21617,7 +21617,7 @@
       "volume": 5456768.0,
       "trade_strength": 195.01,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z",
+      "quote_at": "2026-07-18T01:09:52.826268Z",
       "open": 262.61,
       "high": 274.25,
       "low": 259.48,
@@ -21673,7 +21673,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:56:03.825246Z",
+        "checked_at": "2026-07-18T01:05:12.617276Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -21780,7 +21780,7 @@
       "market": "US",
       "market_priority": 1,
       "session": "live",
-      "time_bucket": 20,
+      "time_bucket": 21,
       "sector": "산업",
       "latest_price": 879.33,
       "change_pct": null,
@@ -21793,7 +21793,7 @@
       "volume": 3377169.0,
       "trade_strength": 110.72,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-18T01:06:34.772125Z",
+      "quote_at": "2026-07-18T01:09:52.826268Z",
       "open": 841.73,
       "high": 893.19,
       "low": 838.33,
@@ -21849,7 +21849,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T00:56:07.977913Z",
+        "checked_at": "2026-07-18T01:05:16.868179Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
