@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-07-18T03:20:25.021375Z",
+  "updated_at": "2026-07-18T03:23:50.755150Z",
   "source": "dotoristock_dotoriweb_live_bridge",
   "status_updated_at": "2026-07-18T03:17:28.078368Z",
-  "widget_updated_at": "2026-07-18T03:20:24.959163Z",
+  "widget_updated_at": "2026-07-18T03:23:50.628767Z",
   "macro_updated_at": "2026-07-18T03:13:55.060816Z",
   "market_focus": "US",
   "market_limits": {
@@ -138,11 +138,13 @@
     "BA",
     "LLY",
     "DE",
+    "RTX",
+    "ARM",
+    "CLF",
+    "DDOG",
+    "CRM",
     "005930",
-    "028300",
-    "055550",
-    "005380",
-    "028260"
+    "028300"
   ],
   "recent_virtual_fill_summary": {
     "fill_count": 853,
@@ -2242,11 +2244,17 @@
     }
   ],
   "prediction_guard": {
-    "blocked_count": 0,
-    "blocked_symbols": [],
+    "blocked_count": 5,
+    "blocked_symbols": [
+      "RTX",
+      "ARM",
+      "CLF",
+      "DDOG",
+      "CRM"
+    ],
     "cooldown_count": 0,
     "cooldown_symbols": [],
-    "real_trade_switch_allowed": true
+    "real_trade_switch_allowed": false
   },
   "prediction_cooldowns": {},
   "macro_summary": {
@@ -2283,7 +2291,7 @@
     }
   },
   "widget_forecasts": {
-    "updated_at": "2026-07-18T03:20:24.959163Z",
+    "updated_at": "2026-07-18T03:23:50.628767Z",
     "symbols": {
       "MU": {
         "symbol": "MU",
@@ -5007,10 +5015,10 @@
           "signal": "하락우위",
           "description": "중심선과 적응 추세가 하방, 매도 우위 구간",
           "adaptive_length": 47,
-          "squeeze_score": 25.0,
-          "upper": 597.99,
-          "middle": 597.6246,
-          "lower": 597.25
+          "squeeze_score": null,
+          "upper": 598.0792,
+          "middle": 597.6297,
+          "lower": 597.1802
         },
         "market_phase": {
           "phase": "하락지속",
@@ -5082,9 +5090,9 @@
           "signal": "하락우위",
           "description": "중심선과 적응 추세가 하방, 매도 우위 구간",
           "adaptive_length": 42,
-          "squeeze_score": 55.0,
+          "squeeze_score": 20.45,
           "upper": 24.0,
-          "middle": 23.7182,
+          "middle": 23.7199,
           "lower": 23.54
         },
         "market_phase": {
@@ -10119,9 +10127,9 @@
         "signal": "하락우위",
         "description": "중심선과 적응 추세가 하방, 매도 우위 구간",
         "adaptive_length": 42,
-        "squeeze_score": 55.0,
+        "squeeze_score": 20.45,
         "upper": 24.0,
-        "middle": 23.7182,
+        "middle": 23.7199,
         "lower": 23.54
       },
       "indicator_2026_signal": "하락우위",
@@ -10148,9 +10156,9 @@
           "signal": "하락우위",
           "description": "중심선과 적응 추세가 하방, 매도 우위 구간",
           "adaptive_length": 42,
-          "squeeze_score": 55.0,
+          "squeeze_score": 20.45,
           "upper": 24.0,
-          "middle": 23.7182,
+          "middle": 23.7199,
           "lower": 23.54
         },
         "market_phase": {
@@ -10449,10 +10457,10 @@
         "signal": "하락우위",
         "description": "중심선과 적응 추세가 하방, 매도 우위 구간",
         "adaptive_length": 47,
-        "squeeze_score": 25.0,
-        "upper": 597.99,
-        "middle": 597.6246,
-        "lower": 597.25
+        "squeeze_score": null,
+        "upper": 598.0792,
+        "middle": 597.6297,
+        "lower": 597.1802
       },
       "indicator_2026_signal": "하락우위",
       "indicator_2026_description": "중심선과 적응 추세가 하방, 매도 우위 구간",
@@ -10478,10 +10486,10 @@
           "signal": "하락우위",
           "description": "중심선과 적응 추세가 하방, 매도 우위 구간",
           "adaptive_length": 47,
-          "squeeze_score": 25.0,
-          "upper": 597.99,
-          "middle": 597.6246,
-          "lower": 597.25
+          "squeeze_score": null,
+          "upper": 598.0792,
+          "middle": 597.6297,
+          "lower": 597.1802
         },
         "market_phase": {
           "phase": "하락지속",
@@ -10532,6 +10540,401 @@
         "close_forecast_locked": false
       }
     },
+    "RTX": {
+      "symbol": "RTX",
+      "name": "RTX",
+      "market": "US",
+      "sector": "기타",
+      "latest_price": 193.938,
+      "score": 0.0,
+      "profit_selection_rank": 34,
+      "strategy_id": "04",
+      "strategy_name": "혼조 관망",
+      "regime": null,
+      "predicted_buy_low": 193.45,
+      "predicted_sell_high": 194.42,
+      "predicted_price_source": "fallback",
+      "current_price_signal": {
+        "state": "untrusted",
+        "trust": false,
+        "score": 0.4,
+        "reason": "orderbook_missing,history_missing,tape_missing"
+      },
+      "prediction_cooldown": null,
+      "indicator_2026": {
+        "preset": "2026볼밴",
+        "available": false,
+        "signal": "중립",
+        "description": "가격 이력 부족으로 2026볼밴 판단 보류"
+      },
+      "indicator_2026_signal": "중립",
+      "indicator_2026_description": "가격 이력 부족으로 2026볼밴 판단 보류",
+      "hermes_widget_forecast": {
+        "symbol": "RTX",
+        "market": "US",
+        "name": "RTX",
+        "latest_price": 193.938,
+        "predicted_buy_low": 193.45,
+        "predicted_sell_high": 194.42,
+        "predicted_price_source": "fallback",
+        "target_time_30m": "2026-07-18T03:30:00Z",
+        "target_time_1h": "2026-07-18T04:00:00Z",
+        "current_price_signal": {
+          "state": "untrusted",
+          "trust": false,
+          "score": 0.4,
+          "reason": "orderbook_missing,history_missing,tape_missing"
+        },
+        "indicator_2026": {
+          "preset": "2026볼밴",
+          "available": false,
+          "signal": "중립",
+          "description": "가격 이력 부족으로 2026볼밴 판단 보류"
+        },
+        "market_phase": {
+          "phase": "판단대기",
+          "score": 0.0,
+          "reason": "표본 부족"
+        },
+        "forecast_30m_price": 193.94,
+        "forecast_1h_price": 193.94,
+        "forecast_close_price": 193.94,
+        "forecast_direction": "flat",
+        "tomorrow_center_price": 193.94,
+        "tomorrow_low_price": 193.938,
+        "tomorrow_high_price": 193.94,
+        "reason_summary": "guarded_fallback score=0.40 reason=orderbook_missing,history_missing,tape_missing | history_insufficient",
+        "source": "hermes_guarded_fallback",
+        "macro_summary": "macro_missing",
+        "sector": "기타",
+        "sector_score": 0.0,
+        "symbol_score": 0.0,
+        "flow_score": 0.0,
+        "sync_score": 0.0,
+        "sync_cluster": null,
+        "sync_note": null,
+        "fallback_used": true,
+        "prediction_blocked": true,
+        "prediction_block_reason": "current_price_untrusted",
+        "close_forecast_locked": false
+      }
+    },
+    "ARM": {
+      "symbol": "ARM",
+      "name": "Arm Holdings",
+      "market": "US",
+      "sector": "기타",
+      "latest_price": 266.9,
+      "score": 0.0,
+      "profit_selection_rank": 35,
+      "strategy_id": "07",
+      "strategy_name": "첫캔들 박스 돌파",
+      "regime": null,
+      "predicted_buy_low": 266.23,
+      "predicted_sell_high": 267.57,
+      "predicted_price_source": "fallback",
+      "current_price_signal": {
+        "state": "untrusted",
+        "trust": false,
+        "score": 0.4,
+        "reason": "orderbook_missing,history_missing,tape_missing"
+      },
+      "prediction_cooldown": null,
+      "indicator_2026": {
+        "preset": "2026볼밴",
+        "available": false,
+        "signal": "중립",
+        "description": "가격 이력 부족으로 2026볼밴 판단 보류"
+      },
+      "indicator_2026_signal": "중립",
+      "indicator_2026_description": "가격 이력 부족으로 2026볼밴 판단 보류",
+      "hermes_widget_forecast": {
+        "symbol": "ARM",
+        "market": "US",
+        "name": "Arm Holdings",
+        "latest_price": 266.9,
+        "predicted_buy_low": 266.23,
+        "predicted_sell_high": 267.57,
+        "predicted_price_source": "fallback",
+        "target_time_30m": "2026-07-18T03:30:00Z",
+        "target_time_1h": "2026-07-18T04:00:00Z",
+        "current_price_signal": {
+          "state": "untrusted",
+          "trust": false,
+          "score": 0.4,
+          "reason": "orderbook_missing,history_missing,tape_missing"
+        },
+        "indicator_2026": {
+          "preset": "2026볼밴",
+          "available": false,
+          "signal": "중립",
+          "description": "가격 이력 부족으로 2026볼밴 판단 보류"
+        },
+        "market_phase": {
+          "phase": "판단대기",
+          "score": 0.0,
+          "reason": "표본 부족"
+        },
+        "forecast_30m_price": 266.9,
+        "forecast_1h_price": 266.9,
+        "forecast_close_price": 266.9,
+        "forecast_direction": "flat",
+        "tomorrow_center_price": 266.9,
+        "tomorrow_low_price": 266.9,
+        "tomorrow_high_price": 266.9,
+        "reason_summary": "guarded_fallback score=0.40 reason=orderbook_missing,history_missing,tape_missing | history_insufficient",
+        "source": "hermes_guarded_fallback",
+        "macro_summary": "macro_missing",
+        "sector": "기타",
+        "sector_score": 0.0,
+        "symbol_score": 0.0,
+        "flow_score": 0.0,
+        "sync_score": 0.0,
+        "sync_cluster": null,
+        "sync_note": null,
+        "fallback_used": true,
+        "prediction_blocked": true,
+        "prediction_block_reason": "current_price_untrusted",
+        "close_forecast_locked": false
+      }
+    },
+    "CLF": {
+      "symbol": "CLF",
+      "name": "Cleveland-Cliffs",
+      "market": "US",
+      "sector": "기타",
+      "latest_price": 9.27,
+      "score": 0.0,
+      "profit_selection_rank": 36,
+      "strategy_id": "04",
+      "strategy_name": "혼조 관망",
+      "regime": null,
+      "predicted_buy_low": 9.25,
+      "predicted_sell_high": 9.29,
+      "predicted_price_source": "fallback",
+      "current_price_signal": {
+        "state": "untrusted",
+        "trust": false,
+        "score": 0.4,
+        "reason": "orderbook_missing,history_missing,tape_missing"
+      },
+      "prediction_cooldown": null,
+      "indicator_2026": {
+        "preset": "2026볼밴",
+        "available": false,
+        "signal": "중립",
+        "description": "가격 이력 부족으로 2026볼밴 판단 보류"
+      },
+      "indicator_2026_signal": "중립",
+      "indicator_2026_description": "가격 이력 부족으로 2026볼밴 판단 보류",
+      "hermes_widget_forecast": {
+        "symbol": "CLF",
+        "market": "US",
+        "name": "Cleveland-Cliffs",
+        "latest_price": 9.27,
+        "predicted_buy_low": 9.25,
+        "predicted_sell_high": 9.29,
+        "predicted_price_source": "fallback",
+        "target_time_30m": "2026-07-18T03:30:00Z",
+        "target_time_1h": "2026-07-18T04:00:00Z",
+        "current_price_signal": {
+          "state": "untrusted",
+          "trust": false,
+          "score": 0.4,
+          "reason": "orderbook_missing,history_missing,tape_missing"
+        },
+        "indicator_2026": {
+          "preset": "2026볼밴",
+          "available": false,
+          "signal": "중립",
+          "description": "가격 이력 부족으로 2026볼밴 판단 보류"
+        },
+        "market_phase": {
+          "phase": "판단대기",
+          "score": 0.0,
+          "reason": "표본 부족"
+        },
+        "forecast_30m_price": 9.27,
+        "forecast_1h_price": 9.27,
+        "forecast_close_price": 9.27,
+        "forecast_direction": "flat",
+        "tomorrow_center_price": 9.27,
+        "tomorrow_low_price": 9.27,
+        "tomorrow_high_price": 9.27,
+        "reason_summary": "guarded_fallback score=0.40 reason=orderbook_missing,history_missing,tape_missing | history_insufficient",
+        "source": "hermes_guarded_fallback",
+        "macro_summary": "macro_missing",
+        "sector": "기타",
+        "sector_score": 0.0,
+        "symbol_score": 0.0,
+        "flow_score": 0.0,
+        "sync_score": 0.0,
+        "sync_cluster": null,
+        "sync_note": null,
+        "fallback_used": true,
+        "prediction_blocked": true,
+        "prediction_block_reason": "current_price_untrusted",
+        "close_forecast_locked": false
+      }
+    },
+    "DDOG": {
+      "symbol": "DDOG",
+      "name": "Datadog",
+      "market": "US",
+      "sector": "기타",
+      "latest_price": 256.3487,
+      "score": 0.0,
+      "profit_selection_rank": 37,
+      "strategy_id": "09",
+      "strategy_name": "거래량 돌파",
+      "regime": null,
+      "predicted_buy_low": 255.71,
+      "predicted_sell_high": 256.99,
+      "predicted_price_source": "fallback",
+      "current_price_signal": {
+        "state": "untrusted",
+        "trust": false,
+        "score": 0.4,
+        "reason": "orderbook_missing,history_missing,tape_missing"
+      },
+      "prediction_cooldown": null,
+      "indicator_2026": {
+        "preset": "2026볼밴",
+        "available": false,
+        "signal": "중립",
+        "description": "가격 이력 부족으로 2026볼밴 판단 보류"
+      },
+      "indicator_2026_signal": "중립",
+      "indicator_2026_description": "가격 이력 부족으로 2026볼밴 판단 보류",
+      "hermes_widget_forecast": {
+        "symbol": "DDOG",
+        "market": "US",
+        "name": "Datadog",
+        "latest_price": 256.3487,
+        "predicted_buy_low": 255.71,
+        "predicted_sell_high": 256.99,
+        "predicted_price_source": "fallback",
+        "target_time_30m": "2026-07-18T03:30:00Z",
+        "target_time_1h": "2026-07-18T04:00:00Z",
+        "current_price_signal": {
+          "state": "untrusted",
+          "trust": false,
+          "score": 0.4,
+          "reason": "orderbook_missing,history_missing,tape_missing"
+        },
+        "indicator_2026": {
+          "preset": "2026볼밴",
+          "available": false,
+          "signal": "중립",
+          "description": "가격 이력 부족으로 2026볼밴 판단 보류"
+        },
+        "market_phase": {
+          "phase": "판단대기",
+          "score": 0.0,
+          "reason": "표본 부족"
+        },
+        "forecast_30m_price": 256.35,
+        "forecast_1h_price": 256.35,
+        "forecast_close_price": 256.35,
+        "forecast_direction": "flat",
+        "tomorrow_center_price": 256.35,
+        "tomorrow_low_price": 256.3487,
+        "tomorrow_high_price": 256.35,
+        "reason_summary": "guarded_fallback score=0.40 reason=orderbook_missing,history_missing,tape_missing | history_insufficient",
+        "source": "hermes_guarded_fallback",
+        "macro_summary": "macro_missing",
+        "sector": "기타",
+        "sector_score": 0.0,
+        "symbol_score": 0.0,
+        "flow_score": 0.0,
+        "sync_score": 0.0,
+        "sync_cluster": null,
+        "sync_note": null,
+        "fallback_used": true,
+        "prediction_blocked": true,
+        "prediction_block_reason": "current_price_untrusted",
+        "close_forecast_locked": false
+      }
+    },
+    "CRM": {
+      "symbol": "CRM",
+      "name": "Salesforce",
+      "market": "US",
+      "sector": "기타",
+      "latest_price": 170.34,
+      "score": 0.0,
+      "profit_selection_rank": 38,
+      "strategy_id": "09",
+      "strategy_name": "거래량 돌파",
+      "regime": null,
+      "predicted_buy_low": 169.91,
+      "predicted_sell_high": 170.77,
+      "predicted_price_source": "fallback",
+      "current_price_signal": {
+        "state": "untrusted",
+        "trust": false,
+        "score": 0.4,
+        "reason": "orderbook_missing,history_missing,tape_missing"
+      },
+      "prediction_cooldown": null,
+      "indicator_2026": {
+        "preset": "2026볼밴",
+        "available": false,
+        "signal": "중립",
+        "description": "가격 이력 부족으로 2026볼밴 판단 보류"
+      },
+      "indicator_2026_signal": "중립",
+      "indicator_2026_description": "가격 이력 부족으로 2026볼밴 판단 보류",
+      "hermes_widget_forecast": {
+        "symbol": "CRM",
+        "market": "US",
+        "name": "Salesforce",
+        "latest_price": 170.34,
+        "predicted_buy_low": 169.91,
+        "predicted_sell_high": 170.77,
+        "predicted_price_source": "fallback",
+        "target_time_30m": "2026-07-18T03:30:00Z",
+        "target_time_1h": "2026-07-18T04:00:00Z",
+        "current_price_signal": {
+          "state": "untrusted",
+          "trust": false,
+          "score": 0.4,
+          "reason": "orderbook_missing,history_missing,tape_missing"
+        },
+        "indicator_2026": {
+          "preset": "2026볼밴",
+          "available": false,
+          "signal": "중립",
+          "description": "가격 이력 부족으로 2026볼밴 판단 보류"
+        },
+        "market_phase": {
+          "phase": "판단대기",
+          "score": 0.0,
+          "reason": "표본 부족"
+        },
+        "forecast_30m_price": 170.34,
+        "forecast_1h_price": 170.34,
+        "forecast_close_price": 170.34,
+        "forecast_direction": "flat",
+        "tomorrow_center_price": 170.34,
+        "tomorrow_low_price": 170.34,
+        "tomorrow_high_price": 170.34,
+        "reason_summary": "guarded_fallback score=0.40 reason=orderbook_missing,history_missing,tape_missing | history_insufficient",
+        "source": "hermes_guarded_fallback",
+        "macro_summary": "macro_missing",
+        "sector": "기타",
+        "sector_score": 0.0,
+        "symbol_score": 0.0,
+        "flow_score": 0.0,
+        "sync_score": 0.0,
+        "sync_cluster": null,
+        "sync_note": null,
+        "fallback_used": true,
+        "prediction_blocked": true,
+        "prediction_block_reason": "current_price_untrusted",
+        "close_forecast_locked": false
+      }
+    },
     "005930": {
       "symbol": "005930",
       "name": "삼성전자",
@@ -10539,7 +10942,7 @@
       "sector": "반도체",
       "latest_price": 253500.0,
       "score": 0.76504262820617,
-      "profit_selection_rank": 34,
+      "profit_selection_rank": 39,
       "strategy_id": "09",
       "strategy_name": "거래량 돌파",
       "regime": "변동성/거래량 회복",
@@ -10649,7 +11052,7 @@
       "sector": "기타",
       "latest_price": 34150.0,
       "score": 0.7018800740899399,
-      "profit_selection_rank": 35,
+      "profit_selection_rank": 40,
       "strategy_id": "09",
       "strategy_name": "거래량 돌파",
       "regime": "변동성/거래량 회복",
@@ -10751,336 +11154,6 @@
         "sync_note": null,
         "close_forecast_locked": false
       }
-    },
-    "055550": {
-      "symbol": "055550",
-      "name": "신한지주",
-      "market": "KR",
-      "sector": "금융",
-      "latest_price": 107500.0,
-      "score": 0.621451720994171,
-      "profit_selection_rank": 36,
-      "strategy_id": "09",
-      "strategy_name": "거래량 돌파",
-      "regime": "변동성/거래량 회복",
-      "predicted_buy_low": 107100.0,
-      "predicted_sell_high": 107900.0,
-      "predicted_price_source": "model",
-      "current_price_signal": {
-        "state": "trusted",
-        "trust": true,
-        "score": 1.0,
-        "reason": "orderbook_aligned"
-      },
-      "prediction_cooldown": null,
-      "indicator_2026": {
-        "preset": "2026볼밴",
-        "available": true,
-        "signal": "중립",
-        "description": "추세와 밴드 신호가 약해 추가 확인이 필요",
-        "adaptive_length": 50,
-        "squeeze_score": 98.33,
-        "upper": 107500.0,
-        "middle": 107361.6714,
-        "lower": 107300.0
-      },
-      "indicator_2026_signal": "중립",
-      "indicator_2026_description": "추세와 밴드 신호가 약해 추가 확인이 필요",
-      "hermes_widget_forecast": {
-        "symbol": "055550",
-        "market": "KR",
-        "name": "신한지주",
-        "latest_price": 107400.0,
-        "predicted_buy_low": 107100.0,
-        "predicted_sell_high": 107900.0,
-        "predicted_price_source": "model",
-        "target_time_30m": "2026-07-18T03:30:00Z",
-        "target_time_1h": "2026-07-18T04:00:00Z",
-        "current_price_signal": {
-          "state": "trusted",
-          "trust": true,
-          "score": 1.0,
-          "reason": "orderbook_aligned"
-        },
-        "indicator_2026": {
-          "preset": "2026볼밴",
-          "available": true,
-          "signal": "중립",
-          "description": "추세와 밴드 신호가 약해 추가 확인이 필요",
-          "adaptive_length": 50,
-          "squeeze_score": 98.33,
-          "upper": 107500.0,
-          "middle": 107361.6714,
-          "lower": 107300.0
-        },
-        "market_phase": {
-          "phase": "전환시도",
-          "score": -4.0362,
-          "reason": "trend20=+0.09% trend6=+0.09% trend3=+0.09% trend2=+0.09% strength=99.00 imbalance=-0.29 sync=+0.00 band=중립",
-          "trend_20_pct": 0.0932,
-          "trend_6_pct": 0.0932,
-          "trend_3_pct": 0.0932,
-          "trend_2_pct": 0.0932,
-          "trade_strength": 99.0,
-          "imbalance": -0.2857,
-          "sync_score": 0.0,
-          "off_high_pct": 0.0,
-          "rebound_from_low_pct": 0.0932,
-          "profile": {
-            "trend_2_up_threshold": 0.035,
-            "trend_2_down_threshold": -0.035,
-            "trend_3_rebound_threshold": 0.06,
-            "min_trade_strength_up": 95.0,
-            "max_trade_strength_down": 96.5,
-            "min_trade_strength_rebound": 95.0,
-            "imbalance_up_threshold": 0.04,
-            "imbalance_down_threshold": -0.04
-          }
-        },
-        "forecast_30m_price": 107400.0,
-        "forecast_1h_price": 107400.0,
-        "forecast_close_price": 107400.0,
-        "forecast_direction": "flat",
-        "tomorrow_center_price": 107500.0,
-        "tomorrow_low_price": 107100.0,
-        "tomorrow_high_price": 107700.0,
-        "reason_summary": "ema5=107340.00, ema20=107355.00, ema_align=-0.01%, trend=+0.09%, vol=0.04%, range=0.09%, conviction=-0.07, confidence=0.24, sector=금융, vwap=gray, adl=neutral, imbalance=-0.29, sector_score=+0.50, symbol_score=+0.01, flow_score=-0.34, sync_score=+0.00, news=unavailable, evidence=2/3",
-        "source": "hermes_judgement_v2",
-        "macro_summary": "sector=금융, k200_night=-9.72%, wti=+3.57%, geo=high, issues=-0.60, earnings=+0.50, symbol_news=+0.00",
-        "confidence": 0.2448,
-        "conviction": -0.0661,
-        "evidence_score": 2,
-        "recent_vol_pct": 0.0441,
-        "recent_range_pct": 0.0931,
-        "sector": "금융",
-        "sector_score": 0.5,
-        "symbol_score": 0.0112,
-        "flow_score": -0.3371,
-        "sync_score": 0.0,
-        "sync_cluster": null,
-        "sync_note": null,
-        "close_forecast_locked": false
-      }
-    },
-    "005380": {
-      "symbol": "005380",
-      "name": "현대차",
-      "market": "KR",
-      "sector": "자동차",
-      "latest_price": 421500.0,
-      "score": 0.6089285712041513,
-      "profit_selection_rank": 37,
-      "strategy_id": "09",
-      "strategy_name": "거래량 돌파",
-      "regime": "변동성/거래량 회복",
-      "predicted_buy_low": 420200.0,
-      "predicted_sell_high": 422800.0,
-      "predicted_price_source": "model",
-      "current_price_signal": {
-        "state": "trusted",
-        "trust": true,
-        "score": 1.0,
-        "reason": "orderbook_aligned"
-      },
-      "prediction_cooldown": null,
-      "indicator_2026": {
-        "preset": "2026볼밴",
-        "available": true,
-        "signal": "스퀴즈 대기",
-        "description": "밴드 폭 수축 상태, 방향성 확정 전 대기 구간",
-        "adaptive_length": 37,
-        "squeeze_score": 16.67,
-        "upper": 421500.0,
-        "middle": 421249.2523,
-        "lower": 421000.0
-      },
-      "indicator_2026_signal": "스퀴즈 대기",
-      "indicator_2026_description": "밴드 폭 수축 상태, 방향성 확정 전 대기 구간",
-      "hermes_widget_forecast": {
-        "symbol": "005380",
-        "market": "KR",
-        "name": "현대차",
-        "latest_price": 421500.0,
-        "predicted_buy_low": 420200.0,
-        "predicted_sell_high": 422800.0,
-        "predicted_price_source": "model",
-        "target_time_30m": "2026-07-18T03:30:00Z",
-        "target_time_1h": "2026-07-18T04:00:00Z",
-        "current_price_signal": {
-          "state": "trusted",
-          "trust": true,
-          "score": 1.0,
-          "reason": "orderbook_aligned"
-        },
-        "indicator_2026": {
-          "preset": "2026볼밴",
-          "available": true,
-          "signal": "스퀴즈 대기",
-          "description": "밴드 폭 수축 상태, 방향성 확정 전 대기 구간",
-          "adaptive_length": 37,
-          "squeeze_score": 16.67,
-          "upper": 421500.0,
-          "middle": 421249.2523,
-          "lower": 421000.0
-        },
-        "market_phase": {
-          "phase": "보합",
-          "score": -3.2974,
-          "reason": "trend20=+0.00% trend6=+0.00% trend3=+0.00% trend2=+0.00% strength=90.00 imbalance=-0.15 sync=+0.00 band=스퀴즈 대기",
-          "trend_20_pct": 0.0,
-          "trend_6_pct": 0.0,
-          "trend_3_pct": 0.0,
-          "trend_2_pct": 0.0,
-          "trade_strength": 90.0,
-          "imbalance": -0.1532,
-          "sync_score": 0.0,
-          "off_high_pct": 0.0,
-          "rebound_from_low_pct": 0.1188,
-          "profile": {
-            "trend_2_up_threshold": 0.06,
-            "trend_2_down_threshold": -0.06,
-            "trend_3_rebound_threshold": 0.1,
-            "min_trade_strength_up": 101.0,
-            "max_trade_strength_down": 99.0,
-            "min_trade_strength_rebound": 100.0,
-            "imbalance_up_threshold": 0.08,
-            "imbalance_down_threshold": -0.08
-          }
-        },
-        "forecast_30m_price": 421300.0,
-        "forecast_1h_price": 421200.0,
-        "forecast_close_price": 421200.0,
-        "forecast_direction": "down",
-        "tomorrow_center_price": 421500.0,
-        "tomorrow_low_price": 420000.0,
-        "tomorrow_high_price": 423000.0,
-        "reason_summary": "ema5=421500.00, ema20=421475.00, ema_align=+0.01%, trend=+0.00%, vol=0.01%, range=0.12%, conviction=-0.18, confidence=0.38, sector=자동차, vwap=gray, adl=neutral, imbalance=-0.15, sector_score=+0.00, symbol_score=+0.00, flow_score=-0.13, sync_score=+0.00, news=unavailable, evidence=2/3",
-        "source": "hermes_judgement_v2",
-        "macro_summary": "sector=자동차, k200_night=-9.72%, wti=+3.57%, geo=high, issues=-0.60, earnings=+0.00, symbol_news=+0.00",
-        "confidence": 0.3756,
-        "conviction": -0.1784,
-        "evidence_score": 2,
-        "recent_vol_pct": 0.0125,
-        "recent_range_pct": 0.1186,
-        "sector": "자동차",
-        "sector_score": 0.0,
-        "symbol_score": 0.0,
-        "flow_score": -0.1251,
-        "sync_score": 0.0,
-        "sync_cluster": null,
-        "sync_note": null,
-        "close_forecast_locked": false
-      }
-    },
-    "028260": {
-      "symbol": "028260",
-      "name": "삼성물산",
-      "market": "KR",
-      "sector": "가치",
-      "latest_price": 341000.0,
-      "score": 0.5896209750649928,
-      "profit_selection_rank": 38,
-      "strategy_id": "09",
-      "strategy_name": "거래량 돌파",
-      "regime": "변동성/거래량 회복",
-      "predicted_buy_low": 339900.0,
-      "predicted_sell_high": 342100.0,
-      "predicted_price_source": "model",
-      "current_price_signal": {
-        "state": "trusted",
-        "trust": true,
-        "score": 1.0,
-        "reason": "orderbook_aligned"
-      },
-      "prediction_cooldown": null,
-      "indicator_2026": {
-        "preset": "2026볼밴",
-        "available": true,
-        "signal": "S2 하락지속",
-        "description": "중심선 아래 재하락, 기존 하락 추세 연장 구간",
-        "adaptive_length": 37,
-        "squeeze_score": 40.0,
-        "upper": 341500.0,
-        "middle": 341112.2475,
-        "lower": 340500.0
-      },
-      "indicator_2026_signal": "S2 하락지속",
-      "indicator_2026_description": "중심선 아래 재하락, 기존 하락 추세 연장 구간",
-      "hermes_widget_forecast": {
-        "symbol": "028260",
-        "market": "KR",
-        "name": "삼성물산",
-        "latest_price": 340500.0,
-        "predicted_buy_low": 339900.0,
-        "predicted_sell_high": 342100.0,
-        "predicted_price_source": "model",
-        "target_time_30m": "2026-07-18T03:30:00Z",
-        "target_time_1h": "2026-07-18T04:00:00Z",
-        "current_price_signal": {
-          "state": "trusted",
-          "trust": true,
-          "score": 1.0,
-          "reason": "orderbook_aligned"
-        },
-        "indicator_2026": {
-          "preset": "2026볼밴",
-          "available": true,
-          "signal": "S2 하락지속",
-          "description": "중심선 아래 재하락, 기존 하락 추세 연장 구간",
-          "adaptive_length": 37,
-          "squeeze_score": 40.0,
-          "upper": 341500.0,
-          "middle": 341112.2475,
-          "lower": 340500.0
-        },
-        "market_phase": {
-          "phase": "하락지속",
-          "score": -0.1729,
-          "reason": "trend20=-0.15% trend6=-0.29% trend3=-0.15% trend2=-0.15% strength=118.00 imbalance=-0.09 sync=+0.00 band=S2 하락지속",
-          "trend_20_pct": -0.1466,
-          "trend_6_pct": -0.2928,
-          "trend_3_pct": -0.1466,
-          "trend_2_pct": -0.1466,
-          "trade_strength": 118.0,
-          "imbalance": -0.0876,
-          "sync_score": 0.0,
-          "off_high_pct": 0.2937,
-          "rebound_from_low_pct": 0.0,
-          "profile": {
-            "trend_2_up_threshold": 0.06,
-            "trend_2_down_threshold": -0.06,
-            "trend_3_rebound_threshold": 0.1,
-            "min_trade_strength_up": 101.0,
-            "max_trade_strength_down": 99.0,
-            "min_trade_strength_rebound": 100.0,
-            "imbalance_up_threshold": 0.08,
-            "imbalance_down_threshold": -0.08
-          }
-        },
-        "forecast_30m_price": 340100.0,
-        "forecast_1h_price": 340100.0,
-        "forecast_close_price": 340100.0,
-        "forecast_direction": "down",
-        "tomorrow_center_price": 340000.0,
-        "tomorrow_low_price": 339300.0,
-        "tomorrow_high_price": 341700.0,
-        "reason_summary": "ema5=341000.00, ema20=341075.00, ema_align=-0.02%, trend=-0.29%, vol=0.02%, range=0.29%, conviction=-0.31, confidence=0.38, sector=가치, vwap=white, adl=distribution, imbalance=-0.09, sector_score=+0.00, symbol_score=+0.02, flow_score=-0.61, sync_score=+0.00, news=unavailable, evidence=2/3",
-        "source": "hermes_judgement_v2",
-        "macro_summary": "sector=가치, k200_night=-9.72%, wti=+3.57%, geo=high, issues=-0.60, earnings=+0.00, symbol_news=+0.00",
-        "confidence": 0.38,
-        "conviction": -0.3063,
-        "evidence_score": 2,
-        "recent_vol_pct": 0.0231,
-        "recent_range_pct": 0.2937,
-        "sector": "가치",
-        "sector_score": 0.0,
-        "symbol_score": 0.0176,
-        "flow_score": -0.6101,
-        "sync_score": 0.0,
-        "sync_cluster": null,
-        "sync_note": null,
-        "close_forecast_locked": false
-      }
     }
   },
   "open_positions": [
@@ -11114,7 +11187,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:19:13.653711Z",
+        "checked_at": "2026-07-18T03:22:24.033397Z",
         "source": "toss_wts_quote_ticks"
       },
       "indicator_snapshot": {
@@ -11270,7 +11343,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:18:34.749501Z",
+        "checked_at": "2026-07-18T03:21:43.197773Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -11406,7 +11479,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:19:15.758799Z",
+        "checked_at": "2026-07-18T03:22:25.976630Z",
         "source": "toss_wts_quote_ticks"
       },
       "indicator_snapshot": {
@@ -11559,7 +11632,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:18:44.676121Z",
+        "checked_at": "2026-07-18T03:21:53.706573Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -11717,7 +11790,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:19:17.842034Z",
+        "checked_at": "2026-07-18T03:22:28.036791Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -11848,7 +11921,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:18:56.822950Z",
+        "checked_at": "2026-07-18T03:22:06.881750Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -12017,7 +12090,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:18:32.828724Z",
+        "checked_at": "2026-07-18T03:21:41.124263Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -12175,7 +12248,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:19:19.910039Z",
+        "checked_at": "2026-07-18T03:22:30.124092Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -12295,7 +12368,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:19:21.930134Z",
+        "checked_at": "2026-07-18T03:22:32.157717Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -12415,7 +12488,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:19:23.985167Z",
+        "checked_at": "2026-07-18T03:22:34.288465Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -12535,7 +12608,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:19:25.942770Z",
+        "checked_at": "2026-07-18T03:22:36.751579Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -12655,7 +12728,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:19:28.055223Z",
+        "checked_at": "2026-07-18T03:22:39.025569Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -12775,7 +12848,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:19:30.124690Z",
+        "checked_at": "2026-07-18T03:22:41.564066Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -12895,7 +12968,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:19:32.141306Z",
+        "checked_at": "2026-07-18T03:22:44.120914Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -13015,7 +13088,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:19:34.160326Z",
+        "checked_at": "2026-07-18T03:22:46.603288Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -13135,7 +13208,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:19:36.181493Z",
+        "checked_at": "2026-07-18T03:22:49.141805Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -13266,7 +13339,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:18:36.712131Z",
+        "checked_at": "2026-07-18T03:21:45.340651Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -13435,7 +13508,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:18:48.828495Z",
+        "checked_at": "2026-07-18T03:21:58.063078Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -13604,7 +13677,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:18:30.893420Z",
+        "checked_at": "2026-07-18T03:21:39.053947Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -13762,7 +13835,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:19:38.146184Z",
+        "checked_at": "2026-07-18T03:22:51.813804Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -13893,7 +13966,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:19:11.512014Z",
+        "checked_at": "2026-07-18T03:22:21.851648Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -14062,7 +14135,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:18:08.181969Z",
+        "checked_at": "2026-07-18T03:21:13.564669Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -14235,7 +14308,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:18:00.007281Z",
+        "checked_at": "2026-07-18T03:21:03.633314Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -14393,7 +14466,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:19:40.212788Z",
+        "checked_at": "2026-07-18T03:22:54.261113Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -14513,7 +14586,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:19:42.319266Z",
+        "checked_at": "2026-07-18T03:22:56.805739Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -14633,7 +14706,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:19:44.551897Z",
+        "checked_at": "2026-07-18T03:22:59.416985Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -14753,7 +14826,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:19:46.559425Z",
+        "checked_at": "2026-07-18T03:23:01.750352Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -14888,7 +14961,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:18:26.807411Z",
+        "checked_at": "2026-07-18T03:21:34.815722Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -15046,7 +15119,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:19:48.623723Z",
+        "checked_at": "2026-07-18T03:23:04.443088Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -15166,7 +15239,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:19:50.833660Z",
+        "checked_at": "2026-07-18T03:23:07.150615Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -15286,7 +15359,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:19:52.913125Z",
+        "checked_at": "2026-07-18T03:23:09.696717Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -15421,7 +15494,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:18:22.613980Z",
+        "checked_at": "2026-07-18T03:21:30.103344Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -15579,7 +15652,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:19:54.846697Z",
+        "checked_at": "2026-07-18T03:23:12.149216Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -15699,7 +15772,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:19:56.831770Z",
+        "checked_at": "2026-07-18T03:23:14.668424Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -15819,7 +15892,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:19:58.792648Z",
+        "checked_at": "2026-07-18T03:23:17.004229Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -15939,7 +16012,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:20:00.756014Z",
+        "checked_at": "2026-07-18T03:23:19.383570Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -16070,7 +16143,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:18:02.160211Z",
+        "checked_at": "2026-07-18T03:21:06.154029Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -16239,7 +16312,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:18:46.743032Z",
+        "checked_at": "2026-07-18T03:21:55.872327Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -16408,7 +16481,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:18:20.501051Z",
+        "checked_at": "2026-07-18T03:21:27.592465Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -16577,7 +16650,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:19:07.223130Z",
+        "checked_at": "2026-07-18T03:22:17.316327Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -16746,7 +16819,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:18:40.555014Z",
+        "checked_at": "2026-07-18T03:21:49.381358Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -16915,7 +16988,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:18:14.404200Z",
+        "checked_at": "2026-07-18T03:21:20.288350Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -17084,7 +17157,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:19:02.898395Z",
+        "checked_at": "2026-07-18T03:22:13.041084Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -17242,7 +17315,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:20:02.704285Z",
+        "checked_at": "2026-07-18T03:23:21.878224Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -17373,7 +17446,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:18:38.620115Z",
+        "checked_at": "2026-07-18T03:21:47.325398Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -17531,7 +17604,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:20:04.606369Z",
+        "checked_at": "2026-07-18T03:23:24.144784Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -17651,7 +17724,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:20:06.577506Z",
+        "checked_at": "2026-07-18T03:23:26.449288Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -17771,7 +17844,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:20:08.542453Z",
+        "checked_at": "2026-07-18T03:23:29.099593Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -17891,7 +17964,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:20:10.454907Z",
+        "checked_at": "2026-07-18T03:23:31.656836Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -18011,7 +18084,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:20:12.370346Z",
+        "checked_at": "2026-07-18T03:23:34.224249Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -18131,7 +18204,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:20:14.348277Z",
+        "checked_at": "2026-07-18T03:23:36.744112Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -18251,7 +18324,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:20:16.326525Z",
+        "checked_at": "2026-07-18T03:23:39.327967Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -18386,7 +18459,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:18:28.964225Z",
+        "checked_at": "2026-07-18T03:21:36.917630Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -18544,7 +18617,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:20:18.399188Z",
+        "checked_at": "2026-07-18T03:23:41.778301Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -18664,7 +18737,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:20:20.483092Z",
+        "checked_at": "2026-07-18T03:23:44.186114Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -18784,7 +18857,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:20:22.531795Z",
+        "checked_at": "2026-07-18T03:23:46.570466Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -18904,7 +18977,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:20:24.625533Z",
+        "checked_at": "2026-07-18T03:23:49.353722Z",
         "source": "toss_wts_quote_ticks"
       },
       "time_window_pattern": "unavailable",
@@ -19035,7 +19108,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:18:50.830785Z",
+        "checked_at": "2026-07-18T03:22:00.294373Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -19204,7 +19277,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:18:04.133517Z",
+        "checked_at": "2026-07-18T03:21:08.642631Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -19373,7 +19446,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:18:18.485618Z",
+        "checked_at": "2026-07-18T03:21:25.134966Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -19542,7 +19615,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:19:09.365857Z",
+        "checked_at": "2026-07-18T03:22:19.610335Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -19711,7 +19784,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:18:52.852250Z",
+        "checked_at": "2026-07-18T03:22:02.542362Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -19880,7 +19953,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:19:05.129618Z",
+        "checked_at": "2026-07-18T03:22:15.116192Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -20049,7 +20122,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:18:06.156703Z",
+        "checked_at": "2026-07-18T03:21:11.043848Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -20218,7 +20291,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:18:10.224480Z",
+        "checked_at": "2026-07-18T03:21:15.818535Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -20387,7 +20460,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:18:16.462456Z",
+        "checked_at": "2026-07-18T03:21:22.605691Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -20556,7 +20629,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:18:12.349933Z",
+        "checked_at": "2026-07-18T03:21:18.032977Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -20725,7 +20798,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:18:42.590896Z",
+        "checked_at": "2026-07-18T03:21:51.594191Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -20894,7 +20967,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:17:55.688288Z",
+        "checked_at": "2026-07-18T03:20:58.804715Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -21063,7 +21136,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:18:54.868015Z",
+        "checked_at": "2026-07-18T03:22:04.649489Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -21232,7 +21305,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-18T03:18:58.821933Z",
+        "checked_at": "2026-07-18T03:22:08.933852Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
