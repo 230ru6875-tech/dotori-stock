@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-07-19T04:47:27.262151Z",
+  "updated_at": "2026-07-19T04:50:45.106759Z",
   "source": "dotoristock_dotoriweb_live_bridge",
-  "status_updated_at": "2026-07-19T04:47:26.944597Z",
+  "status_updated_at": "2026-07-19T04:50:44.787673Z",
   "widget_updated_at": null,
   "macro_updated_at": "2026-07-19T04:39:59.151128Z",
   "market_focus": "US",
@@ -60,15 +60,15 @@
     "MU",
     "SNDK",
     "005930",
+    "SOFI",
     "BAC",
     "WMT",
+    "CRM",
     "XOM",
-    "SOFI",
-    "F",
+    "PFE",
     "AMZN",
     "GE",
-    "CRM",
-    "PFE",
+    "F",
     "SPY",
     "005490",
     "000270",
@@ -4135,9 +4135,9 @@
           "signal": "상승우위",
           "description": "중심선과 적응 추세가 상방, 매수 우위 구간",
           "adaptive_length": 48,
-          "squeeze_score": 81.67,
+          "squeeze_score": 70.0,
           "upper": 640.25,
-          "middle": 640.138,
+          "middle": 640.1427,
           "lower": 640.01
         },
         "market_phase": {
@@ -4212,7 +4212,7 @@
           "adaptive_length": 47,
           "squeeze_score": 0.0,
           "upper": 9.29,
-          "middle": 9.2788,
+          "middle": 9.2786,
           "lower": 9.27
         },
         "market_phase": {
@@ -7608,9 +7608,9 @@
         "signal": "상승우위",
         "description": "중심선과 적응 추세가 상방, 매수 우위 구간",
         "adaptive_length": 48,
-        "squeeze_score": 81.67,
+        "squeeze_score": 70.0,
         "upper": 640.25,
-        "middle": 640.138,
+        "middle": 640.1427,
         "lower": 640.01
       },
       "indicator_2026_signal": "상승우위",
@@ -7637,9 +7637,9 @@
           "signal": "상승우위",
           "description": "중심선과 적응 추세가 상방, 매수 우위 구간",
           "adaptive_length": 48,
-          "squeeze_score": 81.67,
+          "squeeze_score": 70.0,
           "upper": 640.25,
-          "middle": 640.138,
+          "middle": 640.1427,
           "lower": 640.01
         },
         "market_phase": {
@@ -9590,7 +9590,7 @@
         "adaptive_length": 47,
         "squeeze_score": 0.0,
         "upper": 9.29,
-        "middle": 9.2788,
+        "middle": 9.2786,
         "lower": 9.27
       },
       "indicator_2026_signal": "스퀴즈 대기",
@@ -9619,7 +9619,7 @@
           "adaptive_length": 47,
           "squeeze_score": 0.0,
           "upper": 9.29,
-          "middle": 9.2788,
+          "middle": 9.2786,
           "lower": 9.27
         },
         "market_phase": {
@@ -10865,10 +10865,10 @@
       "predicted_sell_high": 23.6,
       "predicted_price_source": "fallback",
       "current_price_signal": {
-        "state": "untrusted",
-        "trust": false,
-        "score": 0.4,
-        "reason": "orderbook_missing,history_missing,tape_missing"
+        "state": "trusted",
+        "trust": true,
+        "score": 0.55,
+        "reason": "orderbook_missing,history_missing"
       },
       "prediction_cooldown": null,
       "indicator_2026": {
@@ -10941,10 +10941,10 @@
       "predicted_sell_high": 1069.24,
       "predicted_price_source": "fallback",
       "current_price_signal": {
-        "state": "untrusted",
-        "trust": false,
-        "score": 0.4,
-        "reason": "orderbook_missing,history_missing,tape_missing"
+        "state": "trusted",
+        "trust": true,
+        "score": 0.55,
+        "reason": "orderbook_missing,history_missing"
       },
       "prediction_cooldown": null,
       "indicator_2026": {
@@ -11096,10 +11096,10 @@
       "predicted_sell_high": 599.23,
       "predicted_price_source": "fallback",
       "current_price_signal": {
-        "state": "untrusted",
-        "trust": false,
-        "score": 0.4,
-        "reason": "orderbook_missing,history_missing,tape_missing"
+        "state": "trusted",
+        "trust": true,
+        "score": 0.55,
+        "reason": "orderbook_missing,history_missing"
       },
       "prediction_cooldown": null,
       "indicator_2026": {
@@ -11172,10 +11172,10 @@
       "predicted_sell_high": 881.53,
       "predicted_price_source": "fallback",
       "current_price_signal": {
-        "state": "untrusted",
-        "trust": false,
-        "score": 0.4,
-        "reason": "orderbook_missing,history_missing,tape_missing"
+        "state": "trusted",
+        "trust": true,
+        "score": 0.55,
+        "reason": "orderbook_missing,history_missing"
       },
       "prediction_cooldown": null,
       "indicator_2026": {
@@ -11333,7 +11333,7 @@
       "volume": 4201041.0,
       "trade_strength": 92.96,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "profit_selection_rank": 32,
       "profit_selection_score": 3.2355,
       "historical_strategy_avg_pnl_pct": 1.9758,
@@ -11382,7 +11382,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:42:03.202579Z",
+        "checked_at": "2026-07-19T04:46:35.658620Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -11507,7 +11507,7 @@
       "volume": 31394594.0,
       "trade_strength": 98.09,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "profit_selection_rank": 21,
       "profit_selection_score": 3.3229,
       "historical_strategy_avg_pnl_pct": 1.9758,
@@ -11556,7 +11556,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:41:20.663754Z",
+        "checked_at": "2026-07-19T04:45:52.432968Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -11699,7 +11699,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:42:18.842420Z",
+        "checked_at": "2026-07-19T04:46:50.815579Z",
         "source": "toss_api_quote"
       },
       "indicator_snapshot": {
@@ -11786,7 +11786,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "regime": null,
       "sector": null,
       "current_price": 266.9,
@@ -11814,7 +11814,7 @@
       "volume": 10167706.0,
       "trade_strength": 133.95,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "profit_selection_rank": 28,
       "profit_selection_score": 3.2739,
       "historical_strategy_avg_pnl_pct": 1.9758,
@@ -11863,7 +11863,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:41:42.104865Z",
+        "checked_at": "2026-07-19T04:46:13.905871Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -11990,7 +11990,7 @@
       "volume": 18310010.0,
       "trade_strength": 117.89,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "profit_selection_rank": 23,
       "profit_selection_score": 3.2995,
       "historical_strategy_avg_pnl_pct": 1.9758,
@@ -12039,7 +12039,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:41:32.877326Z",
+        "checked_at": "2026-07-19T04:46:04.864290Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -12166,7 +12166,7 @@
       "volume": 4220491.0,
       "trade_strength": 82.26,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "profit_selection_rank": 31,
       "profit_selection_score": 3.2357,
       "historical_strategy_avg_pnl_pct": 1.9758,
@@ -12215,7 +12215,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:42:00.350122Z",
+        "checked_at": "2026-07-19T04:46:32.573760Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -12342,7 +12342,7 @@
       "volume": 32115875.0,
       "trade_strength": 121.79,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "profit_selection_rank": 20,
       "profit_selection_score": 3.3239,
       "historical_strategy_avg_pnl_pct": 1.9758,
@@ -12391,7 +12391,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:41:17.997990Z",
+        "checked_at": "2026-07-19T04:45:49.313203Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -12556,7 +12556,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:42:22.044363Z",
+        "checked_at": "2026-07-19T04:46:53.616780Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -12621,7 +12621,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "regime": null,
       "sector": null,
       "current_price": 61200.0,
@@ -12687,7 +12687,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:42:25.082637Z",
+        "checked_at": "2026-07-19T04:46:56.546841Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -12752,7 +12752,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "regime": null,
       "sector": null,
       "current_price": 18300.0,
@@ -12818,7 +12818,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:42:28.307595Z",
+        "checked_at": "2026-07-19T04:46:59.533256Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -12883,7 +12883,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "regime": null,
       "sector": null,
       "current_price": 57600.0,
@@ -12949,7 +12949,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:42:31.365606Z",
+        "checked_at": "2026-07-19T04:47:02.788481Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -13014,7 +13014,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "regime": null,
       "sector": null,
       "current_price": 174500.0,
@@ -13080,7 +13080,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:42:34.206056Z",
+        "checked_at": "2026-07-19T04:47:05.874742Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -13145,7 +13145,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "regime": null,
       "sector": null,
       "current_price": 5940.0,
@@ -13211,7 +13211,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:42:37.136661Z",
+        "checked_at": "2026-07-19T04:47:08.916382Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -13276,7 +13276,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "regime": null,
       "sector": null,
       "current_price": 5620.0,
@@ -13342,7 +13342,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:42:40.139515Z",
+        "checked_at": "2026-07-19T04:47:12.168676Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -13407,7 +13407,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "regime": null,
       "sector": null,
       "current_price": 42500.0,
@@ -13473,7 +13473,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:42:43.541227Z",
+        "checked_at": "2026-07-19T04:47:15.114840Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -13538,7 +13538,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "regime": null,
       "sector": null,
       "current_price": 239500.0,
@@ -13604,7 +13604,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:42:46.784259Z",
+        "checked_at": "2026-07-19T04:47:18.102980Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -13669,7 +13669,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "regime": null,
       "sector": null,
       "current_price": 137200.0,
@@ -13697,7 +13697,7 @@
       "volume": 25382214.0,
       "trade_strength": 94.31,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "profit_selection_rank": 6,
       "profit_selection_score": 3.4136,
       "historical_strategy_avg_pnl_pct": 1.9758,
@@ -13746,7 +13746,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:41:23.841117Z",
+        "checked_at": "2026-07-19T04:45:55.472443Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -13873,7 +13873,7 @@
       "volume": 9102630.0,
       "trade_strength": 83.54,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "profit_selection_rank": 9,
       "profit_selection_score": 3.3691,
       "historical_strategy_avg_pnl_pct": 1.9758,
@@ -13922,7 +13922,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:41:48.304616Z",
+        "checked_at": "2026-07-19T04:46:19.807024Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -14049,7 +14049,7 @@
       "volume": 54109267.0,
       "trade_strength": 82.8,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "profit_selection_rank": 3,
       "profit_selection_score": 3.4465,
       "historical_strategy_avg_pnl_pct": 1.9758,
@@ -14098,7 +14098,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:41:14.970591Z",
+        "checked_at": "2026-07-19T04:45:46.214485Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -14225,7 +14225,7 @@
       "volume": 3508997.0,
       "trade_strength": 146.69,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "profit_selection_rank": 19,
       "profit_selection_score": 3.3277,
       "historical_strategy_avg_pnl_pct": 1.9758,
@@ -14274,7 +14274,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:42:09.565221Z",
+        "checked_at": "2026-07-19T04:46:41.753512Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -14439,7 +14439,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:42:49.974229Z",
+        "checked_at": "2026-07-19T04:47:20.764135Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -14501,7 +14501,7 @@
       "ask_qty": null,
       "trade_strength": 82.8,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "regime": null,
       "sector": null,
       "current_price": 23.54,
@@ -14529,7 +14529,7 @@
       "volume": 89973828.0,
       "trade_strength": 99.82,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "profit_selection_rank": 2,
       "profit_selection_score": 3.4686,
       "historical_strategy_avg_pnl_pct": 1.9758,
@@ -14578,7 +14578,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:40:38.651978Z",
+        "checked_at": "2026-07-19T04:45:09.302953Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -14709,7 +14709,7 @@
       "volume": 44712225.0,
       "trade_strength": 74.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "profit_selection_rank": 41,
       "profit_selection_score": 2.5294,
       "historical_strategy_avg_pnl_pct": null,
@@ -14758,7 +14758,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:40:29.659758Z",
+        "checked_at": "2026-07-19T04:44:59.857089Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -14919,7 +14919,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:42:53.071732Z",
+        "checked_at": "2026-07-19T04:47:23.786663Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -14984,7 +14984,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "regime": null,
       "sector": null,
       "current_price": 180300.0,
@@ -15050,7 +15050,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:42:56.257504Z",
+        "checked_at": "2026-07-19T04:47:26.910920Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -15115,7 +15115,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "regime": null,
       "sector": null,
       "current_price": 138000.0,
@@ -15181,7 +15181,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:42:59.381528Z",
+        "checked_at": "2026-07-19T04:47:29.985641Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -15246,7 +15246,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "regime": null,
       "sector": null,
       "current_price": 430000.0,
@@ -15312,7 +15312,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:43:02.522313Z",
+        "checked_at": "2026-07-19T04:47:33.053437Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -15377,7 +15377,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "regime": null,
       "sector": null,
       "current_price": 34050.0,
@@ -15443,7 +15443,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:43:05.543778Z",
+        "checked_at": "2026-07-19T04:47:36.390724Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -15508,7 +15508,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "regime": null,
       "sector": null,
       "current_price": 107500.0,
@@ -15574,7 +15574,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:43:08.664989Z",
+        "checked_at": "2026-07-19T04:47:39.526730Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -15639,7 +15639,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "regime": null,
       "sector": null,
       "current_price": 33950.0,
@@ -15671,7 +15671,7 @@
       "volume": 113308.0,
       "trade_strength": 133.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "profit_selection_rank": 45,
       "profit_selection_score": 2.2698,
       "historical_strategy_avg_pnl_pct": null,
@@ -15720,7 +15720,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:41:08.868113Z",
+        "checked_at": "2026-07-19T04:45:40.054809Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -15881,7 +15881,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:43:11.865587Z",
+        "checked_at": "2026-07-19T04:47:42.794999Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -15946,7 +15946,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "regime": null,
       "sector": null,
       "current_price": 98100.0,
@@ -16012,7 +16012,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:43:14.934800Z",
+        "checked_at": "2026-07-19T04:47:45.700358Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -16077,7 +16077,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "regime": null,
       "sector": null,
       "current_price": 421500.0,
@@ -16109,7 +16109,7 @@
       "volume": 411643.0,
       "trade_strength": 85.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "profit_selection_rank": 43,
       "profit_selection_score": 2.3259,
       "historical_strategy_avg_pnl_pct": null,
@@ -16158,7 +16158,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:41:02.764410Z",
+        "checked_at": "2026-07-19T04:45:33.970876Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -16319,7 +16319,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:43:17.994787Z",
+        "checked_at": "2026-07-19T04:47:48.859044Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -16384,7 +16384,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "regime": null,
       "sector": null,
       "current_price": 56800.0,
@@ -16450,7 +16450,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:43:21.156100Z",
+        "checked_at": "2026-07-19T04:47:52.066930Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -16515,7 +16515,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "regime": null,
       "sector": null,
       "current_price": 198500.0,
@@ -16581,7 +16581,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:43:24.370684Z",
+        "checked_at": "2026-07-19T04:47:55.302800Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -16646,7 +16646,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "regime": null,
       "sector": null,
       "current_price": 324500.0,
@@ -16674,7 +16674,7 @@
       "volume": 45045229.0,
       "trade_strength": 92.3,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "profit_selection_rank": 17,
       "profit_selection_score": 3.3386,
       "historical_strategy_avg_pnl_pct": 1.9758,
@@ -16723,7 +16723,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:40:32.536469Z",
+        "checked_at": "2026-07-19T04:45:02.995628Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -16850,7 +16850,7 @@
       "volume": 9250854.0,
       "trade_strength": 78.98,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "profit_selection_rank": 29,
       "profit_selection_score": 3.2698,
       "historical_strategy_avg_pnl_pct": 1.9758,
@@ -16899,7 +16899,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:41:45.230026Z",
+        "checked_at": "2026-07-19T04:46:16.980287Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -17026,7 +17026,7 @@
       "volume": 62650961.0,
       "trade_strength": 110.42,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "profit_selection_rank": 15,
       "profit_selection_score": 3.3529,
       "historical_strategy_avg_pnl_pct": 1.9758,
@@ -17075,7 +17075,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:40:59.622732Z",
+        "checked_at": "2026-07-19T04:45:31.068154Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -17240,7 +17240,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:43:27.285608Z",
+        "checked_at": "2026-07-19T04:47:58.271286Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -17302,7 +17302,7 @@
       "ask_qty": null,
       "trade_strength": 101.13,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "regime": null,
       "sector": null,
       "current_price": 1066.57,
@@ -17330,7 +17330,7 @@
       "volume": 12201198.0,
       "trade_strength": 52.18,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "profit_selection_rank": 27,
       "profit_selection_score": 3.2818,
       "historical_strategy_avg_pnl_pct": 1.9758,
@@ -17379,7 +17379,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:41:35.862060Z",
+        "checked_at": "2026-07-19T04:46:07.696782Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -17544,7 +17544,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:43:30.496620Z",
+        "checked_at": "2026-07-19T04:48:01.128569Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -17609,7 +17609,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "regime": null,
       "sector": null,
       "current_price": 345.84,
@@ -17637,7 +17637,7 @@
       "volume": 2757541.0,
       "trade_strength": 115.58,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "profit_selection_rank": 33,
       "profit_selection_score": 3.2172,
       "historical_strategy_avg_pnl_pct": 1.9758,
@@ -17686,7 +17686,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:42:12.573247Z",
+        "checked_at": "2026-07-19T04:46:44.815019Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -17813,7 +17813,7 @@
       "volume": 10191465.0,
       "trade_strength": 101.61,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "profit_selection_rank": 8,
       "profit_selection_score": 3.394,
       "historical_strategy_avg_pnl_pct": 1.9758,
@@ -17862,7 +17862,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:40:47.575472Z",
+        "checked_at": "2026-07-19T04:45:18.563743Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -17989,7 +17989,7 @@
       "volume": 22267862.0,
       "trade_strength": 76.93,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "profit_selection_rank": 5,
       "profit_selection_score": 3.428,
       "historical_strategy_avg_pnl_pct": 1.9758,
@@ -18038,7 +18038,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:41:29.936839Z",
+        "checked_at": "2026-07-19T04:46:01.817242Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -18203,7 +18203,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:43:33.632578Z",
+        "checked_at": "2026-07-19T04:48:04.205246Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -18268,7 +18268,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "regime": null,
       "sector": null,
       "current_price": 143800.0,
@@ -18334,7 +18334,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:43:36.612411Z",
+        "checked_at": "2026-07-19T04:48:07.333334Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -18399,7 +18399,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "regime": null,
       "sector": null,
       "current_price": 14520.0,
@@ -18465,7 +18465,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:43:39.436726Z",
+        "checked_at": "2026-07-19T04:48:10.367073Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -18530,7 +18530,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "regime": null,
       "sector": null,
       "current_price": 1830000.0,
@@ -18562,7 +18562,7 @@
       "volume": 1124655.0,
       "trade_strength": 121.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "profit_selection_rank": 42,
       "profit_selection_score": 2.3695,
       "historical_strategy_avg_pnl_pct": null,
@@ -18611,7 +18611,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:41:05.869630Z",
+        "checked_at": "2026-07-19T04:45:36.974149Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -18772,7 +18772,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:43:42.446919Z",
+        "checked_at": "2026-07-19T04:48:13.710588Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -18837,7 +18837,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "regime": null,
       "sector": null,
       "current_price": 1282000.0,
@@ -18903,7 +18903,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:43:45.630773Z",
+        "checked_at": "2026-07-19T04:48:16.938385Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -18968,7 +18968,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "regime": null,
       "sector": null,
       "current_price": 109300.0,
@@ -19034,7 +19034,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:43:48.685768Z",
+        "checked_at": "2026-07-19T04:48:19.983846Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -19099,7 +19099,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "regime": null,
       "sector": null,
       "current_price": 353500.0,
@@ -19165,7 +19165,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:43:51.587451Z",
+        "checked_at": "2026-07-19T04:48:23.046153Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -19264,7 +19264,7 @@
         }
       },
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "regime": null,
       "sector": null,
       "current_price": 34150.0,
@@ -19330,7 +19330,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:43:54.631098Z",
+        "checked_at": "2026-07-19T04:48:26.325103Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -19395,7 +19395,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "regime": null,
       "sector": null,
       "current_price": 22200.0,
@@ -19461,7 +19461,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:43:57.747716Z",
+        "checked_at": "2026-07-19T04:48:29.468384Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -19526,7 +19526,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "regime": null,
       "sector": null,
       "current_price": 85900.0,
@@ -19592,7 +19592,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:44:00.748268Z",
+        "checked_at": "2026-07-19T04:48:32.461351Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -19657,7 +19657,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "regime": null,
       "sector": null,
       "current_price": 189700.0,
@@ -19689,7 +19689,7 @@
       "volume": 220300.0,
       "trade_strength": 106.0,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "profit_selection_rank": 44,
       "profit_selection_score": 2.2987,
       "historical_strategy_avg_pnl_pct": null,
@@ -19738,7 +19738,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:41:11.785289Z",
+        "checked_at": "2026-07-19T04:45:43.207625Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -19861,7 +19861,7 @@
       "volume": 7400403.0,
       "trade_strength": 89.33,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "profit_selection_rank": 30,
       "profit_selection_score": 3.2601,
       "historical_strategy_avg_pnl_pct": 1.9758,
@@ -19910,7 +19910,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:41:51.354450Z",
+        "checked_at": "2026-07-19T04:46:23.131579Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -20037,7 +20037,7 @@
       "volume": 28289808.0,
       "trade_strength": 119.61,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "profit_selection_rank": 13,
       "profit_selection_score": 3.3584,
       "historical_strategy_avg_pnl_pct": 1.9758,
@@ -20086,7 +20086,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:40:44.566476Z",
+        "checked_at": "2026-07-19T04:45:15.440850Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -20213,7 +20213,7 @@
       "volume": 45629587.0,
       "trade_strength": 64.22,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "profit_selection_rank": 11,
       "profit_selection_score": 3.3591,
       "historical_strategy_avg_pnl_pct": 1.9758,
@@ -20262,7 +20262,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:40:56.736034Z",
+        "checked_at": "2026-07-19T04:45:27.987292Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -20427,7 +20427,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:44:03.651934Z",
+        "checked_at": "2026-07-19T04:48:35.687650Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -20489,7 +20489,7 @@
       "ask_qty": null,
       "trade_strength": 112.88,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "regime": null,
       "sector": null,
       "current_price": 597.74,
@@ -20517,7 +20517,7 @@
       "volume": 7058330.0,
       "trade_strength": 79.43,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "profit_selection_rank": 22,
       "profit_selection_score": 3.3181,
       "historical_strategy_avg_pnl_pct": 1.9758,
@@ -20566,7 +20566,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:41:54.273233Z",
+        "checked_at": "2026-07-19T04:46:26.345682Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -20693,7 +20693,7 @@
       "volume": 2508007.0,
       "trade_strength": 159.93,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "profit_selection_rank": 25,
       "profit_selection_score": 3.2931,
       "historical_strategy_avg_pnl_pct": 1.9758,
@@ -20742,7 +20742,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:42:15.683721Z",
+        "checked_at": "2026-07-19T04:46:47.916324Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -20869,7 +20869,7 @@
       "volume": 19031354.0,
       "trade_strength": 61.16,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "profit_selection_rank": 10,
       "profit_selection_score": 3.3611,
       "historical_strategy_avg_pnl_pct": 1.9758,
@@ -20918,7 +20918,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:40:50.659785Z",
+        "checked_at": "2026-07-19T04:45:21.852783Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -21045,7 +21045,7 @@
       "volume": 5596251.0,
       "trade_strength": 120.69,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "profit_selection_rank": 26,
       "profit_selection_score": 3.288,
       "historical_strategy_avg_pnl_pct": 1.9758,
@@ -21094,7 +21094,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:40:35.622004Z",
+        "checked_at": "2026-07-19T04:45:06.193399Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -21221,7 +21221,7 @@
       "volume": 45456460.0,
       "trade_strength": 104.3,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "profit_selection_rank": 12,
       "profit_selection_score": 3.3589,
       "historical_strategy_avg_pnl_pct": 1.9758,
@@ -21270,7 +21270,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:40:53.720388Z",
+        "checked_at": "2026-07-19T04:45:24.873857Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -21397,7 +21397,7 @@
       "volume": 43572361.0,
       "trade_strength": 195.7,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "profit_selection_rank": 14,
       "profit_selection_score": 3.3571,
       "historical_strategy_avg_pnl_pct": 1.9758,
@@ -21446,7 +21446,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:40:41.675515Z",
+        "checked_at": "2026-07-19T04:45:12.325418Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -21573,7 +21573,7 @@
       "volume": 10326483.0,
       "trade_strength": 175.4,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "profit_selection_rank": 24,
       "profit_selection_score": 3.2946,
       "historical_strategy_avg_pnl_pct": 1.9758,
@@ -21622,7 +21622,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:41:39.086127Z",
+        "checked_at": "2026-07-19T04:46:10.822545Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -21749,7 +21749,7 @@
       "volume": 63346278.0,
       "trade_strength": 113.25,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "profit_selection_rank": 1,
       "profit_selection_score": 3.4734,
       "historical_strategy_avg_pnl_pct": 1.9758,
@@ -21798,7 +21798,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:40:23.689552Z",
+        "checked_at": "2026-07-19T04:44:54.051768Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -21925,7 +21925,7 @@
       "volume": 5456768.0,
       "trade_strength": 195.01,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "profit_selection_rank": 16,
       "profit_selection_score": 3.3469,
       "historical_strategy_avg_pnl_pct": 1.9758,
@@ -21974,7 +21974,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:41:57.352147Z",
+        "checked_at": "2026-07-19T04:46:29.451565Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -22139,7 +22139,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:44:06.889242Z",
+        "checked_at": "2026-07-19T04:48:38.797177Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -22201,7 +22201,7 @@
       "ask_qty": null,
       "trade_strength": 110.72,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "regime": null,
       "sector": null,
       "current_price": 879.33,
@@ -22267,7 +22267,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:44:09.999122Z",
+        "checked_at": "2026-07-19T04:48:41.857223Z",
         "source": "toss_api_quote"
       },
       "time_window_pattern": "unavailable",
@@ -22332,7 +22332,7 @@
       "ask_qty": null,
       "trade_strength": null,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "regime": null,
       "sector": null,
       "current_price": 315.99,
@@ -22360,7 +22360,7 @@
       "volume": 19810859.0,
       "trade_strength": 96.97,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "profit_selection_rank": 4,
       "profit_selection_score": 3.4429,
       "historical_strategy_avg_pnl_pct": 1.9758,
@@ -22409,7 +22409,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:40:26.645582Z",
+        "checked_at": "2026-07-19T04:44:56.972526Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -22536,7 +22536,7 @@
       "volume": 22762721.0,
       "trade_strength": 110.62,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "profit_selection_rank": 7,
       "profit_selection_score": 3.4089,
       "historical_strategy_avg_pnl_pct": 1.9758,
@@ -22585,7 +22585,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:41:26.903813Z",
+        "checked_at": "2026-07-19T04:45:58.672922Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -22712,7 +22712,7 @@
       "volume": 3920400.0,
       "trade_strength": 35.68,
       "quote_source": "toss_api_quote",
-      "quote_at": "2026-07-19T04:47:23.227644Z",
+      "quote_at": "2026-07-19T04:50:37.566084Z",
       "profit_selection_rank": 18,
       "profit_selection_score": 3.3325,
       "historical_strategy_avg_pnl_pct": 1.9758,
@@ -22761,7 +22761,7 @@
           "count": 0,
           "source": "local_news_feed_missing"
         },
-        "checked_at": "2026-07-19T04:42:06.358984Z",
+        "checked_at": "2026-07-19T04:46:38.713633Z",
         "source": "toss_api_quote"
       },
       "current_price_signal": {
@@ -22873,7 +22873,7 @@
   "state_mode": "virtual",
   "news_research": {
     "is_weekday_update": false,
-    "updated_at": "2026-07-19T04:43:36.913287Z",
+    "updated_at": "2026-07-19T04:48:36.954558Z",
     "headline_count": 8,
     "headlines": [
       "Dow Jones Futures: Iran Attack Kills Two U.S. Troops; Google, Tesla, AMD Ahead",
@@ -23045,6 +23045,6 @@
     "this_week": 0,
     "this_month": 0,
     "all_time": 0,
-    "last_updated": "2026-07-19T04:47:27.263169Z"
+    "last_updated": "2026-07-19T04:50:45.106759Z"
   }
 }
