@@ -1,9 +1,9 @@
 {
-  "updated_at": "2026-07-30T02:18:39.087326Z",
+  "updated_at": "2026-07-30T02:24:59.286161Z",
   "source": "dotoristock_dotoriweb_live_bridge",
-  "status_updated_at": "2026-07-30T02:18:01.674384Z",
+  "status_updated_at": "2026-07-30T02:24:03.171614Z",
   "widget_updated_at": null,
-  "macro_updated_at": "2026-07-30T02:11:36.872653+00:00",
+  "macro_updated_at": "2026-07-30T02:23:02.097065+00:00",
   "market_focus": "KR",
   "market_limits": {
     "KR": 50,
@@ -150,7 +150,7 @@
     "russell2000_pct": -1.6078,
     "vix": 20.66,
     "vixy_pct": 6.0734,
-    "dxy_pct": 0.1032,
+    "dxy_pct": 0.1171,
     "us2y_pct": -0.2064,
     "us10y_pct": 0.391,
     "kospi200_night_pct": -0.0,
@@ -183,6 +183,7 @@
     "005930": {
       "symbol": "005930",
       "name": "삼성전자",
+      "display_name": "005930(삼성전자)",
       "market": "KR",
       "sector": "반도체",
       "latest_price": 252000.0,
@@ -201,12 +202,15 @@
       "indicator_2026_description": null,
       "hermes_widget_forecast": {},
       "breakout_evidence": {
-        "source": "position_price_history",
+        "source": "toss_api_prices",
         "strategy_family": "breakout_volume_momentum",
+        "symbol": "005930",
+        "name": "삼성전자",
+        "display_name": "005930(삼성전자)",
         "stage": "early_setup",
         "action": "observe",
-        "score": 0.41,
-        "score_adjustment": 0.0,
+        "score": 0.46,
+        "score_adjustment": 0.0018,
         "passed_checks": 3,
         "checks": {
           "consolidation": true,
@@ -218,22 +222,23 @@
           "trend": true
         },
         "metrics": {
-          "breakout_pct": -0.6667,
-          "last_move_pct": -0.2232,
-          "range_pct": 10.5651,
+          "breakout_pct": -2.0,
+          "last_move_pct": 0.0,
+          "range_pct": 2.7397,
           "relative_volume": 1.0,
           "trade_strength": 0.0,
-          "pct_from_20d_high_proxy": -0.6667,
-          "pct_from_50d_high_proxy": -0.6667,
-          "ma5": 223500.0,
-          "ma20": 212337.5
+          "pct_from_20d_high_proxy": -2.0,
+          "pct_from_50d_high_proxy": -2.0,
+          "ma5": 220500.0,
+          "ma20": 216762.5
         },
         "candle_basis": "actual_price_flow_proxy",
-        "updated_at": "2026-07-30T02:13:02.984015+00:00"
+        "updated_at": "2026-07-30T02:24:39.109619+00:00"
       },
       "market_evidence": {
         "symbol": "005930",
         "name": "삼성전자",
+        "display_name": "005930(삼성전자)",
         "market": "KR",
         "latest_price": 252000.0,
         "score": 0.8669215548865765,
@@ -398,12 +403,15 @@
           "market_note": null
         },
         "breakout_evidence": {
-          "source": "position_price_history",
+          "source": "toss_api_prices",
           "strategy_family": "breakout_volume_momentum",
+          "symbol": "005930",
+          "name": "삼성전자",
+          "display_name": "005930(삼성전자)",
           "stage": "early_setup",
           "action": "observe",
-          "score": 0.41,
-          "score_adjustment": 0.0,
+          "score": 0.46,
+          "score_adjustment": 0.0018,
           "passed_checks": 3,
           "checks": {
             "consolidation": true,
@@ -415,18 +423,18 @@
             "trend": true
           },
           "metrics": {
-            "breakout_pct": -0.6667,
-            "last_move_pct": -0.2232,
-            "range_pct": 10.5651,
+            "breakout_pct": -2.0,
+            "last_move_pct": 0.0,
+            "range_pct": 2.7397,
             "relative_volume": 1.0,
             "trade_strength": 0.0,
-            "pct_from_20d_high_proxy": -0.6667,
-            "pct_from_50d_high_proxy": -0.6667,
-            "ma5": 223500.0,
-            "ma20": 212337.5
+            "pct_from_20d_high_proxy": -2.0,
+            "pct_from_50d_high_proxy": -2.0,
+            "ma5": 220500.0,
+            "ma20": 216762.5
           },
           "candle_basis": "actual_price_flow_proxy",
-          "updated_at": "2026-07-30T02:13:02.984015+00:00"
+          "updated_at": "2026-07-30T02:24:39.109619+00:00"
         },
         "selected_plan": {}
       }
@@ -434,6 +442,7 @@
     "MU": {
       "symbol": "MU",
       "name": "Micron Technology",
+      "display_name": "MU(Micron Technology)",
       "market": "US",
       "sector": "반도체",
       "latest_price": 870.19,
@@ -455,6 +464,7 @@
       "market_evidence": {
         "symbol": "MU",
         "name": "Micron Technology",
+        "display_name": "MU(Micron Technology)",
         "market": "US",
         "latest_price": 870.19,
         "score": 1.160889420034481,
@@ -625,6 +635,7 @@
     "SNDK": {
       "symbol": "SNDK",
       "name": "SanDisk",
+      "display_name": "SNDK(SanDisk)",
       "market": "US",
       "sector": "반도체",
       "latest_price": 1402.99,
@@ -646,6 +657,7 @@
       "market_evidence": {
         "symbol": "SNDK",
         "name": "SanDisk",
+        "display_name": "SNDK(SanDisk)",
         "market": "US",
         "latest_price": 1402.99,
         "score": 0.7057624018397226,
@@ -816,6 +828,7 @@
     "028260": {
       "symbol": "028260",
       "name": "삼성물산",
+      "display_name": "028260(삼성물산)",
       "market": "KR",
       "sector": "가치",
       "latest_price": 328000.0,
@@ -837,6 +850,7 @@
       "market_evidence": {
         "symbol": "028260",
         "name": "삼성물산",
+        "display_name": "028260(삼성물산)",
         "market": "KR",
         "latest_price": 328000.0,
         "score": 0.5920281981829576,
@@ -1007,6 +1021,7 @@
     "003550": {
       "symbol": "003550",
       "name": "LG",
+      "display_name": "003550(LG)",
       "market": "KR",
       "sector": "가치",
       "latest_price": 95900.0,
@@ -1028,6 +1043,7 @@
       "market_evidence": {
         "symbol": "003550",
         "name": "LG",
+        "display_name": "003550(LG)",
         "market": "KR",
         "latest_price": 95900.0,
         "score": 0.547921384751402,
@@ -1198,6 +1214,7 @@
     "001800": {
       "symbol": "001800",
       "name": "오리온홀딩스",
+      "display_name": "001800(오리온홀딩스)",
       "market": "KR",
       "sector": "가치",
       "latest_price": 25000.0,
@@ -1215,10 +1232,44 @@
       "indicator_2026_signal": null,
       "indicator_2026_description": null,
       "hermes_widget_forecast": {},
-      "breakout_evidence": null,
+      "breakout_evidence": {
+        "source": "toss_api_prices",
+        "strategy_family": "breakout_volume_momentum",
+        "symbol": "001800",
+        "name": "오리온홀딩스",
+        "display_name": "001800(오리온홀딩스)",
+        "stage": "early_setup",
+        "action": "observe",
+        "score": 0.43,
+        "score_adjustment": 0.0,
+        "passed_checks": 3,
+        "checks": {
+          "consolidation": true,
+          "early_breakout": false,
+          "confirmed_breakout": false,
+          "strong_candle": true,
+          "relative_volume": false,
+          "near_high": true,
+          "trend": false
+        },
+        "metrics": {
+          "breakout_pct": -0.5714,
+          "last_move_pct": 0.3846,
+          "range_pct": 0.9615,
+          "relative_volume": 1.0,
+          "trade_strength": 0.0,
+          "pct_from_20d_high_proxy": -1.1364,
+          "pct_from_50d_high_proxy": -1.3233,
+          "ma5": 26080.0,
+          "ma20": 26200.0
+        },
+        "candle_basis": "actual_price_flow_proxy",
+        "updated_at": "2026-07-30T02:24:39.109619+00:00"
+      },
       "market_evidence": {
         "symbol": "001800",
         "name": "오리온홀딩스",
+        "display_name": "001800(오리온홀딩스)",
         "market": "KR",
         "latest_price": 25000.0,
         "score": 0.4967922206730518,
@@ -1382,13 +1433,47 @@
           "headlines": [],
           "market_note": null
         },
-        "breakout_evidence": null,
+        "breakout_evidence": {
+          "source": "toss_api_prices",
+          "strategy_family": "breakout_volume_momentum",
+          "symbol": "001800",
+          "name": "오리온홀딩스",
+          "display_name": "001800(오리온홀딩스)",
+          "stage": "early_setup",
+          "action": "observe",
+          "score": 0.43,
+          "score_adjustment": 0.0,
+          "passed_checks": 3,
+          "checks": {
+            "consolidation": true,
+            "early_breakout": false,
+            "confirmed_breakout": false,
+            "strong_candle": true,
+            "relative_volume": false,
+            "near_high": true,
+            "trend": false
+          },
+          "metrics": {
+            "breakout_pct": -0.5714,
+            "last_move_pct": 0.3846,
+            "range_pct": 0.9615,
+            "relative_volume": 1.0,
+            "trade_strength": 0.0,
+            "pct_from_20d_high_proxy": -1.1364,
+            "pct_from_50d_high_proxy": -1.3233,
+            "ma5": 26080.0,
+            "ma20": 26200.0
+          },
+          "candle_basis": "actual_price_flow_proxy",
+          "updated_at": "2026-07-30T02:24:39.109619+00:00"
+        },
         "selected_plan": {}
       }
     },
     "105560": {
       "symbol": "105560",
       "name": "KB금융",
+      "display_name": "105560(KB금융)",
       "market": "KR",
       "sector": "금융",
       "latest_price": 170200.0,
@@ -1410,6 +1495,7 @@
       "market_evidence": {
         "symbol": "105560",
         "name": "KB금융",
+        "display_name": "105560(KB금융)",
         "market": "KR",
         "latest_price": 170200.0,
         "score": 0.7303000689000196,
@@ -1580,6 +1666,7 @@
     "003690": {
       "symbol": "003690",
       "name": "코리안리",
+      "display_name": "003690(코리안리)",
       "market": "KR",
       "sector": "금융",
       "latest_price": 13420.0,
@@ -1601,6 +1688,7 @@
       "market_evidence": {
         "symbol": "003690",
         "name": "코리안리",
+        "display_name": "003690(코리안리)",
         "market": "KR",
         "latest_price": 13420.0,
         "score": 0.52831858539079,
@@ -1771,6 +1859,7 @@
     "055550": {
       "symbol": "055550",
       "name": "신한지주",
+      "display_name": "055550(신한지주)",
       "market": "KR",
       "sector": "금융",
       "latest_price": 102500.0,
@@ -1792,6 +1881,7 @@
       "market_evidence": {
         "symbol": "055550",
         "name": "신한지주",
+        "display_name": "055550(신한지주)",
         "market": "KR",
         "latest_price": 102500.0,
         "score": 0.4677578628779697,
@@ -1962,6 +2052,7 @@
     "010140": {
       "symbol": "010140",
       "name": "삼성중공업",
+      "display_name": "010140(삼성중공업)",
       "market": "KR",
       "sector": "산업",
       "latest_price": 21200.0,
@@ -1983,6 +2074,7 @@
       "market_evidence": {
         "symbol": "010140",
         "name": "삼성중공업",
+        "display_name": "010140(삼성중공업)",
         "market": "KR",
         "latest_price": 21200.0,
         "score": 0.6633689788357311,
@@ -2153,6 +2245,7 @@
     "009540": {
       "symbol": "009540",
       "name": "HD한국조선해양",
+      "display_name": "009540(HD한국조선해양)",
       "market": "KR",
       "sector": "산업",
       "latest_price": 341500.0,
@@ -2174,6 +2267,7 @@
       "market_evidence": {
         "symbol": "009540",
         "name": "HD한국조선해양",
+        "display_name": "009540(HD한국조선해양)",
         "market": "KR",
         "latest_price": 341500.0,
         "score": 0.5389010064855647,
@@ -2344,6 +2438,7 @@
     "042660": {
       "symbol": "042660",
       "name": "한화오션",
+      "display_name": "042660(한화오션)",
       "market": "KR",
       "sector": "산업",
       "latest_price": 84100.0,
@@ -2365,6 +2460,7 @@
       "market_evidence": {
         "symbol": "042660",
         "name": "한화오션",
+        "display_name": "042660(한화오션)",
         "market": "KR",
         "latest_price": 84100.0,
         "score": 0.5238708830571249,
@@ -2535,6 +2631,7 @@
     "068270": {
       "symbol": "068270",
       "name": "셀트리온",
+      "display_name": "068270(셀트리온)",
       "market": "KR",
       "sector": "바이오",
       "latest_price": 172400.0,
@@ -2556,6 +2653,7 @@
       "market_evidence": {
         "symbol": "068270",
         "name": "셀트리온",
+        "display_name": "068270(셀트리온)",
         "market": "KR",
         "latest_price": 172400.0,
         "score": 0.4290229553886211,
@@ -2726,6 +2824,7 @@
     "009150": {
       "symbol": "009150",
       "name": "삼성전기",
+      "display_name": "009150(삼성전기)",
       "market": "KR",
       "sector": "반도체",
       "latest_price": 1332000.0,
@@ -2747,6 +2846,7 @@
       "market_evidence": {
         "symbol": "009150",
         "name": "삼성전기",
+        "display_name": "009150(삼성전기)",
         "market": "KR",
         "latest_price": 1332000.0,
         "score": 0.7039208623496499,
@@ -2917,6 +3017,7 @@
     "000660": {
       "symbol": "000660",
       "name": "SK하이닉스",
+      "display_name": "000660(SK하이닉스)",
       "market": "KR",
       "sector": "반도체",
       "latest_price": 1841000.0,
@@ -2938,6 +3039,7 @@
       "market_evidence": {
         "symbol": "000660",
         "name": "SK하이닉스",
+        "display_name": "000660(SK하이닉스)",
         "market": "KR",
         "latest_price": 1841000.0,
         "score": 0.6947437986383035,
@@ -3107,7 +3209,8 @@
     },
     "028300": {
       "symbol": "028300",
-      "name": "028300",
+      "name": "HLB",
+      "display_name": "028300(HLB)",
       "market": "KR",
       "sector": "기타",
       "latest_price": 31200.0,
@@ -3128,6 +3231,9 @@
       "breakout_evidence": {
         "source": "toss_api_prices",
         "strategy_family": "breakout_volume_momentum",
+        "symbol": "028300",
+        "name": "HLB",
+        "display_name": "028300(HLB)",
         "stage": "early_setup",
         "action": "observe",
         "score": 0.46,
@@ -3145,20 +3251,21 @@
         "metrics": {
           "breakout_pct": 0.0,
           "last_move_pct": 0.0,
-          "range_pct": 0.5042,
+          "range_pct": 2.8571,
           "relative_volume": 1.0,
           "trade_strength": 0.0,
           "pct_from_20d_high_proxy": 0.0,
-          "pct_from_50d_high_proxy": -0.6645,
-          "ma5": 29840.0,
-          "ma20": 29795.0
+          "pct_from_50d_high_proxy": 0.0,
+          "ma5": 30560.0,
+          "ma20": 30030.0
         },
         "candle_basis": "actual_price_flow_proxy",
-        "updated_at": "2026-07-30T02:13:02.984015+00:00"
+        "updated_at": "2026-07-30T02:24:39.109619+00:00"
       },
       "market_evidence": {
         "symbol": "028300",
-        "name": "028300",
+        "name": "HLB",
+        "display_name": "028300(HLB)",
         "market": "KR",
         "latest_price": 31200.0,
         "score": 0.9916565289673337,
@@ -3325,6 +3432,9 @@
         "breakout_evidence": {
           "source": "toss_api_prices",
           "strategy_family": "breakout_volume_momentum",
+          "symbol": "028300",
+          "name": "HLB",
+          "display_name": "028300(HLB)",
           "stage": "early_setup",
           "action": "observe",
           "score": 0.46,
@@ -3342,16 +3452,16 @@
           "metrics": {
             "breakout_pct": 0.0,
             "last_move_pct": 0.0,
-            "range_pct": 0.5042,
+            "range_pct": 2.8571,
             "relative_volume": 1.0,
             "trade_strength": 0.0,
             "pct_from_20d_high_proxy": 0.0,
-            "pct_from_50d_high_proxy": -0.6645,
-            "ma5": 29840.0,
-            "ma20": 29795.0
+            "pct_from_50d_high_proxy": 0.0,
+            "ma5": 30560.0,
+            "ma20": 30030.0
           },
           "candle_basis": "actual_price_flow_proxy",
-          "updated_at": "2026-07-30T02:13:02.984015+00:00"
+          "updated_at": "2026-07-30T02:24:39.109619+00:00"
         },
         "selected_plan": {}
       }
@@ -3359,6 +3469,7 @@
     "032830": {
       "symbol": "032830",
       "name": "삼성생명",
+      "display_name": "032830(삼성생명)",
       "market": "KR",
       "sector": "기타",
       "latest_price": 308000.0,
@@ -3380,6 +3491,7 @@
       "market_evidence": {
         "symbol": "032830",
         "name": "삼성생명",
+        "display_name": "032830(삼성생명)",
         "market": "KR",
         "latest_price": 308000.0,
         "score": 0.5740978950216913,
@@ -3550,6 +3662,7 @@
     "005490": {
       "symbol": "005490",
       "name": "POSCO홀딩스",
+      "display_name": "005490(POSCO홀딩스)",
       "market": "KR",
       "sector": "기타",
       "latest_price": 303500.0,
@@ -3571,6 +3684,7 @@
       "market_evidence": {
         "symbol": "005490",
         "name": "POSCO홀딩스",
+        "display_name": "005490(POSCO홀딩스)",
         "market": "KR",
         "latest_price": 303500.0,
         "score": 0.5615176466132725,
@@ -3741,6 +3855,7 @@
     "006400": {
       "symbol": "006400",
       "name": "삼성SDI",
+      "display_name": "006400(삼성SDI)",
       "market": "KR",
       "sector": "배터리",
       "latest_price": 410000.0,
@@ -3762,6 +3877,7 @@
       "market_evidence": {
         "symbol": "006400",
         "name": "삼성SDI",
+        "display_name": "006400(삼성SDI)",
         "market": "KR",
         "latest_price": 410000.0,
         "score": 0.5789468598956623,
@@ -3932,6 +4048,7 @@
     "015760": {
       "symbol": "015760",
       "name": "한국전력",
+      "display_name": "015760(한국전력)",
       "market": "KR",
       "sector": "유틸리티",
       "latest_price": 33200.0,
@@ -3953,6 +4070,7 @@
       "market_evidence": {
         "symbol": "015760",
         "name": "한국전력",
+        "display_name": "015760(한국전력)",
         "market": "KR",
         "latest_price": 33200.0,
         "score": 0.6313809661995148,
@@ -4123,6 +4241,7 @@
     "017960": {
       "symbol": "017960",
       "name": "한국카본",
+      "display_name": "017960(한국카본)",
       "market": "KR",
       "sector": "유틸리티",
       "latest_price": 22300.0,
@@ -4144,6 +4263,7 @@
       "market_evidence": {
         "symbol": "017960",
         "name": "한국카본",
+        "display_name": "017960(한국카본)",
         "market": "KR",
         "latest_price": 22300.0,
         "score": 0.5439113122213908,
@@ -4314,6 +4434,7 @@
     "035720": {
       "symbol": "035720",
       "name": "카카오",
+      "display_name": "035720(카카오)",
       "market": "KR",
       "sector": "플랫폼",
       "latest_price": 35050.0,
@@ -4335,6 +4456,7 @@
       "market_evidence": {
         "symbol": "035720",
         "name": "카카오",
+        "display_name": "035720(카카오)",
         "market": "KR",
         "latest_price": 35050.0,
         "score": 0.6269441022832635,
@@ -4505,6 +4627,7 @@
     "035420": {
       "symbol": "035420",
       "name": "NAVER",
+      "display_name": "035420(NAVER)",
       "market": "KR",
       "sector": "플랫폼",
       "latest_price": 188000.0,
@@ -4522,40 +4645,11 @@
       "indicator_2026_signal": null,
       "indicator_2026_description": null,
       "hermes_widget_forecast": {},
-      "breakout_evidence": {
-        "source": "toss_api_prices",
-        "strategy_family": "breakout_volume_momentum",
-        "stage": "early_setup",
-        "action": "observe",
-        "score": 0.46,
-        "score_adjustment": 0.0018,
-        "passed_checks": 3,
-        "checks": {
-          "consolidation": true,
-          "early_breakout": false,
-          "confirmed_breakout": false,
-          "strong_candle": false,
-          "relative_volume": false,
-          "near_high": true,
-          "trend": true
-        },
-        "metrics": {
-          "breakout_pct": 0.0,
-          "last_move_pct": 0.0,
-          "range_pct": 1.6787,
-          "relative_volume": 1.0,
-          "trade_strength": 0.0,
-          "pct_from_20d_high_proxy": 0.0,
-          "pct_from_50d_high_proxy": 0.0,
-          "ma5": 211400.0,
-          "ma20": 209350.0
-        },
-        "candle_basis": "actual_price_flow_proxy",
-        "updated_at": "2026-07-30T02:13:02.984015+00:00"
-      },
+      "breakout_evidence": null,
       "market_evidence": {
         "symbol": "035420",
         "name": "NAVER",
+        "display_name": "035420(NAVER)",
         "market": "KR",
         "latest_price": 188000.0,
         "score": 0.5936263850740979,
@@ -4719,43 +4813,14 @@
           "headlines": [],
           "market_note": null
         },
-        "breakout_evidence": {
-          "source": "toss_api_prices",
-          "strategy_family": "breakout_volume_momentum",
-          "stage": "early_setup",
-          "action": "observe",
-          "score": 0.46,
-          "score_adjustment": 0.0018,
-          "passed_checks": 3,
-          "checks": {
-            "consolidation": true,
-            "early_breakout": false,
-            "confirmed_breakout": false,
-            "strong_candle": false,
-            "relative_volume": false,
-            "near_high": true,
-            "trend": true
-          },
-          "metrics": {
-            "breakout_pct": 0.0,
-            "last_move_pct": 0.0,
-            "range_pct": 1.6787,
-            "relative_volume": 1.0,
-            "trade_strength": 0.0,
-            "pct_from_20d_high_proxy": 0.0,
-            "pct_from_50d_high_proxy": 0.0,
-            "ma5": 211400.0,
-            "ma20": 209350.0
-          },
-          "candle_basis": "actual_price_flow_proxy",
-          "updated_at": "2026-07-30T02:13:02.984015+00:00"
-        },
+        "breakout_evidence": null,
         "selected_plan": {}
       }
     },
     "032640": {
       "symbol": "032640",
       "name": "LG유플러스",
+      "display_name": "032640(LG유플러스)",
       "market": "KR",
       "sector": "플랫폼",
       "latest_price": 14500.0,
@@ -4777,6 +4842,7 @@
       "market_evidence": {
         "symbol": "032640",
         "name": "LG유플러스",
+        "display_name": "032640(LG유플러스)",
         "market": "KR",
         "latest_price": 14500.0,
         "score": 0.5871715342106273,
@@ -4947,6 +5013,7 @@
     "000270": {
       "symbol": "000270",
       "name": "기아",
+      "display_name": "000270(기아)",
       "market": "KR",
       "sector": "자동차",
       "latest_price": 141000.0,
@@ -4968,6 +5035,7 @@
       "market_evidence": {
         "symbol": "000270",
         "name": "기아",
+        "display_name": "000270(기아)",
         "market": "KR",
         "latest_price": 141000.0,
         "score": 0.6005012255174264,
@@ -5138,6 +5206,7 @@
     "012330": {
       "symbol": "012330",
       "name": "현대모비스",
+      "display_name": "012330(현대모비스)",
       "market": "KR",
       "sector": "자동차",
       "latest_price": 476500.0,
@@ -5159,6 +5228,7 @@
       "market_evidence": {
         "symbol": "012330",
         "name": "현대모비스",
+        "display_name": "012330(현대모비스)",
         "market": "KR",
         "latest_price": 476500.0,
         "score": 0.5596856495352052,
@@ -5329,6 +5399,7 @@
     "011210": {
       "symbol": "011210",
       "name": "현대위아",
+      "display_name": "011210(현대위아)",
       "market": "KR",
       "sector": "자동차",
       "latest_price": 55200.0,
@@ -5350,6 +5421,7 @@
       "market_evidence": {
         "symbol": "011210",
         "name": "현대위아",
+        "display_name": "011210(현대위아)",
         "market": "KR",
         "latest_price": 55200.0,
         "score": 0.5038902182970312,
@@ -5520,6 +5592,7 @@
     "AMD": {
       "symbol": "AMD",
       "name": "Advanced Micro Devices",
+      "display_name": "AMD(Advanced Micro Devices)",
       "market": "US",
       "sector": "반도체",
       "latest_price": 504.1,
@@ -5541,6 +5614,7 @@
       "market_evidence": {
         "symbol": "AMD",
         "name": "Advanced Micro Devices",
+        "display_name": "AMD(Advanced Micro Devices)",
         "market": "US",
         "latest_price": 504.1,
         "score": 3.220133705436833,
@@ -5711,6 +5785,7 @@
     "LLY": {
       "symbol": "LLY",
       "name": "Eli Lilly",
+      "display_name": "LLY(Eli Lilly)",
       "market": "US",
       "sector": "바이오",
       "latest_price": 1145.13,
@@ -5732,6 +5807,7 @@
       "market_evidence": {
         "symbol": "LLY",
         "name": "Eli Lilly",
+        "display_name": "LLY(Eli Lilly)",
         "market": "US",
         "latest_price": 1145.13,
         "score": 1.3116116564190015,
@@ -5902,6 +5978,7 @@
     "JNJ": {
       "symbol": "JNJ",
       "name": "Johnson & Johnson",
+      "display_name": "JNJ(Johnson & Johnson)",
       "market": "US",
       "sector": "바이오",
       "latest_price": 248.21,
@@ -5923,6 +6000,7 @@
       "market_evidence": {
         "symbol": "JNJ",
         "name": "Johnson & Johnson",
+        "display_name": "JNJ(Johnson & Johnson)",
         "market": "US",
         "latest_price": 248.21,
         "score": 1.0936393657271446,
@@ -6093,6 +6171,7 @@
     "PFE": {
       "symbol": "PFE",
       "name": "Pfizer",
+      "display_name": "PFE(Pfizer)",
       "market": "US",
       "sector": "바이오",
       "latest_price": 24.78,
@@ -6114,6 +6193,7 @@
       "market_evidence": {
         "symbol": "PFE",
         "name": "Pfizer",
+        "display_name": "PFE(Pfizer)",
         "market": "US",
         "latest_price": 24.78,
         "score": 0.8342904144078283,
@@ -6284,6 +6364,7 @@
     "BAC": {
       "symbol": "BAC",
       "name": "Bank of America",
+      "display_name": "BAC(Bank of America)",
       "market": "US",
       "sector": "금융",
       "latest_price": 60.44,
@@ -6305,6 +6386,7 @@
       "market_evidence": {
         "symbol": "BAC",
         "name": "Bank of America",
+        "display_name": "BAC(Bank of America)",
         "market": "US",
         "latest_price": 60.44,
         "score": 1.3082585155150377,
@@ -6475,6 +6557,7 @@
     "V": {
       "symbol": "V",
       "name": "Visa",
+      "display_name": "V(Visa)",
       "market": "US",
       "sector": "금융",
       "latest_price": 360.6,
@@ -6496,6 +6579,7 @@
       "market_evidence": {
         "symbol": "V",
         "name": "Visa",
+        "display_name": "V(Visa)",
         "market": "US",
         "latest_price": 360.6,
         "score": 0.9112257882092257,
@@ -6666,6 +6750,7 @@
     "JPM": {
       "symbol": "JPM",
       "name": "JPMorgan Chase",
+      "display_name": "JPM(JPMorgan Chase)",
       "market": "US",
       "sector": "금융",
       "latest_price": 338.93,
@@ -6687,6 +6772,7 @@
       "market_evidence": {
         "symbol": "JPM",
         "name": "JPMorgan Chase",
+        "display_name": "JPM(JPMorgan Chase)",
         "market": "US",
         "latest_price": 338.93,
         "score": 0.7472815003481532,
@@ -6857,6 +6943,7 @@
     "BA": {
       "symbol": "BA",
       "name": "Boeing",
+      "display_name": "BA(Boeing)",
       "market": "US",
       "sector": "산업",
       "latest_price": 209.9,
@@ -6878,6 +6965,7 @@
       "market_evidence": {
         "symbol": "BA",
         "name": "Boeing",
+        "display_name": "BA(Boeing)",
         "market": "US",
         "latest_price": 209.9,
         "score": 0.9355176355203024,
@@ -7048,6 +7136,7 @@
     "RTX": {
       "symbol": "RTX",
       "name": "RTX",
+      "display_name": "RTX",
       "market": "US",
       "sector": "산업",
       "latest_price": 196.5,
@@ -7069,6 +7158,7 @@
       "market_evidence": {
         "symbol": "RTX",
         "name": "RTX",
+        "display_name": "RTX",
         "market": "US",
         "latest_price": 196.5,
         "score": 0.8546943129521252,
@@ -7239,6 +7329,7 @@
     "GE": {
       "symbol": "GE",
       "name": "GE Aerospace",
+      "display_name": "GE(GE Aerospace)",
       "market": "US",
       "sector": "산업",
       "latest_price": 341.83,
@@ -7260,6 +7351,7 @@
       "market_evidence": {
         "symbol": "GE",
         "name": "GE Aerospace",
+        "display_name": "GE(GE Aerospace)",
         "market": "US",
         "latest_price": 341.83,
         "score": 0.5911249028693224,
@@ -7430,6 +7522,7 @@
     "CRWD": {
       "symbol": "CRWD",
       "name": "CrowdStrike",
+      "display_name": "CRWD(CrowdStrike)",
       "market": "US",
       "sector": "소프트웨어",
       "latest_price": 198.72,
@@ -7451,6 +7544,7 @@
       "market_evidence": {
         "symbol": "CRWD",
         "name": "CrowdStrike",
+        "display_name": "CRWD(CrowdStrike)",
         "market": "US",
         "latest_price": 198.72,
         "score": 2.3295919005217756,
@@ -7621,6 +7715,7 @@
     "DDOG": {
       "symbol": "DDOG",
       "name": "Datadog",
+      "display_name": "DDOG(Datadog)",
       "market": "US",
       "sector": "소프트웨어",
       "latest_price": 263.2,
@@ -7642,6 +7737,7 @@
       "market_evidence": {
         "symbol": "DDOG",
         "name": "Datadog",
+        "display_name": "DDOG(Datadog)",
         "market": "US",
         "latest_price": 263.2,
         "score": 1.511729135113278,
@@ -7812,6 +7908,7 @@
     "CRM": {
       "symbol": "CRM",
       "name": "Salesforce",
+      "display_name": "CRM(Salesforce)",
       "market": "US",
       "sector": "소프트웨어",
       "latest_price": 173.5,
@@ -7833,6 +7930,7 @@
       "market_evidence": {
         "symbol": "CRM",
         "name": "Salesforce",
+        "display_name": "CRM(Salesforce)",
         "market": "US",
         "latest_price": 173.5,
         "score": 1.2638901000671334,
@@ -8016,7 +8114,7 @@
     "this_week": 0,
     "this_month": 0,
     "all_time": 0,
-    "last_updated": "2026-07-30T02:18:39.087326Z"
+    "last_updated": "2026-07-30T02:24:59.286161Z"
   },
   "market_session": {
     "focus_market": "KR",
@@ -8152,7 +8250,7 @@
       "russell2000_pct": -1.6078,
       "vix": 20.66,
       "vixy_pct": 6.0734,
-      "dxy_pct": 0.1032,
+      "dxy_pct": 0.1171,
       "us2y_pct": -0.2064,
       "us10y_pct": 0.391,
       "kospi200_night_pct": -0.0,
@@ -8339,11 +8437,11 @@
     }
   },
   "payload_json": {
-    "updated_at": "2026-07-30T02:18:39.087326Z",
+    "updated_at": "2026-07-30T02:24:59.286161Z",
     "source": "dotoristock_dotoriweb_live_bridge",
-    "status_updated_at": "2026-07-30T02:18:01.674384Z",
+    "status_updated_at": "2026-07-30T02:24:03.171614Z",
     "widget_updated_at": null,
-    "macro_updated_at": "2026-07-30T02:11:36.872653+00:00",
+    "macro_updated_at": "2026-07-30T02:23:02.097065+00:00",
     "market_focus": "KR",
     "market_limits": {
       "KR": 50,
@@ -8490,7 +8588,7 @@
       "russell2000_pct": -1.6078,
       "vix": 20.66,
       "vixy_pct": 6.0734,
-      "dxy_pct": 0.1032,
+      "dxy_pct": 0.1171,
       "us2y_pct": -0.2064,
       "us10y_pct": 0.391,
       "kospi200_night_pct": -0.0,
@@ -8523,6 +8621,7 @@
       "005930": {
         "symbol": "005930",
         "name": "삼성전자",
+        "display_name": "005930(삼성전자)",
         "market": "KR",
         "sector": "반도체",
         "latest_price": 252000.0,
@@ -8541,12 +8640,15 @@
         "indicator_2026_description": null,
         "hermes_widget_forecast": {},
         "breakout_evidence": {
-          "source": "position_price_history",
+          "source": "toss_api_prices",
           "strategy_family": "breakout_volume_momentum",
+          "symbol": "005930",
+          "name": "삼성전자",
+          "display_name": "005930(삼성전자)",
           "stage": "early_setup",
           "action": "observe",
-          "score": 0.41,
-          "score_adjustment": 0.0,
+          "score": 0.46,
+          "score_adjustment": 0.0018,
           "passed_checks": 3,
           "checks": {
             "consolidation": true,
@@ -8558,22 +8660,23 @@
             "trend": true
           },
           "metrics": {
-            "breakout_pct": -0.6667,
-            "last_move_pct": -0.2232,
-            "range_pct": 10.5651,
+            "breakout_pct": -2.0,
+            "last_move_pct": 0.0,
+            "range_pct": 2.7397,
             "relative_volume": 1.0,
             "trade_strength": 0.0,
-            "pct_from_20d_high_proxy": -0.6667,
-            "pct_from_50d_high_proxy": -0.6667,
-            "ma5": 223500.0,
-            "ma20": 212337.5
+            "pct_from_20d_high_proxy": -2.0,
+            "pct_from_50d_high_proxy": -2.0,
+            "ma5": 220500.0,
+            "ma20": 216762.5
           },
           "candle_basis": "actual_price_flow_proxy",
-          "updated_at": "2026-07-30T02:13:02.984015+00:00"
+          "updated_at": "2026-07-30T02:24:39.109619+00:00"
         },
         "market_evidence": {
           "symbol": "005930",
           "name": "삼성전자",
+          "display_name": "005930(삼성전자)",
           "market": "KR",
           "latest_price": 252000.0,
           "score": 0.8669215548865765,
@@ -8738,12 +8841,15 @@
             "market_note": null
           },
           "breakout_evidence": {
-            "source": "position_price_history",
+            "source": "toss_api_prices",
             "strategy_family": "breakout_volume_momentum",
+            "symbol": "005930",
+            "name": "삼성전자",
+            "display_name": "005930(삼성전자)",
             "stage": "early_setup",
             "action": "observe",
-            "score": 0.41,
-            "score_adjustment": 0.0,
+            "score": 0.46,
+            "score_adjustment": 0.0018,
             "passed_checks": 3,
             "checks": {
               "consolidation": true,
@@ -8755,18 +8861,18 @@
               "trend": true
             },
             "metrics": {
-              "breakout_pct": -0.6667,
-              "last_move_pct": -0.2232,
-              "range_pct": 10.5651,
+              "breakout_pct": -2.0,
+              "last_move_pct": 0.0,
+              "range_pct": 2.7397,
               "relative_volume": 1.0,
               "trade_strength": 0.0,
-              "pct_from_20d_high_proxy": -0.6667,
-              "pct_from_50d_high_proxy": -0.6667,
-              "ma5": 223500.0,
-              "ma20": 212337.5
+              "pct_from_20d_high_proxy": -2.0,
+              "pct_from_50d_high_proxy": -2.0,
+              "ma5": 220500.0,
+              "ma20": 216762.5
             },
             "candle_basis": "actual_price_flow_proxy",
-            "updated_at": "2026-07-30T02:13:02.984015+00:00"
+            "updated_at": "2026-07-30T02:24:39.109619+00:00"
           },
           "selected_plan": {}
         }
@@ -8774,6 +8880,7 @@
       "MU": {
         "symbol": "MU",
         "name": "Micron Technology",
+        "display_name": "MU(Micron Technology)",
         "market": "US",
         "sector": "반도체",
         "latest_price": 870.19,
@@ -8795,6 +8902,7 @@
         "market_evidence": {
           "symbol": "MU",
           "name": "Micron Technology",
+          "display_name": "MU(Micron Technology)",
           "market": "US",
           "latest_price": 870.19,
           "score": 1.160889420034481,
@@ -8965,6 +9073,7 @@
       "SNDK": {
         "symbol": "SNDK",
         "name": "SanDisk",
+        "display_name": "SNDK(SanDisk)",
         "market": "US",
         "sector": "반도체",
         "latest_price": 1402.99,
@@ -8986,6 +9095,7 @@
         "market_evidence": {
           "symbol": "SNDK",
           "name": "SanDisk",
+          "display_name": "SNDK(SanDisk)",
           "market": "US",
           "latest_price": 1402.99,
           "score": 0.7057624018397226,
@@ -9156,6 +9266,7 @@
       "028260": {
         "symbol": "028260",
         "name": "삼성물산",
+        "display_name": "028260(삼성물산)",
         "market": "KR",
         "sector": "가치",
         "latest_price": 328000.0,
@@ -9177,6 +9288,7 @@
         "market_evidence": {
           "symbol": "028260",
           "name": "삼성물산",
+          "display_name": "028260(삼성물산)",
           "market": "KR",
           "latest_price": 328000.0,
           "score": 0.5920281981829576,
@@ -9347,6 +9459,7 @@
       "003550": {
         "symbol": "003550",
         "name": "LG",
+        "display_name": "003550(LG)",
         "market": "KR",
         "sector": "가치",
         "latest_price": 95900.0,
@@ -9368,6 +9481,7 @@
         "market_evidence": {
           "symbol": "003550",
           "name": "LG",
+          "display_name": "003550(LG)",
           "market": "KR",
           "latest_price": 95900.0,
           "score": 0.547921384751402,
@@ -9538,6 +9652,7 @@
       "001800": {
         "symbol": "001800",
         "name": "오리온홀딩스",
+        "display_name": "001800(오리온홀딩스)",
         "market": "KR",
         "sector": "가치",
         "latest_price": 25000.0,
@@ -9555,10 +9670,44 @@
         "indicator_2026_signal": null,
         "indicator_2026_description": null,
         "hermes_widget_forecast": {},
-        "breakout_evidence": null,
+        "breakout_evidence": {
+          "source": "toss_api_prices",
+          "strategy_family": "breakout_volume_momentum",
+          "symbol": "001800",
+          "name": "오리온홀딩스",
+          "display_name": "001800(오리온홀딩스)",
+          "stage": "early_setup",
+          "action": "observe",
+          "score": 0.43,
+          "score_adjustment": 0.0,
+          "passed_checks": 3,
+          "checks": {
+            "consolidation": true,
+            "early_breakout": false,
+            "confirmed_breakout": false,
+            "strong_candle": true,
+            "relative_volume": false,
+            "near_high": true,
+            "trend": false
+          },
+          "metrics": {
+            "breakout_pct": -0.5714,
+            "last_move_pct": 0.3846,
+            "range_pct": 0.9615,
+            "relative_volume": 1.0,
+            "trade_strength": 0.0,
+            "pct_from_20d_high_proxy": -1.1364,
+            "pct_from_50d_high_proxy": -1.3233,
+            "ma5": 26080.0,
+            "ma20": 26200.0
+          },
+          "candle_basis": "actual_price_flow_proxy",
+          "updated_at": "2026-07-30T02:24:39.109619+00:00"
+        },
         "market_evidence": {
           "symbol": "001800",
           "name": "오리온홀딩스",
+          "display_name": "001800(오리온홀딩스)",
           "market": "KR",
           "latest_price": 25000.0,
           "score": 0.4967922206730518,
@@ -9722,13 +9871,47 @@
             "headlines": [],
             "market_note": null
           },
-          "breakout_evidence": null,
+          "breakout_evidence": {
+            "source": "toss_api_prices",
+            "strategy_family": "breakout_volume_momentum",
+            "symbol": "001800",
+            "name": "오리온홀딩스",
+            "display_name": "001800(오리온홀딩스)",
+            "stage": "early_setup",
+            "action": "observe",
+            "score": 0.43,
+            "score_adjustment": 0.0,
+            "passed_checks": 3,
+            "checks": {
+              "consolidation": true,
+              "early_breakout": false,
+              "confirmed_breakout": false,
+              "strong_candle": true,
+              "relative_volume": false,
+              "near_high": true,
+              "trend": false
+            },
+            "metrics": {
+              "breakout_pct": -0.5714,
+              "last_move_pct": 0.3846,
+              "range_pct": 0.9615,
+              "relative_volume": 1.0,
+              "trade_strength": 0.0,
+              "pct_from_20d_high_proxy": -1.1364,
+              "pct_from_50d_high_proxy": -1.3233,
+              "ma5": 26080.0,
+              "ma20": 26200.0
+            },
+            "candle_basis": "actual_price_flow_proxy",
+            "updated_at": "2026-07-30T02:24:39.109619+00:00"
+          },
           "selected_plan": {}
         }
       },
       "105560": {
         "symbol": "105560",
         "name": "KB금융",
+        "display_name": "105560(KB금융)",
         "market": "KR",
         "sector": "금융",
         "latest_price": 170200.0,
@@ -9750,6 +9933,7 @@
         "market_evidence": {
           "symbol": "105560",
           "name": "KB금융",
+          "display_name": "105560(KB금융)",
           "market": "KR",
           "latest_price": 170200.0,
           "score": 0.7303000689000196,
@@ -9920,6 +10104,7 @@
       "003690": {
         "symbol": "003690",
         "name": "코리안리",
+        "display_name": "003690(코리안리)",
         "market": "KR",
         "sector": "금융",
         "latest_price": 13420.0,
@@ -9941,6 +10126,7 @@
         "market_evidence": {
           "symbol": "003690",
           "name": "코리안리",
+          "display_name": "003690(코리안리)",
           "market": "KR",
           "latest_price": 13420.0,
           "score": 0.52831858539079,
@@ -10111,6 +10297,7 @@
       "055550": {
         "symbol": "055550",
         "name": "신한지주",
+        "display_name": "055550(신한지주)",
         "market": "KR",
         "sector": "금융",
         "latest_price": 102500.0,
@@ -10132,6 +10319,7 @@
         "market_evidence": {
           "symbol": "055550",
           "name": "신한지주",
+          "display_name": "055550(신한지주)",
           "market": "KR",
           "latest_price": 102500.0,
           "score": 0.4677578628779697,
@@ -10302,6 +10490,7 @@
       "010140": {
         "symbol": "010140",
         "name": "삼성중공업",
+        "display_name": "010140(삼성중공업)",
         "market": "KR",
         "sector": "산업",
         "latest_price": 21200.0,
@@ -10323,6 +10512,7 @@
         "market_evidence": {
           "symbol": "010140",
           "name": "삼성중공업",
+          "display_name": "010140(삼성중공업)",
           "market": "KR",
           "latest_price": 21200.0,
           "score": 0.6633689788357311,
@@ -10493,6 +10683,7 @@
       "009540": {
         "symbol": "009540",
         "name": "HD한국조선해양",
+        "display_name": "009540(HD한국조선해양)",
         "market": "KR",
         "sector": "산업",
         "latest_price": 341500.0,
@@ -10514,6 +10705,7 @@
         "market_evidence": {
           "symbol": "009540",
           "name": "HD한국조선해양",
+          "display_name": "009540(HD한국조선해양)",
           "market": "KR",
           "latest_price": 341500.0,
           "score": 0.5389010064855647,
@@ -10684,6 +10876,7 @@
       "042660": {
         "symbol": "042660",
         "name": "한화오션",
+        "display_name": "042660(한화오션)",
         "market": "KR",
         "sector": "산업",
         "latest_price": 84100.0,
@@ -10705,6 +10898,7 @@
         "market_evidence": {
           "symbol": "042660",
           "name": "한화오션",
+          "display_name": "042660(한화오션)",
           "market": "KR",
           "latest_price": 84100.0,
           "score": 0.5238708830571249,
@@ -10875,6 +11069,7 @@
       "068270": {
         "symbol": "068270",
         "name": "셀트리온",
+        "display_name": "068270(셀트리온)",
         "market": "KR",
         "sector": "바이오",
         "latest_price": 172400.0,
@@ -10896,6 +11091,7 @@
         "market_evidence": {
           "symbol": "068270",
           "name": "셀트리온",
+          "display_name": "068270(셀트리온)",
           "market": "KR",
           "latest_price": 172400.0,
           "score": 0.4290229553886211,
@@ -11066,6 +11262,7 @@
       "009150": {
         "symbol": "009150",
         "name": "삼성전기",
+        "display_name": "009150(삼성전기)",
         "market": "KR",
         "sector": "반도체",
         "latest_price": 1332000.0,
@@ -11087,6 +11284,7 @@
         "market_evidence": {
           "symbol": "009150",
           "name": "삼성전기",
+          "display_name": "009150(삼성전기)",
           "market": "KR",
           "latest_price": 1332000.0,
           "score": 0.7039208623496499,
@@ -11257,6 +11455,7 @@
       "000660": {
         "symbol": "000660",
         "name": "SK하이닉스",
+        "display_name": "000660(SK하이닉스)",
         "market": "KR",
         "sector": "반도체",
         "latest_price": 1841000.0,
@@ -11278,6 +11477,7 @@
         "market_evidence": {
           "symbol": "000660",
           "name": "SK하이닉스",
+          "display_name": "000660(SK하이닉스)",
           "market": "KR",
           "latest_price": 1841000.0,
           "score": 0.6947437986383035,
@@ -11447,7 +11647,8 @@
       },
       "028300": {
         "symbol": "028300",
-        "name": "028300",
+        "name": "HLB",
+        "display_name": "028300(HLB)",
         "market": "KR",
         "sector": "기타",
         "latest_price": 31200.0,
@@ -11468,6 +11669,9 @@
         "breakout_evidence": {
           "source": "toss_api_prices",
           "strategy_family": "breakout_volume_momentum",
+          "symbol": "028300",
+          "name": "HLB",
+          "display_name": "028300(HLB)",
           "stage": "early_setup",
           "action": "observe",
           "score": 0.46,
@@ -11485,20 +11689,21 @@
           "metrics": {
             "breakout_pct": 0.0,
             "last_move_pct": 0.0,
-            "range_pct": 0.5042,
+            "range_pct": 2.8571,
             "relative_volume": 1.0,
             "trade_strength": 0.0,
             "pct_from_20d_high_proxy": 0.0,
-            "pct_from_50d_high_proxy": -0.6645,
-            "ma5": 29840.0,
-            "ma20": 29795.0
+            "pct_from_50d_high_proxy": 0.0,
+            "ma5": 30560.0,
+            "ma20": 30030.0
           },
           "candle_basis": "actual_price_flow_proxy",
-          "updated_at": "2026-07-30T02:13:02.984015+00:00"
+          "updated_at": "2026-07-30T02:24:39.109619+00:00"
         },
         "market_evidence": {
           "symbol": "028300",
-          "name": "028300",
+          "name": "HLB",
+          "display_name": "028300(HLB)",
           "market": "KR",
           "latest_price": 31200.0,
           "score": 0.9916565289673337,
@@ -11665,6 +11870,9 @@
           "breakout_evidence": {
             "source": "toss_api_prices",
             "strategy_family": "breakout_volume_momentum",
+            "symbol": "028300",
+            "name": "HLB",
+            "display_name": "028300(HLB)",
             "stage": "early_setup",
             "action": "observe",
             "score": 0.46,
@@ -11682,16 +11890,16 @@
             "metrics": {
               "breakout_pct": 0.0,
               "last_move_pct": 0.0,
-              "range_pct": 0.5042,
+              "range_pct": 2.8571,
               "relative_volume": 1.0,
               "trade_strength": 0.0,
               "pct_from_20d_high_proxy": 0.0,
-              "pct_from_50d_high_proxy": -0.6645,
-              "ma5": 29840.0,
-              "ma20": 29795.0
+              "pct_from_50d_high_proxy": 0.0,
+              "ma5": 30560.0,
+              "ma20": 30030.0
             },
             "candle_basis": "actual_price_flow_proxy",
-            "updated_at": "2026-07-30T02:13:02.984015+00:00"
+            "updated_at": "2026-07-30T02:24:39.109619+00:00"
           },
           "selected_plan": {}
         }
@@ -11699,6 +11907,7 @@
       "032830": {
         "symbol": "032830",
         "name": "삼성생명",
+        "display_name": "032830(삼성생명)",
         "market": "KR",
         "sector": "기타",
         "latest_price": 308000.0,
@@ -11720,6 +11929,7 @@
         "market_evidence": {
           "symbol": "032830",
           "name": "삼성생명",
+          "display_name": "032830(삼성생명)",
           "market": "KR",
           "latest_price": 308000.0,
           "score": 0.5740978950216913,
@@ -11890,6 +12100,7 @@
       "005490": {
         "symbol": "005490",
         "name": "POSCO홀딩스",
+        "display_name": "005490(POSCO홀딩스)",
         "market": "KR",
         "sector": "기타",
         "latest_price": 303500.0,
@@ -11911,6 +12122,7 @@
         "market_evidence": {
           "symbol": "005490",
           "name": "POSCO홀딩스",
+          "display_name": "005490(POSCO홀딩스)",
           "market": "KR",
           "latest_price": 303500.0,
           "score": 0.5615176466132725,
@@ -12081,6 +12293,7 @@
       "006400": {
         "symbol": "006400",
         "name": "삼성SDI",
+        "display_name": "006400(삼성SDI)",
         "market": "KR",
         "sector": "배터리",
         "latest_price": 410000.0,
@@ -12102,6 +12315,7 @@
         "market_evidence": {
           "symbol": "006400",
           "name": "삼성SDI",
+          "display_name": "006400(삼성SDI)",
           "market": "KR",
           "latest_price": 410000.0,
           "score": 0.5789468598956623,
@@ -12272,6 +12486,7 @@
       "015760": {
         "symbol": "015760",
         "name": "한국전력",
+        "display_name": "015760(한국전력)",
         "market": "KR",
         "sector": "유틸리티",
         "latest_price": 33200.0,
@@ -12293,6 +12508,7 @@
         "market_evidence": {
           "symbol": "015760",
           "name": "한국전력",
+          "display_name": "015760(한국전력)",
           "market": "KR",
           "latest_price": 33200.0,
           "score": 0.6313809661995148,
@@ -12463,6 +12679,7 @@
       "017960": {
         "symbol": "017960",
         "name": "한국카본",
+        "display_name": "017960(한국카본)",
         "market": "KR",
         "sector": "유틸리티",
         "latest_price": 22300.0,
@@ -12484,6 +12701,7 @@
         "market_evidence": {
           "symbol": "017960",
           "name": "한국카본",
+          "display_name": "017960(한국카본)",
           "market": "KR",
           "latest_price": 22300.0,
           "score": 0.5439113122213908,
@@ -12654,6 +12872,7 @@
       "035720": {
         "symbol": "035720",
         "name": "카카오",
+        "display_name": "035720(카카오)",
         "market": "KR",
         "sector": "플랫폼",
         "latest_price": 35050.0,
@@ -12675,6 +12894,7 @@
         "market_evidence": {
           "symbol": "035720",
           "name": "카카오",
+          "display_name": "035720(카카오)",
           "market": "KR",
           "latest_price": 35050.0,
           "score": 0.6269441022832635,
@@ -12845,6 +13065,7 @@
       "035420": {
         "symbol": "035420",
         "name": "NAVER",
+        "display_name": "035420(NAVER)",
         "market": "KR",
         "sector": "플랫폼",
         "latest_price": 188000.0,
@@ -12862,40 +13083,11 @@
         "indicator_2026_signal": null,
         "indicator_2026_description": null,
         "hermes_widget_forecast": {},
-        "breakout_evidence": {
-          "source": "toss_api_prices",
-          "strategy_family": "breakout_volume_momentum",
-          "stage": "early_setup",
-          "action": "observe",
-          "score": 0.46,
-          "score_adjustment": 0.0018,
-          "passed_checks": 3,
-          "checks": {
-            "consolidation": true,
-            "early_breakout": false,
-            "confirmed_breakout": false,
-            "strong_candle": false,
-            "relative_volume": false,
-            "near_high": true,
-            "trend": true
-          },
-          "metrics": {
-            "breakout_pct": 0.0,
-            "last_move_pct": 0.0,
-            "range_pct": 1.6787,
-            "relative_volume": 1.0,
-            "trade_strength": 0.0,
-            "pct_from_20d_high_proxy": 0.0,
-            "pct_from_50d_high_proxy": 0.0,
-            "ma5": 211400.0,
-            "ma20": 209350.0
-          },
-          "candle_basis": "actual_price_flow_proxy",
-          "updated_at": "2026-07-30T02:13:02.984015+00:00"
-        },
+        "breakout_evidence": null,
         "market_evidence": {
           "symbol": "035420",
           "name": "NAVER",
+          "display_name": "035420(NAVER)",
           "market": "KR",
           "latest_price": 188000.0,
           "score": 0.5936263850740979,
@@ -13059,43 +13251,14 @@
             "headlines": [],
             "market_note": null
           },
-          "breakout_evidence": {
-            "source": "toss_api_prices",
-            "strategy_family": "breakout_volume_momentum",
-            "stage": "early_setup",
-            "action": "observe",
-            "score": 0.46,
-            "score_adjustment": 0.0018,
-            "passed_checks": 3,
-            "checks": {
-              "consolidation": true,
-              "early_breakout": false,
-              "confirmed_breakout": false,
-              "strong_candle": false,
-              "relative_volume": false,
-              "near_high": true,
-              "trend": true
-            },
-            "metrics": {
-              "breakout_pct": 0.0,
-              "last_move_pct": 0.0,
-              "range_pct": 1.6787,
-              "relative_volume": 1.0,
-              "trade_strength": 0.0,
-              "pct_from_20d_high_proxy": 0.0,
-              "pct_from_50d_high_proxy": 0.0,
-              "ma5": 211400.0,
-              "ma20": 209350.0
-            },
-            "candle_basis": "actual_price_flow_proxy",
-            "updated_at": "2026-07-30T02:13:02.984015+00:00"
-          },
+          "breakout_evidence": null,
           "selected_plan": {}
         }
       },
       "032640": {
         "symbol": "032640",
         "name": "LG유플러스",
+        "display_name": "032640(LG유플러스)",
         "market": "KR",
         "sector": "플랫폼",
         "latest_price": 14500.0,
@@ -13117,6 +13280,7 @@
         "market_evidence": {
           "symbol": "032640",
           "name": "LG유플러스",
+          "display_name": "032640(LG유플러스)",
           "market": "KR",
           "latest_price": 14500.0,
           "score": 0.5871715342106273,
@@ -13287,6 +13451,7 @@
       "000270": {
         "symbol": "000270",
         "name": "기아",
+        "display_name": "000270(기아)",
         "market": "KR",
         "sector": "자동차",
         "latest_price": 141000.0,
@@ -13308,6 +13473,7 @@
         "market_evidence": {
           "symbol": "000270",
           "name": "기아",
+          "display_name": "000270(기아)",
           "market": "KR",
           "latest_price": 141000.0,
           "score": 0.6005012255174264,
@@ -13478,6 +13644,7 @@
       "012330": {
         "symbol": "012330",
         "name": "현대모비스",
+        "display_name": "012330(현대모비스)",
         "market": "KR",
         "sector": "자동차",
         "latest_price": 476500.0,
@@ -13499,6 +13666,7 @@
         "market_evidence": {
           "symbol": "012330",
           "name": "현대모비스",
+          "display_name": "012330(현대모비스)",
           "market": "KR",
           "latest_price": 476500.0,
           "score": 0.5596856495352052,
@@ -13669,6 +13837,7 @@
       "011210": {
         "symbol": "011210",
         "name": "현대위아",
+        "display_name": "011210(현대위아)",
         "market": "KR",
         "sector": "자동차",
         "latest_price": 55200.0,
@@ -13690,6 +13859,7 @@
         "market_evidence": {
           "symbol": "011210",
           "name": "현대위아",
+          "display_name": "011210(현대위아)",
           "market": "KR",
           "latest_price": 55200.0,
           "score": 0.5038902182970312,
@@ -13860,6 +14030,7 @@
       "AMD": {
         "symbol": "AMD",
         "name": "Advanced Micro Devices",
+        "display_name": "AMD(Advanced Micro Devices)",
         "market": "US",
         "sector": "반도체",
         "latest_price": 504.1,
@@ -13881,6 +14052,7 @@
         "market_evidence": {
           "symbol": "AMD",
           "name": "Advanced Micro Devices",
+          "display_name": "AMD(Advanced Micro Devices)",
           "market": "US",
           "latest_price": 504.1,
           "score": 3.220133705436833,
@@ -14051,6 +14223,7 @@
       "LLY": {
         "symbol": "LLY",
         "name": "Eli Lilly",
+        "display_name": "LLY(Eli Lilly)",
         "market": "US",
         "sector": "바이오",
         "latest_price": 1145.13,
@@ -14072,6 +14245,7 @@
         "market_evidence": {
           "symbol": "LLY",
           "name": "Eli Lilly",
+          "display_name": "LLY(Eli Lilly)",
           "market": "US",
           "latest_price": 1145.13,
           "score": 1.3116116564190015,
@@ -14242,6 +14416,7 @@
       "JNJ": {
         "symbol": "JNJ",
         "name": "Johnson & Johnson",
+        "display_name": "JNJ(Johnson & Johnson)",
         "market": "US",
         "sector": "바이오",
         "latest_price": 248.21,
@@ -14263,6 +14438,7 @@
         "market_evidence": {
           "symbol": "JNJ",
           "name": "Johnson & Johnson",
+          "display_name": "JNJ(Johnson & Johnson)",
           "market": "US",
           "latest_price": 248.21,
           "score": 1.0936393657271446,
@@ -14433,6 +14609,7 @@
       "PFE": {
         "symbol": "PFE",
         "name": "Pfizer",
+        "display_name": "PFE(Pfizer)",
         "market": "US",
         "sector": "바이오",
         "latest_price": 24.78,
@@ -14454,6 +14631,7 @@
         "market_evidence": {
           "symbol": "PFE",
           "name": "Pfizer",
+          "display_name": "PFE(Pfizer)",
           "market": "US",
           "latest_price": 24.78,
           "score": 0.8342904144078283,
@@ -14624,6 +14802,7 @@
       "BAC": {
         "symbol": "BAC",
         "name": "Bank of America",
+        "display_name": "BAC(Bank of America)",
         "market": "US",
         "sector": "금융",
         "latest_price": 60.44,
@@ -14645,6 +14824,7 @@
         "market_evidence": {
           "symbol": "BAC",
           "name": "Bank of America",
+          "display_name": "BAC(Bank of America)",
           "market": "US",
           "latest_price": 60.44,
           "score": 1.3082585155150377,
@@ -14815,6 +14995,7 @@
       "V": {
         "symbol": "V",
         "name": "Visa",
+        "display_name": "V(Visa)",
         "market": "US",
         "sector": "금융",
         "latest_price": 360.6,
@@ -14836,6 +15017,7 @@
         "market_evidence": {
           "symbol": "V",
           "name": "Visa",
+          "display_name": "V(Visa)",
           "market": "US",
           "latest_price": 360.6,
           "score": 0.9112257882092257,
@@ -15006,6 +15188,7 @@
       "JPM": {
         "symbol": "JPM",
         "name": "JPMorgan Chase",
+        "display_name": "JPM(JPMorgan Chase)",
         "market": "US",
         "sector": "금융",
         "latest_price": 338.93,
@@ -15027,6 +15210,7 @@
         "market_evidence": {
           "symbol": "JPM",
           "name": "JPMorgan Chase",
+          "display_name": "JPM(JPMorgan Chase)",
           "market": "US",
           "latest_price": 338.93,
           "score": 0.7472815003481532,
@@ -15197,6 +15381,7 @@
       "BA": {
         "symbol": "BA",
         "name": "Boeing",
+        "display_name": "BA(Boeing)",
         "market": "US",
         "sector": "산업",
         "latest_price": 209.9,
@@ -15218,6 +15403,7 @@
         "market_evidence": {
           "symbol": "BA",
           "name": "Boeing",
+          "display_name": "BA(Boeing)",
           "market": "US",
           "latest_price": 209.9,
           "score": 0.9355176355203024,
@@ -15388,6 +15574,7 @@
       "RTX": {
         "symbol": "RTX",
         "name": "RTX",
+        "display_name": "RTX",
         "market": "US",
         "sector": "산업",
         "latest_price": 196.5,
@@ -15409,6 +15596,7 @@
         "market_evidence": {
           "symbol": "RTX",
           "name": "RTX",
+          "display_name": "RTX",
           "market": "US",
           "latest_price": 196.5,
           "score": 0.8546943129521252,
@@ -15579,6 +15767,7 @@
       "GE": {
         "symbol": "GE",
         "name": "GE Aerospace",
+        "display_name": "GE(GE Aerospace)",
         "market": "US",
         "sector": "산업",
         "latest_price": 341.83,
@@ -15600,6 +15789,7 @@
         "market_evidence": {
           "symbol": "GE",
           "name": "GE Aerospace",
+          "display_name": "GE(GE Aerospace)",
           "market": "US",
           "latest_price": 341.83,
           "score": 0.5911249028693224,
@@ -15770,6 +15960,7 @@
       "CRWD": {
         "symbol": "CRWD",
         "name": "CrowdStrike",
+        "display_name": "CRWD(CrowdStrike)",
         "market": "US",
         "sector": "소프트웨어",
         "latest_price": 198.72,
@@ -15791,6 +15982,7 @@
         "market_evidence": {
           "symbol": "CRWD",
           "name": "CrowdStrike",
+          "display_name": "CRWD(CrowdStrike)",
           "market": "US",
           "latest_price": 198.72,
           "score": 2.3295919005217756,
@@ -15961,6 +16153,7 @@
       "DDOG": {
         "symbol": "DDOG",
         "name": "Datadog",
+        "display_name": "DDOG(Datadog)",
         "market": "US",
         "sector": "소프트웨어",
         "latest_price": 263.2,
@@ -15982,6 +16175,7 @@
         "market_evidence": {
           "symbol": "DDOG",
           "name": "Datadog",
+          "display_name": "DDOG(Datadog)",
           "market": "US",
           "latest_price": 263.2,
           "score": 1.511729135113278,
@@ -16152,6 +16346,7 @@
       "CRM": {
         "symbol": "CRM",
         "name": "Salesforce",
+        "display_name": "CRM(Salesforce)",
         "market": "US",
         "sector": "소프트웨어",
         "latest_price": 173.5,
@@ -16173,6 +16368,7 @@
         "market_evidence": {
           "symbol": "CRM",
           "name": "Salesforce",
+          "display_name": "CRM(Salesforce)",
           "market": "US",
           "latest_price": 173.5,
           "score": 1.2638901000671334,
@@ -16356,7 +16552,7 @@
       "this_week": 0,
       "this_month": 0,
       "all_time": 0,
-      "last_updated": "2026-07-30T02:18:39.087326Z"
+      "last_updated": "2026-07-30T02:24:59.286161Z"
     },
     "market_session": {
       "focus_market": "KR",
@@ -16492,7 +16688,7 @@
         "russell2000_pct": -1.6078,
         "vix": 20.66,
         "vixy_pct": 6.0734,
-        "dxy_pct": 0.1032,
+        "dxy_pct": 0.1171,
         "us2y_pct": -0.2064,
         "us10y_pct": 0.391,
         "kospi200_night_pct": -0.0,
@@ -16682,8 +16878,8 @@
   "market_evidence": {
     "summary": {
       "generated_at": null,
-      "status_updated_at": "2026-07-30T02:18:01.674384Z",
-      "macro_updated_at": "2026-07-30T02:11:36.872653+00:00",
+      "status_updated_at": "2026-07-30T02:24:03.171614Z",
+      "macro_updated_at": "2026-07-30T02:23:02.097065+00:00",
       "symbol_count": 40,
       "display_symbol_count": 40,
       "breakout_symbol_count": 3
@@ -16822,7 +17018,7 @@
         "russell2000_pct": -1.6078,
         "vix": 20.66,
         "vixy_pct": 6.0734,
-        "dxy_pct": 0.1032,
+        "dxy_pct": 0.1171,
         "us2y_pct": -0.2064,
         "us10y_pct": 0.391,
         "kospi200_night_pct": -0.0,
@@ -16988,39 +17184,79 @@
     },
     "breakout_candidates": {
       "005930": {
-        "source": "position_price_history",
+        "source": "toss_api_prices",
         "strategy_family": "breakout_volume_momentum",
+        "symbol": "005930",
+        "name": "삼성전자",
+        "display_name": "005930(삼성전자)",
         "stage": "early_setup",
         "action": "observe",
-        "score": 0.41,
+        "score": 0.46,
+        "score_adjustment": 0.0018,
+        "passed_checks": 3,
+        "checks": {
+          "consolidation": true,
+          "early_breakout": false,
+          "confirmed_breakout": false,
+          "strong_candle": false,
+          "relative_volume": false,
+          "near_high": true,
+          "trend": true
+        },
+        "metrics": {
+          "breakout_pct": -2.0,
+          "last_move_pct": 0.0,
+          "range_pct": 2.7397,
+          "relative_volume": 1.0,
+          "trade_strength": 0.0,
+          "pct_from_20d_high_proxy": -2.0,
+          "pct_from_50d_high_proxy": -2.0,
+          "ma5": 220500.0,
+          "ma20": 216762.5
+        },
+        "candle_basis": "actual_price_flow_proxy",
+        "updated_at": "2026-07-30T02:24:39.109619+00:00"
+      },
+      "001800": {
+        "source": "toss_api_prices",
+        "strategy_family": "breakout_volume_momentum",
+        "symbol": "001800",
+        "name": "오리온홀딩스",
+        "display_name": "001800(오리온홀딩스)",
+        "stage": "early_setup",
+        "action": "observe",
+        "score": 0.43,
         "score_adjustment": 0.0,
         "passed_checks": 3,
         "checks": {
           "consolidation": true,
           "early_breakout": false,
           "confirmed_breakout": false,
-          "strong_candle": false,
+          "strong_candle": true,
           "relative_volume": false,
           "near_high": true,
-          "trend": true
+          "trend": false
         },
         "metrics": {
-          "breakout_pct": -0.6667,
-          "last_move_pct": -0.2232,
-          "range_pct": 10.5651,
+          "breakout_pct": -0.5714,
+          "last_move_pct": 0.3846,
+          "range_pct": 0.9615,
           "relative_volume": 1.0,
           "trade_strength": 0.0,
-          "pct_from_20d_high_proxy": -0.6667,
-          "pct_from_50d_high_proxy": -0.6667,
-          "ma5": 223500.0,
-          "ma20": 212337.5
+          "pct_from_20d_high_proxy": -1.1364,
+          "pct_from_50d_high_proxy": -1.3233,
+          "ma5": 26080.0,
+          "ma20": 26200.0
         },
         "candle_basis": "actual_price_flow_proxy",
-        "updated_at": "2026-07-30T02:13:02.984015+00:00"
+        "updated_at": "2026-07-30T02:24:39.109619+00:00"
       },
       "028300": {
         "source": "toss_api_prices",
         "strategy_family": "breakout_volume_momentum",
+        "symbol": "028300",
+        "name": "HLB",
+        "display_name": "028300(HLB)",
         "stage": "early_setup",
         "action": "observe",
         "score": 0.46,
@@ -17038,53 +17274,23 @@
         "metrics": {
           "breakout_pct": 0.0,
           "last_move_pct": 0.0,
-          "range_pct": 0.5042,
-          "relative_volume": 1.0,
-          "trade_strength": 0.0,
-          "pct_from_20d_high_proxy": 0.0,
-          "pct_from_50d_high_proxy": -0.6645,
-          "ma5": 29840.0,
-          "ma20": 29795.0
-        },
-        "candle_basis": "actual_price_flow_proxy",
-        "updated_at": "2026-07-30T02:13:02.984015+00:00"
-      },
-      "035420": {
-        "source": "toss_api_prices",
-        "strategy_family": "breakout_volume_momentum",
-        "stage": "early_setup",
-        "action": "observe",
-        "score": 0.46,
-        "score_adjustment": 0.0018,
-        "passed_checks": 3,
-        "checks": {
-          "consolidation": true,
-          "early_breakout": false,
-          "confirmed_breakout": false,
-          "strong_candle": false,
-          "relative_volume": false,
-          "near_high": true,
-          "trend": true
-        },
-        "metrics": {
-          "breakout_pct": 0.0,
-          "last_move_pct": 0.0,
-          "range_pct": 1.6787,
+          "range_pct": 2.8571,
           "relative_volume": 1.0,
           "trade_strength": 0.0,
           "pct_from_20d_high_proxy": 0.0,
           "pct_from_50d_high_proxy": 0.0,
-          "ma5": 211400.0,
-          "ma20": 209350.0
+          "ma5": 30560.0,
+          "ma20": 30030.0
         },
         "candle_basis": "actual_price_flow_proxy",
-        "updated_at": "2026-07-30T02:13:02.984015+00:00"
+        "updated_at": "2026-07-30T02:24:39.109619+00:00"
       }
     },
     "top_symbols": [
       {
         "symbol": "005930",
         "name": "삼성전자",
+        "display_name": "005930(삼성전자)",
         "market": "KR",
         "score": 0.8669215548865765,
         "latest_price": 252000.0,
@@ -17098,12 +17304,15 @@
         "indicator_2026_signal": null,
         "indicator_2026_description": null,
         "breakout_evidence": {
-          "source": "position_price_history",
+          "source": "toss_api_prices",
           "strategy_family": "breakout_volume_momentum",
+          "symbol": "005930",
+          "name": "삼성전자",
+          "display_name": "005930(삼성전자)",
           "stage": "early_setup",
           "action": "observe",
-          "score": 0.41,
-          "score_adjustment": 0.0,
+          "score": 0.46,
+          "score_adjustment": 0.0018,
           "passed_checks": 3,
           "checks": {
             "consolidation": true,
@@ -17115,23 +17324,24 @@
             "trend": true
           },
           "metrics": {
-            "breakout_pct": -0.6667,
-            "last_move_pct": -0.2232,
-            "range_pct": 10.5651,
+            "breakout_pct": -2.0,
+            "last_move_pct": 0.0,
+            "range_pct": 2.7397,
             "relative_volume": 1.0,
             "trade_strength": 0.0,
-            "pct_from_20d_high_proxy": -0.6667,
-            "pct_from_50d_high_proxy": -0.6667,
-            "ma5": 223500.0,
-            "ma20": 212337.5
+            "pct_from_20d_high_proxy": -2.0,
+            "pct_from_50d_high_proxy": -2.0,
+            "ma5": 220500.0,
+            "ma20": 216762.5
           },
           "candle_basis": "actual_price_flow_proxy",
-          "updated_at": "2026-07-30T02:13:02.984015+00:00"
+          "updated_at": "2026-07-30T02:24:39.109619+00:00"
         }
       },
       {
         "symbol": "MU",
         "name": "Micron Technology",
+        "display_name": "MU(Micron Technology)",
         "market": "US",
         "score": 1.160889420034481,
         "latest_price": 870.19,
@@ -17149,6 +17359,7 @@
       {
         "symbol": "SNDK",
         "name": "SanDisk",
+        "display_name": "SNDK(SanDisk)",
         "market": "US",
         "score": 0.7057624018397226,
         "latest_price": 1402.99,
@@ -17166,6 +17377,7 @@
       {
         "symbol": "028260",
         "name": "삼성물산",
+        "display_name": "028260(삼성물산)",
         "market": "KR",
         "score": 0.5920281981829576,
         "latest_price": 328000.0,
@@ -17183,6 +17395,7 @@
       {
         "symbol": "003550",
         "name": "LG",
+        "display_name": "003550(LG)",
         "market": "KR",
         "score": 0.547921384751402,
         "latest_price": 95900.0,
@@ -17200,6 +17413,7 @@
       {
         "symbol": "001800",
         "name": "오리온홀딩스",
+        "display_name": "001800(오리온홀딩스)",
         "market": "KR",
         "score": 0.4967922206730518,
         "latest_price": 25000.0,
@@ -17212,11 +17426,45 @@
         "current_price_signal": null,
         "indicator_2026_signal": null,
         "indicator_2026_description": null,
-        "breakout_evidence": null
+        "breakout_evidence": {
+          "source": "toss_api_prices",
+          "strategy_family": "breakout_volume_momentum",
+          "symbol": "001800",
+          "name": "오리온홀딩스",
+          "display_name": "001800(오리온홀딩스)",
+          "stage": "early_setup",
+          "action": "observe",
+          "score": 0.43,
+          "score_adjustment": 0.0,
+          "passed_checks": 3,
+          "checks": {
+            "consolidation": true,
+            "early_breakout": false,
+            "confirmed_breakout": false,
+            "strong_candle": true,
+            "relative_volume": false,
+            "near_high": true,
+            "trend": false
+          },
+          "metrics": {
+            "breakout_pct": -0.5714,
+            "last_move_pct": 0.3846,
+            "range_pct": 0.9615,
+            "relative_volume": 1.0,
+            "trade_strength": 0.0,
+            "pct_from_20d_high_proxy": -1.1364,
+            "pct_from_50d_high_proxy": -1.3233,
+            "ma5": 26080.0,
+            "ma20": 26200.0
+          },
+          "candle_basis": "actual_price_flow_proxy",
+          "updated_at": "2026-07-30T02:24:39.109619+00:00"
+        }
       },
       {
         "symbol": "105560",
         "name": "KB금융",
+        "display_name": "105560(KB금융)",
         "market": "KR",
         "score": 0.7303000689000196,
         "latest_price": 170200.0,
@@ -17234,6 +17482,7 @@
       {
         "symbol": "003690",
         "name": "코리안리",
+        "display_name": "003690(코리안리)",
         "market": "KR",
         "score": 0.52831858539079,
         "latest_price": 13420.0,
@@ -17251,6 +17500,7 @@
       {
         "symbol": "055550",
         "name": "신한지주",
+        "display_name": "055550(신한지주)",
         "market": "KR",
         "score": 0.4677578628779697,
         "latest_price": 102500.0,
@@ -17268,6 +17518,7 @@
       {
         "symbol": "010140",
         "name": "삼성중공업",
+        "display_name": "010140(삼성중공업)",
         "market": "KR",
         "score": 0.6633689788357311,
         "latest_price": 21200.0,
@@ -17287,6 +17538,7 @@
       "005930": {
         "symbol": "005930",
         "name": "삼성전자",
+        "display_name": "005930(삼성전자)",
         "market": "KR",
         "latest_price": 252000.0,
         "score": 0.8669215548865765,
@@ -17451,12 +17703,15 @@
           "market_note": null
         },
         "breakout_evidence": {
-          "source": "position_price_history",
+          "source": "toss_api_prices",
           "strategy_family": "breakout_volume_momentum",
+          "symbol": "005930",
+          "name": "삼성전자",
+          "display_name": "005930(삼성전자)",
           "stage": "early_setup",
           "action": "observe",
-          "score": 0.41,
-          "score_adjustment": 0.0,
+          "score": 0.46,
+          "score_adjustment": 0.0018,
           "passed_checks": 3,
           "checks": {
             "consolidation": true,
@@ -17468,24 +17723,25 @@
             "trend": true
           },
           "metrics": {
-            "breakout_pct": -0.6667,
-            "last_move_pct": -0.2232,
-            "range_pct": 10.5651,
+            "breakout_pct": -2.0,
+            "last_move_pct": 0.0,
+            "range_pct": 2.7397,
             "relative_volume": 1.0,
             "trade_strength": 0.0,
-            "pct_from_20d_high_proxy": -0.6667,
-            "pct_from_50d_high_proxy": -0.6667,
-            "ma5": 223500.0,
-            "ma20": 212337.5
+            "pct_from_20d_high_proxy": -2.0,
+            "pct_from_50d_high_proxy": -2.0,
+            "ma5": 220500.0,
+            "ma20": 216762.5
           },
           "candle_basis": "actual_price_flow_proxy",
-          "updated_at": "2026-07-30T02:13:02.984015+00:00"
+          "updated_at": "2026-07-30T02:24:39.109619+00:00"
         },
         "selected_plan": {}
       },
       "MU": {
         "symbol": "MU",
         "name": "Micron Technology",
+        "display_name": "MU(Micron Technology)",
         "market": "US",
         "latest_price": 870.19,
         "score": 1.160889420034481,
@@ -17655,6 +17911,7 @@
       "SNDK": {
         "symbol": "SNDK",
         "name": "SanDisk",
+        "display_name": "SNDK(SanDisk)",
         "market": "US",
         "latest_price": 1402.99,
         "score": 0.7057624018397226,
@@ -17824,6 +18081,7 @@
       "028260": {
         "symbol": "028260",
         "name": "삼성물산",
+        "display_name": "028260(삼성물산)",
         "market": "KR",
         "latest_price": 328000.0,
         "score": 0.5920281981829576,
@@ -17993,6 +18251,7 @@
       "003550": {
         "symbol": "003550",
         "name": "LG",
+        "display_name": "003550(LG)",
         "market": "KR",
         "latest_price": 95900.0,
         "score": 0.547921384751402,
@@ -18162,6 +18421,7 @@
       "001800": {
         "symbol": "001800",
         "name": "오리온홀딩스",
+        "display_name": "001800(오리온홀딩스)",
         "market": "KR",
         "latest_price": 25000.0,
         "score": 0.4967922206730518,
@@ -18325,12 +18585,46 @@
           "headlines": [],
           "market_note": null
         },
-        "breakout_evidence": null,
+        "breakout_evidence": {
+          "source": "toss_api_prices",
+          "strategy_family": "breakout_volume_momentum",
+          "symbol": "001800",
+          "name": "오리온홀딩스",
+          "display_name": "001800(오리온홀딩스)",
+          "stage": "early_setup",
+          "action": "observe",
+          "score": 0.43,
+          "score_adjustment": 0.0,
+          "passed_checks": 3,
+          "checks": {
+            "consolidation": true,
+            "early_breakout": false,
+            "confirmed_breakout": false,
+            "strong_candle": true,
+            "relative_volume": false,
+            "near_high": true,
+            "trend": false
+          },
+          "metrics": {
+            "breakout_pct": -0.5714,
+            "last_move_pct": 0.3846,
+            "range_pct": 0.9615,
+            "relative_volume": 1.0,
+            "trade_strength": 0.0,
+            "pct_from_20d_high_proxy": -1.1364,
+            "pct_from_50d_high_proxy": -1.3233,
+            "ma5": 26080.0,
+            "ma20": 26200.0
+          },
+          "candle_basis": "actual_price_flow_proxy",
+          "updated_at": "2026-07-30T02:24:39.109619+00:00"
+        },
         "selected_plan": {}
       },
       "105560": {
         "symbol": "105560",
         "name": "KB금융",
+        "display_name": "105560(KB금융)",
         "market": "KR",
         "latest_price": 170200.0,
         "score": 0.7303000689000196,
@@ -18500,6 +18794,7 @@
       "003690": {
         "symbol": "003690",
         "name": "코리안리",
+        "display_name": "003690(코리안리)",
         "market": "KR",
         "latest_price": 13420.0,
         "score": 0.52831858539079,
@@ -18669,6 +18964,7 @@
       "055550": {
         "symbol": "055550",
         "name": "신한지주",
+        "display_name": "055550(신한지주)",
         "market": "KR",
         "latest_price": 102500.0,
         "score": 0.4677578628779697,
@@ -18838,6 +19134,7 @@
       "010140": {
         "symbol": "010140",
         "name": "삼성중공업",
+        "display_name": "010140(삼성중공업)",
         "market": "KR",
         "latest_price": 21200.0,
         "score": 0.6633689788357311,
@@ -19007,6 +19304,7 @@
       "009540": {
         "symbol": "009540",
         "name": "HD한국조선해양",
+        "display_name": "009540(HD한국조선해양)",
         "market": "KR",
         "latest_price": 341500.0,
         "score": 0.5389010064855647,
@@ -19176,6 +19474,7 @@
       "042660": {
         "symbol": "042660",
         "name": "한화오션",
+        "display_name": "042660(한화오션)",
         "market": "KR",
         "latest_price": 84100.0,
         "score": 0.5238708830571249,
@@ -19345,6 +19644,7 @@
       "068270": {
         "symbol": "068270",
         "name": "셀트리온",
+        "display_name": "068270(셀트리온)",
         "market": "KR",
         "latest_price": 172400.0,
         "score": 0.4290229553886211,
@@ -19514,6 +19814,7 @@
       "009150": {
         "symbol": "009150",
         "name": "삼성전기",
+        "display_name": "009150(삼성전기)",
         "market": "KR",
         "latest_price": 1332000.0,
         "score": 0.7039208623496499,
@@ -19683,6 +19984,7 @@
       "000660": {
         "symbol": "000660",
         "name": "SK하이닉스",
+        "display_name": "000660(SK하이닉스)",
         "market": "KR",
         "latest_price": 1841000.0,
         "score": 0.6947437986383035,
@@ -19851,7 +20153,8 @@
       },
       "028300": {
         "symbol": "028300",
-        "name": "028300",
+        "name": "HLB",
+        "display_name": "028300(HLB)",
         "market": "KR",
         "latest_price": 31200.0,
         "score": 0.9916565289673337,
@@ -20018,6 +20321,9 @@
         "breakout_evidence": {
           "source": "toss_api_prices",
           "strategy_family": "breakout_volume_momentum",
+          "symbol": "028300",
+          "name": "HLB",
+          "display_name": "028300(HLB)",
           "stage": "early_setup",
           "action": "observe",
           "score": 0.46,
@@ -20035,22 +20341,23 @@
           "metrics": {
             "breakout_pct": 0.0,
             "last_move_pct": 0.0,
-            "range_pct": 0.5042,
+            "range_pct": 2.8571,
             "relative_volume": 1.0,
             "trade_strength": 0.0,
             "pct_from_20d_high_proxy": 0.0,
-            "pct_from_50d_high_proxy": -0.6645,
-            "ma5": 29840.0,
-            "ma20": 29795.0
+            "pct_from_50d_high_proxy": 0.0,
+            "ma5": 30560.0,
+            "ma20": 30030.0
           },
           "candle_basis": "actual_price_flow_proxy",
-          "updated_at": "2026-07-30T02:13:02.984015+00:00"
+          "updated_at": "2026-07-30T02:24:39.109619+00:00"
         },
         "selected_plan": {}
       },
       "032830": {
         "symbol": "032830",
         "name": "삼성생명",
+        "display_name": "032830(삼성생명)",
         "market": "KR",
         "latest_price": 308000.0,
         "score": 0.5740978950216913,
@@ -20220,6 +20527,7 @@
       "005490": {
         "symbol": "005490",
         "name": "POSCO홀딩스",
+        "display_name": "005490(POSCO홀딩스)",
         "market": "KR",
         "latest_price": 303500.0,
         "score": 0.5615176466132725,
@@ -20389,6 +20697,7 @@
       "006400": {
         "symbol": "006400",
         "name": "삼성SDI",
+        "display_name": "006400(삼성SDI)",
         "market": "KR",
         "latest_price": 410000.0,
         "score": 0.5789468598956623,
@@ -20558,6 +20867,7 @@
       "015760": {
         "symbol": "015760",
         "name": "한국전력",
+        "display_name": "015760(한국전력)",
         "market": "KR",
         "latest_price": 33200.0,
         "score": 0.6313809661995148,
@@ -20727,6 +21037,7 @@
       "017960": {
         "symbol": "017960",
         "name": "한국카본",
+        "display_name": "017960(한국카본)",
         "market": "KR",
         "latest_price": 22300.0,
         "score": 0.5439113122213908,
@@ -20896,6 +21207,7 @@
       "035720": {
         "symbol": "035720",
         "name": "카카오",
+        "display_name": "035720(카카오)",
         "market": "KR",
         "latest_price": 35050.0,
         "score": 0.6269441022832635,
@@ -21065,6 +21377,7 @@
       "035420": {
         "symbol": "035420",
         "name": "NAVER",
+        "display_name": "035420(NAVER)",
         "market": "KR",
         "latest_price": 188000.0,
         "score": 0.5936263850740979,
@@ -21228,42 +21541,13 @@
           "headlines": [],
           "market_note": null
         },
-        "breakout_evidence": {
-          "source": "toss_api_prices",
-          "strategy_family": "breakout_volume_momentum",
-          "stage": "early_setup",
-          "action": "observe",
-          "score": 0.46,
-          "score_adjustment": 0.0018,
-          "passed_checks": 3,
-          "checks": {
-            "consolidation": true,
-            "early_breakout": false,
-            "confirmed_breakout": false,
-            "strong_candle": false,
-            "relative_volume": false,
-            "near_high": true,
-            "trend": true
-          },
-          "metrics": {
-            "breakout_pct": 0.0,
-            "last_move_pct": 0.0,
-            "range_pct": 1.6787,
-            "relative_volume": 1.0,
-            "trade_strength": 0.0,
-            "pct_from_20d_high_proxy": 0.0,
-            "pct_from_50d_high_proxy": 0.0,
-            "ma5": 211400.0,
-            "ma20": 209350.0
-          },
-          "candle_basis": "actual_price_flow_proxy",
-          "updated_at": "2026-07-30T02:13:02.984015+00:00"
-        },
+        "breakout_evidence": null,
         "selected_plan": {}
       },
       "032640": {
         "symbol": "032640",
         "name": "LG유플러스",
+        "display_name": "032640(LG유플러스)",
         "market": "KR",
         "latest_price": 14500.0,
         "score": 0.5871715342106273,
@@ -21433,6 +21717,7 @@
       "000270": {
         "symbol": "000270",
         "name": "기아",
+        "display_name": "000270(기아)",
         "market": "KR",
         "latest_price": 141000.0,
         "score": 0.6005012255174264,
@@ -21602,6 +21887,7 @@
       "012330": {
         "symbol": "012330",
         "name": "현대모비스",
+        "display_name": "012330(현대모비스)",
         "market": "KR",
         "latest_price": 476500.0,
         "score": 0.5596856495352052,
@@ -21771,6 +22057,7 @@
       "011210": {
         "symbol": "011210",
         "name": "현대위아",
+        "display_name": "011210(현대위아)",
         "market": "KR",
         "latest_price": 55200.0,
         "score": 0.5038902182970312,
@@ -21940,6 +22227,7 @@
       "AMD": {
         "symbol": "AMD",
         "name": "Advanced Micro Devices",
+        "display_name": "AMD(Advanced Micro Devices)",
         "market": "US",
         "latest_price": 504.1,
         "score": 3.220133705436833,
@@ -22109,6 +22397,7 @@
       "LLY": {
         "symbol": "LLY",
         "name": "Eli Lilly",
+        "display_name": "LLY(Eli Lilly)",
         "market": "US",
         "latest_price": 1145.13,
         "score": 1.3116116564190015,
@@ -22278,6 +22567,7 @@
       "JNJ": {
         "symbol": "JNJ",
         "name": "Johnson & Johnson",
+        "display_name": "JNJ(Johnson & Johnson)",
         "market": "US",
         "latest_price": 248.21,
         "score": 1.0936393657271446,
@@ -22447,6 +22737,7 @@
       "PFE": {
         "symbol": "PFE",
         "name": "Pfizer",
+        "display_name": "PFE(Pfizer)",
         "market": "US",
         "latest_price": 24.78,
         "score": 0.8342904144078283,
@@ -22616,6 +22907,7 @@
       "BAC": {
         "symbol": "BAC",
         "name": "Bank of America",
+        "display_name": "BAC(Bank of America)",
         "market": "US",
         "latest_price": 60.44,
         "score": 1.3082585155150377,
@@ -22785,6 +23077,7 @@
       "V": {
         "symbol": "V",
         "name": "Visa",
+        "display_name": "V(Visa)",
         "market": "US",
         "latest_price": 360.6,
         "score": 0.9112257882092257,
@@ -22954,6 +23247,7 @@
       "JPM": {
         "symbol": "JPM",
         "name": "JPMorgan Chase",
+        "display_name": "JPM(JPMorgan Chase)",
         "market": "US",
         "latest_price": 338.93,
         "score": 0.7472815003481532,
@@ -23123,6 +23417,7 @@
       "BA": {
         "symbol": "BA",
         "name": "Boeing",
+        "display_name": "BA(Boeing)",
         "market": "US",
         "latest_price": 209.9,
         "score": 0.9355176355203024,
@@ -23292,6 +23587,7 @@
       "RTX": {
         "symbol": "RTX",
         "name": "RTX",
+        "display_name": "RTX",
         "market": "US",
         "latest_price": 196.5,
         "score": 0.8546943129521252,
@@ -23461,6 +23757,7 @@
       "GE": {
         "symbol": "GE",
         "name": "GE Aerospace",
+        "display_name": "GE(GE Aerospace)",
         "market": "US",
         "latest_price": 341.83,
         "score": 0.5911249028693224,
@@ -23630,6 +23927,7 @@
       "CRWD": {
         "symbol": "CRWD",
         "name": "CrowdStrike",
+        "display_name": "CRWD(CrowdStrike)",
         "market": "US",
         "latest_price": 198.72,
         "score": 2.3295919005217756,
@@ -23799,6 +24097,7 @@
       "DDOG": {
         "symbol": "DDOG",
         "name": "Datadog",
+        "display_name": "DDOG(Datadog)",
         "market": "US",
         "latest_price": 263.2,
         "score": 1.511729135113278,
@@ -23968,6 +24267,7 @@
       "CRM": {
         "symbol": "CRM",
         "name": "Salesforce",
+        "display_name": "CRM(Salesforce)",
         "market": "US",
         "latest_price": 173.5,
         "score": 1.2638901000671334,
