@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-07-30T02:24:59.286161Z",
+  "updated_at": "2026-07-30T02:32:51.912153Z",
   "source": "dotoristock_dotoriweb_live_bridge",
-  "status_updated_at": "2026-07-30T02:24:03.171614Z",
+  "status_updated_at": "2026-07-30T02:32:03.006824Z",
   "widget_updated_at": null,
   "macro_updated_at": "2026-07-30T02:23:02.097065+00:00",
   "market_focus": "KR",
@@ -201,40 +201,7 @@
       "indicator_2026_signal": null,
       "indicator_2026_description": null,
       "hermes_widget_forecast": {},
-      "breakout_evidence": {
-        "source": "toss_api_prices",
-        "strategy_family": "breakout_volume_momentum",
-        "symbol": "005930",
-        "name": "삼성전자",
-        "display_name": "005930(삼성전자)",
-        "stage": "early_setup",
-        "action": "observe",
-        "score": 0.46,
-        "score_adjustment": 0.0018,
-        "passed_checks": 3,
-        "checks": {
-          "consolidation": true,
-          "early_breakout": false,
-          "confirmed_breakout": false,
-          "strong_candle": false,
-          "relative_volume": false,
-          "near_high": true,
-          "trend": true
-        },
-        "metrics": {
-          "breakout_pct": -2.0,
-          "last_move_pct": 0.0,
-          "range_pct": 2.7397,
-          "relative_volume": 1.0,
-          "trade_strength": 0.0,
-          "pct_from_20d_high_proxy": -2.0,
-          "pct_from_50d_high_proxy": -2.0,
-          "ma5": 220500.0,
-          "ma20": 216762.5
-        },
-        "candle_basis": "actual_price_flow_proxy",
-        "updated_at": "2026-07-30T02:24:39.109619+00:00"
-      },
+      "breakout_evidence": null,
       "market_evidence": {
         "symbol": "005930",
         "name": "삼성전자",
@@ -402,40 +369,7 @@
           "headlines": [],
           "market_note": null
         },
-        "breakout_evidence": {
-          "source": "toss_api_prices",
-          "strategy_family": "breakout_volume_momentum",
-          "symbol": "005930",
-          "name": "삼성전자",
-          "display_name": "005930(삼성전자)",
-          "stage": "early_setup",
-          "action": "observe",
-          "score": 0.46,
-          "score_adjustment": 0.0018,
-          "passed_checks": 3,
-          "checks": {
-            "consolidation": true,
-            "early_breakout": false,
-            "confirmed_breakout": false,
-            "strong_candle": false,
-            "relative_volume": false,
-            "near_high": true,
-            "trend": true
-          },
-          "metrics": {
-            "breakout_pct": -2.0,
-            "last_move_pct": 0.0,
-            "range_pct": 2.7397,
-            "relative_volume": 1.0,
-            "trade_strength": 0.0,
-            "pct_from_20d_high_proxy": -2.0,
-            "pct_from_50d_high_proxy": -2.0,
-            "ma5": 220500.0,
-            "ma20": 216762.5
-          },
-          "candle_basis": "actual_price_flow_proxy",
-          "updated_at": "2026-07-30T02:24:39.109619+00:00"
-        },
+        "breakout_evidence": null,
         "selected_plan": {}
       }
     },
@@ -1232,40 +1166,7 @@
       "indicator_2026_signal": null,
       "indicator_2026_description": null,
       "hermes_widget_forecast": {},
-      "breakout_evidence": {
-        "source": "toss_api_prices",
-        "strategy_family": "breakout_volume_momentum",
-        "symbol": "001800",
-        "name": "오리온홀딩스",
-        "display_name": "001800(오리온홀딩스)",
-        "stage": "early_setup",
-        "action": "observe",
-        "score": 0.43,
-        "score_adjustment": 0.0,
-        "passed_checks": 3,
-        "checks": {
-          "consolidation": true,
-          "early_breakout": false,
-          "confirmed_breakout": false,
-          "strong_candle": true,
-          "relative_volume": false,
-          "near_high": true,
-          "trend": false
-        },
-        "metrics": {
-          "breakout_pct": -0.5714,
-          "last_move_pct": 0.3846,
-          "range_pct": 0.9615,
-          "relative_volume": 1.0,
-          "trade_strength": 0.0,
-          "pct_from_20d_high_proxy": -1.1364,
-          "pct_from_50d_high_proxy": -1.3233,
-          "ma5": 26080.0,
-          "ma20": 26200.0
-        },
-        "candle_basis": "actual_price_flow_proxy",
-        "updated_at": "2026-07-30T02:24:39.109619+00:00"
-      },
+      "breakout_evidence": null,
       "market_evidence": {
         "symbol": "001800",
         "name": "오리온홀딩스",
@@ -1433,40 +1334,7 @@
           "headlines": [],
           "market_note": null
         },
-        "breakout_evidence": {
-          "source": "toss_api_prices",
-          "strategy_family": "breakout_volume_momentum",
-          "symbol": "001800",
-          "name": "오리온홀딩스",
-          "display_name": "001800(오리온홀딩스)",
-          "stage": "early_setup",
-          "action": "observe",
-          "score": 0.43,
-          "score_adjustment": 0.0,
-          "passed_checks": 3,
-          "checks": {
-            "consolidation": true,
-            "early_breakout": false,
-            "confirmed_breakout": false,
-            "strong_candle": true,
-            "relative_volume": false,
-            "near_high": true,
-            "trend": false
-          },
-          "metrics": {
-            "breakout_pct": -0.5714,
-            "last_move_pct": 0.3846,
-            "range_pct": 0.9615,
-            "relative_volume": 1.0,
-            "trade_strength": 0.0,
-            "pct_from_20d_high_proxy": -1.1364,
-            "pct_from_50d_high_proxy": -1.3233,
-            "ma5": 26080.0,
-            "ma20": 26200.0
-          },
-          "candle_basis": "actual_price_flow_proxy",
-          "updated_at": "2026-07-30T02:24:39.109619+00:00"
-        },
+        "breakout_evidence": null,
         "selected_plan": {}
       }
     },
@@ -3228,40 +3096,7 @@
       "indicator_2026_signal": null,
       "indicator_2026_description": null,
       "hermes_widget_forecast": {},
-      "breakout_evidence": {
-        "source": "toss_api_prices",
-        "strategy_family": "breakout_volume_momentum",
-        "symbol": "028300",
-        "name": "HLB",
-        "display_name": "028300(HLB)",
-        "stage": "early_setup",
-        "action": "observe",
-        "score": 0.46,
-        "score_adjustment": 0.0018,
-        "passed_checks": 3,
-        "checks": {
-          "consolidation": true,
-          "early_breakout": false,
-          "confirmed_breakout": false,
-          "strong_candle": false,
-          "relative_volume": false,
-          "near_high": true,
-          "trend": true
-        },
-        "metrics": {
-          "breakout_pct": 0.0,
-          "last_move_pct": 0.0,
-          "range_pct": 2.8571,
-          "relative_volume": 1.0,
-          "trade_strength": 0.0,
-          "pct_from_20d_high_proxy": 0.0,
-          "pct_from_50d_high_proxy": 0.0,
-          "ma5": 30560.0,
-          "ma20": 30030.0
-        },
-        "candle_basis": "actual_price_flow_proxy",
-        "updated_at": "2026-07-30T02:24:39.109619+00:00"
-      },
+      "breakout_evidence": null,
       "market_evidence": {
         "symbol": "028300",
         "name": "HLB",
@@ -3429,40 +3264,7 @@
           "headlines": [],
           "market_note": null
         },
-        "breakout_evidence": {
-          "source": "toss_api_prices",
-          "strategy_family": "breakout_volume_momentum",
-          "symbol": "028300",
-          "name": "HLB",
-          "display_name": "028300(HLB)",
-          "stage": "early_setup",
-          "action": "observe",
-          "score": 0.46,
-          "score_adjustment": 0.0018,
-          "passed_checks": 3,
-          "checks": {
-            "consolidation": true,
-            "early_breakout": false,
-            "confirmed_breakout": false,
-            "strong_candle": false,
-            "relative_volume": false,
-            "near_high": true,
-            "trend": true
-          },
-          "metrics": {
-            "breakout_pct": 0.0,
-            "last_move_pct": 0.0,
-            "range_pct": 2.8571,
-            "relative_volume": 1.0,
-            "trade_strength": 0.0,
-            "pct_from_20d_high_proxy": 0.0,
-            "pct_from_50d_high_proxy": 0.0,
-            "ma5": 30560.0,
-            "ma20": 30030.0
-          },
-          "candle_basis": "actual_price_flow_proxy",
-          "updated_at": "2026-07-30T02:24:39.109619+00:00"
-        },
+        "breakout_evidence": null,
         "selected_plan": {}
       }
     },
@@ -8114,7 +7916,7 @@
     "this_week": 0,
     "this_month": 0,
     "all_time": 0,
-    "last_updated": "2026-07-30T02:24:59.286161Z"
+    "last_updated": "2026-07-30T02:32:51.912153Z"
   },
   "market_session": {
     "focus_market": "KR",
@@ -8437,9 +8239,9 @@
     }
   },
   "payload_json": {
-    "updated_at": "2026-07-30T02:24:59.286161Z",
+    "updated_at": "2026-07-30T02:32:51.912153Z",
     "source": "dotoristock_dotoriweb_live_bridge",
-    "status_updated_at": "2026-07-30T02:24:03.171614Z",
+    "status_updated_at": "2026-07-30T02:32:03.006824Z",
     "widget_updated_at": null,
     "macro_updated_at": "2026-07-30T02:23:02.097065+00:00",
     "market_focus": "KR",
@@ -8639,40 +8441,7 @@
         "indicator_2026_signal": null,
         "indicator_2026_description": null,
         "hermes_widget_forecast": {},
-        "breakout_evidence": {
-          "source": "toss_api_prices",
-          "strategy_family": "breakout_volume_momentum",
-          "symbol": "005930",
-          "name": "삼성전자",
-          "display_name": "005930(삼성전자)",
-          "stage": "early_setup",
-          "action": "observe",
-          "score": 0.46,
-          "score_adjustment": 0.0018,
-          "passed_checks": 3,
-          "checks": {
-            "consolidation": true,
-            "early_breakout": false,
-            "confirmed_breakout": false,
-            "strong_candle": false,
-            "relative_volume": false,
-            "near_high": true,
-            "trend": true
-          },
-          "metrics": {
-            "breakout_pct": -2.0,
-            "last_move_pct": 0.0,
-            "range_pct": 2.7397,
-            "relative_volume": 1.0,
-            "trade_strength": 0.0,
-            "pct_from_20d_high_proxy": -2.0,
-            "pct_from_50d_high_proxy": -2.0,
-            "ma5": 220500.0,
-            "ma20": 216762.5
-          },
-          "candle_basis": "actual_price_flow_proxy",
-          "updated_at": "2026-07-30T02:24:39.109619+00:00"
-        },
+        "breakout_evidence": null,
         "market_evidence": {
           "symbol": "005930",
           "name": "삼성전자",
@@ -8840,40 +8609,7 @@
             "headlines": [],
             "market_note": null
           },
-          "breakout_evidence": {
-            "source": "toss_api_prices",
-            "strategy_family": "breakout_volume_momentum",
-            "symbol": "005930",
-            "name": "삼성전자",
-            "display_name": "005930(삼성전자)",
-            "stage": "early_setup",
-            "action": "observe",
-            "score": 0.46,
-            "score_adjustment": 0.0018,
-            "passed_checks": 3,
-            "checks": {
-              "consolidation": true,
-              "early_breakout": false,
-              "confirmed_breakout": false,
-              "strong_candle": false,
-              "relative_volume": false,
-              "near_high": true,
-              "trend": true
-            },
-            "metrics": {
-              "breakout_pct": -2.0,
-              "last_move_pct": 0.0,
-              "range_pct": 2.7397,
-              "relative_volume": 1.0,
-              "trade_strength": 0.0,
-              "pct_from_20d_high_proxy": -2.0,
-              "pct_from_50d_high_proxy": -2.0,
-              "ma5": 220500.0,
-              "ma20": 216762.5
-            },
-            "candle_basis": "actual_price_flow_proxy",
-            "updated_at": "2026-07-30T02:24:39.109619+00:00"
-          },
+          "breakout_evidence": null,
           "selected_plan": {}
         }
       },
@@ -9670,40 +9406,7 @@
         "indicator_2026_signal": null,
         "indicator_2026_description": null,
         "hermes_widget_forecast": {},
-        "breakout_evidence": {
-          "source": "toss_api_prices",
-          "strategy_family": "breakout_volume_momentum",
-          "symbol": "001800",
-          "name": "오리온홀딩스",
-          "display_name": "001800(오리온홀딩스)",
-          "stage": "early_setup",
-          "action": "observe",
-          "score": 0.43,
-          "score_adjustment": 0.0,
-          "passed_checks": 3,
-          "checks": {
-            "consolidation": true,
-            "early_breakout": false,
-            "confirmed_breakout": false,
-            "strong_candle": true,
-            "relative_volume": false,
-            "near_high": true,
-            "trend": false
-          },
-          "metrics": {
-            "breakout_pct": -0.5714,
-            "last_move_pct": 0.3846,
-            "range_pct": 0.9615,
-            "relative_volume": 1.0,
-            "trade_strength": 0.0,
-            "pct_from_20d_high_proxy": -1.1364,
-            "pct_from_50d_high_proxy": -1.3233,
-            "ma5": 26080.0,
-            "ma20": 26200.0
-          },
-          "candle_basis": "actual_price_flow_proxy",
-          "updated_at": "2026-07-30T02:24:39.109619+00:00"
-        },
+        "breakout_evidence": null,
         "market_evidence": {
           "symbol": "001800",
           "name": "오리온홀딩스",
@@ -9871,40 +9574,7 @@
             "headlines": [],
             "market_note": null
           },
-          "breakout_evidence": {
-            "source": "toss_api_prices",
-            "strategy_family": "breakout_volume_momentum",
-            "symbol": "001800",
-            "name": "오리온홀딩스",
-            "display_name": "001800(오리온홀딩스)",
-            "stage": "early_setup",
-            "action": "observe",
-            "score": 0.43,
-            "score_adjustment": 0.0,
-            "passed_checks": 3,
-            "checks": {
-              "consolidation": true,
-              "early_breakout": false,
-              "confirmed_breakout": false,
-              "strong_candle": true,
-              "relative_volume": false,
-              "near_high": true,
-              "trend": false
-            },
-            "metrics": {
-              "breakout_pct": -0.5714,
-              "last_move_pct": 0.3846,
-              "range_pct": 0.9615,
-              "relative_volume": 1.0,
-              "trade_strength": 0.0,
-              "pct_from_20d_high_proxy": -1.1364,
-              "pct_from_50d_high_proxy": -1.3233,
-              "ma5": 26080.0,
-              "ma20": 26200.0
-            },
-            "candle_basis": "actual_price_flow_proxy",
-            "updated_at": "2026-07-30T02:24:39.109619+00:00"
-          },
+          "breakout_evidence": null,
           "selected_plan": {}
         }
       },
@@ -11666,40 +11336,7 @@
         "indicator_2026_signal": null,
         "indicator_2026_description": null,
         "hermes_widget_forecast": {},
-        "breakout_evidence": {
-          "source": "toss_api_prices",
-          "strategy_family": "breakout_volume_momentum",
-          "symbol": "028300",
-          "name": "HLB",
-          "display_name": "028300(HLB)",
-          "stage": "early_setup",
-          "action": "observe",
-          "score": 0.46,
-          "score_adjustment": 0.0018,
-          "passed_checks": 3,
-          "checks": {
-            "consolidation": true,
-            "early_breakout": false,
-            "confirmed_breakout": false,
-            "strong_candle": false,
-            "relative_volume": false,
-            "near_high": true,
-            "trend": true
-          },
-          "metrics": {
-            "breakout_pct": 0.0,
-            "last_move_pct": 0.0,
-            "range_pct": 2.8571,
-            "relative_volume": 1.0,
-            "trade_strength": 0.0,
-            "pct_from_20d_high_proxy": 0.0,
-            "pct_from_50d_high_proxy": 0.0,
-            "ma5": 30560.0,
-            "ma20": 30030.0
-          },
-          "candle_basis": "actual_price_flow_proxy",
-          "updated_at": "2026-07-30T02:24:39.109619+00:00"
-        },
+        "breakout_evidence": null,
         "market_evidence": {
           "symbol": "028300",
           "name": "HLB",
@@ -11867,40 +11504,7 @@
             "headlines": [],
             "market_note": null
           },
-          "breakout_evidence": {
-            "source": "toss_api_prices",
-            "strategy_family": "breakout_volume_momentum",
-            "symbol": "028300",
-            "name": "HLB",
-            "display_name": "028300(HLB)",
-            "stage": "early_setup",
-            "action": "observe",
-            "score": 0.46,
-            "score_adjustment": 0.0018,
-            "passed_checks": 3,
-            "checks": {
-              "consolidation": true,
-              "early_breakout": false,
-              "confirmed_breakout": false,
-              "strong_candle": false,
-              "relative_volume": false,
-              "near_high": true,
-              "trend": true
-            },
-            "metrics": {
-              "breakout_pct": 0.0,
-              "last_move_pct": 0.0,
-              "range_pct": 2.8571,
-              "relative_volume": 1.0,
-              "trade_strength": 0.0,
-              "pct_from_20d_high_proxy": 0.0,
-              "pct_from_50d_high_proxy": 0.0,
-              "ma5": 30560.0,
-              "ma20": 30030.0
-            },
-            "candle_basis": "actual_price_flow_proxy",
-            "updated_at": "2026-07-30T02:24:39.109619+00:00"
-          },
+          "breakout_evidence": null,
           "selected_plan": {}
         }
       },
@@ -16552,7 +16156,7 @@
       "this_week": 0,
       "this_month": 0,
       "all_time": 0,
-      "last_updated": "2026-07-30T02:24:59.286161Z"
+      "last_updated": "2026-07-30T02:32:51.912153Z"
     },
     "market_session": {
       "focus_market": "KR",
@@ -16878,11 +16482,11 @@
   "market_evidence": {
     "summary": {
       "generated_at": null,
-      "status_updated_at": "2026-07-30T02:24:03.171614Z",
+      "status_updated_at": "2026-07-30T02:32:03.006824Z",
       "macro_updated_at": "2026-07-30T02:23:02.097065+00:00",
       "symbol_count": 40,
       "display_symbol_count": 40,
-      "breakout_symbol_count": 3
+      "breakout_symbol_count": 0
     },
     "market_session": {
       "focus_market": "KR",
@@ -17182,110 +16786,7 @@
         "summary": "vix=20.66, vixy=+6.07%, wti=+6.74%"
       }
     },
-    "breakout_candidates": {
-      "005930": {
-        "source": "toss_api_prices",
-        "strategy_family": "breakout_volume_momentum",
-        "symbol": "005930",
-        "name": "삼성전자",
-        "display_name": "005930(삼성전자)",
-        "stage": "early_setup",
-        "action": "observe",
-        "score": 0.46,
-        "score_adjustment": 0.0018,
-        "passed_checks": 3,
-        "checks": {
-          "consolidation": true,
-          "early_breakout": false,
-          "confirmed_breakout": false,
-          "strong_candle": false,
-          "relative_volume": false,
-          "near_high": true,
-          "trend": true
-        },
-        "metrics": {
-          "breakout_pct": -2.0,
-          "last_move_pct": 0.0,
-          "range_pct": 2.7397,
-          "relative_volume": 1.0,
-          "trade_strength": 0.0,
-          "pct_from_20d_high_proxy": -2.0,
-          "pct_from_50d_high_proxy": -2.0,
-          "ma5": 220500.0,
-          "ma20": 216762.5
-        },
-        "candle_basis": "actual_price_flow_proxy",
-        "updated_at": "2026-07-30T02:24:39.109619+00:00"
-      },
-      "001800": {
-        "source": "toss_api_prices",
-        "strategy_family": "breakout_volume_momentum",
-        "symbol": "001800",
-        "name": "오리온홀딩스",
-        "display_name": "001800(오리온홀딩스)",
-        "stage": "early_setup",
-        "action": "observe",
-        "score": 0.43,
-        "score_adjustment": 0.0,
-        "passed_checks": 3,
-        "checks": {
-          "consolidation": true,
-          "early_breakout": false,
-          "confirmed_breakout": false,
-          "strong_candle": true,
-          "relative_volume": false,
-          "near_high": true,
-          "trend": false
-        },
-        "metrics": {
-          "breakout_pct": -0.5714,
-          "last_move_pct": 0.3846,
-          "range_pct": 0.9615,
-          "relative_volume": 1.0,
-          "trade_strength": 0.0,
-          "pct_from_20d_high_proxy": -1.1364,
-          "pct_from_50d_high_proxy": -1.3233,
-          "ma5": 26080.0,
-          "ma20": 26200.0
-        },
-        "candle_basis": "actual_price_flow_proxy",
-        "updated_at": "2026-07-30T02:24:39.109619+00:00"
-      },
-      "028300": {
-        "source": "toss_api_prices",
-        "strategy_family": "breakout_volume_momentum",
-        "symbol": "028300",
-        "name": "HLB",
-        "display_name": "028300(HLB)",
-        "stage": "early_setup",
-        "action": "observe",
-        "score": 0.46,
-        "score_adjustment": 0.0018,
-        "passed_checks": 3,
-        "checks": {
-          "consolidation": true,
-          "early_breakout": false,
-          "confirmed_breakout": false,
-          "strong_candle": false,
-          "relative_volume": false,
-          "near_high": true,
-          "trend": true
-        },
-        "metrics": {
-          "breakout_pct": 0.0,
-          "last_move_pct": 0.0,
-          "range_pct": 2.8571,
-          "relative_volume": 1.0,
-          "trade_strength": 0.0,
-          "pct_from_20d_high_proxy": 0.0,
-          "pct_from_50d_high_proxy": 0.0,
-          "ma5": 30560.0,
-          "ma20": 30030.0
-        },
-        "candle_basis": "actual_price_flow_proxy",
-        "updated_at": "2026-07-30T02:24:39.109619+00:00"
-      }
-    },
+    "breakout_candidates": {},
     "top_symbols": [
       {
         "symbol": "005930",
@@ -17303,40 +16804,7 @@
         "current_price_signal": null,
         "indicator_2026_signal": null,
         "indicator_2026_description": null,
-        "breakout_evidence": {
-          "source": "toss_api_prices",
-          "strategy_family": "breakout_volume_momentum",
-          "symbol": "005930",
-          "name": "삼성전자",
-          "display_name": "005930(삼성전자)",
-          "stage": "early_setup",
-          "action": "observe",
-          "score": 0.46,
-          "score_adjustment": 0.0018,
-          "passed_checks": 3,
-          "checks": {
-            "consolidation": true,
-            "early_breakout": false,
-            "confirmed_breakout": false,
-            "strong_candle": false,
-            "relative_volume": false,
-            "near_high": true,
-            "trend": true
-          },
-          "metrics": {
-            "breakout_pct": -2.0,
-            "last_move_pct": 0.0,
-            "range_pct": 2.7397,
-            "relative_volume": 1.0,
-            "trade_strength": 0.0,
-            "pct_from_20d_high_proxy": -2.0,
-            "pct_from_50d_high_proxy": -2.0,
-            "ma5": 220500.0,
-            "ma20": 216762.5
-          },
-          "candle_basis": "actual_price_flow_proxy",
-          "updated_at": "2026-07-30T02:24:39.109619+00:00"
-        }
+        "breakout_evidence": null
       },
       {
         "symbol": "MU",
@@ -17426,40 +16894,7 @@
         "current_price_signal": null,
         "indicator_2026_signal": null,
         "indicator_2026_description": null,
-        "breakout_evidence": {
-          "source": "toss_api_prices",
-          "strategy_family": "breakout_volume_momentum",
-          "symbol": "001800",
-          "name": "오리온홀딩스",
-          "display_name": "001800(오리온홀딩스)",
-          "stage": "early_setup",
-          "action": "observe",
-          "score": 0.43,
-          "score_adjustment": 0.0,
-          "passed_checks": 3,
-          "checks": {
-            "consolidation": true,
-            "early_breakout": false,
-            "confirmed_breakout": false,
-            "strong_candle": true,
-            "relative_volume": false,
-            "near_high": true,
-            "trend": false
-          },
-          "metrics": {
-            "breakout_pct": -0.5714,
-            "last_move_pct": 0.3846,
-            "range_pct": 0.9615,
-            "relative_volume": 1.0,
-            "trade_strength": 0.0,
-            "pct_from_20d_high_proxy": -1.1364,
-            "pct_from_50d_high_proxy": -1.3233,
-            "ma5": 26080.0,
-            "ma20": 26200.0
-          },
-          "candle_basis": "actual_price_flow_proxy",
-          "updated_at": "2026-07-30T02:24:39.109619+00:00"
-        }
+        "breakout_evidence": null
       },
       {
         "symbol": "105560",
@@ -17702,40 +17137,7 @@
           "headlines": [],
           "market_note": null
         },
-        "breakout_evidence": {
-          "source": "toss_api_prices",
-          "strategy_family": "breakout_volume_momentum",
-          "symbol": "005930",
-          "name": "삼성전자",
-          "display_name": "005930(삼성전자)",
-          "stage": "early_setup",
-          "action": "observe",
-          "score": 0.46,
-          "score_adjustment": 0.0018,
-          "passed_checks": 3,
-          "checks": {
-            "consolidation": true,
-            "early_breakout": false,
-            "confirmed_breakout": false,
-            "strong_candle": false,
-            "relative_volume": false,
-            "near_high": true,
-            "trend": true
-          },
-          "metrics": {
-            "breakout_pct": -2.0,
-            "last_move_pct": 0.0,
-            "range_pct": 2.7397,
-            "relative_volume": 1.0,
-            "trade_strength": 0.0,
-            "pct_from_20d_high_proxy": -2.0,
-            "pct_from_50d_high_proxy": -2.0,
-            "ma5": 220500.0,
-            "ma20": 216762.5
-          },
-          "candle_basis": "actual_price_flow_proxy",
-          "updated_at": "2026-07-30T02:24:39.109619+00:00"
-        },
+        "breakout_evidence": null,
         "selected_plan": {}
       },
       "MU": {
@@ -18585,40 +17987,7 @@
           "headlines": [],
           "market_note": null
         },
-        "breakout_evidence": {
-          "source": "toss_api_prices",
-          "strategy_family": "breakout_volume_momentum",
-          "symbol": "001800",
-          "name": "오리온홀딩스",
-          "display_name": "001800(오리온홀딩스)",
-          "stage": "early_setup",
-          "action": "observe",
-          "score": 0.43,
-          "score_adjustment": 0.0,
-          "passed_checks": 3,
-          "checks": {
-            "consolidation": true,
-            "early_breakout": false,
-            "confirmed_breakout": false,
-            "strong_candle": true,
-            "relative_volume": false,
-            "near_high": true,
-            "trend": false
-          },
-          "metrics": {
-            "breakout_pct": -0.5714,
-            "last_move_pct": 0.3846,
-            "range_pct": 0.9615,
-            "relative_volume": 1.0,
-            "trade_strength": 0.0,
-            "pct_from_20d_high_proxy": -1.1364,
-            "pct_from_50d_high_proxy": -1.3233,
-            "ma5": 26080.0,
-            "ma20": 26200.0
-          },
-          "candle_basis": "actual_price_flow_proxy",
-          "updated_at": "2026-07-30T02:24:39.109619+00:00"
-        },
+        "breakout_evidence": null,
         "selected_plan": {}
       },
       "105560": {
@@ -20318,40 +19687,7 @@
           "headlines": [],
           "market_note": null
         },
-        "breakout_evidence": {
-          "source": "toss_api_prices",
-          "strategy_family": "breakout_volume_momentum",
-          "symbol": "028300",
-          "name": "HLB",
-          "display_name": "028300(HLB)",
-          "stage": "early_setup",
-          "action": "observe",
-          "score": 0.46,
-          "score_adjustment": 0.0018,
-          "passed_checks": 3,
-          "checks": {
-            "consolidation": true,
-            "early_breakout": false,
-            "confirmed_breakout": false,
-            "strong_candle": false,
-            "relative_volume": false,
-            "near_high": true,
-            "trend": true
-          },
-          "metrics": {
-            "breakout_pct": 0.0,
-            "last_move_pct": 0.0,
-            "range_pct": 2.8571,
-            "relative_volume": 1.0,
-            "trade_strength": 0.0,
-            "pct_from_20d_high_proxy": 0.0,
-            "pct_from_50d_high_proxy": 0.0,
-            "ma5": 30560.0,
-            "ma20": 30030.0
-          },
-          "candle_basis": "actual_price_flow_proxy",
-          "updated_at": "2026-07-30T02:24:39.109619+00:00"
-        },
+        "breakout_evidence": null,
         "selected_plan": {}
       },
       "032830": {
