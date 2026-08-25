@@ -1413,11 +1413,9 @@ function tossHoldingToWatchlist(item) {
   const currentPrice = Number(item?.current_price);
   const purchasePrice = Number(item?.avg_price);
   if (!symbol || !name || !Number.isFinite(currentPrice) || currentPrice <= 0) return null;
-  const quantity = Number(item?.quantity);
   const pnl = Number(item?.pnl);
   const pnlPct = Number(item?.pnl_pct);
   const memo = [
-    Number.isFinite(quantity) ? `수량 ${quantity.toLocaleString("ko-KR")}주` : "",
     Number.isFinite(pnl) ? `평가손익 ${pnl >= 0 ? "+" : ""}${pnl.toLocaleString("ko-KR")} ${item.currency || ""}` : "",
     Number.isFinite(pnlPct) ? `${pnlPct >= 0 ? "+" : ""}${pnlPct.toFixed(2)}%` : ""
   ].filter(Boolean).join(" / ");
@@ -2042,7 +2040,7 @@ function renderDashboard() {
       const marketLinks = item.symbol ? ` <a class="market-link" href="${tossStockUrl(item.symbol)}" target="_blank" rel="noopener">토스증권</a> <a class="market-link" href="${naverStockUrl(item)}" target="_blank" rel="noopener">네이버증권</a>` : "";
       if (item.tossHolding) {
         const purchaseLine = item.purchasePrice ? `<p>구입가: ${formatDisplayPrice(item.purchasePrice, item)}</p>` : `<p>구입가: 확인 필요</p>`;
-        return `<article class="data-card clickable-card watch-card ${priceBackgroundClassForItem(item)}" data-chart-symbol="${item.symbol}"><div class="card-top"><strong>${displayName}</strong><em>${displayMarket(item.market)}</em></div>${priceLine}${purchaseLine}<p><b>보유</b> / 토스 보유종목</p><p>${escapeHtml(item.memo || "보유수량·평가손익 확인 필요")}</p><p class="muted">현재가·구입가·평가손익은 토스 읽기 전용 보유자료 기준입니다. 스캐너 급등락·매수 신호는 이 카드에 섞지 않습니다.</p><p>${marketLinks.trim()}</p><div class="watch-chart-popover">${watchlistMiniChartSvg(item)}</div></article>`;
+        return `<article class="data-card clickable-card watch-card ${priceBackgroundClassForItem(item)}" data-chart-symbol="${item.symbol}"><div class="card-top"><strong>${displayName}</strong><em>${displayMarket(item.market)}</em></div>${purchaseLine}${item.memo ? `<p>${escapeHtml(item.memo)}</p>` : ""}<div class="watch-chart-popover">${watchlistMiniChartSvg(item)}</div></article>`;
       }
       return `<article class="data-card clickable-card watch-card ${priceBackgroundClassForItem(item)}" data-chart-symbol="${item.symbol}"><div class="card-top"><strong>${displayName}</strong><em>${displayMarket(item.market)}</em></div>${priceLine}<p><b class="${signalClass(item.signal)}">${item.signal}</b>${item.movingAverage ? ` / ${item.movingAverage}` : ""}</p>${analysisSummaryBlockHtml(item)}${crashRiskSummaryHtml(item)}${macroEventRiskSummaryHtml(item)}${marketRiskSummaryHtml(item)}<p>${marketLinks.trim()}</p><div class="watch-chart-popover">${watchlistMiniChartSvg(item)}</div>${item.userAdded ? `<button class="small-button" data-remove-symbol="${item.symbol}" type="button">${T.remove}</button>` : ""}</article>`;
     });
