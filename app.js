@@ -1758,6 +1758,33 @@ function mergedSections(data) {
     newsList: data.newsList || []
   };
 }
+function renderSectorOverviewCards() {
+  const data = state.data || {};
+  const sections = mergedSections(data);
+  const source = [...(sections.scanner || []), ...(sections.watchlist || []), ...(data.sectorOverview || [])];
+  const groups = new Map();
+  source.forEach((item) => {
+    const sector = sectorLabelFromItem(item);
+    if (!sector || sector === "-") return;
+    const market = marketGroupLabel(item);
+    const key = `${market}|${sector}`;
+    if (!groups.has(key)) groups.set(key, { market, sector, items: [], changes: [] });
+    const group = groups.get(key);
+    const symbol = String(item.symbol || "").trim();
+    if (symbol && !group.items.some((row) => row.symbol === symbol)) group.items.push(item);
+    const rawChange = item.changePct ?? item.change_percent ?? item.change;
+    const change = parseNumber(rawChange);
+    if (Number.isFinite(change)) group.changes.push(change);
+  });
+  const cards = [...groups.values()].sort((a, b) => b.items.length - a.items.length || a.sector.localeCompare(b.sector, "ko"));
+  if (!cards.length) return `<article class="data-card"><div class="card-top"><strong>섹터 데이터 없음</strong><em>업종 맥락</em></div><p>현재 공개 데이터에서 업종과 연결된 종목을 확인할 수 없습니다.</p></article>`;
+  return cards.slice(0, 24).map((group) => {
+    const average = group.changes.length ? group.changes.reduce((sum, value) => sum + value, 0) / group.changes.length : null;
+    const trend = average == null ? "흐름 확인불가" : `구성 종목 평균 ${average >= 0 ? "+" : ""}${average.toFixed(2)}%`;
+    const members = group.items.slice(0, 10).map((item) => `${item.name || item.symbol}(${item.symbol || "-"})`).join(", ");
+    return `<article class="data-card sector-overview-card"><div class="card-top"><strong>${escapeHtml(group.sector)}</strong><em>${escapeHtml(group.market)}</em></div><p><b>${escapeHtml(trend)}</b> · 구성 종목 ${group.items.length}개</p><p>${escapeHtml(members || "구성 종목 없음")}</p><p class="muted">이 카드는 종목의 업종 소속과 공개된 가격 흐름을 묶은 참고용 요약이며, 업종 점수나 매매 신호를 새로 산출하지 않습니다.</p></article>`;
+  }).join("");
+}
 function sectorLabelFromItem(item) {
   return normalizeSectorLabel(item?.sector || item?.sectorLabel || item?.theme || "");
 }
@@ -2039,7 +2066,9 @@ function renderDashboard() {
   } else if (state.activeSection === "newsList") {
     const uniqueNews = dedupeNewsItems(active);
     grid.innerHTML = `<div class="table-card"><table class="data-table"><thead><tr><th>\uc2dc\uac04</th><th>\uc81c\ubaa9</th><th>\uc694\uc57d</th><th>\ub9c1\ud06c</th></tr></thead><tbody>${uniqueNews.map((item) => `<tr><td>${item.asOf || "-"}</td><td><strong>${item.title || "-"}</strong></td><td>${item.summary || ""}</td><td>${item.url ? `<a href="${item.url}" target="_blank" rel="noopener">\uc5f4\uae30</a>` : "-"}</td></tr>`).join("")}</tbody></table></div>`;
-  } else if (["morningNote", "sectorOverview", "deepAnalysis"].includes(state.activeSection)) {
+  } else if (state.activeSection === "sectorOverview") {
+    grid.innerHTML = renderSectorOverviewCards();
+  } else if (["morningNote", "deepAnalysis"].includes(state.activeSection)) {
     grid.innerHTML = renderCards(active, (item) => {
       const livePriceLine = item.currentPrice ? `<p class="price ${priceClassForItem(item)}"><span>${T.currentPrice}:</span> ${formatDisplayPrice(item.currentPrice, item)}${item.quotedAt ? ` <small>${fmtDateTimeSeconds(item.quotedAt)}</small>` : ""}</p>` : "";
       if (Array.isArray(item.sections)) {
