@@ -1443,7 +1443,7 @@ function tossHoldingToAnalysis(item) {
   const watch = tossHoldingToWatchlist(item);
   if (!watch) return null;
   const symbol = watch.symbol;
-  const relatedNews = (state.data?.newsList || []).filter((row) => normalizeSymbol(row?.symbol || "") === symbol).slice(0, 3);
+  const relatedNews = relatedNewsForItem(watch);
   const moving = (state.data?.movingAverages || []).find((row) => normalizeSymbol(row?.symbol || "") === symbol);
   const risk = crashRiskSummaryText(watch) || macroEventRiskSummaryText(watch) || "현재 공개 리스크 자료 확인 필요";
   const newsText = relatedNews.length
@@ -1771,6 +1771,26 @@ function morningNoteItems() {
       ]
     };
   });
+}
+function newsSummaryText(value) {
+  return String(value || "").replace(/<[^>]*>/g, " ").replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/\s+/g, " ").trim();
+}
+function newsRelatedSymbols(item) {
+  const rows = [...(state.data?.watchlist || []), ...(state.data?.scanner || []), ...(Array.isArray(state.tossHoldings?.positions) ? state.tossHoldings.positions : [])];
+  const haystack = `${item?.title || ""} ${item?.summary || ""}`.toLowerCase();
+  return [...new Map(rows.filter((row) => {
+    const symbol = normalizeSymbol(row?.symbol || "");
+    const name = String(row?.name || "").toLowerCase();
+    return symbol && (normalizeSymbol(item?.symbol || "") === symbol || (name.length >= 2 && haystack.includes(name)));
+  }).map((row) => [normalizeSymbol(row.symbol), row.name || row.symbol])).values()].slice(0, 5);
+}
+function relatedNewsForItem(item) {
+  const symbol = normalizeSymbol(item?.symbol || "");
+  const name = String(item?.name || "").toLowerCase();
+  return (state.data?.newsList || []).filter((row) => {
+    const text = `${row?.title || ""} ${row?.summary || ""}`.toLowerCase();
+    return (symbol && normalizeSymbol(row?.symbol || "") === symbol) || (name.length >= 2 && text.includes(name));
+  }).slice(0, 5);
 }
 function mergedSections(data) {
   return {
@@ -2101,7 +2121,12 @@ function renderDashboard() {
     grid.innerHTML = `<div class="table-card"><table class="data-table"><thead><tr><th>\uc885\ubaa9</th><th>\ud604\uc7ac\uac00</th><th>20\uc77c\uc120</th><th>60\uc77c\uc120</th><th>\ud310\ub2e8</th><th>\uadfc\uac70</th></tr></thead><tbody>${rows}</tbody></table></div>`;
   } else if (state.activeSection === "newsList") {
     const uniqueNews = dedupeNewsItems(active);
-    grid.innerHTML = `<div class="table-card"><table class="data-table"><thead><tr><th>\uc2dc\uac04</th><th>\uc81c\ubaa9</th><th>\uc694\uc57d</th><th>\ub9c1\ud06c</th></tr></thead><tbody>${uniqueNews.map((item) => `<tr><td>${item.asOf || "-"}</td><td><strong>${item.title || "-"}</strong></td><td>${item.summary || ""}</td><td>${item.url ? `<a href="${item.url}" target="_blank" rel="noopener">\uc5f4\uae30</a>` : "-"}</td></tr>`).join("")}</tbody></table></div>`;
+    const rows = uniqueNews.map((item) => {
+      const related = newsRelatedSymbols(item);
+      const relatedText = related.length ? related.join(", ") : "\uc804\uccb4 \uc2dc\uc7a5";
+      return `<tr><td>${escapeHtml(item.asOf || "-")}</td><td><strong>${escapeHtml(item.title || "-")}</strong><br><small>${escapeHtml(item.source || "")}</small></td><td>${escapeHtml(newsSummaryText(item.summary) || "\uc694\uc57d \uc5c6\uc74c")}</td><td>${escapeHtml(relatedText)}</td><td>${item.url ? `<a href="${escapeHtml(item.url)}" target="_blank" rel="noopener">\uc5f4\uae30</a>` : "-"}</td></tr>`;
+    }).join("");
+    grid.innerHTML = `<div class="table-card"><table class="data-table"><thead><tr><th>\uc2dc\uac04</th><th>\uc81c\ubaa9\u00b7\ucd9c\ucc98</th><th>\uc694\uc57d</th><th>\uad00\ub828\uc885\ubaa9</th><th>\ub9c1\ud06c</th></tr></thead><tbody>${rows || `<tr><td colspan="5">\ud45c\uc2dc\ud560 \ub274\uc2a4\uac00 \uc5c6\uc2b5\ub2c8\ub2e4.</td></tr>`}</tbody></table></div>`;
   } else if (state.activeSection === "sectorOverview") {
     grid.innerHTML = renderSectorOverviewCards();
   } else if (["morningNote", "deepAnalysis"].includes(state.activeSection)) {
