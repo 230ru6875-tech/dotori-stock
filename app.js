@@ -1,4 +1,4 @@
-const state = { data: null, dailyHistory: [], dotoriLearning: null, dotoriWeb: null, tossHoldings: null, sanghoe: null, activeSection: "watchlist", userStocks: [], selectedMovingSymbol: "", scannerMarketFirst: "domestic", scannerMarketFirstManual: false, scannerSectorFilter: "전체", growthSectorFilter: "전체", dailySearchQuery: "", dailyDateFrom: "", dailyDateTo: "", quotes: {}, liveQuoteCycle: 0, quoteRefreshInFlight: false, quoteRenderTimer: 0 };
+const state = { data: null, dailyHistory: [], dotoriLearning: null, dotoriWeb: null, tossHoldings: null, sanghoe: null, todayCandidates: null, activeSection: "watchlist", userStocks: [], selectedMovingSymbol: "", scannerMarketFirst: "domestic", scannerMarketFirstManual: false, scannerSectorFilter: "전체", growthSectorFilter: "전체", dailySearchQuery: "", dailyDateFrom: "", dailyDateTo: "", quotes: {}, liveQuoteCycle: 0, quoteRefreshInFlight: false, quoteRenderTimer: 0 };
 const USER_STOCKS_KEY = "dotori.userStocks.v1";
 const USER_KEY = "dotori.userKey.v1";
 const USER_KEEP_ASKED_KEY = "dotori.keepAsked.v1";
@@ -137,7 +137,7 @@ function formatHermesPlanList(items) {
 function renderHermesPlanLines() {
   const mount = el("#hermesPlanLines");
   if (!mount) return;
-  const payload = state.sanghoe || {};
+  const payload = state.todayCandidates || state.sanghoe || {};
   const candidates = Array.isArray(payload.candidates) ? payload.candidates : [];
   const buyRows = candidates.filter((item) => String(item?.sideRaw || "").toLowerCase() === "buy_candidate");
   const sellRows = candidates.filter((item) => String(item?.sideRaw || "").toLowerCase() === "sell_watch");
@@ -148,7 +148,8 @@ function renderHermesPlanLines() {
   mount.innerHTML = [
     `<p class="hero-plan-line"><span class="hero-plan-label">오늘의 매수 후보 :</span>${escapeHtml(formatHermesPlanList(buyRows))}</p>`,
     `<p class="hero-plan-line"><span class="hero-plan-label">오늘의 매도 후보 :</span>${escapeHtml(formatHermesPlanList(sellRows))}</p>`,
-    `<p class="hero-plan-line"><span class="hero-plan-label">오늘의 관찰 후보 :</span>${escapeHtml(formatHermesPlanList(watchRows))}</p>`
+    `<p class="hero-plan-line"><span class="hero-plan-label">오늘의 관찰 후보 :</span>${escapeHtml(formatHermesPlanList(watchRows))}</p>`,
+    payload.status === "BLOCKED" ? `<p class="hero-plan-note">최신 입력 무결성 검증 실패로 오늘 후보를 생성하지 않았습니다.</p>` : ""
   ].join("");
 }
 function setTabDebugState(section, count) {
@@ -2253,13 +2254,14 @@ function drawChart(source = null) {
 
 async function loadData(options = {}) {
   try {
-    const [snapshotResponse, dailyResponse, learningResponse, dotoriWebResponse, holdingsResponse, sanghoeResponse] = await Promise.all([
+    const [snapshotResponse, dailyResponse, learningResponse, dotoriWebResponse, holdingsResponse, sanghoeResponse, todayCandidatesResponse] = await Promise.all([
       fetch("./data/public-snapshot.json", { cache: "no-store" }),
       fetch("./data/daily-market-history.json", { cache: "no-store" }).catch(() => null),
       fetch("./data/dotoristock-learning.json", { cache: "no-store" }).catch(() => null),
       fetch("./web/data/dotoriweb/latest.json", { cache: "no-store" }).catch(() => null),
       fetch("./web/data/dotoriweb/holdings.json", { cache: "no-store" }).catch(() => null),
-      fetch("./data/dotori-sanghoe.json", { cache: "no-store" }).catch(() => null)
+      fetch("./data/dotori-sanghoe.json", { cache: "no-store" }).catch(() => null),
+      fetch("./web/data/dotoriweb/today-candidates.json", { cache: "no-store" }).catch(() => null)
     ]);
     if (!snapshotResponse.ok) throw new Error(`HTTP ${snapshotResponse.status}`);
     state.data = normalizeSnapshotData(await snapshotResponse.json());
@@ -2278,6 +2280,9 @@ async function loadData(options = {}) {
     }
     if (sanghoeResponse && sanghoeResponse.ok) {
       state.sanghoe = await sanghoeResponse.json();
+    }
+    if (todayCandidatesResponse && todayCandidatesResponse.ok) {
+      state.todayCandidates = await todayCandidatesResponse.json();
     }
     setStatus(T.connected);
     setBrandUpdatedAt(new Date().toISOString());
