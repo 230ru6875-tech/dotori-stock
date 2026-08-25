@@ -1,4 +1,4 @@
-const state = { data: null, dailyHistory: [], dotoriLearning: null, sanghoe: null, activeSection: "watchlist", userStocks: [], selectedMovingSymbol: "", scannerMarketFirst: "domestic", scannerMarketFirstManual: false, scannerSectorFilter: "전체", growthSectorFilter: "전체", dailySearchQuery: "", dailyDateFrom: "", dailyDateTo: "", quotes: {}, liveQuoteCycle: 0, quoteRefreshInFlight: false, quoteRenderTimer: 0 };
+const state = { data: null, dailyHistory: [], dotoriLearning: null, dotoriWeb: null, sanghoe: null, activeSection: "watchlist", userStocks: [], selectedMovingSymbol: "", scannerMarketFirst: "domestic", scannerMarketFirstManual: false, scannerSectorFilter: "전체", growthSectorFilter: "전체", dailySearchQuery: "", dailyDateFrom: "", dailyDateTo: "", quotes: {}, liveQuoteCycle: 0, quoteRefreshInFlight: false, quoteRenderTimer: 0 };
 const USER_STOCKS_KEY = "dotori.userStocks.v1";
 const USER_KEY = "dotori.userKey.v1";
 const USER_KEEP_ASKED_KEY = "dotori.keepAsked.v1";
@@ -1849,6 +1849,41 @@ function renderDotoriLearningDashboard() {
   return `<div class="table-card"><table class="data-table"><thead><tr><th colspan="4">갱신 ${escapeHtml(updated)}</th><th colspan="4">${escapeHtml(summaryLine)}</th></tr><tr><th colspan="4">한국 선정 ${escapeHtml(selectedKr || "-")}</th><th colspan="4">미국 선정 ${escapeHtml(selectedUs || "-")}</th></tr><tr><th>순위</th><th>종목</th><th>섹터</th><th>현재가</th><th>점수</th><th>신호</th><th>신뢰도</th><th>사유</th></tr></thead><tbody>${groupHtml("한국 후보", koreaRows)}${groupHtml("미국 후보", usRows)}</tbody></table></div>`;
 }
 
+function publicDotoriRows(snapshot, kind) {
+  if (!snapshot || snapshot.paper_trade !== true || snapshot.live_order_allowed !== false) return [];
+  const candidates = Array.isArray(snapshot.candidates) ? snapshot.candidates : [];
+  return candidates.map((row) => {
+    const symbol = String(row?.symbol || "").trim();
+    const name = String(row?.symbol_name || row?.display_name || "").trim();
+    const price = Number(row?.current_price);
+    if (!symbol || !name || !Number.isFinite(price) || price <= 0) return null;
+    return {
+      kind,
+      symbol,
+      name,
+      market: String(row?.market || "").trim() || "-",
+      currentPrice: price,
+      score: Number.isFinite(Number(row?.score)) ? Number(row.score) : null,
+      changePct: Number.isFinite(Number(row?.day_change_pct)) ? Number(row.day_change_pct) * 100 : null,
+      volumeRatio: Number.isFinite(Number(row?.volume_ratio)) ? Number(row.volume_ratio) : null,
+      tradingValue: Number.isFinite(Number(row?.trading_value)) ? Number(row.trading_value) : null,
+      executionStrength: Number.isFinite(Number(row?.execution_strength)) ? Number(row.execution_strength) : null,
+      updatedAt: snapshot.updated_at || ""
+    };
+  }).filter(Boolean);
+}
+
+function renderDotoriCandidates() {
+  const payload = state.dotoriWeb || {};
+  const buyRows = publicDotoriRows(payload.buy_candidates, "매수 후보");
+  const bettingRows = publicDotoriRows(payload.betting_candidates, "종가 후보");
+  const rows = [...buyRows, ...bettingRows].slice(0, 50);
+  const updated = payload.updated_at ? fmtDateTimeSeconds(payload.updated_at) : "-";
+  const rowHtml = (row) => `<tr><td>${escapeHtml(row.kind)}</td><td><strong>${escapeHtml(row.name)}</strong> <span>(${escapeHtml(row.symbol)})</span></td><td>${escapeHtml(row.market)}</td><td>${formatDotoriNumber(row.currentPrice)}</td><td>${formatDotoriNumber(row.score)}</td><td>${formatDotoriNumber(row.changePct, "%")}</td><td>${formatDotoriNumber(row.volumeRatio, "배")}</td><td>${formatDotoriNumber(row.tradingValue)}</td><td>${formatDotoriNumber(row.executionStrength)}</td></tr>`;
+  const body = rows.length ? rows.map(rowHtml).join("") : `<tr><td colspan="9">현재 공개 가능한 종가 후보가 없습니다.</td></tr>`;
+  return `<div class="table-card"><p class="status">갱신 ${escapeHtml(updated)} · PAPER 관찰 데이터 · 실제 주문 아님</p><table class="data-table"><thead><tr><th>구분</th><th>종목</th><th>시장</th><th>현재가</th><th>점수</th><th>등락률</th><th>거래량비율</th><th>거래대금</th><th>체결강도</th></tr></thead><tbody>${body}</tbody></table><p class="status">주문 수량·예산·주문유형·내부 패턴·실행 신호는 공개 화면에서 제외했습니다.</p></div>`;
+}
+
 function renderDashboard() {
   const data = state.data;
   if (!data) return;
@@ -1926,6 +1961,8 @@ function renderDashboard() {
     grid.innerHTML = `${dailyDigestControlsHtml(active)}<div class="table-card"><table class="data-table daily-digest-table"><thead><tr><th>일자</th><th>내용</th><th>확인하기</th></tr></thead><tbody>${rows}</tbody></table></div>`;
   } else if (state.activeSection === "dotoriLearning") {
     grid.innerHTML = renderDotoriLearningDashboard();
+  } else if (state.activeSection === "dotoriCandidates") {
+    grid.innerHTML = renderDotoriCandidates();
   } else if (state.activeSection === "learning") {
     grid.innerHTML = renderCards(active, (item) => `<article class="data-card"><div class="card-top"><strong>${item.topic}</strong><em>${T.learning}</em></div><p>${item.lesson}</p></article>`);
   } else if (state.activeSection === "spikes") {
@@ -2184,10 +2221,11 @@ function drawChart(source = null) {
 
 async function loadData(options = {}) {
   try {
-    const [snapshotResponse, dailyResponse, learningResponse, sanghoeResponse] = await Promise.all([
+    const [snapshotResponse, dailyResponse, learningResponse, dotoriWebResponse, sanghoeResponse] = await Promise.all([
       fetch("./data/public-snapshot.json", { cache: "no-store" }),
       fetch("./data/daily-market-history.json", { cache: "no-store" }).catch(() => null),
       fetch("./data/dotoristock-learning.json", { cache: "no-store" }).catch(() => null),
+      fetch("./web/data/dotoriweb/latest.json", { cache: "no-store" }).catch(() => null),
       fetch("./data/dotori-sanghoe.json", { cache: "no-store" }).catch(() => null)
     ]);
     if (!snapshotResponse.ok) throw new Error(`HTTP ${snapshotResponse.status}`);
@@ -2198,6 +2236,9 @@ async function loadData(options = {}) {
     }
     if (learningResponse && learningResponse.ok) {
       state.dotoriLearning = await learningResponse.json();
+    }
+    if (dotoriWebResponse && dotoriWebResponse.ok) {
+      state.dotoriWeb = await dotoriWebResponse.json();
     }
     if (sanghoeResponse && sanghoeResponse.ok) {
       state.sanghoe = await sanghoeResponse.json();
