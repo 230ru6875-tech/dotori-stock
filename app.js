@@ -1,4 +1,4 @@
-const state = { data: null, dailyHistory: [], dotoriLearning: null, dotoriWeb: null, sanghoe: null, activeSection: "watchlist", userStocks: [], selectedMovingSymbol: "", scannerMarketFirst: "domestic", scannerMarketFirstManual: false, scannerSectorFilter: "전체", growthSectorFilter: "전체", dailySearchQuery: "", dailyDateFrom: "", dailyDateTo: "", quotes: {}, liveQuoteCycle: 0, quoteRefreshInFlight: false, quoteRenderTimer: 0 };
+const state = { data: null, dailyHistory: [], dotoriLearning: null, dotoriWeb: null, tossHoldings: null, sanghoe: null, activeSection: "watchlist", userStocks: [], selectedMovingSymbol: "", scannerMarketFirst: "domestic", scannerMarketFirstManual: false, scannerSectorFilter: "전체", growthSectorFilter: "전체", dailySearchQuery: "", dailyDateFrom: "", dailyDateTo: "", quotes: {}, liveQuoteCycle: 0, quoteRefreshInFlight: false, quoteRenderTimer: 0 };
 const USER_STOCKS_KEY = "dotori.userStocks.v1";
 const USER_KEY = "dotori.userKey.v1";
 const USER_KEEP_ASKED_KEY = "dotori.keepAsked.v1";
@@ -1410,6 +1410,35 @@ function userStockToWatchlist(item) {
   };
 }
 
+function tossHoldingToWatchlist(item) {
+  const symbol = normalizeSymbol(item?.symbol || "");
+  const name = stripSymbolFromName(item?.name, symbol) || symbol;
+  const currentPrice = Number(item?.current_price);
+  const purchasePrice = Number(item?.avg_price);
+  if (!symbol || !name || !Number.isFinite(currentPrice) || currentPrice <= 0) return null;
+  const quantity = Number(item?.quantity);
+  const pnl = Number(item?.pnl);
+  const pnlPct = Number(item?.pnl_pct);
+  const memo = [
+    Number.isFinite(quantity) ? `수량 ${quantity.toLocaleString("ko-KR")}주` : "",
+    Number.isFinite(pnl) ? `평가손익 ${pnl >= 0 ? "+" : ""}${pnl.toLocaleString("ko-KR")} ${item.currency || ""}` : "",
+    Number.isFinite(pnlPct) ? `${pnlPct >= 0 ? "+" : ""}${pnlPct.toFixed(2)}%` : ""
+  ].filter(Boolean).join(" / ");
+  return {
+    symbol,
+    name,
+    market: marketName(symbol),
+    currentPrice,
+    purchasePrice: Number.isFinite(purchasePrice) ? purchasePrice : 0,
+    signal: "보유",
+    movingAverage: "토스 보유종목",
+    memo,
+    hasPrice: true,
+    tossHolding: true,
+    userAdded: false
+  };
+}
+
 function userStockToScanner(item) {
   const price = Number(item.purchasePrice || 0);
   const report = item.report || directoryReport(item.symbol) || {};
@@ -1698,7 +1727,10 @@ function movingDetailHtml(item) {
 function mergedSections(data) {
   return {
     scanner: dedupeRowsBySymbol([...state.userStocks.map(userStockToScanner), ...(data.scanner || [])]).map(applyLiveQuote),
-    watchlist: state.userStocks.map(userStockToWatchlist).map(applyLiveQuote),
+    watchlist: dedupeRowsBySymbol([
+      ...(Array.isArray(state.tossHoldings?.positions) ? state.tossHoldings.positions.map(tossHoldingToWatchlist).filter(Boolean) : []),
+      ...state.userStocks.map(userStockToWatchlist)
+    ]).map(applyLiveQuote),
     learning: [...state.userStocks.map(userStockToLearning), ...data.learning],
     dailyDigest: state.dailyHistory || [],
     spikes: (data.spikes || []).map(applyLiveQuote),
@@ -2221,11 +2253,12 @@ function drawChart(source = null) {
 
 async function loadData(options = {}) {
   try {
-    const [snapshotResponse, dailyResponse, learningResponse, dotoriWebResponse, sanghoeResponse] = await Promise.all([
+    const [snapshotResponse, dailyResponse, learningResponse, dotoriWebResponse, holdingsResponse, sanghoeResponse] = await Promise.all([
       fetch("./data/public-snapshot.json", { cache: "no-store" }),
       fetch("./data/daily-market-history.json", { cache: "no-store" }).catch(() => null),
       fetch("./data/dotoristock-learning.json", { cache: "no-store" }).catch(() => null),
       fetch("./web/data/dotoriweb/latest.json", { cache: "no-store" }).catch(() => null),
+      fetch("./web/data/dotoriweb/holdings.json", { cache: "no-store" }).catch(() => null),
       fetch("./data/dotori-sanghoe.json", { cache: "no-store" }).catch(() => null)
     ]);
     if (!snapshotResponse.ok) throw new Error(`HTTP ${snapshotResponse.status}`);
@@ -2239,6 +2272,9 @@ async function loadData(options = {}) {
     }
     if (dotoriWebResponse && dotoriWebResponse.ok) {
       state.dotoriWeb = await dotoriWebResponse.json();
+    }
+    if (holdingsResponse && holdingsResponse.ok) {
+      state.tossHoldings = await holdingsResponse.json();
     }
     if (sanghoeResponse && sanghoeResponse.ok) {
       state.sanghoe = await sanghoeResponse.json();
