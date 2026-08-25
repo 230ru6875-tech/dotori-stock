@@ -1439,6 +1439,38 @@ function tossHoldingToWatchlist(item) {
     userAdded: false
   };
 }
+function tossHoldingToAnalysis(item) {
+  const watch = tossHoldingToWatchlist(item);
+  if (!watch) return null;
+  const symbol = watch.symbol;
+  const relatedNews = (state.data?.newsList || []).filter((row) => normalizeSymbol(row?.symbol || "") === symbol).slice(0, 3);
+  const moving = (state.data?.movingAverages || []).find((row) => normalizeSymbol(row?.symbol || "") === symbol);
+  const risk = crashRiskSummaryText(watch) || macroEventRiskSummaryText(watch) || "현재 공개 리스크 자료 확인 필요";
+  const newsText = relatedNews.length
+    ? relatedNews.map((row) => row.title || row.summary).filter(Boolean).join(" / ")
+    : "종목 직접 연결 뉴스 확인 필요";
+  const technicalText = moving
+    ? [moving.decision || moving.signal, moving.note || moving.movingAverage, moving.ma20 ? `20일선 ${moving.ma20}` : "", moving.ma60 ? `60일선 ${moving.ma60}` : ""].filter(Boolean).join(" / ")
+    : "이평선·거래량 자료 확인 필요";
+  return {
+    title: `${watch.name}(${symbol}) 심층분석`,
+    kind: "toss-holding-analysis",
+    symbol,
+    name: watch.name,
+    market: displayMarket(watch.market),
+    currentPrice: watch.currentPrice,
+    purchasePrice: watch.purchasePrice,
+    summary: `${watch.name}은(는) 토스 보유종목입니다. 보유 기준 손익과 공개 근거를 함께 확인하고, 매매 판단은 별도 게이트를 통과한 뒤 결정합니다.`,
+    sections: [
+      { heading: "뉴스", items: [newsText] },
+      { heading: "기술", items: [technicalText, `현재가 ${formatDisplayPrice(watch.currentPrice, watch)} / 평균매입가 ${formatDisplayPrice(watch.purchasePrice, watch)}`] },
+      { heading: "가치", items: ["공개 적정가·밸류에이션 자료 확인 필요. 보유 사실만으로 저평가를 가정하지 않습니다."] },
+      { heading: "리스크", items: [risk, "현재 보유 상태와 신규 매수 신호를 구분합니다. 이 카드는 정보 제공용이며 주문을 실행하지 않습니다."] }
+    ],
+    userAdded: false,
+    tossHolding: true
+  };
+}
 
 function userStockToScanner(item) {
   const price = Number(item.purchasePrice || 0);
@@ -1754,7 +1786,11 @@ function mergedSections(data) {
     growthDiscovery: (data.growthDiscovery || []).map(applyLiveQuote),
     morningNote: [...morningNoteItems(), ...(data.morningNote || data.analysis || [])],
     sectorOverview: data.sectorOverview || [],
-    deepAnalysis: [...state.userStocks.map(userStockToAnalysis), ...(data.deepAnalysis || [])].map(applyLiveQuote),
+    deepAnalysis: [
+      ...(Array.isArray(state.tossHoldings?.positions) ? state.tossHoldings.positions.map(tossHoldingToAnalysis).filter(Boolean) : []),
+      ...state.userStocks.map(userStockToAnalysis),
+      ...(data.deepAnalysis || [])
+    ].map(applyLiveQuote),
     newsList: data.newsList || []
   };
 }
