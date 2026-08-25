@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-25T10:29:45+09:00",
+  "updatedAt": "2026-08-25T10:30:19+09:00",
   "exchangeRate": {
     "label": "오늘의 환율",
     "value": "1,501.33원",
@@ -4367,16 +4367,16 @@
       "title": "US 섹터오버뷰",
       "kind": "sector-overview",
       "market": "US",
-      "updatedAt": "2026-08-25T10:27:19+09:00",
+      "updatedAt": "2026-08-25T10:30:02+09:00",
       "summary": "최신 자금흐름과 업종 표본을 연결한 US 시장 위치 요약입니다.",
       "sections": [
         {
           "heading": "자금 유입 상위 업종",
-          "items": "기타 (자금유입 8,341,158,408) / ETF/지수 (자금유입 2,204,043,841)"
+          "items": "기타 (자금유입 8,734,216,026) / ETF/지수 (자금유입 2,481,486,251)"
         },
         {
           "heading": "관찰 종목",
-          "items": "SOXL(SOXL) / DRAM(DRAM) / SK하이닉스(ADR)(SKHY) / KORU(KORU) / GLD(GLD) / QQQ(QQQ) / GDX(GDX) / 알리바바(ADR)(BABA) / 버크셔 해서웨이 B(BRK.B) / MULL(MULL)"
+          "items": "알리바바(ADR)(BABA) / QQQ(QQQ) / SOXL(SOXL) / 모더나(MRNA) / SK하이닉스(ADR)(SKHY) / KWEB(KWEB) / 니오(ADR)(NIO) / 징동닷컴(ADR)(JD) / SOXS(SOXS) / 마이크로소프트(MSFT)"
         },
         {
           "heading": "업종 표본",
@@ -4584,7 +4584,7 @@
     }
   ],
   "webDataStatus": {
-    "generatedAt": "2026-08-25T10:29:45+09:00",
+    "generatedAt": "2026-08-25T10:30:19+09:00",
     "sourceRoot": "S:\\HamburgerTrader\\state",
     "paperOnly": true,
     "liveOrderAllowed": false,
@@ -4619,32 +4619,32 @@
       },
       "growthDiscovery": {
         "status": "STALE",
-        "reason": "원천 산출물이 663분 경과하여 최신 자료로 사용하지 않습니다.",
+        "reason": "원천 산출물이 664분 경과하여 최신 자료로 사용하지 않습니다.",
         "source": [
           "S:\\HamburgerTrader\\state\\long_term_growth_candidates_latest.json"
         ],
         "count": 0,
-        "ageMinutes": 662.9407390333333
+        "ageMinutes": 663.5151737666667
       },
       "sectorOverview_KR": {
         "status": "READY",
-        "reason": "원천 산출물 4분 전 갱신",
+        "reason": "원천 산출물 5분 전 갱신",
         "source": [
           "S:\\HamburgerTrader\\state\\money_flow_KR.json",
           "S:\\HamburgerTrader\\state\\sector_parallel_sample_KR.json"
         ],
         "count": 10,
-        "ageMinutes": 4.440764433333333
+        "ageMinutes": 5.015227333333333
       },
       "sectorOverview_US": {
         "status": "READY",
-        "reason": "원천 산출물 2분 전 갱신",
+        "reason": "원천 산출물 0분 전 갱신",
         "source": [
           "S:\\HamburgerTrader\\state\\money_flow_US.json",
           "S:\\HamburgerTrader\\state\\sector_parallel_sample_US.json"
         ],
         "count": 2,
-        "ageMinutes": 2.4407812000000004
+        "ageMinutes": 0.2985859666666667
       },
       "newsList": {
         "status": "READY",
@@ -4662,7 +4662,7 @@
           "S:\\HamburgerTrader\\state\\market_timing_signal.json"
         ],
         "count": 2,
-        "ageMinutes": 3.7384414666666665
+        "ageMinutes": 4.291315333333333
       }
     }
   },
