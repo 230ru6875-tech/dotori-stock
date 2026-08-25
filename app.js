@@ -2040,6 +2040,9 @@ function renderDashboard() {
       const displayName = !item.name || item.name === item.symbol ? item.symbol : `${item.name} <span>(${item.symbol})</span>`;
       const priceLine = item.currentPrice ? `<p class="price ${priceClassForItem(item)}"><span>${T.currentPrice}:</span> ${formatDisplayPrice(item.currentPrice, item)}</p>` : "";
       const marketLinks = item.symbol ? ` <a class="market-link" href="${tossStockUrl(item.symbol)}" target="_blank" rel="noopener">토스증권</a> <a class="market-link" href="${naverStockUrl(item)}" target="_blank" rel="noopener">네이버증권</a>` : "";
+      if (item.tossHolding) {
+        return `<article class="data-card clickable-card watch-card ${priceBackgroundClassForItem(item)}" data-chart-symbol="${item.symbol}"><div class="card-top"><strong>${displayName}</strong><em>${displayMarket(item.market)}</em></div>${priceLine}<p><b>보유</b> / 토스 보유종목</p><p>${escapeHtml(item.memo || "보유수량·평가손익 확인 필요")}</p><p class="muted">현재가와 평가손익은 토스 읽기 전용 보유자료 기준입니다. 스캐너 급등락·매수 신호는 이 카드에 섞지 않습니다.</p><p>${marketLinks.trim()}</p><div class="watch-chart-popover">${watchlistMiniChartSvg(item)}</div></article>`;
+      }
       return `<article class="data-card clickable-card watch-card ${priceBackgroundClassForItem(item)}" data-chart-symbol="${item.symbol}"><div class="card-top"><strong>${displayName}</strong><em>${displayMarket(item.market)}</em></div>${priceLine}<p><b class="${signalClass(item.signal)}">${item.signal}</b>${item.movingAverage ? ` / ${item.movingAverage}` : ""}</p>${analysisSummaryBlockHtml(item)}${crashRiskSummaryHtml(item)}${macroEventRiskSummaryHtml(item)}${marketRiskSummaryHtml(item)}<p>${marketLinks.trim()}</p><div class="watch-chart-popover">${watchlistMiniChartSvg(item)}</div>${item.userAdded ? `<button class="small-button" data-remove-symbol="${item.symbol}" type="button">${T.remove}</button>` : ""}</article>`;
     });
   } else if (state.activeSection === "scanner") {
