@@ -2039,9 +2039,9 @@ function renderDashboard() {
       const priceLine = item.currentPrice ? `<p class="price ${priceClassForItem(item)}"><span>${T.currentPrice}:</span> ${formatDisplayPrice(item.currentPrice, item)}</p>` : "";
       const marketLinks = item.symbol ? ` <a class="market-link" href="${tossStockUrl(item.symbol)}" target="_blank" rel="noopener">토스증권</a> <a class="market-link" href="${naverStockUrl(item)}" target="_blank" rel="noopener">네이버증권</a>` : "";
       if (item.tossHolding) {
-        const purchaseLine = item.purchasePrice ? `<p>구입가: ${formatDisplayPrice(item.purchasePrice, item)}</p>` : `<p>구입가: 확인 필요</p>`;
-        const holdingPrice = item.currentPrice ? `<p>현재가: ${formatDisplayPrice(item.currentPrice, item)}</p>` : "";
-        return `<article class="data-card clickable-card watch-card ${priceBackgroundClassForItem(item)}" data-chart-symbol="${item.symbol}"><div class="card-top"><strong>${displayName}</strong><em>${displayMarket(item.market)}</em></div>${purchaseLine}${holdingPrice}${item.memo ? `<p>${escapeHtml(item.memo)}</p>` : ""}<div class="watch-chart-popover">${watchlistMiniChartSvg(item)}</div></article>`;
+        const purchaseText = item.purchasePrice ? `구입가: ${formatDisplayPrice(item.purchasePrice, item)}` : "구입가: 확인 필요";
+        const currentText = item.currentPrice ? `현재가: ${formatDisplayPrice(item.currentPrice, item)}` : "현재가: 확인 필요";
+        return `<article class="data-card clickable-card watch-card ${priceBackgroundClassForItem(item)}" data-chart-symbol="${item.symbol}"><div class="card-top"><strong>${displayName}</strong><em>${displayMarket(item.market)}</em></div><p>${purchaseText} · ${currentText}</p>${item.memo ? `<p>${escapeHtml(item.memo)}</p>` : ""}<div class="watch-chart-popover">${watchlistMiniChartSvg(item)}</div></article>`;
       }
       return `<article class="data-card clickable-card watch-card ${priceBackgroundClassForItem(item)}" data-chart-symbol="${item.symbol}"><div class="card-top"><strong>${displayName}</strong><em>${displayMarket(item.market)}</em></div>${priceLine}<p><b class="${signalClass(item.signal)}">${item.signal}</b>${item.movingAverage ? ` / ${item.movingAverage}` : ""}</p>${analysisSummaryBlockHtml(item)}${crashRiskSummaryHtml(item)}${macroEventRiskSummaryHtml(item)}${marketRiskSummaryHtml(item)}<p>${marketLinks.trim()}</p><div class="watch-chart-popover">${watchlistMiniChartSvg(item)}</div>${item.userAdded ? `<button class="small-button" data-remove-symbol="${item.symbol}" type="button">${T.remove}</button>` : ""}</article>`;
     });
