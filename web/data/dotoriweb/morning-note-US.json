@@ -1,6 +1,6 @@
 {
   "market": "US",
-  "as_of": "2026-08-25T10:42:28+09:00",
+  "as_of": "2026-08-25T20:45:10+09:00",
   "status": "READY",
   "summary": "밤사이 지표와 뉴스의 핵심만 확인하는 읽기 전용 아침 점검입니다.",
   "news": [
@@ -10,14 +10,14 @@
       "published_at": "Wed, 08 Jul 2026 07:00:00 GMT"
     },
     {
-      "title": "KPMG's top economist warns the US economy is especially vulnerable to a stock market correction - Business Insider",
-      "source": "Business Insider",
-      "published_at": "Tue, 23 Jun 2026 07:00:00 GMT"
-    },
-    {
       "title": "A reversal in oil prices helps stock markets worldwide to steady - Spectrum News",
       "source": "Spectrum News",
       "published_at": "Mon, 18 May 2026 07:00:00 GMT"
+    },
+    {
+      "title": "KPMG's top economist warns the US economy is especially vulnerable to a stock market correction - Business Insider",
+      "source": "Business Insider",
+      "published_at": "Tue, 23 Jun 2026 07:00:00 GMT"
     },
     {
       "title": "Why are stock markets surging despite Iran crisis? - The Week",
@@ -25,9 +25,9 @@
       "published_at": "Fri, 24 Apr 2026 07:00:00 GMT"
     },
     {
-      "title": "Trump’s post sparks five minutes of chaos on markets - SMH.com.au",
-      "source": "SMH.com.au",
-      "published_at": "Tue, 24 Mar 2026 07:00:00 GMT"
+      "title": "South Korea’s stock market suffers biggest drop in history amid US-Iran war - Al Jazeera",
+      "source": "Al Jazeera",
+      "published_at": "Wed, 04 Mar 2026 08:00:00 GMT"
     }
   ],
   "indices": [
@@ -48,15 +48,15 @@
     {
       "symbol": "^DJI",
       "name": "Dow",
-      "price": 53417.16,
+      "price": 53417.2,
       "change_pct": 0.26,
       "source": "Yahoo Finance"
     },
     {
       "symbol": "^VIX",
       "name": "VIX",
-      "price": 15.85,
-      "change_pct": 4.76,
+      "price": 15.78,
+      "change_pct": -0.44,
       "source": "Yahoo Finance"
     }
   ],
