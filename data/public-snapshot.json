@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-25T10:42:02+09:00",
+  "updatedAt": "2026-08-25T10:42:21+09:00",
   "exchangeRate": {
     "label": "오늘의 환율",
     "value": "1,501.33원",
@@ -4584,7 +4584,7 @@
     }
   ],
   "webDataStatus": {
-    "generatedAt": "2026-08-25T10:42:02+09:00",
+    "generatedAt": "2026-08-25T10:42:21+09:00",
     "sourceRoot": "S:\\HamburgerTrader\\state",
     "paperOnly": true,
     "liveOrderAllowed": false,
@@ -4619,22 +4619,22 @@
       },
       "growthDiscovery": {
         "status": "STALE",
-        "reason": "원천 산출물이 675분 경과하여 최신 자료로 사용하지 않습니다.",
+        "reason": "원천 산출물이 676분 경과하여 최신 자료로 사용하지 않습니다.",
         "source": [
           "S:\\HamburgerTrader\\state\\long_term_growth_candidates_latest.json"
         ],
         "count": 0,
-        "ageMinutes": 675.2277449833333
+        "ageMinutes": 675.5428871333334
       },
       "sectorOverview_KR": {
         "status": "READY",
-        "reason": "원천 산출물 1분 전 갱신",
+        "reason": "원천 산출물 2분 전 갱신",
         "source": [
           "S:\\HamburgerTrader\\state\\money_flow_KR.json",
           "S:\\HamburgerTrader\\state\\sector_parallel_sample_KR.json"
         ],
         "count": 10,
-        "ageMinutes": 1.3777785333333334
+        "ageMinutes": 1.6929651333333333
       },
       "sectorOverview_US": {
         "status": "READY",
@@ -4644,7 +4644,7 @@
           "S:\\HamburgerTrader\\state\\sector_parallel_sample_US.json"
         ],
         "count": 2,
-        "ageMinutes": 1.5278120166666667
+        "ageMinutes": 1.8429890833333333
       },
       "newsList": {
         "status": "READY",
@@ -4662,7 +4662,7 @@
           "S:\\HamburgerTrader\\state\\market_timing_signal.json"
         ],
         "count": 2,
-        "ageMinutes": 0.9936700666666667
+        "ageMinutes": 1.2850987833333332
       },
       "dailyHistory": {
         "status": "READY",
