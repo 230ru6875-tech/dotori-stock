@@ -1,0 +1,96 @@
+{
+  "market": "US",
+  "as_of": "2026-08-25T09:57:56+09:00",
+  "status": "READY",
+  "summary": "밤사이 지표와 뉴스의 핵심만 확인하는 읽기 전용 아침 점검입니다.",
+  "news": [
+    {
+      "title": "Tensions with Iran add fresh uncertainty to an already shaky global economy - NPR",
+      "source": "NPR",
+      "published_at": "Wed, 08 Jul 2026 07:00:00 GMT"
+    },
+    {
+      "title": "KPMG's top economist warns the US economy is especially vulnerable to a stock market correction - Business Insider",
+      "source": "Business Insider",
+      "published_at": "Tue, 23 Jun 2026 07:00:00 GMT"
+    },
+    {
+      "title": "A reversal in oil prices helps stock markets worldwide to steady - Spectrum News",
+      "source": "Spectrum News",
+      "published_at": "Mon, 18 May 2026 07:00:00 GMT"
+    },
+    {
+      "title": "Why are stock markets surging despite Iran crisis? - The Week",
+      "source": "The Week",
+      "published_at": "Fri, 24 Apr 2026 07:00:00 GMT"
+    },
+    {
+      "title": "Trump’s post sparks five minutes of chaos on markets - SMH.com.au",
+      "source": "SMH.com.au",
+      "published_at": "Tue, 24 Mar 2026 07:00:00 GMT"
+    }
+  ],
+  "indices": [
+    {
+      "symbol": "^GSPC",
+      "name": "S&P 500",
+      "price": 7652.86,
+      "change_pct": -0.28,
+      "source": "Yahoo Finance"
+    },
+    {
+      "symbol": "^IXIC",
+      "name": "NASDAQ",
+      "price": 25980.191,
+      "change_pct": -0.76,
+      "source": "Yahoo Finance"
+    },
+    {
+      "symbol": "^DJI",
+      "name": "Dow",
+      "price": 53417.16,
+      "change_pct": 0.26,
+      "source": "Yahoo Finance"
+    },
+    {
+      "symbol": "^VIX",
+      "name": "VIX",
+      "price": 15.85,
+      "change_pct": 4.76,
+      "source": "Yahoo Finance"
+    }
+  ],
+  "sector_flow": [
+    {
+      "symbol": "SOXX",
+      "name": "반도체",
+      "price": 506.18,
+      "change_pct": -2.67,
+      "source": "Yahoo Finance"
+    },
+    {
+      "symbol": "XLK",
+      "name": "기술",
+      "price": 180.05,
+      "change_pct": -1.78,
+      "source": "Yahoo Finance"
+    },
+    {
+      "symbol": "XLF",
+      "name": "금융",
+      "price": 58.22,
+      "change_pct": 1.29,
+      "source": "Yahoo Finance"
+    },
+    {
+      "symbol": "XLE",
+      "name": "에너지",
+      "price": 63.11,
+      "change_pct": -0.83,
+      "source": "Yahoo Finance"
+    }
+  ],
+  "paper_only": true,
+  "live_order_allowed": false,
+  "source_policy": "public_read_only; unavailable fields are not inferred"
+}

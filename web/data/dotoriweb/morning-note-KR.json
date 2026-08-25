@@ -1,0 +1,75 @@
+{
+  "market": "KR",
+  "as_of": "2026-08-25T09:57:52+09:00",
+  "status": "READY",
+  "summary": "밤사이 지표와 뉴스의 핵심만 확인하는 읽기 전용 아침 점검입니다.",
+  "news": [
+    {
+      "title": "Inside one of the wildest months in South Korea's stock market history - Business Insider",
+      "source": "Business Insider",
+      "published_at": "Fri, 31 Jul 2026 07:00:00 GMT"
+    },
+    {
+      "title": "South Korean shares tumble as yield spike, Middle East tensions hit Samsung, SK Hynix - KED Global",
+      "source": "KED Global",
+      "published_at": "Wed, 19 Aug 2026 17:20:35 GMT"
+    },
+    {
+      "title": "The Korean Stock Market Crashes Overnight. Will it Be Another Brutal Nasdaq Sell-Off on Tuesday? - Yahoo Finance",
+      "source": "Yahoo Finance",
+      "published_at": "Tue, 28 Jul 2026 07:00:00 GMT"
+    },
+    {
+      "title": "South Korean Stocks W-Shaped Rebound to Gains Amid Finance Minister’s Market Support – Is the Rally Sustainable? - 36氪",
+      "source": "36氪",
+      "published_at": "Tue, 04 Aug 2026 07:00:00 GMT"
+    },
+    {
+      "title": "Why everybody is talking about stocks in Korea, and why it's worrisome - The Korea Herald",
+      "source": "The Korea Herald",
+      "published_at": "Wed, 20 May 2026 07:00:00 GMT"
+    }
+  ],
+  "indices": [
+    {
+      "symbol": "^KS11",
+      "name": "KOSPI",
+      "price": 6534.67,
+      "change_pct": -5.47,
+      "source": "Yahoo Finance"
+    },
+    {
+      "symbol": "^KQ11",
+      "name": "KOSDAQ",
+      "price": 794.15,
+      "change_pct": -0.97,
+      "source": "Yahoo Finance"
+    }
+  ],
+  "sector_flow": [
+    {
+      "symbol": "091160.KS",
+      "name": "반도체",
+      "price": 117525.0,
+      "change_pct": -3.85,
+      "source": "Yahoo Finance"
+    },
+    {
+      "symbol": "091170.KS",
+      "name": "은행",
+      "price": 15835.0,
+      "change_pct": 1.51,
+      "source": "Yahoo Finance"
+    },
+    {
+      "symbol": "117700.KS",
+      "name": "건설",
+      "price": 6405.0,
+      "change_pct": 2.73,
+      "source": "Yahoo Finance"
+    }
+  ],
+  "paper_only": true,
+  "live_order_allowed": false,
+  "source_policy": "public_read_only; unavailable fields are not inferred"
+}

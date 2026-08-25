@@ -1,4 +1,4 @@
-const state = { data: null, dailyHistory: [], dotoriLearning: null, dotoriWeb: null, tossHoldings: null, sanghoe: null, todayCandidates: null, activeSection: "watchlist", userStocks: [], selectedMovingSymbol: "", scannerMarketFirst: "domestic", scannerMarketFirstManual: false, scannerSectorFilter: "전체", growthSectorFilter: "전체", dailySearchQuery: "", dailyDateFrom: "", dailyDateTo: "", quotes: {}, liveQuoteCycle: 0, quoteRefreshInFlight: false, quoteRenderTimer: 0 };
+const state = { data: null, dailyHistory: [], dotoriLearning: null, dotoriWeb: null, tossHoldings: null, sanghoe: null, todayCandidates: null, morningNotes: {}, activeSection: "watchlist", userStocks: [], selectedMovingSymbol: "", scannerMarketFirst: "domestic", scannerMarketFirstManual: false, scannerSectorFilter: "전체", growthSectorFilter: "전체", dailySearchQuery: "", dailyDateFrom: "", dailyDateTo: "", quotes: {}, liveQuoteCycle: 0, quoteRefreshInFlight: false, quoteRenderTimer: 0 };
 const USER_STOCKS_KEY = "dotori.userStocks.v1";
 const USER_KEY = "dotori.userKey.v1";
 const USER_KEEP_ASKED_KEY = "dotori.keepAsked.v1";
@@ -1725,6 +1725,21 @@ function movingDetailHtml(item) {
     : "20\uc77c\uc120 \uc9c0\uc9c0\uc640 60\uc77c\uc120 \uc774\ud0c8 \uc5ec\ubd80\ub97c \uac19\uc774 \ubcf4\uba74\uc11c \ubd84\ud560 \uc9c4\uc785\ub9cc \uac80\ud1a0\ud569\ub2c8\ub2e4.";
   return `<div class="moving-detail"><div class="moving-chart-box">${movingChartSvg(item)}</div><div class="moving-memo"><h3>[\uc774\ud3c9\uc120 + \ud558\uc774\ud0a8\uc544\uc2dc \ubcf4\uc870\ud310\ub2e8]</h3><p>- \uc885\ubaa9: ${escapeHtml(item.name || item.symbol)}(${escapeHtml(item.symbol || "-")})</p><p>- \ud604\uc7ac\uac00: ${escapeHtml(current)}</p><p>- OHLC: ${escapeHtml(ohlcSource)}</p><p>- 20\uc77c\uc120: ${escapeHtml(ma20)}</p><p>- 60\uc77c\uc120: ${escapeHtml(ma60)}</p><p>- \uc774\ud3c9\uc120 \ud310\ub2e8: <b>${escapeHtml(decision)}</b></p><p>- ${escapeHtml(heikin.label)}</p><p>- \uadfc\uac70: ${escapeHtml(note)}</p><h3>[\uc804\ub7b5 \uba54\ubaa8]</h3><p>- ${escapeHtml(heikin.memo)}</p><p>- ${escapeHtml(strategy)}</p><p>- \uc774\ud3c9\uc120 \ub2e8\ud0c0\uc804\ub7b5: 5\uc77c\uc120\uacfc 20\uc77c\uc120 \uc704\uce58\uac00 \uac19\uc774 \uac1c\uc120\ub420 \ub54c\ub9cc \uc810\uc218\ub97c \ub192\uc785\ub2c8\ub2e4.</p></div></div>`;
 }
+function morningNoteItems() {
+  return ["KR", "US"].map((market) => state.morningNotes?.[market]).filter(Boolean).map((note) => {
+    const quoteLine = (row) => `${row.name || row.symbol}: ${row.change_pct == null ? "변동률 확인불가" : `${row.change_pct >= 0 ? "+" : ""}${row.change_pct}%`}`;
+    return {
+      title: `${note.market} 모닝노트`,
+      updatedAt: note.as_of || "",
+      summary: note.status === "READY" ? note.summary : "최신 공개 데이터 일부를 확인할 수 없어 수치가 비어 있는 항목은 추정하지 않았습니다.",
+      sections: [
+        { heading: "밤사이 뉴스", items: (note.news || []).slice(0, 5).map((item) => item.title) },
+        { heading: "지수·환율 점검", items: (note.indices || []).map(quoteLine) },
+        { heading: "업종 흐름", items: (note.sector_flow || []).map(quoteLine) }
+      ]
+    };
+  });
+}
 function mergedSections(data) {
   return {
     scanner: dedupeRowsBySymbol([...state.userStocks.map(userStockToScanner), ...(data.scanner || [])]).map(applyLiveQuote),
@@ -1737,7 +1752,7 @@ function mergedSections(data) {
     spikes: (data.spikes || []).map(applyLiveQuote),
     moving: [...state.userStocks.map(userStockToMoving), ...data.movingAverages].map(applyLiveQuote),
     growthDiscovery: (data.growthDiscovery || []).map(applyLiveQuote),
-    morningNote: data.morningNote || data.analysis || [],
+    morningNote: [...morningNoteItems(), ...(data.morningNote || data.analysis || [])],
     sectorOverview: data.sectorOverview || [],
     deepAnalysis: [...state.userStocks.map(userStockToAnalysis), ...(data.deepAnalysis || [])].map(applyLiveQuote),
     newsList: data.newsList || []
@@ -2254,14 +2269,16 @@ function drawChart(source = null) {
 
 async function loadData(options = {}) {
   try {
-    const [snapshotResponse, dailyResponse, learningResponse, dotoriWebResponse, holdingsResponse, sanghoeResponse, todayCandidatesResponse] = await Promise.all([
+    const [snapshotResponse, dailyResponse, learningResponse, dotoriWebResponse, holdingsResponse, sanghoeResponse, todayCandidatesResponse, morningKrResponse, morningUsResponse] = await Promise.all([
       fetch("./data/public-snapshot.json", { cache: "no-store" }),
       fetch("./data/daily-market-history.json", { cache: "no-store" }).catch(() => null),
       fetch("./data/dotoristock-learning.json", { cache: "no-store" }).catch(() => null),
       fetch("./web/data/dotoriweb/latest.json", { cache: "no-store" }).catch(() => null),
       fetch("./web/data/dotoriweb/holdings.json", { cache: "no-store" }).catch(() => null),
       fetch("./data/dotori-sanghoe.json", { cache: "no-store" }).catch(() => null),
-      fetch("./web/data/dotoriweb/today-candidates.json", { cache: "no-store" }).catch(() => null)
+      fetch("./web/data/dotoriweb/today-candidates.json", { cache: "no-store" }).catch(() => null),
+      fetch("./web/data/dotoriweb/morning-note-KR.json", { cache: "no-store" }).catch(() => null),
+      fetch("./web/data/dotoriweb/morning-note-US.json", { cache: "no-store" }).catch(() => null)
     ]);
     if (!snapshotResponse.ok) throw new Error(`HTTP ${snapshotResponse.status}`);
     state.data = normalizeSnapshotData(await snapshotResponse.json());
@@ -2284,6 +2301,8 @@ async function loadData(options = {}) {
     if (todayCandidatesResponse && todayCandidatesResponse.ok) {
       state.todayCandidates = await todayCandidatesResponse.json();
     }
+    if (morningKrResponse && morningKrResponse.ok) state.morningNotes.KR = await morningKrResponse.json();
+    if (morningUsResponse && morningUsResponse.ok) state.morningNotes.US = await morningUsResponse.json();
     setStatus(T.connected);
     setBrandUpdatedAt(new Date().toISOString());
     renderHermesPlanLines();
