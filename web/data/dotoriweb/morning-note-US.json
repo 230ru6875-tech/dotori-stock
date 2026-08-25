@@ -1,6 +1,6 @@
 {
   "market": "US",
-  "as_of": "2026-08-25T21:00:05+09:00",
+  "as_of": "2026-08-26T06:15:53+09:00",
   "status": "READY",
   "summary": "밤사이 지표와 뉴스의 핵심만 확인하는 읽기 전용 아침 점검입니다.",
   "news": [
@@ -34,29 +34,29 @@
     {
       "symbol": "^GSPC",
       "name": "S&P 500",
-      "price": 7652.86,
-      "change_pct": -0.28,
+      "price": 7677.28,
+      "change_pct": 0.32,
       "source": "Yahoo Finance"
     },
     {
       "symbol": "^IXIC",
       "name": "NASDAQ",
-      "price": 25980.191,
-      "change_pct": -0.76,
+      "price": 26151.299,
+      "change_pct": 0.66,
       "source": "Yahoo Finance"
     },
     {
       "symbol": "^DJI",
       "name": "Dow",
-      "price": 53417.16,
-      "change_pct": 0.26,
+      "price": 53577.4,
+      "change_pct": 0.3,
       "source": "Yahoo Finance"
     },
     {
       "symbol": "^VIX",
       "name": "VIX",
-      "price": 15.75,
-      "change_pct": -0.63,
+      "price": 15.45,
+      "change_pct": -2.52,
       "source": "Yahoo Finance"
     }
   ],
@@ -64,31 +64,72 @@
     {
       "symbol": "SOXX",
       "name": "반도체",
-      "price": 506.18,
-      "change_pct": -2.67,
+      "price": 514.06,
+      "change_pct": 1.56,
       "source": "Yahoo Finance"
     },
     {
       "symbol": "XLK",
       "name": "기술",
-      "price": 180.05,
-      "change_pct": -1.78,
+      "price": 181.74,
+      "change_pct": 0.94,
       "source": "Yahoo Finance"
     },
     {
       "symbol": "XLF",
       "name": "금융",
-      "price": 58.22,
-      "change_pct": 1.29,
+      "price": 58.31,
+      "change_pct": 0.15,
       "source": "Yahoo Finance"
     },
     {
       "symbol": "XLE",
       "name": "에너지",
-      "price": 63.11,
-      "change_pct": -0.83,
+      "price": 62.06,
+      "change_pct": -1.66,
       "source": "Yahoo Finance"
     }
+  ],
+  "after_close_materials": {
+    "market": "US",
+    "window_start": "2026-08-24T16:00-04:00",
+    "window_end": "2026-08-25T17:15-04:00",
+    "disclosures": [],
+    "disclosure_count": 0,
+    "state_updates": [
+      {
+        "label": "거시·AI 시장 컨텍스트",
+        "updated_at": "2026-08-25T17:07-04:00",
+        "path": "S:\\HamburgerTrader\\state\\macro_market_context.json",
+        "summary": "us10y 4.7 / us30y 5.23 / fed_funds 3.63 / cpi_all_items 332.813 / core_pce 130.266 / high_yield_spread 2.69 / corporate_bond_spot_rate_5y 4.88"
+      },
+      {
+        "label": "금리 컨텍스트",
+        "updated_at": "2026-08-25T17:07-04:00",
+        "path": "S:\\HamburgerTrader\\state\\macro_rate_context.json",
+        "summary": "NORMAL_OR_UNCONFIRMED / "
+      },
+      {
+        "label": "시장 타이밍",
+        "updated_at": "2026-08-25T17:11-04:00",
+        "path": "S:\\HamburgerTrader\\state\\market_timing_signal.json",
+        "summary": "상태 확인"
+      },
+      {
+        "label": "후보 브리지",
+        "updated_at": "2026-08-25T17:11-04:00",
+        "path": "S:\\HamburgerTrader\\state\\hermes_candidate_bridge_latest.json",
+        "summary": "갱신 확인"
+      }
+    ],
+    "state_update_count": 4,
+    "source_policy": "FIRST_SEEN_AFTER_PREVIOUS_SESSION_CLOSE",
+    "fresh": true
+  },
+  "after_close_summary": [
+    "수집범위 2026-08-24T16:00-04:00~2026-08-25T17:15-04:00",
+    "공시: 해당 시간 범위 내 새 중요공시 없음",
+    "시장자료 거시·AI 시장 컨텍스트 us10y 4.7 / us30y 5.23 / fed_funds 3.63 / cpi_all_items 332.813 / core_pce 130.266 / high_yield_spread 2.69 / corporate_bond_spot_rate_5y 4.88 / 금리 컨텍스트 NORMAL_OR_UNCONFIRMED /  / 시장 타이밍 상태 확인 / 후보 브리지 갱신 확인"
   ],
   "paper_only": true,
   "live_order_allowed": false,
