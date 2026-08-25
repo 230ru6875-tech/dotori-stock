@@ -1,0 +1,222 @@
+{
+  "updated_at": "2026-08-17T06:12:02.430661Z",
+  "enabled": true,
+  "source": "dats_close_betting_scanner",
+  "strategy_id": "CLOSE_BETTING_CONTINUATION_V1",
+  "purpose": "close_time_buy_candidate_selection",
+  "mode": "close_time_buy_selection",
+  "close_buy_window": {
+    "timezone": "대한민국 표준시",
+    "now_local": "2026-08-17T15:12:02+09:00",
+    "start": "15:20",
+    "end": "15:30",
+    "snapshot_time": "15:25",
+    "is_snapshot_minute": false,
+    "in_window": false
+  },
+  "snapshot_time": "15:25",
+  "scanned": 18,
+  "quotes": 18,
+  "candidate_count": 2,
+  "paper_trade": true,
+  "live_order_allowed": false,
+  "selected_order_count": 0,
+  "errors": [],
+  "candidates": [
+    {
+      "timestamp": "2026-08-17T06:12:02.422663Z",
+      "strategy_id": "CLOSE_BETTING_CONTINUATION_V1",
+      "symbol": "005380",
+      "symbol_name": "현대차",
+      "display_name": "005380(현대차)",
+      "market": "KR",
+      "reference_only": false,
+      "close_time_buy_candidate": true,
+      "next_day_confirmation_required": false,
+      "score": 1.0,
+      "current_price": 459500.0,
+      "open_price": 423000.0,
+      "high_price": 460000.0,
+      "low_price": 420000.0,
+      "previous_close": 418500.0,
+      "day_change_pct": 0.097969,
+      "close_position_ratio": 0.9875,
+      "upper_wick_ratio": 0.0125,
+      "volume": 2419581.0,
+      "previous_volume": 1042964.0,
+      "volume_ratio": 2.319908,
+      "trading_value": 1079604367250.0,
+      "execution_strength": 137.0,
+      "checks": {
+        "positive_day": true,
+        "not_overheated": true,
+        "close_near_high": true,
+        "upper_wick_ok": true,
+        "trading_value_ok": true,
+        "volume_ratio_ok": true,
+        "strength_ok": true,
+        "close_above_open": true
+      },
+      "mac_point_pattern": {
+        "enabled": true,
+        "matched": false,
+        "pattern": "3DAY_CLOSE_BETTING_MAC_POINT",
+        "source_video": "https://youtu.be/S1mtriC-Ufk",
+        "base_date": "2026-07-30",
+        "resistance_date": "2026-07-31",
+        "pullback_date": "2026-08-17",
+        "body_pct": 0.014451,
+        "base_trading_value": 337515282000.0,
+        "resistance_trading_value": 421234528000.0,
+        "pullback_trading_value": 1079604367250.0,
+        "pullback_volume_ratio_to_resistance": 2.228681,
+        "prior_resistance": 783000.0,
+        "ma5": 383200.0,
+        "checks": {
+          "base_body_strong": false,
+          "base_trading_value_ok": true,
+          "resistance_touched": false,
+          "resistance_turnover_expanded": true,
+          "pullback_volume_contracted": false,
+          "ma5_holding": true,
+          "not_breaking_base_high": true
+        }
+      },
+      "close_betting_review_filter": {
+        "enabled": true,
+        "matched": true,
+        "source_video": "local_download: 종가베팅 복기용 검색식",
+        "purpose": "leader_stock_review_filter_as_close_buy_bonus",
+        "high_change_pct": 0.099164,
+        "largecap": true,
+        "market_cap": 94086193477000.0,
+        "trading_value": 1079604367250.0,
+        "trading_value_rank_in_scan": 3,
+        "checks": {
+          "high_change_10pct_or_largecap_5pct": true,
+          "trading_value_top_n": true
+        }
+      },
+      "verified_news_or_sector_catalyst": false,
+      "catalyst_evidence": {
+        "verified": false,
+        "state": "unknown",
+        "source": "missing_catalyst_data",
+        "reasons": []
+      },
+      "close_buy_rule": "15:20~15:30 close-time buy candidate selected by demand, turnover, close-near-high, execution strength, and optional mac-point pattern.",
+      "next_day_rule": "시초가 수급 확인 후 09:03 이후 시가돌파가 확인될 때만 DATS 후보 참고근거로 사용",
+      "source": "toss_public_stock_prices_details"
+    },
+    {
+      "timestamp": "2026-08-17T06:12:02.429655Z",
+      "strategy_id": "CLOSE_BETTING_CONTINUATION_V1",
+      "symbol": "006400",
+      "symbol_name": "삼성SDI",
+      "display_name": "006400(삼성SDI)",
+      "market": "KR",
+      "reference_only": false,
+      "close_time_buy_candidate": true,
+      "next_day_confirmation_required": false,
+      "score": 1.0,
+      "current_price": 515000.0,
+      "open_price": 490000.0,
+      "high_price": 518000.0,
+      "low_price": 485500.0,
+      "previous_close": 487000.0,
+      "day_change_pct": 0.057495,
+      "close_position_ratio": 0.907692,
+      "upper_wick_ratio": 0.092308,
+      "volume": 828335.0,
+      "previous_volume": 556092.0,
+      "volume_ratio": 1.489565,
+      "trading_value": 416029957000.0,
+      "execution_strength": 147.0,
+      "checks": {
+        "positive_day": true,
+        "not_overheated": true,
+        "close_near_high": true,
+        "upper_wick_ok": true,
+        "trading_value_ok": true,
+        "volume_ratio_ok": true,
+        "strength_ok": true,
+        "close_above_open": true
+      },
+      "mac_point_pattern": {
+        "enabled": true,
+        "matched": false,
+        "reason": "insufficient_ohlcv_history"
+      },
+      "close_betting_review_filter": {
+        "enabled": true,
+        "matched": true,
+        "source_video": "local_download: 종가베팅 복기용 검색식",
+        "purpose": "leader_stock_review_filter_as_close_buy_bonus",
+        "high_change_pct": 0.063655,
+        "largecap": true,
+        "market_cap": 41501547950000.0,
+        "trading_value": 416029957000.0,
+        "trading_value_rank_in_scan": 4,
+        "checks": {
+          "high_change_10pct_or_largecap_5pct": true,
+          "trading_value_top_n": true
+        }
+      },
+      "verified_news_or_sector_catalyst": false,
+      "catalyst_evidence": {
+        "verified": false,
+        "state": "unknown",
+        "source": "missing_catalyst_data",
+        "reasons": []
+      },
+      "close_buy_rule": "15:20~15:30 close-time buy candidate selected by demand, turnover, close-near-high, execution strength, and optional mac-point pattern.",
+      "next_day_rule": "시초가 수급 확인 후 09:03 이후 시가돌파가 확인될 때만 DATS 후보 참고근거로 사용",
+      "source": "toss_public_stock_prices_details"
+    }
+  ],
+  "close_buy_orders": [],
+  "review_summary": {
+    "classification": {
+      "A": "주도주 종가베팅 성공 후보",
+      "B": "장중 급등 후 밀림",
+      "C": "수익/종가품질은 있으나 영상 주도주 조건 미충족",
+      "D": "주도주·종가품질 충족, 촉매 미확인 관찰군",
+      "EXCLUDED": "거래대금·가격·촉매 등 근거 부족"
+    },
+    "counts": {
+      "A": 0,
+      "B": 0,
+      "C": 0,
+      "D": 2,
+      "EXCLUDED": 0
+    },
+    "groups": {
+      "A": [],
+      "B": [],
+      "C": [],
+      "D": [
+        {
+          "symbol": "005380",
+          "display_name": "005380(현대차)",
+          "score": 1.0,
+          "day_change_pct": 0.097969,
+          "close_position_ratio": 0.9875,
+          "review_filter_matched": true,
+          "verified_news_or_sector_catalyst": false,
+          "catalyst_state": "unknown"
+        },
+        {
+          "symbol": "006400",
+          "display_name": "006400(삼성SDI)",
+          "score": 1.0,
+          "day_change_pct": 0.057495,
+          "close_position_ratio": 0.907692,
+          "review_filter_matched": true,
+          "verified_news_or_sector_catalyst": false,
+          "catalyst_state": "unknown"
+        }
+      ],
+      "EXCLUDED": []
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "updated_at": "2026-08-18T06:12:02.318806Z",
+  "enabled": true,
+  "source": "dats_close_betting_scanner",
+  "strategy_id": "CLOSE_BETTING_CONTINUATION_V1",
+  "purpose": "close_time_buy_candidate_selection",
+  "mode": "close_time_buy_selection",
+  "close_buy_window": {
+    "timezone": "대한민국 표준시",
+    "now_local": "2026-08-18T15:12:02+09:00",
+    "start": "15:20",
+    "end": "15:30",
+    "snapshot_time": "15:25",
+    "is_snapshot_minute": false,
+    "in_window": false
+  },
+  "snapshot_time": "15:25",
+  "scanned": 18,
+  "quotes": 18,
+  "candidate_count": 0,
+  "paper_trade": true,
+  "live_order_allowed": false,
+  "selected_order_count": 0,
+  "errors": [],
+  "candidates": [],
+  "close_buy_orders": [],
+  "review_summary": {
+    "classification": {
+      "A": "주도주 종가베팅 성공 후보",
+      "B": "장중 급등 후 밀림",
+      "C": "수익/종가품질은 있으나 영상 주도주 조건 미충족",
+      "D": "주도주·종가품질 충족, 촉매 미확인 관찰군",
+      "EXCLUDED": "거래대금·가격·촉매 등 근거 부족"
+    },
+    "counts": {
+      "A": 0,
+      "B": 0,
+      "C": 0,
+      "D": 0,
+      "EXCLUDED": 0
+    },
+    "groups": {
+      "A": [],
+      "B": [],
+      "C": [],
+      "D": [],
+      "EXCLUDED": []
+    }
+  }
+}
