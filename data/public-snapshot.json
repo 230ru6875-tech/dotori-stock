@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-26T08:00:11+09:00",
+  "updatedAt": "2026-08-26T20:45:13+09:00",
   "exchangeRate": {
     "label": "오늘의 환율",
     "value": "1,501.33원",
@@ -4301,7 +4301,7 @@
       "title": "KR 모닝노트",
       "kind": "morning-note",
       "market": "KR",
-      "updatedAt": "2026-08-26T08:00:06+09:00",
+      "updatedAt": "2026-08-26T20:45:07+09:00",
       "summary": "밤사이 지표와 뉴스의 핵심만 확인하는 읽기 전용 아침 점검입니다.",
       "sections": [
         {
@@ -4310,7 +4310,7 @@
         },
         {
           "heading": "전일 장마감 이후 수집자료",
-          "items": "수집범위 2026-08-25T15:30+09:00~2026-08-26T08:00+09:00 / 공시 주의 코이즈 기타시장안내 (시가총액 미달에 따른 상장폐지 우려 관련 안내) / 주의 원풍물산 기타시장안내 (시가총액 미달에 따른 상장폐지 우려 관련 안내) / 호재 DL [기재정정]단일판매ㆍ공급계약체결(자회사의 주요경영사항) / 호재 DL이앤씨 [기재정정]단일판매ㆍ공급계약체결 / 시장자료 거시·AI 시장 컨텍스트 us10y 4.7 / us30y 5.23 / fed_funds 3.63 / cpi_all_items 332.813 / core_pce 130.266 / high_yield_spread 2.69 / corporate_bond_spot_rate_5y 4.88 / 금리 컨텍스트 NORMAL_OR_UNCONFIRMED /  / 시장 타이밍 상태 확인 / 후보 브리지 갱신 확인"
+          "items": "수집범위 2026-08-25T15:30+09:00~2026-08-26T20:45+09:00 / 공시 호재 휴비츠 [첨부정정]주요사항보고서(회사합병결정) / 호재 SK이노베이션 증권신고서(합병) / 시장자료 거시·AI 시장 컨텍스트 us10y 4.7 / us30y 5.23 / fed_funds 3.63 / cpi_all_items 332.813 / core_pce 130.266 / high_yield_spread 2.69 / corporate_bond_spot_rate_5y 4.88 / 금리 컨텍스트 NORMAL_OR_UNCONFIRMED /  / 시장 타이밍 상태 확인 / 후보 브리지 갱신 확인"
         },
         {
           "heading": "확인할 흐름",
@@ -4320,64 +4320,48 @@
       "afterCloseMaterials": {
         "market": "KR",
         "window_start": "2026-08-25T15:30+09:00",
-        "window_end": "2026-08-26T08:00+09:00",
+        "window_end": "2026-08-26T20:45+09:00",
         "disclosures": [
           {
-            "observed_at": "2026-08-25T20:51+09:00",
-            "company": "코이즈",
-            "title": "기타시장안내 (시가총액 미달에 따른 상장폐지 우려 관련 안내)",
-            "negative": true,
-            "positive": false,
-            "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260825900709"
-          },
-          {
-            "observed_at": "2026-08-25T20:51+09:00",
-            "company": "원풍물산",
-            "title": "기타시장안내 (시가총액 미달에 따른 상장폐지 우려 관련 안내)",
-            "negative": true,
-            "positive": false,
-            "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260825900731"
-          },
-          {
-            "observed_at": "2026-08-25T20:51+09:00",
-            "company": "DL",
-            "title": "[기재정정]단일판매ㆍ공급계약체결(자회사의 주요경영사항)",
+            "observed_at": "2026-08-26T09:43+09:00",
+            "company": "휴비츠",
+            "title": "[첨부정정]주요사항보고서(회사합병결정)",
             "negative": false,
             "positive": true,
-            "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260825800707"
+            "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260826000085"
           },
           {
-            "observed_at": "2026-08-25T20:51+09:00",
-            "company": "DL이앤씨",
-            "title": "[기재정정]단일판매ㆍ공급계약체결",
+            "observed_at": "2026-08-26T09:10+09:00",
+            "company": "SK이노베이션",
+            "title": "증권신고서(합병)",
             "negative": false,
             "positive": true,
-            "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260825800695"
+            "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260826000056"
           }
         ],
-        "disclosure_count": 4,
+        "disclosure_count": 2,
         "state_updates": [
           {
             "label": "거시·AI 시장 컨텍스트",
-            "updated_at": "2026-08-26T07:58+09:00",
+            "updated_at": "2026-08-26T20:32+09:00",
             "path": "S:\\HamburgerTrader\\state\\macro_market_context.json",
             "summary": "us10y 4.7 / us30y 5.23 / fed_funds 3.63 / cpi_all_items 332.813 / core_pce 130.266 / high_yield_spread 2.69 / corporate_bond_spot_rate_5y 4.88"
           },
           {
             "label": "금리 컨텍스트",
-            "updated_at": "2026-08-26T07:58+09:00",
+            "updated_at": "2026-08-26T20:32+09:00",
             "path": "S:\\HamburgerTrader\\state\\macro_rate_context.json",
             "summary": "NORMAL_OR_UNCONFIRMED / "
           },
           {
             "label": "시장 타이밍",
-            "updated_at": "2026-08-26T07:56+09:00",
+            "updated_at": "2026-08-26T20:41+09:00",
             "path": "S:\\HamburgerTrader\\state\\market_timing_signal.json",
             "summary": "상태 확인"
           },
           {
             "label": "후보 브리지",
-            "updated_at": "2026-08-26T07:56+09:00",
+            "updated_at": "2026-08-26T20:41+09:00",
             "path": "S:\\HamburgerTrader\\state\\hermes_candidate_bridge_latest.json",
             "summary": "갱신 확인"
           }
@@ -4393,7 +4377,7 @@
       "title": "US 모닝노트",
       "kind": "morning-note",
       "market": "US",
-      "updatedAt": "2026-08-26T08:00:10+09:00",
+      "updatedAt": "2026-08-26T20:45:12+09:00",
       "summary": "밤사이 지표와 뉴스의 핵심만 확인하는 읽기 전용 아침 점검입니다.",
       "sections": [
         {
@@ -4402,7 +4386,7 @@
         },
         {
           "heading": "전일 장마감 이후 수집자료",
-          "items": "수집범위 2026-08-24T16:00-04:00~2026-08-25T19:00-04:00 / 공시: 해당 시간 범위 내 새 중요공시 없음 / 시장자료 거시·AI 시장 컨텍스트 us10y 4.7 / us30y 5.23 / fed_funds 3.63 / cpi_all_items 332.813 / core_pce 130.266 / high_yield_spread 2.69 / corporate_bond_spot_rate_5y 4.88 / 금리 컨텍스트 NORMAL_OR_UNCONFIRMED /  / 시장 타이밍 상태 확인 / 후보 브리지 갱신 확인"
+          "items": "수집범위 2026-08-25T16:00-04:00~2026-08-26T07:45-04:00 / 공시: 해당 시간 범위 내 새 중요공시 없음 / 시장자료 거시·AI 시장 컨텍스트 us10y 4.7 / us30y 5.23 / fed_funds 3.63 / cpi_all_items 332.813 / core_pce 130.266 / high_yield_spread 2.69 / corporate_bond_spot_rate_5y 4.88 / 금리 컨텍스트 NORMAL_OR_UNCONFIRMED /  / 시장 타이밍 상태 확인 / 후보 브리지 갱신 확인"
         },
         {
           "heading": "확인할 흐름",
@@ -4411,32 +4395,32 @@
       ],
       "afterCloseMaterials": {
         "market": "US",
-        "window_start": "2026-08-24T16:00-04:00",
-        "window_end": "2026-08-25T19:00-04:00",
+        "window_start": "2026-08-25T16:00-04:00",
+        "window_end": "2026-08-26T07:45-04:00",
         "disclosures": [],
         "disclosure_count": 0,
         "state_updates": [
           {
             "label": "거시·AI 시장 컨텍스트",
-            "updated_at": "2026-08-25T18:58-04:00",
+            "updated_at": "2026-08-26T07:32-04:00",
             "path": "S:\\HamburgerTrader\\state\\macro_market_context.json",
             "summary": "us10y 4.7 / us30y 5.23 / fed_funds 3.63 / cpi_all_items 332.813 / core_pce 130.266 / high_yield_spread 2.69 / corporate_bond_spot_rate_5y 4.88"
           },
           {
             "label": "금리 컨텍스트",
-            "updated_at": "2026-08-25T18:58-04:00",
+            "updated_at": "2026-08-26T07:32-04:00",
             "path": "S:\\HamburgerTrader\\state\\macro_rate_context.json",
             "summary": "NORMAL_OR_UNCONFIRMED / "
           },
           {
             "label": "시장 타이밍",
-            "updated_at": "2026-08-25T18:56-04:00",
+            "updated_at": "2026-08-26T07:41-04:00",
             "path": "S:\\HamburgerTrader\\state\\market_timing_signal.json",
             "summary": "상태 확인"
           },
           {
             "label": "후보 브리지",
-            "updated_at": "2026-08-25T18:56-04:00",
+            "updated_at": "2026-08-26T07:41-04:00",
             "path": "S:\\HamburgerTrader\\state\\hermes_candidate_bridge_latest.json",
             "summary": "갱신 확인"
           }
@@ -4454,20 +4438,20 @@
       "title": "KR 섹터오버뷰",
       "kind": "sector-overview",
       "market": "KR",
-      "updatedAt": null,
+      "updatedAt": "2026-08-26T19:55:52+09:00",
       "summary": "최신 자금흐름과 업종 표본을 연결한 KR 시장 위치 요약입니다.",
       "sections": [
         {
           "heading": "자금 유입 상위 업종",
-          "items": "자료 없음"
+          "items": "반도체 제조업 (자금유입 45,490,650,000) / 전자부품 제조업 (자금유입 13,413,927,030) / 통신 및 방송 장비 제조업 (자금유입 6,484,647,400) / 기타 금융업 (자금유입 5,898,750,650) / 석유 정제품 제조업 (자금유입 3,929,035,000) / 의약품 제조업 (자금유입 3,875,135,680) / 일차전지 및 이차전지 제조업 (자금유입 3,408,610,100) / 소프트웨어 개발 및 공급업 (자금유입 3,300,216,400)"
         },
         {
           "heading": "관찰 종목",
-          "items": "자료 없음"
+          "items": "SK하이닉스(000660) / 삼성전기(009150) / 삼성전자(005930) / SK이노베이션(096770) / 현대오토에버(307950) / 한미약품(128940) / NAVER(035420) / 현대자동차(005380) / LG전자(066570) / 한전기술(052690)"
         },
         {
           "heading": "업종 표본",
-          "items": "0개 종목 표본"
+          "items": "465개 종목 표본"
         }
       ],
       "source": [
@@ -4480,16 +4464,16 @@
       "title": "US 섹터오버뷰",
       "kind": "sector-overview",
       "market": "US",
-      "updatedAt": "2026-08-26T07:57:32+09:00",
+      "updatedAt": "2026-08-26T20:42:10+09:00",
       "summary": "최신 자금흐름과 업종 표본을 연결한 US 시장 위치 요약입니다.",
       "sections": [
         {
           "heading": "자금 유입 상위 업종",
-          "items": "기타 (자금유입 18,174,329,759) / ETF/지수 (자금유입 114,819,986)"
+          "items": "기타 (자금유입 49,853,953,091) / ETF/지수 (자금유입 10,944,219,552)"
         },
         {
           "heading": "관찰 종목",
-          "items": "SOXX(SOXX) / 아마존(AMZN) / 일라이 릴리(LLY) / 스페이스X(SPCX) / 월마트(WMT) / SOXS(SOXS) / 마이크론 테크놀로지(MU) / 어플라이드 머티리얼즈(AMAT) / 팔란티어(PLTR) / QQQM(QQQM)"
+          "items": "엔비디아(NVDA) / SOXL(SOXL) / 샌디스크(SNDK) / TQQQ(TQQQ) / 인텔(INTC) / AMD(AMD) / SOXS(SOXS) / SPY(SPY) / CRE(CRE) / CDT 인바이런멘틀 테크놀로지 인베스트먼트 홀딩스(CDTG)"
         },
         {
           "heading": "업종 표본",
@@ -4544,6 +4528,14 @@
       "market": "KR"
     },
     {
+      "title": "[5월 셋째 주 세계경제동향 브리핑] 코스피 7,800선 돌파…한미 증시 동반 강세 - 기호일보",
+      "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE1jUW11bktyQmlKRjlxM2lYTjV6WGp3VGRtdjg1dkQyMHBKNzdhOVN3d1FYQWVxZl9tangwLWdPMWtQRWcwNy1mNWt4THpyUEctZjRxUDgxVk96U2ZnaVQ1QWFtN3ZUVzNXcUhXUzQ4RQ?oc=5",
+      "summary": "[5월 셋째 주 세계경제동향 브리핑] 코스피 7,800선 돌파…한미 증시 동반 강세&nbsp;&nbsp;기호일보",
+      "asOf": "Sat, 23 May 2026 07:00:00 GMT",
+      "source": "Google News RSS",
+      "market": "KR"
+    },
+    {
       "title": "코스피 급락에 환율 1540원 육박…외국인 순매도 부담 - 한국경제",
       "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE1uXzBQYVdpajROOEZpbEdvWVN4c2xJcEszV0N5bDZsRjYzOGltaFBkNDd2RjMwM0NNUGxjTDl6N1R6ajNtb2ZZdkcwQXVBRGFkUjhFTG9TaE9IZw?oc=5",
       "summary": "코스피 급락에 환율 1540원 육박…외국인 순매도 부담&nbsp;&nbsp;한국경제",
@@ -4555,6 +4547,14 @@
       "title": "한국, MSCI 선진국지수 관찰대상 재진입 불발…증시 영향 제한적 - 한겨레",
       "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE1EbTVhLWljWklCT056aGxNTEZxNzdIYVdfUFhJVjdZN3hqSXFsMU01UW5qZVlNYTdFNDJUVGF3Zms4QW01dlFDT0Y5aGRoLXdvZ0hTc2llbGdBNmphcWhNdUJ0VUV5aWE2WHVlNlFIa3RJUQ?oc=5",
       "summary": "한국, MSCI 선진국지수 관찰대상 재진입 불발…증시 영향 제한적&nbsp;&nbsp;한겨레",
+      "asOf": "Wed, 24 Jun 2026 07:00:00 GMT",
+      "source": "Google News RSS",
+      "market": "KR"
+    },
+    {
+      "title": "환율 불안한데 … MSCI 선진국지수 또 불발 - 매일경제",
+      "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTFBNXzYxUDVOdnlhdHJHaG9zTHBTa1ZPUm5oTGExZ0JyQl9BRUNCNW9oRFlvZWJYNjlwR3JiOXNvZ2RFN2J4TDMyZkpXb3phMmo0bVB6cA?oc=5",
+      "summary": "환율 불안한데 … MSCI 선진국지수 또 불발&nbsp;&nbsp;매일경제",
       "asOf": "Wed, 24 Jun 2026 07:00:00 GMT",
       "source": "Google News RSS",
       "market": "KR"
@@ -4572,14 +4572,6 @@
       "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE96aHhlaXlldnhPT2p2dHpfc2U2djVpSFl2dmJZWUYycjNlaVhVYThUZ3ota29NVktweGJndW9RREFSYnBOUFhOOHQ1YXJIZUpBVHRWM195UWxxb185NndBRFdmYXFTcDZMZGRVQw?oc=5",
       "summary": "[데일리 경제 분석] (6월 12일) 증시 급반등과 환율 하락, 금리·고용·플랫폼 책임이 맞물린 경제 현장&nbsp;&nbsp;미디어피아",
       "asOf": "Fri, 12 Jun 2026 07:00:00 GMT",
-      "source": "Google News RSS",
-      "market": "KR"
-    },
-    {
-      "title": "환율 불안한데 … MSCI 선진국지수 또 불발 - 매일경제",
-      "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTFBNXzYxUDVOdnlhdHJHaG9zTHBTa1ZPUm5oTGExZ0JyQl9BRUNCNW9oRFlvZWJYNjlwR3JiOXNvZ2RFN2J4TDMyZkpXb3phMmo0bVB6cA?oc=5",
-      "summary": "환율 불안한데 … MSCI 선진국지수 또 불발&nbsp;&nbsp;매일경제",
-      "asOf": "Wed, 24 Jun 2026 07:00:00 GMT",
       "source": "Google News RSS",
       "market": "KR"
     },
@@ -4608,14 +4600,6 @@
       "market": "KR"
     },
     {
-      "title": "‘검은 금요일’ 맞은 국내 증시…코스피 5.81% 급락·환율은 1532원 마감 - 포인트경제",
-      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE03QUhwVzI4OGNYYTVJWDQ3SFpSN2xJejI3SjBPYlZuTTVycmxhQi1xSmpINTNfa2FkWkc4QnRPQ1RMQWpnb0hjRzYxaTFNcklpc01EOE9qclFDRmpSZjJlOVRFZ2xxa19Yb1E?oc=5",
-      "summary": "‘검은 금요일’ 맞은 국내 증시…코스피 5.81% 급락·환율은 1532원 마감&nbsp;&nbsp;포인트경제",
-      "asOf": "Fri, 26 Jun 2026 07:00:00 GMT",
-      "source": "Google News RSS",
-      "market": "KR"
-    },
-    {
       "title": "Dow Jones futures advance as tech stocks rebound ahead of looming Nvidia earnings - tmgm.com",
       "url": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxPUlNRM0p2Y0NaSHpJVEtpMFZIX0wzcGZFQ0lkNEE2MlNCVnhuLU16SmhTZDNiQXpuNHRHOTdHdWhSN1VaaDREMUozMll1dXNCOVFSV2xJUzFVelE0YXo5emttVV9WLUVaMDRxTzlnSWtpQmZ2bnJHWkZBZmxkdVpPVjFGckdCMUJoLU1qSmp6ZUs2UDNpWUhtcHdPZmlTZEM3d1VBVUhiZWZVMnh1blE2MFlMNUhzRFhjS0lHV2V2aDRXcVVtdXhUaDNNd21uR2FBS3VWWjBsaFJvenJVN1NwMg?oc=5",
       "summary": "Dow Jones futures advance as tech stocks rebound ahead of looming Nvidia earnings&nbsp;&nbsp;tmgm.com",
@@ -4640,18 +4624,18 @@
       "market": "US"
     },
     {
-      "title": "Forex Today: US Dollar recovers modestly as markets assess developments in Mideast - tmgm.com",
-      "url": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxNME9PRk5zQThyd2FWdk5wbThpX0NhR1NHY3dkV3M3bW50WTdSaW5xM1U2QlJ5T1N4dzFpUTl4X1dtUC1ZQWFqOEFjel9tck1FNEFkd2lFcUJHNDVjU05rUHR3djgtai1Oc1BsbXR5azRNTVprcTdPZ2RpNXNGSzJDVU1fdzU4Z2NCWWs5bUl2eExYSEFNN3p1c1FBYVJKb2pZU2dsSW9tamF2QnJWRkcwbGxJVXoxQTFMeFZRS3dLUFd3ZjNSRk9KeUNnS0Fua3lqYjVhVF9vZFdCejdCTEpBeQ?oc=5",
-      "summary": "Forex Today: US Dollar recovers modestly as markets assess developments in Mideast&nbsp;&nbsp;tmgm.com",
-      "asOf": "Tue, 25 Aug 2026 14:51:13 GMT",
-      "source": "Google News RSS",
-      "market": "US"
-    },
-    {
       "title": "KOSPI Plunge Triggers Circuit Breaker as U.S.-Iran Tensions Roil Markets - 조선일보",
       "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPYlU4bTJXa1E0bl9wWVZOVXh3SHhzTHo1WXZzd25SQktBWktJc2FNUmQ4NldRNDg4WGxVLVowTENUYTlOSlh6LXRqQzY0U052bEMwT3RRaTRMWnNRTHQxa1NXVUlUZjNhQ3VfTExxTlp5QV9ScExWVjRmeDkwSFZQNkFYWXdKZzBSbmI5dnRn?oc=5",
       "summary": "KOSPI Plunge Triggers Circuit Breaker as U.S.-Iran Tensions Roil Markets&nbsp;&nbsp;조선일보",
       "asOf": "Wed, 04 Mar 2026 08:00:00 GMT",
+      "source": "Google News RSS",
+      "market": "US"
+    },
+    {
+      "title": "Forex Today: US Dollar recovers modestly as markets assess developments in Mideast - tmgm.com",
+      "url": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxNME9PRk5zQThyd2FWdk5wbThpX0NhR1NHY3dkV3M3bW50WTdSaW5xM1U2QlJ5T1N4dzFpUTl4X1dtUC1ZQWFqOEFjel9tck1FNEFkd2lFcUJHNDVjU05rUHR3djgtai1Oc1BsbXR5azRNTVprcTdPZ2RpNXNGSzJDVU1fdzU4Z2NCWWs5bUl2eExYSEFNN3p1c1FBYVJKb2pZU2dsSW9tamF2QnJWRkcwbGxJVXoxQTFMeFZRS3dLUFd3ZjNSRk9KeUNnS0Fua3lqYjVhVF9vZFdCejdCTEpBeQ?oc=5",
+      "summary": "Forex Today: US Dollar recovers modestly as markets assess developments in Mideast&nbsp;&nbsp;tmgm.com",
+      "asOf": "Tue, 25 Aug 2026 14:51:13 GMT",
       "source": "Google News RSS",
       "market": "US"
     },
@@ -4680,10 +4664,10 @@
       "market": "US"
     },
     {
-      "title": "Asian stocks gain despite easing pressure on global bond yields - tmgm.com",
-      "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxOaXc4WUd1dFp6TFBKSTRCOF8zRGoxRWVWTm5WbEhlczJkNC1fVDVSdHdtSmZNN0dWZ1hFcGJIc2pmVmpGSThKYndiREE1bm11Vm5oc3ZySFhyVkQyOWR6TTlSU3B3WFJfWFBQa3ZRZ09IUUJCbnJiMzJseU5ZYnRNS1J6NW0wZGhqbG8tWDVOWEI2cnRhN0ZZbWQwbDZXWFlPaVpLdEh4d1owRExyUDZBTWVaRDJOdnd5VkhVV2JZQmFGTGtuTDVMQg?oc=5",
-      "summary": "Asian stocks gain despite easing pressure on global bond yields&nbsp;&nbsp;tmgm.com",
-      "asOf": "Fri, 21 Aug 2026 06:50:16 GMT",
+      "title": "Dow Jones futures gain as traders weigh US debt buybacks against surging oil prices - tmgm.com",
+      "url": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxQWTQwSzI0WGplNlQxdm53dWczM0NkdTh0N1AwaEpkTzFPaHo1X2t0RENweVZaWkpoNzJJWURQRjdRd09WUHRtUEExSmh0NzhhUHJGaklLOWh3MllVN1F1bUtUTjZHVURyM3RKc0RKdjdRYkNUcUNnRXVMN1hiT0xzblpEaEJkVXdINE4ycDZKZmthNDlwcmlCMlBMdGFxamZfX1FRYUZ2c202OHQ2XzQwRWJFd1BMQWhZR3RCNXR3MVdvR1pwME0zQ3RFOHctZmQyQmJlVVFVeUpwUzhjTEtmTmdBOA?oc=5",
+      "summary": "Dow Jones futures gain as traders weigh US debt buybacks against surging oil prices&nbsp;&nbsp;tmgm.com",
+      "asOf": "Fri, 21 Aug 2026 08:10:48 GMT",
       "source": "Google News RSS",
       "market": "US"
     },
@@ -4697,7 +4681,7 @@
     }
   ],
   "webDataStatus": {
-    "generatedAt": "2026-08-26T08:00:11+09:00",
+    "generatedAt": "2026-08-26T20:45:13+09:00",
     "sourceRoot": "S:\\HamburgerTrader\\state",
     "paperOnly": true,
     "liveOrderAllowed": false,
@@ -4731,23 +4715,23 @@
         "ageMinutes": null
       },
       "growthDiscovery": {
-        "status": "STALE",
-        "reason": "원천 산출물이 669분 경과하여 최신 자료로 사용하지 않습니다.",
+        "status": "READY",
+        "reason": "원천 산출물 134분 전 갱신",
         "source": [
           "S:\\HamburgerTrader\\state\\long_term_growth_candidates_latest.json"
         ],
-        "count": 0,
-        "ageMinutes": 668.6112730833333
+        "count": 3,
+        "ageMinutes": 134.30364388333334
       },
       "sectorOverview_KR": {
-        "status": "STALE",
-        "reason": "원천 산출물이 723분 경과하여 최신 자료로 사용하지 않습니다.",
+        "status": "READY",
+        "reason": "원천 산출물 49분 전 갱신",
         "source": [
           "S:\\HamburgerTrader\\state\\money_flow_KR.json",
           "S:\\HamburgerTrader\\state\\sector_parallel_sample_KR.json"
         ],
-        "count": 0,
-        "ageMinutes": 723.4946722999999
+        "count": 10,
+        "ageMinutes": 49.353685899999995
       },
       "sectorOverview_US": {
         "status": "READY",
@@ -4757,7 +4741,7 @@
           "S:\\HamburgerTrader\\state\\sector_parallel_sample_US.json"
         ],
         "count": 2,
-        "ageMinutes": 2.661338966666667
+        "ageMinutes": 3.05370275
       },
       "newsList": {
         "status": "READY",
@@ -4777,7 +4761,7 @@
           "S:\\HamburgerTrader\\WEB\\publish_repo\\web\\data\\dotoriweb\\morning-note-US.json"
         ],
         "count": 2,
-        "ageMinutes": 4.184055
+        "ageMinutes": 4.198172783333333
       },
       "dailyHistory": {
         "status": "READY",
@@ -4824,7 +4808,125 @@
     "requires_existing_safety_gates": true
   },
   "dotoriComResearch": [],
-  "growthDiscovery": [],
+  "growthDiscovery": [
+    {
+      "symbol": "ADBE",
+      "name": "Adobe Inc.",
+      "market": "US",
+      "sector": "Technology",
+      "price": 273.92,
+      "market_cap": 108883206144,
+      "forward_pe": 9.96421,
+      "trailing_pe": 15.797002,
+      "peg": 0.67,
+      "price_to_sales": 4.321105,
+      "ev_to_ebitda": 11.341,
+      "revenue_growth": 0.127,
+      "earnings_growth": 0.079,
+      "return_on_equity": 0.62953997,
+      "profit_margin": 0.28689,
+      "operating_margin": 0.35327998,
+      "free_cash_flow": 9218374656,
+      "total_debt": 7077000192,
+      "total_cash": 5625999872,
+      "data_source": "Yahoo Finance quoteSummary",
+      "data_as_of": "2026-08-26T09:30:40+00:00",
+      "growth_score": 66.65,
+      "quality_score": 100.0,
+      "valuation_score": 71.09,
+      "balance_score": 93.55,
+      "long_term_score": 80.13,
+      "status": "QUALIFIED",
+      "blockers": "",
+      "research_only": true,
+      "live_order_allowed": false,
+      "rank": 1,
+      "currentPrice": 273.92,
+      "currentPriceText": "273.92",
+      "verdict": "QUALIFIED",
+      "virtualOnly": true,
+      "researchOnly": true,
+      "liveOrderAllowed": false
+    },
+    {
+      "symbol": "NEM",
+      "name": "Newmont Corporation",
+      "market": "US",
+      "sector": "Basic Materials",
+      "price": 135.14,
+      "market_cap": 142395981824,
+      "forward_pe": 12.767895,
+      "trailing_pe": 16.642857,
+      "peg": 2.78,
+      "price_to_sales": 5.526293,
+      "ev_to_ebitda": 8.158,
+      "revenue_growth": 0.151,
+      "earnings_growth": 0.114,
+      "return_on_equity": 0.25905,
+      "profit_margin": 0.33363998,
+      "operating_margin": 0.51569,
+      "free_cash_flow": 8815875072,
+      "total_debt": 5598000128,
+      "total_cash": 9009000448,
+      "data_source": "Yahoo Finance quoteSummary",
+      "data_as_of": "2026-08-26T09:30:14+00:00",
+      "growth_score": 70.8,
+      "quality_score": 100.0,
+      "valuation_score": 51.89,
+      "balance_score": 100.0,
+      "long_term_score": 77.75,
+      "status": "QUALIFIED",
+      "blockers": "",
+      "research_only": true,
+      "live_order_allowed": false,
+      "rank": 2,
+      "currentPrice": 135.14,
+      "currentPriceText": "135.14",
+      "verdict": "QUALIFIED",
+      "virtualOnly": true,
+      "researchOnly": true,
+      "liveOrderAllowed": false
+    },
+    {
+      "symbol": "RIO",
+      "name": "Rio Tinto Plc",
+      "market": "US",
+      "sector": "Basic Materials",
+      "price": 106.81,
+      "market_cap": 173711425536,
+      "forward_pe": 12.347791,
+      "trailing_pe": 14.203457,
+      "peg": 5.69,
+      "price_to_sales": 2.8111827,
+      "ev_to_ebitda": 8.434,
+      "revenue_growth": 0.155,
+      "earnings_growth": 0.469,
+      "return_on_equity": 0.19312,
+      "profit_margin": 0.19584998,
+      "operating_margin": 0.28049,
+      "free_cash_flow": 3595500032,
+      "total_debt": 22851999744,
+      "total_cash": 9507000320,
+      "data_source": "Yahoo Finance quoteSummary",
+      "data_as_of": "2026-08-26T09:30:12+00:00",
+      "growth_score": 88.95,
+      "quality_score": 84.87,
+      "valuation_score": 57.44,
+      "balance_score": 64.91,
+      "long_term_score": 76.45,
+      "status": "QUALIFIED",
+      "blockers": "",
+      "research_only": true,
+      "live_order_allowed": false,
+      "rank": 3,
+      "currentPrice": 106.81,
+      "currentPriceText": "106.81",
+      "verdict": "QUALIFIED",
+      "virtualOnly": true,
+      "researchOnly": true,
+      "liveOrderAllowed": false
+    }
+  ],
   "researchRequests": [],
   "partCatalog": {
     "scanner": {

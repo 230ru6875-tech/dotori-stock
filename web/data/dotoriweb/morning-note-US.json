@@ -1,6 +1,6 @@
 {
   "market": "US",
-  "as_of": "2026-08-26T08:00:10+09:00",
+  "as_of": "2026-08-26T20:45:12+09:00",
   "status": "READY",
   "summary": "밤사이 지표와 뉴스의 핵심만 확인하는 읽기 전용 아침 점검입니다.",
   "news": [
@@ -55,8 +55,8 @@
     {
       "symbol": "^VIX",
       "name": "VIX",
-      "price": 15.45,
-      "change_pct": -2.52,
+      "price": 15.64,
+      "change_pct": 1.23,
       "source": "Yahoo Finance"
     }
   ],
@@ -92,32 +92,32 @@
   ],
   "after_close_materials": {
     "market": "US",
-    "window_start": "2026-08-24T16:00-04:00",
-    "window_end": "2026-08-25T19:00-04:00",
+    "window_start": "2026-08-25T16:00-04:00",
+    "window_end": "2026-08-26T07:45-04:00",
     "disclosures": [],
     "disclosure_count": 0,
     "state_updates": [
       {
         "label": "거시·AI 시장 컨텍스트",
-        "updated_at": "2026-08-25T18:58-04:00",
+        "updated_at": "2026-08-26T07:32-04:00",
         "path": "S:\\HamburgerTrader\\state\\macro_market_context.json",
         "summary": "us10y 4.7 / us30y 5.23 / fed_funds 3.63 / cpi_all_items 332.813 / core_pce 130.266 / high_yield_spread 2.69 / corporate_bond_spot_rate_5y 4.88"
       },
       {
         "label": "금리 컨텍스트",
-        "updated_at": "2026-08-25T18:58-04:00",
+        "updated_at": "2026-08-26T07:32-04:00",
         "path": "S:\\HamburgerTrader\\state\\macro_rate_context.json",
         "summary": "NORMAL_OR_UNCONFIRMED / "
       },
       {
         "label": "시장 타이밍",
-        "updated_at": "2026-08-25T18:56-04:00",
+        "updated_at": "2026-08-26T07:41-04:00",
         "path": "S:\\HamburgerTrader\\state\\market_timing_signal.json",
         "summary": "상태 확인"
       },
       {
         "label": "후보 브리지",
-        "updated_at": "2026-08-25T18:56-04:00",
+        "updated_at": "2026-08-26T07:41-04:00",
         "path": "S:\\HamburgerTrader\\state\\hermes_candidate_bridge_latest.json",
         "summary": "갱신 확인"
       }
@@ -127,7 +127,7 @@
     "fresh": true
   },
   "after_close_summary": [
-    "수집범위 2026-08-24T16:00-04:00~2026-08-25T19:00-04:00",
+    "수집범위 2026-08-25T16:00-04:00~2026-08-26T07:45-04:00",
     "공시: 해당 시간 범위 내 새 중요공시 없음",
     "시장자료 거시·AI 시장 컨텍스트 us10y 4.7 / us30y 5.23 / fed_funds 3.63 / cpi_all_items 332.813 / core_pce 130.266 / high_yield_spread 2.69 / corporate_bond_spot_rate_5y 4.88 / 금리 컨텍스트 NORMAL_OR_UNCONFIRMED /  / 시장 타이밍 상태 확인 / 후보 브리지 갱신 확인"
   ],
