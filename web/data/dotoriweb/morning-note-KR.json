@@ -1,6 +1,6 @@
 {
   "market": "KR",
-  "as_of": "2026-08-28T08:00:05+09:00",
+  "as_of": "2026-08-28T08:20:05+09:00",
   "status": "READY",
   "summary": "밤사이 지표와 뉴스의 핵심만 확인하는 읽기 전용 아침 점검입니다.",
   "news": [
@@ -10,14 +10,14 @@
       "published_at": "Fri, 31 Jul 2026 07:00:00 GMT"
     },
     {
+      "title": "South Korean shares tumble as yield spike, Middle East tensions hit Samsung, SK Hynix - KED Global",
+      "source": "KED Global",
+      "published_at": "Wed, 19 Aug 2026 07:00:00 GMT"
+    },
+    {
       "title": "The Korean Stock Market Crashes Overnight. Will it Be Another Brutal Nasdaq Sell-Off on Tuesday? - Yahoo Finance",
       "source": "Yahoo Finance",
       "published_at": "Tue, 28 Jul 2026 07:00:00 GMT"
-    },
-    {
-      "title": "South Korea’s stock market suffers biggest drop in history amid US-Iran war - Al Jazeera",
-      "source": "Al Jazeera",
-      "published_at": "Wed, 04 Mar 2026 08:00:00 GMT"
     },
     {
       "title": "Why everybody is talking about stocks in Korea, and why it's worrisome - The Korea Herald",
@@ -25,9 +25,9 @@
       "published_at": "Wed, 20 May 2026 07:00:00 GMT"
     },
     {
-      "title": "Korean stocks record worst day, won sinks on Iran conflict - Reuters",
-      "source": "Reuters",
-      "published_at": "Wed, 04 Mar 2026 08:00:00 GMT"
+      "title": "Micron stock falls 6.6% as South Korea’s KOSPI plunges 10.8% overnight - eciks.org",
+      "source": "eciks.org",
+      "published_at": "Tue, 28 Jul 2026 07:00:00 GMT"
     }
   ],
   "indices": [
@@ -72,7 +72,7 @@
   "after_close_materials": {
     "market": "KR",
     "window_start": "2026-08-27T15:30+09:00",
-    "window_end": "2026-08-28T08:00+09:00",
+    "window_end": "2026-08-28T08:20+09:00",
     "disclosures": [
       {
         "observed_at": "2026-08-28T07:55+09:00",
@@ -137,27 +137,19 @@
         "negative": false,
         "positive": false,
         "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260827900823"
-      },
-      {
-        "observed_at": "2026-08-28T05:01+09:00",
-        "company": "나노씨엠에스",
-        "title": "증권발행결과(자율공시) (제3자배정 유상증자)",
-        "negative": true,
-        "positive": false,
-        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260827900674"
       }
     ],
-    "disclosure_count": 9,
+    "disclosure_count": 8,
     "state_updates": [
       {
         "label": "시장 타이밍",
-        "updated_at": "2026-08-28T07:56+09:00",
+        "updated_at": "2026-08-28T08:16+09:00",
         "path": "S:\\HamburgerTrader\\state\\market_timing_signal.json",
         "summary": "상태 확인"
       },
       {
         "label": "후보 브리지",
-        "updated_at": "2026-08-28T07:56+09:00",
+        "updated_at": "2026-08-28T08:16+09:00",
         "path": "S:\\HamburgerTrader\\state\\hermes_candidate_bridge_latest.json",
         "summary": "갱신 확인"
       }
@@ -167,7 +159,7 @@
     "fresh": true
   },
   "after_close_summary": [
-    "수집범위 2026-08-27T15:30+09:00~2026-08-28T08:00+09:00",
+    "수집범위 2026-08-27T15:30+09:00~2026-08-28T08:20+09:00",
     "공시 주의 아이큐어 [기재정정]주요사항보고서(유상증자결정) / 주의 삼성바이오로직스 주요사항보고서(유상증자결정) / 중립 KG케미칼 [기재정정]타법인주식및출자증권취득결정(종속회사의주요경영사항) / 주의 스탠드업테라퓨티스 [기재정정]주요사항보고서(유상증자결정) / 중립 나노씨엠에스 기타시장안내(최대주주의의무보유관련) / 중립 나노씨엠에스 최대주주변경",
     "시장자료 시장 타이밍 상태 확인 / 후보 브리지 갱신 확인"
   ],
