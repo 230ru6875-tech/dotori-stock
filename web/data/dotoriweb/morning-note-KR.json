@@ -1,6 +1,6 @@
 {
   "market": "KR",
-  "as_of": "2026-08-28T16:56:16+09:00",
+  "as_of": "2026-08-28T20:45:06+09:00",
   "status": "READY",
   "summary": "밤사이 지표와 뉴스의 핵심만 확인하는 읽기 전용 아침 점검입니다.",
   "news": [
@@ -10,24 +10,24 @@
       "published_at": "Tue, 28 Jul 2026 07:00:00 GMT"
     },
     {
-      "title": "South Korea's Kospi slumps 8% as investors look beyond the chip boom - Business Insider",
+      "title": "Inside one of the wildest months in South Korea's stock market history - Business Insider",
       "source": "Business Insider",
-      "published_at": "Thu, 02 Jul 2026 07:00:00 GMT"
+      "published_at": "Fri, 31 Jul 2026 07:00:00 GMT"
     },
     {
-      "title": "The Korean Stock Market Just Crashed Sunday Night But the Nasdaq Is Rising on Monday - 24/7 Wall St.",
-      "source": "24/7 Wall St.",
-      "published_at": "Mon, 08 Jun 2026 07:00:00 GMT"
+      "title": "South Korea’s stock market suffers biggest drop in history amid US-Iran war - Al Jazeera",
+      "source": "Al Jazeera",
+      "published_at": "Wed, 04 Mar 2026 08:00:00 GMT"
     },
     {
-      "title": "The World’s Craziest Stock Market Has Turned Into a Fright Ride - WSJ",
-      "source": "WSJ",
-      "published_at": "Tue, 25 Aug 2026 01:00:00 GMT"
+      "title": "Why everybody is talking about stocks in Korea, and why it's worrisome - The Korea Herald",
+      "source": "The Korea Herald",
+      "published_at": "Wed, 20 May 2026 07:00:00 GMT"
     },
     {
-      "title": "Always-on won: Korean dealers fret about risks in landmark shift to 24-hour trading - Reuters",
+      "title": "Korean stocks record worst day, won sinks on Iran conflict - Reuters",
       "source": "Reuters",
-      "published_at": "Fri, 26 Jun 2026 07:00:00 GMT"
+      "published_at": "Wed, 04 Mar 2026 08:00:00 GMT"
     }
   ],
   "indices": [
@@ -72,7 +72,7 @@
   "after_close_materials": {
     "market": "KR",
     "window_start": "2026-08-27T15:30+09:00",
-    "window_end": "2026-08-28T16:56+09:00",
+    "window_end": "2026-08-28T20:45+09:00",
     "disclosures": [
       {
         "observed_at": "2026-08-28T08:22+09:00",
@@ -111,13 +111,13 @@
     "state_updates": [
       {
         "label": "시장 타이밍",
-        "updated_at": "2026-08-28T16:56+09:00",
+        "updated_at": "2026-08-28T20:41+09:00",
         "path": "S:\\HamburgerTrader\\state\\market_timing_signal.json",
         "summary": "상태 확인"
       },
       {
         "label": "후보 브리지",
-        "updated_at": "2026-08-28T16:56+09:00",
+        "updated_at": "2026-08-28T20:41+09:00",
         "path": "S:\\HamburgerTrader\\state\\hermes_candidate_bridge_latest.json",
         "summary": "갱신 확인"
       }
@@ -127,7 +127,7 @@
     "fresh": true
   },
   "after_close_summary": [
-    "수집범위 2026-08-27T15:30+09:00~2026-08-28T16:56+09:00",
+    "수집범위 2026-08-27T15:30+09:00~2026-08-28T20:45+09:00",
     "공시 중립 삼성바이오로직스 [기재정정]주요사항보고서(타법인주식및출자증권양수결정) / 주의 아이큐어 [기재정정]주요사항보고서(유상증자결정) / 주의 삼성바이오로직스 주요사항보고서(유상증자결정) / 중립 KG케미칼 [기재정정]타법인주식및출자증권취득결정(종속회사의주요경영사항)",
     "시장자료 시장 타이밍 상태 확인 / 후보 브리지 갱신 확인"
   ],
