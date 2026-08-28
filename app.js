@@ -1,4 +1,4 @@
-const state = { data: null, dailyHistory: [], dotoriLearning: null, dotoriWeb: null, tossHoldings: null, sanghoe: null, todayCandidates: null, morningNotes: {}, activeSection: "watchlist", userStocks: [], selectedMovingSymbol: "", scannerMarketFirst: "domestic", scannerMarketFirstManual: false, scannerSectorFilter: "전체", growthSectorFilter: "전체", dailySearchQuery: "", dailyDateFrom: "", dailyDateTo: "", quotes: {}, liveQuoteCycle: 0, quoteRefreshInFlight: false, quoteRenderTimer: 0 };
+const state = { data: null, dailyHistory: [], dotoriWeb: null, tossHoldings: null, sanghoe: null, todayCandidates: null, morningNotes: {}, activeSection: "watchlist", userStocks: [], selectedMovingSymbol: "", scannerMarketFirst: "domestic", scannerMarketFirstManual: false, scannerSectorFilter: "전체", growthSectorFilter: "전체", dailySearchQuery: "", dailyDateFrom: "", dailyDateTo: "", quotes: {}, liveQuoteCycle: 0, quoteRefreshInFlight: false, quoteRenderTimer: 0 };
 const USER_STOCKS_KEY = "dotori.userStocks.v1";
 const USER_KEY = "dotori.userKey.v1";
 const USER_KEEP_ASKED_KEY = "dotori.keepAsked.v1";
@@ -1955,25 +1955,6 @@ function formatDotoriNumber(value, suffix = "") {
   return `${number.toLocaleString("ko-KR", { maximumFractionDigits: 2 })}${suffix}`;
 }
 
-function renderDotoriLearningDashboard() {
-  const payload = state.dotoriLearning || {};
-  const koreaRows = (Array.isArray(payload?.korea?.rankings) ? payload.korea.rankings : []).map(applyLiveQuote);
-  const usRows = (Array.isArray(payload?.us?.rankings) ? payload.us.rankings : []).map(applyLiveQuote);
-  const usSummary = payload?.us?.summary || {};
-  const updated = payload.generatedAt ? fmtDateTimeSeconds(payload.generatedAt) : "-";
-  const selectedKr = Array.isArray(payload?.korea?.selectedSymbols) ? payload.korea.selectedSymbols.join(", ") : "-";
-  const selectedUs = Array.isArray(payload?.us?.selectedSymbols) ? payload.us.selectedSymbols.join(", ") : "-";
-  const summaryLine = [
-    `미국 백테스트 ${formatDotoriNumber(usSummary.return_pct, "%")}`,
-    `MDD ${formatDotoriNumber(usSummary.max_drawdown_pct, "%")}`,
-    `거래 ${formatDotoriNumber(usSummary.trades)}`,
-    `승률 ${formatDotoriNumber(Number(usSummary.win_rate) * 100, "%")}`
-  ].join(" / ");
-  const rowHtml = (item) => `<tr><td>${escapeHtml(item.rank || "-")}</td><td><strong>${escapeHtml(item.name || item.symbol || "-")}</strong> <span>(${escapeHtml(item.symbol || "-")})</span></td><td>${escapeHtml(item.sector || "-")}</td><td>${formatDotoriNumber(item.price)}</td><td><b>${formatDotoriNumber(item.score)}</b></td><td><b class="${signalClass(item.signal || "")}">${escapeHtml(item.signal || "-")}</b></td><td>${formatDotoriNumber(Number(item.confidence) * 100, "%")}</td><td>${escapeHtml(item.reason || "-")}</td></tr>`;
-  const groupHtml = (title, rows) => `<tr class="market-group-row"><td colspan="8">${title}</td></tr>${rows.length ? rows.slice(0, DISPLAY_MARKET_LIMIT).map(rowHtml).join("") : `<tr><td colspan="8">${title} 데이터가 아직 없습니다.</td></tr>`}`;
-  return `<div class="table-card"><table class="data-table"><thead><tr><th colspan="4">갱신 ${escapeHtml(updated)}</th><th colspan="4">${escapeHtml(summaryLine)}</th></tr><tr><th colspan="4">한국 선정 ${escapeHtml(selectedKr || "-")}</th><th colspan="4">미국 선정 ${escapeHtml(selectedUs || "-")}</th></tr><tr><th>순위</th><th>종목</th><th>섹터</th><th>현재가</th><th>점수</th><th>신호</th><th>신뢰도</th><th>사유</th></tr></thead><tbody>${groupHtml("한국 후보", koreaRows)}${groupHtml("미국 후보", usRows)}</tbody></table></div>`;
-}
-
 function renderDashboard() {
   const data = state.data;
   if (!data) return;
@@ -2054,8 +2035,6 @@ function renderDashboard() {
       }).join("")
       : `<tr><td colspan="3">선택한 날짜 범위와 검색어에 맞는 오늘시황 문서가 없습니다.</td></tr>`;
     grid.innerHTML = `${dailyDigestControlsHtml(active)}<div class="table-card"><table class="data-table daily-digest-table"><thead><tr><th>일자</th><th>내용</th><th>확인하기</th></tr></thead><tbody>${rows}</tbody></table></div>`;
-  } else if (state.activeSection === "dotoriLearning") {
-    grid.innerHTML = renderDotoriLearningDashboard();
   } else if (state.activeSection === "learning") {
     grid.innerHTML = renderCards(active, (item) => `<article class="data-card"><div class="card-top"><strong>${item.topic}</strong><em>${T.learning}</em></div><p>${item.lesson}</p></article>`);
   } else if (state.activeSection === "moving") {
@@ -2307,10 +2286,9 @@ function drawChart(source = null) {
 
 async function loadData(options = {}) {
   try {
-    const [snapshotResponse, dailyResponse, learningResponse, dotoriWebResponse, holdingsResponse, sanghoeResponse, todayCandidatesResponse, morningKrResponse, morningUsResponse] = await Promise.all([
+    const [snapshotResponse, dailyResponse, dotoriWebResponse, holdingsResponse, sanghoeResponse, todayCandidatesResponse, morningKrResponse, morningUsResponse] = await Promise.all([
       fetch("./data/public-snapshot.json", { cache: "no-store" }),
       fetch("./data/daily-market-history.json", { cache: "no-store" }).catch(() => null),
-      fetch("./data/dotoristock-learning.json", { cache: "no-store" }).catch(() => null),
       fetch("./web/data/dotoriweb/latest.json", { cache: "no-store" }).catch(() => null),
       fetch("./web/data/dotoriweb/holdings.json", { cache: "no-store" }).catch(() => null),
       fetch("./data/dotori-sanghoe.json", { cache: "no-store" }).catch(() => null),
@@ -2323,9 +2301,6 @@ async function loadData(options = {}) {
     if (dailyResponse && dailyResponse.ok) {
       const dailyPayload = await dailyResponse.json();
       state.dailyHistory = Array.isArray(dailyPayload) ? dailyPayload : [];
-    }
-    if (learningResponse && learningResponse.ok) {
-      state.dotoriLearning = await learningResponse.json();
     }
     if (dotoriWebResponse && dotoriWebResponse.ok) {
       state.dotoriWeb = await dotoriWebResponse.json();
