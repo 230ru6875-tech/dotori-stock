@@ -1,145 +1,1479 @@
-﻿{
-    "schema_version":  "hamburgertrader-dotoriweb-stock-data-v1",
-    "updated_at":  "2026-08-18T06:21:06.803445Z",
-    "published_at":  "2026-08-25T00:49:05.3563188Z",
-    "source":  "D:\\STOCK_DATA\\web\\data\\dotoriweb",
-    "source_files":  [
-                         "dats-close-buy-candidates_20260818-152113-302.json",
-                         "dats-close-betting-candidates_20260818-152111-462.json"
-                     ],
-    "paper_trade":  true,
-    "live_order_allowed":  false,
-    "purpose":  "public informational close-time candidate data",
-    "buy_candidates":  {
-                           "updated_at":  "2026-08-18T06:21:06.803445Z",
-                           "enabled":  true,
-                           "source":  "dats_close_betting_scanner",
-                           "strategy_id":  "CLOSE_BETTING_CONTINUATION_V1",
-                           "purpose":  "close_time_buy_candidate_selection",
-                           "mode":  "close_time_buy_selection",
-                           "close_buy_window":  {
-                                                    "timezone":  "대한민국 표준시",
-                                                    "now_local":  "2026-08-18T15:21:06+09:00",
-                                                    "start":  "15:20",
-                                                    "end":  "15:30",
-                                                    "snapshot_time":  "15:25",
-                                                    "is_snapshot_minute":  false,
-                                                    "in_window":  true
-                                                },
-                           "snapshot_time":  "15:25",
-                           "scanned":  18,
-                           "quotes":  18,
-                           "candidate_count":  0,
-                           "paper_trade":  true,
-                           "live_order_allowed":  false,
-                           "selected_order_count":  0,
-                           "errors":  [
-
-                                      ],
-                           "candidates":  [
-
-                                          ],
-                           "close_buy_orders":  [
-
-                                                ],
-                           "review_summary":  {
-                                                  "classification":  {
-                                                                         "A":  "주도주 종가베팅 성공 후보",
-                                                                         "B":  "장중 급등 후 밀림",
-                                                                         "C":  "수익/종가품질은 있으나 영상 주도주 조건 미충족",
-                                                                         "D":  "주도주·종가품질 충족, 촉매 미확인 관찰군",
-                                                                         "EXCLUDED":  "거래대금·가격·촉매 등 근거 부족"
-                                                                     },
-                                                  "counts":  {
-                                                                 "A":  0,
-                                                                 "B":  0,
-                                                                 "C":  0,
-                                                                 "D":  0,
-                                                                 "EXCLUDED":  0
-                                                             },
-                                                  "groups":  {
-                                                                 "A":  [
-
-                                                                       ],
-                                                                 "B":  [
-
-                                                                       ],
-                                                                 "C":  [
-
-                                                                       ],
-                                                                 "D":  [
-
-                                                                       ],
-                                                                 "EXCLUDED":  [
-
-                                                                              ]
-                                                             }
-                                              }
-                       },
-    "betting_candidates":  {
-                               "updated_at":  "2026-08-18T06:21:06.803445Z",
-                               "enabled":  true,
-                               "source":  "dats_close_betting_scanner",
-                               "strategy_id":  "CLOSE_BETTING_CONTINUATION_V1",
-                               "purpose":  "close_time_buy_candidate_selection",
-                               "mode":  "close_time_buy_selection",
-                               "close_buy_window":  {
-                                                        "timezone":  "대한민국 표준시",
-                                                        "now_local":  "2026-08-18T15:21:06+09:00",
-                                                        "start":  "15:20",
-                                                        "end":  "15:30",
-                                                        "snapshot_time":  "15:25",
-                                                        "is_snapshot_minute":  false,
-                                                        "in_window":  true
-                                                    },
-                               "snapshot_time":  "15:25",
-                               "scanned":  18,
-                               "quotes":  18,
-                               "candidate_count":  0,
-                               "paper_trade":  true,
-                               "live_order_allowed":  false,
-                               "selected_order_count":  0,
-                               "errors":  [
-
-                                          ],
-                               "candidates":  [
-
-                                              ],
-                               "close_buy_orders":  [
-
-                                                    ],
-                               "review_summary":  {
-                                                      "classification":  {
-                                                                             "A":  "주도주 종가베팅 성공 후보",
-                                                                             "B":  "장중 급등 후 밀림",
-                                                                             "C":  "수익/종가품질은 있으나 영상 주도주 조건 미충족",
-                                                                             "D":  "주도주·종가품질 충족, 촉매 미확인 관찰군",
-                                                                             "EXCLUDED":  "거래대금·가격·촉매 등 근거 부족"
-                                                                         },
-                                                      "counts":  {
-                                                                     "A":  0,
-                                                                     "B":  0,
-                                                                     "C":  0,
-                                                                     "D":  0,
-                                                                     "EXCLUDED":  0
-                                                                 },
-                                                      "groups":  {
-                                                                     "A":  [
-
-                                                                           ],
-                                                                     "B":  [
-
-                                                                           ],
-                                                                     "C":  [
-
-                                                                           ],
-                                                                     "D":  [
-
-                                                                           ],
-                                                                     "EXCLUDED":  [
-
-                                                                                  ]
-                                                                 }
-                                                  }
-                           }
+{
+  "updated_at": "2026-08-28T08:27:34.568894Z",
+  "source": "dotoristock_dotoriweb_live_bridge",
+  "status_updated_at": "2026-08-28T17:26:02+09:00",
+  "widget_updated_at": null,
+  "macro_updated_at": "2026-08-27T10:07:31+09:00",
+  "market_focus": null,
+  "market_limits": null,
+  "virtual_market_priority": null,
+  "virtual_market_summary": null,
+  "virtual_events": 0,
+  "virtual_observation_count": 0,
+  "active_symbols": [
+    "000270",
+    "000250",
+    "DIVO",
+    "QLD",
+    "TQQQ"
+  ],
+  "display_symbols": [
+    "000270",
+    "000250",
+    "DIVO",
+    "QLD",
+    "TQQQ"
+  ],
+  "recent_virtual_fill_summary": {
+    "fill_count": 0,
+    "latest_rows": []
+  },
+  "recent_virtual_trade_reviews": [],
+  "prediction_guard": {
+    "blocked_count": 0,
+    "blocked_symbols": [],
+    "cooldown_count": 0,
+    "cooldown_symbols": [],
+    "real_trade_switch_allowed": true
+  },
+  "prediction_cooldowns": {},
+  "macro_summary": {
+    "nasdaq_pct": null,
+    "nasdaq100_pct": null,
+    "sox_pct": null,
+    "sp500_pct": null,
+    "russell2000_pct": null,
+    "vix": null,
+    "vixy_pct": null,
+    "dxy_pct": null,
+    "us2y_pct": null,
+    "us10y_pct": null,
+    "kospi200_night_pct": null,
+    "wti_pct": null,
+    "cpi_mom_pct": null,
+    "ppi_mom_pct": null,
+    "core_ppi_mom_pct": null,
+    "issues_bias": null,
+    "issues_headlines": [],
+    "issue_titles": [],
+    "geopolitics": {}
+  },
+  "widget_forecasts": {
+    "updated_at": null,
+    "symbols": {}
+  },
+  "symbols": {
+    "000270": {
+      "symbol": "000270",
+      "name": "기아",
+      "display_name": "000270(기아)",
+      "market": "KR",
+      "sector": null,
+      "latest_price": 127700.0,
+      "score": null,
+      "profit_selection_rank": null,
+      "strategy_id": null,
+      "strategy_name": "portfolio_holding",
+      "regime": null,
+      "predicted_buy_low": null,
+      "predicted_sell_high": null,
+      "predicted_price_source": null,
+      "current_price_signal": null,
+      "prediction_cooldown": null,
+      "indicator_2026": {},
+      "indicator_2026_signal": null,
+      "indicator_2026_description": null,
+      "hermes_widget_forecast": {},
+      "breakout_evidence": null,
+      "market_evidence": {
+        "symbol": "000270",
+        "name": "기아",
+        "display_name": "000270(기아)",
+        "market": "KR",
+        "latest_price": 127700.0,
+        "score": null,
+        "raw_score": null,
+        "direction": "",
+        "market_session_focus": null,
+        "market_context": {
+          "vix": null,
+          "nasdaq_pct": null,
+          "nasdaq100_pct": null,
+          "sox_pct": null,
+          "sp500_pct": null,
+          "russell2000_pct": null,
+          "wti_pct": null,
+          "cpi_mom_pct": null,
+          "ppi_mom_pct": null,
+          "core_ppi_mom_pct": null
+        },
+        "issue_context": {
+          "sentiment_bias": null,
+          "research_sources_bias": null,
+          "headlines": []
+        },
+        "research_sources": {
+          "combined_sentiment_bias": null,
+          "dataroma": {},
+          "valueinvestorsclub": {},
+          "macrolens": {}
+        },
+        "news_research": {
+          "headline_count": 0,
+          "headlines": [],
+          "market_note": null
+        },
+        "holding_market_evidence": {},
+        "breakout_evidence": null,
+        "selected_plan": {}
+      }
+    },
+    "000250": {
+      "symbol": "000250",
+      "name": "삼천당제약",
+      "display_name": "000250(삼천당제약)",
+      "market": "KR",
+      "sector": null,
+      "latest_price": 170200.0,
+      "score": null,
+      "profit_selection_rank": null,
+      "strategy_id": null,
+      "strategy_name": "portfolio_holding",
+      "regime": null,
+      "predicted_buy_low": null,
+      "predicted_sell_high": null,
+      "predicted_price_source": null,
+      "current_price_signal": null,
+      "prediction_cooldown": null,
+      "indicator_2026": {},
+      "indicator_2026_signal": null,
+      "indicator_2026_description": null,
+      "hermes_widget_forecast": {},
+      "breakout_evidence": null,
+      "market_evidence": {
+        "symbol": "000250",
+        "name": "삼천당제약",
+        "display_name": "000250(삼천당제약)",
+        "market": "KR",
+        "latest_price": 170200.0,
+        "score": null,
+        "raw_score": null,
+        "direction": "",
+        "market_session_focus": null,
+        "market_context": {
+          "vix": null,
+          "nasdaq_pct": null,
+          "nasdaq100_pct": null,
+          "sox_pct": null,
+          "sp500_pct": null,
+          "russell2000_pct": null,
+          "wti_pct": null,
+          "cpi_mom_pct": null,
+          "ppi_mom_pct": null,
+          "core_ppi_mom_pct": null
+        },
+        "issue_context": {
+          "sentiment_bias": null,
+          "research_sources_bias": null,
+          "headlines": []
+        },
+        "research_sources": {
+          "combined_sentiment_bias": null,
+          "dataroma": {},
+          "valueinvestorsclub": {},
+          "macrolens": {}
+        },
+        "news_research": {
+          "headline_count": 0,
+          "headlines": [],
+          "market_note": null
+        },
+        "holding_market_evidence": {},
+        "breakout_evidence": null,
+        "selected_plan": {}
+      }
+    },
+    "DIVO": {
+      "symbol": "DIVO",
+      "name": "DIVO",
+      "display_name": "DIVO",
+      "market": "US",
+      "sector": null,
+      "latest_price": 48.64,
+      "score": null,
+      "profit_selection_rank": null,
+      "strategy_id": null,
+      "strategy_name": "portfolio_holding",
+      "regime": null,
+      "predicted_buy_low": null,
+      "predicted_sell_high": null,
+      "predicted_price_source": null,
+      "current_price_signal": null,
+      "prediction_cooldown": null,
+      "indicator_2026": {},
+      "indicator_2026_signal": null,
+      "indicator_2026_description": null,
+      "hermes_widget_forecast": {},
+      "breakout_evidence": null,
+      "market_evidence": {
+        "symbol": "DIVO",
+        "name": "DIVO",
+        "display_name": "DIVO",
+        "market": "US",
+        "latest_price": 48.64,
+        "score": null,
+        "raw_score": null,
+        "direction": "",
+        "market_session_focus": null,
+        "market_context": {
+          "vix": null,
+          "nasdaq_pct": null,
+          "nasdaq100_pct": null,
+          "sox_pct": null,
+          "sp500_pct": null,
+          "russell2000_pct": null,
+          "wti_pct": null,
+          "cpi_mom_pct": null,
+          "ppi_mom_pct": null,
+          "core_ppi_mom_pct": null
+        },
+        "issue_context": {
+          "sentiment_bias": null,
+          "research_sources_bias": null,
+          "headlines": []
+        },
+        "research_sources": {
+          "combined_sentiment_bias": null,
+          "dataroma": {},
+          "valueinvestorsclub": {},
+          "macrolens": {}
+        },
+        "news_research": {
+          "headline_count": 0,
+          "headlines": [],
+          "market_note": null
+        },
+        "holding_market_evidence": {},
+        "breakout_evidence": null,
+        "selected_plan": {}
+      }
+    },
+    "QLD": {
+      "symbol": "QLD",
+      "name": "QLD",
+      "display_name": "QLD",
+      "market": "US",
+      "sector": null,
+      "latest_price": 90.83,
+      "score": null,
+      "profit_selection_rank": null,
+      "strategy_id": null,
+      "strategy_name": "portfolio_holding",
+      "regime": null,
+      "predicted_buy_low": null,
+      "predicted_sell_high": null,
+      "predicted_price_source": null,
+      "current_price_signal": null,
+      "prediction_cooldown": null,
+      "indicator_2026": {},
+      "indicator_2026_signal": null,
+      "indicator_2026_description": null,
+      "hermes_widget_forecast": {},
+      "breakout_evidence": null,
+      "market_evidence": {
+        "symbol": "QLD",
+        "name": "QLD",
+        "display_name": "QLD",
+        "market": "US",
+        "latest_price": 90.83,
+        "score": null,
+        "raw_score": null,
+        "direction": "",
+        "market_session_focus": null,
+        "market_context": {
+          "vix": null,
+          "nasdaq_pct": null,
+          "nasdaq100_pct": null,
+          "sox_pct": null,
+          "sp500_pct": null,
+          "russell2000_pct": null,
+          "wti_pct": null,
+          "cpi_mom_pct": null,
+          "ppi_mom_pct": null,
+          "core_ppi_mom_pct": null
+        },
+        "issue_context": {
+          "sentiment_bias": null,
+          "research_sources_bias": null,
+          "headlines": []
+        },
+        "research_sources": {
+          "combined_sentiment_bias": null,
+          "dataroma": {},
+          "valueinvestorsclub": {},
+          "macrolens": {}
+        },
+        "news_research": {
+          "headline_count": 0,
+          "headlines": [],
+          "market_note": null
+        },
+        "holding_market_evidence": {},
+        "breakout_evidence": null,
+        "selected_plan": {}
+      }
+    },
+    "TQQQ": {
+      "symbol": "TQQQ",
+      "name": "TQQQ",
+      "display_name": "TQQQ",
+      "market": "US",
+      "sector": null,
+      "latest_price": 72.6,
+      "score": null,
+      "profit_selection_rank": null,
+      "strategy_id": null,
+      "strategy_name": "portfolio_holding",
+      "regime": null,
+      "predicted_buy_low": null,
+      "predicted_sell_high": null,
+      "predicted_price_source": null,
+      "current_price_signal": null,
+      "prediction_cooldown": null,
+      "indicator_2026": {},
+      "indicator_2026_signal": null,
+      "indicator_2026_description": null,
+      "hermes_widget_forecast": {},
+      "breakout_evidence": null,
+      "market_evidence": {
+        "symbol": "TQQQ",
+        "name": "TQQQ",
+        "display_name": "TQQQ",
+        "market": "US",
+        "latest_price": 72.6,
+        "score": null,
+        "raw_score": null,
+        "direction": "",
+        "market_session_focus": null,
+        "market_context": {
+          "vix": null,
+          "nasdaq_pct": null,
+          "nasdaq100_pct": null,
+          "sox_pct": null,
+          "sp500_pct": null,
+          "russell2000_pct": null,
+          "wti_pct": null,
+          "cpi_mom_pct": null,
+          "ppi_mom_pct": null,
+          "core_ppi_mom_pct": null
+        },
+        "issue_context": {
+          "sentiment_bias": null,
+          "research_sources_bias": null,
+          "headlines": []
+        },
+        "research_sources": {
+          "combined_sentiment_bias": null,
+          "dataroma": {},
+          "valueinvestorsclub": {},
+          "macrolens": {}
+        },
+        "news_research": {
+          "headline_count": 0,
+          "headlines": [],
+          "market_note": null
+        },
+        "holding_market_evidence": {},
+        "breakout_evidence": null,
+        "selected_plan": {}
+      }
+    }
+  },
+  "open_positions": [
+    {
+      "symbol": "000270",
+      "name": "기아",
+      "currency": "KRW",
+      "quantity": 10.0,
+      "avg_price": 127830.0,
+      "current_price": 127700.0,
+      "market_value": 1277000.0,
+      "pnl": -1300.0,
+      "pnl_pct": -0.10169756708128252
+    },
+    {
+      "symbol": "000250",
+      "name": "삼천당제약",
+      "currency": "KRW",
+      "quantity": 1.0,
+      "avg_price": 187250.0,
+      "current_price": 170200.0,
+      "market_value": 170200.0,
+      "pnl": -17050.0,
+      "pnl_pct": -9.105473965287047
+    },
+    {
+      "symbol": "DIVO",
+      "name": "DIVO",
+      "currency": "USD",
+      "quantity": 53.0,
+      "avg_price": 49.306904,
+      "current_price": 48.64,
+      "market_value": 2577.92,
+      "pnl": -35.345912000000126,
+      "pnl_pct": -1.352557037448554
+    },
+    {
+      "symbol": "QLD",
+      "name": "QLD",
+      "currency": "USD",
+      "quantity": 22.0,
+      "avg_price": 90.256329,
+      "current_price": 90.83,
+      "market_value": 1998.26,
+      "pnl": 12.620762000000099,
+      "pnl_pct": 0.6356019642677957
+    },
+    {
+      "symbol": "TQQQ",
+      "name": "TQQQ",
+      "currency": "USD",
+      "quantity": 18.0,
+      "avg_price": 72.207766,
+      "current_price": 72.6,
+      "market_value": 1306.8,
+      "pnl": 7.06021199999978,
+      "pnl_pct": 0.5432019597448656
+    }
+  ],
+  "state_mode": "hermes_stock",
+  "news_research": {
+    "is_weekday_update": true,
+    "updated_at": null,
+    "headline_count": 0,
+    "headlines": [],
+    "market_note": null,
+    "youtube_market_commentary": {}
+  },
+  "visitor_stats": {
+    "today": 0,
+    "this_week": 0,
+    "this_month": 0,
+    "all_time": 0,
+    "last_updated": "2026-08-28T08:27:34.568894Z"
+  },
+  "market_session": {
+    "focus_market": null,
+    "limits": null,
+    "priority": null,
+    "summary": null,
+    "active_symbols": [
+      "000270",
+      "000250",
+      "DIVO",
+      "QLD",
+      "TQQQ"
+    ],
+    "display_symbols": [
+      "000270",
+      "000250",
+      "DIVO",
+      "QLD",
+      "TQQQ"
+    ]
+  },
+  "market_snapshot": {
+    "market_indices": {
+      "nasdaq_pct": null,
+      "nasdaq100_pct": null,
+      "sox_pct": null,
+      "sp500_pct": null,
+      "russell2000_pct": null,
+      "vix": null,
+      "vixy_pct": null,
+      "dxy_pct": null,
+      "us2y_pct": null,
+      "us10y_pct": null,
+      "kospi200_night_pct": null,
+      "wti_pct": null
+    },
+    "macro": {
+      "cpi_mom_pct": null,
+      "ppi_mom_pct": null,
+      "core_ppi_mom_pct": null
+    },
+    "issues": {
+      "sentiment_bias": null,
+      "rss_sentiment_bias": null,
+      "official_scrapling_bias": null,
+      "external_scrapling_bias": null,
+      "research_sources_bias": null,
+      "headlines": []
+    },
+    "research_sources": {
+      "combined_sentiment_bias": null,
+      "dataroma": {},
+      "valueinvestorsclub": {},
+      "macrolens": {}
+    },
+    "geopolitics": {}
+  },
+  "signals": {
+    "recent_virtual_fill_summary": {
+      "fill_count": 0,
+      "latest_rows": []
+    },
+    "recent_virtual_trade_reviews": [],
+    "prediction_guard": {
+      "blocked_count": 0,
+      "blocked_symbols": [],
+      "cooldown_count": 0,
+      "cooldown_symbols": [],
+      "real_trade_switch_allowed": true
+    },
+    "news_research": {
+      "is_weekday_update": true,
+      "updated_at": null,
+      "headline_count": 0,
+      "headlines": [],
+      "market_note": null,
+      "youtube_market_commentary": {}
+    },
+    "all_market_candidate_selection": {}
+  },
+  "all_market_candidate_selection": {},
+  "payload_json": {
+    "updated_at": "2026-08-28T08:27:34.568894Z",
+    "source": "dotoristock_dotoriweb_live_bridge",
+    "status_updated_at": "2026-08-28T17:26:02+09:00",
+    "widget_updated_at": null,
+    "macro_updated_at": "2026-08-27T10:07:31+09:00",
+    "market_focus": null,
+    "market_limits": null,
+    "virtual_market_priority": null,
+    "virtual_market_summary": null,
+    "virtual_events": 0,
+    "virtual_observation_count": 0,
+    "active_symbols": [
+      "000270",
+      "000250",
+      "DIVO",
+      "QLD",
+      "TQQQ"
+    ],
+    "display_symbols": [
+      "000270",
+      "000250",
+      "DIVO",
+      "QLD",
+      "TQQQ"
+    ],
+    "recent_virtual_fill_summary": {
+      "fill_count": 0,
+      "latest_rows": []
+    },
+    "recent_virtual_trade_reviews": [],
+    "prediction_guard": {
+      "blocked_count": 0,
+      "blocked_symbols": [],
+      "cooldown_count": 0,
+      "cooldown_symbols": [],
+      "real_trade_switch_allowed": true
+    },
+    "prediction_cooldowns": {},
+    "macro_summary": {
+      "nasdaq_pct": null,
+      "nasdaq100_pct": null,
+      "sox_pct": null,
+      "sp500_pct": null,
+      "russell2000_pct": null,
+      "vix": null,
+      "vixy_pct": null,
+      "dxy_pct": null,
+      "us2y_pct": null,
+      "us10y_pct": null,
+      "kospi200_night_pct": null,
+      "wti_pct": null,
+      "cpi_mom_pct": null,
+      "ppi_mom_pct": null,
+      "core_ppi_mom_pct": null,
+      "issues_bias": null,
+      "issues_headlines": [],
+      "issue_titles": [],
+      "geopolitics": {}
+    },
+    "widget_forecasts": {
+      "updated_at": null,
+      "symbols": {}
+    },
+    "symbols": {
+      "000270": {
+        "symbol": "000270",
+        "name": "기아",
+        "display_name": "000270(기아)",
+        "market": "KR",
+        "sector": null,
+        "latest_price": 127700.0,
+        "score": null,
+        "profit_selection_rank": null,
+        "strategy_id": null,
+        "strategy_name": "portfolio_holding",
+        "regime": null,
+        "predicted_buy_low": null,
+        "predicted_sell_high": null,
+        "predicted_price_source": null,
+        "current_price_signal": null,
+        "prediction_cooldown": null,
+        "indicator_2026": {},
+        "indicator_2026_signal": null,
+        "indicator_2026_description": null,
+        "hermes_widget_forecast": {},
+        "breakout_evidence": null,
+        "market_evidence": {
+          "symbol": "000270",
+          "name": "기아",
+          "display_name": "000270(기아)",
+          "market": "KR",
+          "latest_price": 127700.0,
+          "score": null,
+          "raw_score": null,
+          "direction": "",
+          "market_session_focus": null,
+          "market_context": {
+            "vix": null,
+            "nasdaq_pct": null,
+            "nasdaq100_pct": null,
+            "sox_pct": null,
+            "sp500_pct": null,
+            "russell2000_pct": null,
+            "wti_pct": null,
+            "cpi_mom_pct": null,
+            "ppi_mom_pct": null,
+            "core_ppi_mom_pct": null
+          },
+          "issue_context": {
+            "sentiment_bias": null,
+            "research_sources_bias": null,
+            "headlines": []
+          },
+          "research_sources": {
+            "combined_sentiment_bias": null,
+            "dataroma": {},
+            "valueinvestorsclub": {},
+            "macrolens": {}
+          },
+          "news_research": {
+            "headline_count": 0,
+            "headlines": [],
+            "market_note": null
+          },
+          "holding_market_evidence": {},
+          "breakout_evidence": null,
+          "selected_plan": {}
+        }
+      },
+      "000250": {
+        "symbol": "000250",
+        "name": "삼천당제약",
+        "display_name": "000250(삼천당제약)",
+        "market": "KR",
+        "sector": null,
+        "latest_price": 170200.0,
+        "score": null,
+        "profit_selection_rank": null,
+        "strategy_id": null,
+        "strategy_name": "portfolio_holding",
+        "regime": null,
+        "predicted_buy_low": null,
+        "predicted_sell_high": null,
+        "predicted_price_source": null,
+        "current_price_signal": null,
+        "prediction_cooldown": null,
+        "indicator_2026": {},
+        "indicator_2026_signal": null,
+        "indicator_2026_description": null,
+        "hermes_widget_forecast": {},
+        "breakout_evidence": null,
+        "market_evidence": {
+          "symbol": "000250",
+          "name": "삼천당제약",
+          "display_name": "000250(삼천당제약)",
+          "market": "KR",
+          "latest_price": 170200.0,
+          "score": null,
+          "raw_score": null,
+          "direction": "",
+          "market_session_focus": null,
+          "market_context": {
+            "vix": null,
+            "nasdaq_pct": null,
+            "nasdaq100_pct": null,
+            "sox_pct": null,
+            "sp500_pct": null,
+            "russell2000_pct": null,
+            "wti_pct": null,
+            "cpi_mom_pct": null,
+            "ppi_mom_pct": null,
+            "core_ppi_mom_pct": null
+          },
+          "issue_context": {
+            "sentiment_bias": null,
+            "research_sources_bias": null,
+            "headlines": []
+          },
+          "research_sources": {
+            "combined_sentiment_bias": null,
+            "dataroma": {},
+            "valueinvestorsclub": {},
+            "macrolens": {}
+          },
+          "news_research": {
+            "headline_count": 0,
+            "headlines": [],
+            "market_note": null
+          },
+          "holding_market_evidence": {},
+          "breakout_evidence": null,
+          "selected_plan": {}
+        }
+      },
+      "DIVO": {
+        "symbol": "DIVO",
+        "name": "DIVO",
+        "display_name": "DIVO",
+        "market": "US",
+        "sector": null,
+        "latest_price": 48.64,
+        "score": null,
+        "profit_selection_rank": null,
+        "strategy_id": null,
+        "strategy_name": "portfolio_holding",
+        "regime": null,
+        "predicted_buy_low": null,
+        "predicted_sell_high": null,
+        "predicted_price_source": null,
+        "current_price_signal": null,
+        "prediction_cooldown": null,
+        "indicator_2026": {},
+        "indicator_2026_signal": null,
+        "indicator_2026_description": null,
+        "hermes_widget_forecast": {},
+        "breakout_evidence": null,
+        "market_evidence": {
+          "symbol": "DIVO",
+          "name": "DIVO",
+          "display_name": "DIVO",
+          "market": "US",
+          "latest_price": 48.64,
+          "score": null,
+          "raw_score": null,
+          "direction": "",
+          "market_session_focus": null,
+          "market_context": {
+            "vix": null,
+            "nasdaq_pct": null,
+            "nasdaq100_pct": null,
+            "sox_pct": null,
+            "sp500_pct": null,
+            "russell2000_pct": null,
+            "wti_pct": null,
+            "cpi_mom_pct": null,
+            "ppi_mom_pct": null,
+            "core_ppi_mom_pct": null
+          },
+          "issue_context": {
+            "sentiment_bias": null,
+            "research_sources_bias": null,
+            "headlines": []
+          },
+          "research_sources": {
+            "combined_sentiment_bias": null,
+            "dataroma": {},
+            "valueinvestorsclub": {},
+            "macrolens": {}
+          },
+          "news_research": {
+            "headline_count": 0,
+            "headlines": [],
+            "market_note": null
+          },
+          "holding_market_evidence": {},
+          "breakout_evidence": null,
+          "selected_plan": {}
+        }
+      },
+      "QLD": {
+        "symbol": "QLD",
+        "name": "QLD",
+        "display_name": "QLD",
+        "market": "US",
+        "sector": null,
+        "latest_price": 90.83,
+        "score": null,
+        "profit_selection_rank": null,
+        "strategy_id": null,
+        "strategy_name": "portfolio_holding",
+        "regime": null,
+        "predicted_buy_low": null,
+        "predicted_sell_high": null,
+        "predicted_price_source": null,
+        "current_price_signal": null,
+        "prediction_cooldown": null,
+        "indicator_2026": {},
+        "indicator_2026_signal": null,
+        "indicator_2026_description": null,
+        "hermes_widget_forecast": {},
+        "breakout_evidence": null,
+        "market_evidence": {
+          "symbol": "QLD",
+          "name": "QLD",
+          "display_name": "QLD",
+          "market": "US",
+          "latest_price": 90.83,
+          "score": null,
+          "raw_score": null,
+          "direction": "",
+          "market_session_focus": null,
+          "market_context": {
+            "vix": null,
+            "nasdaq_pct": null,
+            "nasdaq100_pct": null,
+            "sox_pct": null,
+            "sp500_pct": null,
+            "russell2000_pct": null,
+            "wti_pct": null,
+            "cpi_mom_pct": null,
+            "ppi_mom_pct": null,
+            "core_ppi_mom_pct": null
+          },
+          "issue_context": {
+            "sentiment_bias": null,
+            "research_sources_bias": null,
+            "headlines": []
+          },
+          "research_sources": {
+            "combined_sentiment_bias": null,
+            "dataroma": {},
+            "valueinvestorsclub": {},
+            "macrolens": {}
+          },
+          "news_research": {
+            "headline_count": 0,
+            "headlines": [],
+            "market_note": null
+          },
+          "holding_market_evidence": {},
+          "breakout_evidence": null,
+          "selected_plan": {}
+        }
+      },
+      "TQQQ": {
+        "symbol": "TQQQ",
+        "name": "TQQQ",
+        "display_name": "TQQQ",
+        "market": "US",
+        "sector": null,
+        "latest_price": 72.6,
+        "score": null,
+        "profit_selection_rank": null,
+        "strategy_id": null,
+        "strategy_name": "portfolio_holding",
+        "regime": null,
+        "predicted_buy_low": null,
+        "predicted_sell_high": null,
+        "predicted_price_source": null,
+        "current_price_signal": null,
+        "prediction_cooldown": null,
+        "indicator_2026": {},
+        "indicator_2026_signal": null,
+        "indicator_2026_description": null,
+        "hermes_widget_forecast": {},
+        "breakout_evidence": null,
+        "market_evidence": {
+          "symbol": "TQQQ",
+          "name": "TQQQ",
+          "display_name": "TQQQ",
+          "market": "US",
+          "latest_price": 72.6,
+          "score": null,
+          "raw_score": null,
+          "direction": "",
+          "market_session_focus": null,
+          "market_context": {
+            "vix": null,
+            "nasdaq_pct": null,
+            "nasdaq100_pct": null,
+            "sox_pct": null,
+            "sp500_pct": null,
+            "russell2000_pct": null,
+            "wti_pct": null,
+            "cpi_mom_pct": null,
+            "ppi_mom_pct": null,
+            "core_ppi_mom_pct": null
+          },
+          "issue_context": {
+            "sentiment_bias": null,
+            "research_sources_bias": null,
+            "headlines": []
+          },
+          "research_sources": {
+            "combined_sentiment_bias": null,
+            "dataroma": {},
+            "valueinvestorsclub": {},
+            "macrolens": {}
+          },
+          "news_research": {
+            "headline_count": 0,
+            "headlines": [],
+            "market_note": null
+          },
+          "holding_market_evidence": {},
+          "breakout_evidence": null,
+          "selected_plan": {}
+        }
+      }
+    },
+    "open_positions": [
+      {
+        "symbol": "000270",
+        "name": "기아",
+        "currency": "KRW",
+        "quantity": 10.0,
+        "avg_price": 127830.0,
+        "current_price": 127700.0,
+        "market_value": 1277000.0,
+        "pnl": -1300.0,
+        "pnl_pct": -0.10169756708128252
+      },
+      {
+        "symbol": "000250",
+        "name": "삼천당제약",
+        "currency": "KRW",
+        "quantity": 1.0,
+        "avg_price": 187250.0,
+        "current_price": 170200.0,
+        "market_value": 170200.0,
+        "pnl": -17050.0,
+        "pnl_pct": -9.105473965287047
+      },
+      {
+        "symbol": "DIVO",
+        "name": "DIVO",
+        "currency": "USD",
+        "quantity": 53.0,
+        "avg_price": 49.306904,
+        "current_price": 48.64,
+        "market_value": 2577.92,
+        "pnl": -35.345912000000126,
+        "pnl_pct": -1.352557037448554
+      },
+      {
+        "symbol": "QLD",
+        "name": "QLD",
+        "currency": "USD",
+        "quantity": 22.0,
+        "avg_price": 90.256329,
+        "current_price": 90.83,
+        "market_value": 1998.26,
+        "pnl": 12.620762000000099,
+        "pnl_pct": 0.6356019642677957
+      },
+      {
+        "symbol": "TQQQ",
+        "name": "TQQQ",
+        "currency": "USD",
+        "quantity": 18.0,
+        "avg_price": 72.207766,
+        "current_price": 72.6,
+        "market_value": 1306.8,
+        "pnl": 7.06021199999978,
+        "pnl_pct": 0.5432019597448656
+      }
+    ],
+    "state_mode": "hermes_stock",
+    "news_research": {
+      "is_weekday_update": true,
+      "updated_at": null,
+      "headline_count": 0,
+      "headlines": [],
+      "market_note": null,
+      "youtube_market_commentary": {}
+    },
+    "visitor_stats": {
+      "today": 0,
+      "this_week": 0,
+      "this_month": 0,
+      "all_time": 0,
+      "last_updated": "2026-08-28T08:27:34.568894Z"
+    },
+    "market_session": {
+      "focus_market": null,
+      "limits": null,
+      "priority": null,
+      "summary": null,
+      "active_symbols": [
+        "000270",
+        "000250",
+        "DIVO",
+        "QLD",
+        "TQQQ"
+      ],
+      "display_symbols": [
+        "000270",
+        "000250",
+        "DIVO",
+        "QLD",
+        "TQQQ"
+      ]
+    },
+    "market_snapshot": {
+      "market_indices": {
+        "nasdaq_pct": null,
+        "nasdaq100_pct": null,
+        "sox_pct": null,
+        "sp500_pct": null,
+        "russell2000_pct": null,
+        "vix": null,
+        "vixy_pct": null,
+        "dxy_pct": null,
+        "us2y_pct": null,
+        "us10y_pct": null,
+        "kospi200_night_pct": null,
+        "wti_pct": null
+      },
+      "macro": {
+        "cpi_mom_pct": null,
+        "ppi_mom_pct": null,
+        "core_ppi_mom_pct": null
+      },
+      "issues": {
+        "sentiment_bias": null,
+        "rss_sentiment_bias": null,
+        "official_scrapling_bias": null,
+        "external_scrapling_bias": null,
+        "research_sources_bias": null,
+        "headlines": []
+      },
+      "research_sources": {
+        "combined_sentiment_bias": null,
+        "dataroma": {},
+        "valueinvestorsclub": {},
+        "macrolens": {}
+      },
+      "geopolitics": {}
+    },
+    "signals": {
+      "recent_virtual_fill_summary": {
+        "fill_count": 0,
+        "latest_rows": []
+      },
+      "recent_virtual_trade_reviews": [],
+      "prediction_guard": {
+        "blocked_count": 0,
+        "blocked_symbols": [],
+        "cooldown_count": 0,
+        "cooldown_symbols": [],
+        "real_trade_switch_allowed": true
+      },
+      "news_research": {
+        "is_weekday_update": true,
+        "updated_at": null,
+        "headline_count": 0,
+        "headlines": [],
+        "market_note": null,
+        "youtube_market_commentary": {}
+      },
+      "all_market_candidate_selection": {}
+    },
+    "all_market_candidate_selection": {}
+  },
+  "market_evidence": {
+    "summary": {
+      "generated_at": null,
+      "status_updated_at": "2026-08-28T17:26:02+09:00",
+      "macro_updated_at": "2026-08-27T10:07:31+09:00",
+      "symbol_count": 5,
+      "display_symbol_count": 5,
+      "breakout_symbol_count": 0
+    },
+    "market_session": {
+      "focus_market": null,
+      "limits": null,
+      "priority": null,
+      "summary": null,
+      "active_symbols": [
+        "000270",
+        "000250",
+        "DIVO",
+        "QLD",
+        "TQQQ"
+      ],
+      "display_symbols": [
+        "000270",
+        "000250",
+        "DIVO",
+        "QLD",
+        "TQQQ"
+      ]
+    },
+    "market_snapshot": {
+      "market_indices": {
+        "nasdaq_pct": null,
+        "nasdaq100_pct": null,
+        "sox_pct": null,
+        "sp500_pct": null,
+        "russell2000_pct": null,
+        "vix": null,
+        "vixy_pct": null,
+        "dxy_pct": null,
+        "us2y_pct": null,
+        "us10y_pct": null,
+        "kospi200_night_pct": null,
+        "wti_pct": null
+      },
+      "macro": {
+        "cpi_mom_pct": null,
+        "ppi_mom_pct": null,
+        "core_ppi_mom_pct": null
+      },
+      "issues": {
+        "sentiment_bias": null,
+        "rss_sentiment_bias": null,
+        "official_scrapling_bias": null,
+        "external_scrapling_bias": null,
+        "research_sources_bias": null,
+        "headlines": []
+      },
+      "research_sources": {
+        "combined_sentiment_bias": null,
+        "dataroma": {},
+        "valueinvestorsclub": {},
+        "macrolens": {}
+      },
+      "geopolitics": {}
+    },
+    "breakout_candidates": {},
+    "top_symbols": [
+      {
+        "symbol": "000270",
+        "name": "기아",
+        "display_name": "000270(기아)",
+        "market": "KR",
+        "score": null,
+        "latest_price": 127700.0,
+        "profit_selection_rank": null,
+        "strategy_id": null,
+        "strategy_name": "portfolio_holding",
+        "predicted_buy_low": null,
+        "predicted_sell_high": null,
+        "predicted_price_source": null,
+        "current_price_signal": null,
+        "indicator_2026_signal": null,
+        "indicator_2026_description": null,
+        "breakout_evidence": null
+      },
+      {
+        "symbol": "000250",
+        "name": "삼천당제약",
+        "display_name": "000250(삼천당제약)",
+        "market": "KR",
+        "score": null,
+        "latest_price": 170200.0,
+        "profit_selection_rank": null,
+        "strategy_id": null,
+        "strategy_name": "portfolio_holding",
+        "predicted_buy_low": null,
+        "predicted_sell_high": null,
+        "predicted_price_source": null,
+        "current_price_signal": null,
+        "indicator_2026_signal": null,
+        "indicator_2026_description": null,
+        "breakout_evidence": null
+      },
+      {
+        "symbol": "DIVO",
+        "name": "DIVO",
+        "display_name": "DIVO",
+        "market": "US",
+        "score": null,
+        "latest_price": 48.64,
+        "profit_selection_rank": null,
+        "strategy_id": null,
+        "strategy_name": "portfolio_holding",
+        "predicted_buy_low": null,
+        "predicted_sell_high": null,
+        "predicted_price_source": null,
+        "current_price_signal": null,
+        "indicator_2026_signal": null,
+        "indicator_2026_description": null,
+        "breakout_evidence": null
+      },
+      {
+        "symbol": "QLD",
+        "name": "QLD",
+        "display_name": "QLD",
+        "market": "US",
+        "score": null,
+        "latest_price": 90.83,
+        "profit_selection_rank": null,
+        "strategy_id": null,
+        "strategy_name": "portfolio_holding",
+        "predicted_buy_low": null,
+        "predicted_sell_high": null,
+        "predicted_price_source": null,
+        "current_price_signal": null,
+        "indicator_2026_signal": null,
+        "indicator_2026_description": null,
+        "breakout_evidence": null
+      },
+      {
+        "symbol": "TQQQ",
+        "name": "TQQQ",
+        "display_name": "TQQQ",
+        "market": "US",
+        "score": null,
+        "latest_price": 72.6,
+        "profit_selection_rank": null,
+        "strategy_id": null,
+        "strategy_name": "portfolio_holding",
+        "predicted_buy_low": null,
+        "predicted_sell_high": null,
+        "predicted_price_source": null,
+        "current_price_signal": null,
+        "indicator_2026_signal": null,
+        "indicator_2026_description": null,
+        "breakout_evidence": null
+      }
+    ],
+    "symbols": {
+      "000270": {
+        "symbol": "000270",
+        "name": "기아",
+        "display_name": "000270(기아)",
+        "market": "KR",
+        "latest_price": 127700.0,
+        "score": null,
+        "raw_score": null,
+        "direction": "",
+        "market_session_focus": null,
+        "market_context": {
+          "vix": null,
+          "nasdaq_pct": null,
+          "nasdaq100_pct": null,
+          "sox_pct": null,
+          "sp500_pct": null,
+          "russell2000_pct": null,
+          "wti_pct": null,
+          "cpi_mom_pct": null,
+          "ppi_mom_pct": null,
+          "core_ppi_mom_pct": null
+        },
+        "issue_context": {
+          "sentiment_bias": null,
+          "research_sources_bias": null,
+          "headlines": []
+        },
+        "research_sources": {
+          "combined_sentiment_bias": null,
+          "dataroma": {},
+          "valueinvestorsclub": {},
+          "macrolens": {}
+        },
+        "news_research": {
+          "headline_count": 0,
+          "headlines": [],
+          "market_note": null
+        },
+        "holding_market_evidence": {},
+        "breakout_evidence": null,
+        "selected_plan": {}
+      },
+      "000250": {
+        "symbol": "000250",
+        "name": "삼천당제약",
+        "display_name": "000250(삼천당제약)",
+        "market": "KR",
+        "latest_price": 170200.0,
+        "score": null,
+        "raw_score": null,
+        "direction": "",
+        "market_session_focus": null,
+        "market_context": {
+          "vix": null,
+          "nasdaq_pct": null,
+          "nasdaq100_pct": null,
+          "sox_pct": null,
+          "sp500_pct": null,
+          "russell2000_pct": null,
+          "wti_pct": null,
+          "cpi_mom_pct": null,
+          "ppi_mom_pct": null,
+          "core_ppi_mom_pct": null
+        },
+        "issue_context": {
+          "sentiment_bias": null,
+          "research_sources_bias": null,
+          "headlines": []
+        },
+        "research_sources": {
+          "combined_sentiment_bias": null,
+          "dataroma": {},
+          "valueinvestorsclub": {},
+          "macrolens": {}
+        },
+        "news_research": {
+          "headline_count": 0,
+          "headlines": [],
+          "market_note": null
+        },
+        "holding_market_evidence": {},
+        "breakout_evidence": null,
+        "selected_plan": {}
+      },
+      "DIVO": {
+        "symbol": "DIVO",
+        "name": "DIVO",
+        "display_name": "DIVO",
+        "market": "US",
+        "latest_price": 48.64,
+        "score": null,
+        "raw_score": null,
+        "direction": "",
+        "market_session_focus": null,
+        "market_context": {
+          "vix": null,
+          "nasdaq_pct": null,
+          "nasdaq100_pct": null,
+          "sox_pct": null,
+          "sp500_pct": null,
+          "russell2000_pct": null,
+          "wti_pct": null,
+          "cpi_mom_pct": null,
+          "ppi_mom_pct": null,
+          "core_ppi_mom_pct": null
+        },
+        "issue_context": {
+          "sentiment_bias": null,
+          "research_sources_bias": null,
+          "headlines": []
+        },
+        "research_sources": {
+          "combined_sentiment_bias": null,
+          "dataroma": {},
+          "valueinvestorsclub": {},
+          "macrolens": {}
+        },
+        "news_research": {
+          "headline_count": 0,
+          "headlines": [],
+          "market_note": null
+        },
+        "holding_market_evidence": {},
+        "breakout_evidence": null,
+        "selected_plan": {}
+      },
+      "QLD": {
+        "symbol": "QLD",
+        "name": "QLD",
+        "display_name": "QLD",
+        "market": "US",
+        "latest_price": 90.83,
+        "score": null,
+        "raw_score": null,
+        "direction": "",
+        "market_session_focus": null,
+        "market_context": {
+          "vix": null,
+          "nasdaq_pct": null,
+          "nasdaq100_pct": null,
+          "sox_pct": null,
+          "sp500_pct": null,
+          "russell2000_pct": null,
+          "wti_pct": null,
+          "cpi_mom_pct": null,
+          "ppi_mom_pct": null,
+          "core_ppi_mom_pct": null
+        },
+        "issue_context": {
+          "sentiment_bias": null,
+          "research_sources_bias": null,
+          "headlines": []
+        },
+        "research_sources": {
+          "combined_sentiment_bias": null,
+          "dataroma": {},
+          "valueinvestorsclub": {},
+          "macrolens": {}
+        },
+        "news_research": {
+          "headline_count": 0,
+          "headlines": [],
+          "market_note": null
+        },
+        "holding_market_evidence": {},
+        "breakout_evidence": null,
+        "selected_plan": {}
+      },
+      "TQQQ": {
+        "symbol": "TQQQ",
+        "name": "TQQQ",
+        "display_name": "TQQQ",
+        "market": "US",
+        "latest_price": 72.6,
+        "score": null,
+        "raw_score": null,
+        "direction": "",
+        "market_session_focus": null,
+        "market_context": {
+          "vix": null,
+          "nasdaq_pct": null,
+          "nasdaq100_pct": null,
+          "sox_pct": null,
+          "sp500_pct": null,
+          "russell2000_pct": null,
+          "wti_pct": null,
+          "cpi_mom_pct": null,
+          "ppi_mom_pct": null,
+          "core_ppi_mom_pct": null
+        },
+        "issue_context": {
+          "sentiment_bias": null,
+          "research_sources_bias": null,
+          "headlines": []
+        },
+        "research_sources": {
+          "combined_sentiment_bias": null,
+          "dataroma": {},
+          "valueinvestorsclub": {},
+          "macrolens": {}
+        },
+        "news_research": {
+          "headline_count": 0,
+          "headlines": [],
+          "market_note": null
+        },
+        "holding_market_evidence": {},
+        "breakout_evidence": null,
+        "selected_plan": {}
+      }
+    },
+    "recent_fills": [],
+    "recent_reviews": [],
+    "prediction_guard": {
+      "blocked_count": 0,
+      "blocked_symbols": [],
+      "cooldown_count": 0,
+      "cooldown_symbols": [],
+      "real_trade_switch_allowed": true
+    },
+    "news_research": {
+      "is_weekday_update": true,
+      "updated_at": null,
+      "headline_count": 0,
+      "headlines": [],
+      "market_note": null,
+      "youtube_market_commentary": {}
+    },
+    "candidate_selection": {}
+  }
 }
