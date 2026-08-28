@@ -2380,6 +2380,10 @@ async function loadData(options = {}) {
     }
     if (dotoriWebResponse && dotoriWebResponse.ok) {
       state.dotoriWeb = await dotoriWebResponse.json();
+      const liveScanner = Array.isArray(state.dotoriWeb?.scanner) ? state.dotoriWeb.scanner : [];
+      if (liveScanner.length) {
+        state.data = normalizeSnapshotData({ ...state.data, scanner: liveScanner, scannerUpdatedAt: state.dotoriWeb.scanner_updated_at || state.data.scannerUpdatedAt });
+      }
     }
     if (holdingsResponse && holdingsResponse.ok) {
       state.tossHoldings = await holdingsResponse.json();
