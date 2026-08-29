@@ -1,6 +1,6 @@
 {
   "market": "US",
-  "as_of": "2026-08-29T08:00:09+09:00",
+  "as_of": "2026-08-29T15:42:48+09:00",
   "status": "READY",
   "summary": "밤사이 지표와 뉴스의 핵심만 확인하는 읽기 전용 아침 점검입니다.",
   "news": [
@@ -25,9 +25,9 @@
       "published_at": "Wed, 04 Mar 2026 08:00:00 GMT"
     },
     {
-      "title": "Trump’s post sparks five minutes of chaos on markets - SMH.com.au",
-      "source": "SMH.com.au",
-      "published_at": "Tue, 24 Mar 2026 07:00:00 GMT"
+      "title": "US Market Set-up: Overnight action, key events and stocks to watch on June 30 - Upstox",
+      "source": "Upstox",
+      "published_at": "Tue, 30 Jun 2026 07:00:00 GMT"
     }
   ],
   "indices": [
@@ -35,28 +35,28 @@
       "symbol": "^GSPC",
       "name": "S&P 500",
       "price": 7711.76,
-      "change_pct": -0.25,
+      "change_pct": 0.47,
       "source": "Yahoo Finance"
     },
     {
       "symbol": "^IXIC",
       "name": "NASDAQ",
       "price": 26402.424,
-      "change_pct": -0.52,
+      "change_pct": 1.04,
       "source": "Yahoo Finance"
     },
     {
       "symbol": "^DJI",
       "name": "Dow",
       "price": 53559.99,
-      "change_pct": -0.02,
+      "change_pct": 0.18,
       "source": "Yahoo Finance"
     },
     {
       "symbol": "^VIX",
       "name": "VIX",
       "price": 14.43,
-      "change_pct": -0.55,
+      "change_pct": -5.13,
       "source": "Yahoo Finance"
     }
   ],
@@ -65,47 +65,47 @@
       "symbol": "SOXX",
       "name": "반도체",
       "price": 508.62,
-      "change_pct": -3.2,
+      "change_pct": -1.32,
       "source": "Yahoo Finance"
     },
     {
       "symbol": "XLK",
       "name": "기술",
       "price": 185.69,
-      "change_pct": -1.55,
+      "change_pct": 1.56,
       "source": "Yahoo Finance"
     },
     {
       "symbol": "XLF",
       "name": "금융",
       "price": 58.1,
-      "change_pct": 0.38,
+      "change_pct": -0.27,
       "source": "Yahoo Finance"
     },
     {
       "symbol": "XLE",
       "name": "에너지",
       "price": 62.68,
-      "change_pct": 0.63,
+      "change_pct": 0.4,
       "source": "Yahoo Finance"
     }
   ],
   "after_close_materials": {
     "market": "US",
-    "window_start": "2026-08-27T16:00-04:00",
-    "window_end": "2026-08-28T19:00-04:00",
+    "window_start": "2026-08-28T16:00-04:00",
+    "window_end": "2026-08-29T02:42-04:00",
     "disclosures": [],
     "disclosure_count": 0,
     "state_updates": [
       {
         "label": "시장 타이밍",
-        "updated_at": "2026-08-28T18:56-04:00",
+        "updated_at": "2026-08-29T02:41-04:00",
         "path": "S:\\HamburgerTrader\\state\\market_timing_signal.json",
         "summary": "상태 확인"
       },
       {
         "label": "후보 브리지",
-        "updated_at": "2026-08-28T18:56-04:00",
+        "updated_at": "2026-08-29T02:41-04:00",
         "path": "S:\\HamburgerTrader\\state\\hermes_candidate_bridge_latest.json",
         "summary": "갱신 확인"
       }
@@ -115,7 +115,7 @@
     "fresh": true
   },
   "after_close_summary": [
-    "수집범위 2026-08-27T16:00-04:00~2026-08-28T19:00-04:00",
+    "수집범위 2026-08-28T16:00-04:00~2026-08-29T02:42-04:00",
     "공시: 해당 시간 범위 내 새 중요공시 없음",
     "시장자료 시장 타이밍 상태 확인 / 후보 브리지 갱신 확인"
   ],
