@@ -1,21 +1,178 @@
 {
-  "updated_at": "2026-08-29T06:42:51.552229Z",
+  "updated_at": "2026-08-29T10:05:03.439146Z",
   "source": "dotoristock_dotoriweb_live_bridge",
-  "scanner": [],
+  "scanner": [
+    {
+      "rank": 1,
+      "symbol": "035420",
+      "name": "035420",
+      "market": "KR",
+      "currentPrice": 219000.0,
+      "current_price": 219000.0,
+      "currentPriceText": "219,000",
+      "signal": "BUY",
+      "sentiment": "BUY",
+      "summary": "Hermes DATS 실시간 조건 관찰 결과입니다.",
+      "updated_at": "2026-08-29T10:05:02.810943Z",
+      "source": "toss_dats_scanner",
+      "evidence": {
+        "title": "Hermes DATS 근거",
+        "clues": [
+          "OPENING SUPPLY+OPEN BREAKOUT",
+          "당일 변동 1.15%",
+          "거래량 비율 1.39배"
+        ],
+        "confirmations": [
+          "가상·자문 스캐너 결과이며 주문 권한은 없습니다."
+        ],
+        "stance": "독립 리스크·무결성 게이트 확인 전에는 관찰 우선"
+      }
+    },
+    {
+      "rank": 2,
+      "symbol": "003550",
+      "name": "003550",
+      "market": "KR",
+      "currentPrice": 114700.0,
+      "current_price": 114700.0,
+      "currentPriceText": "114,700",
+      "signal": "BUY",
+      "sentiment": "BUY",
+      "summary": "Hermes DATS 실시간 조건 관찰 결과입니다.",
+      "updated_at": "2026-08-29T10:05:02.810943Z",
+      "source": "toss_dats_scanner",
+      "evidence": {
+        "title": "Hermes DATS 근거",
+        "clues": [
+          "OPEN BREAKOUT",
+          "당일 변동 0.17%",
+          "거래량 비율 0.94배"
+        ],
+        "confirmations": [
+          "가상·자문 스캐너 결과이며 주문 권한은 없습니다."
+        ],
+        "stance": "독립 리스크·무결성 게이트 확인 전에는 관찰 우선"
+      }
+    },
+    {
+      "rank": 3,
+      "symbol": "267250",
+      "name": "267250",
+      "market": "KR",
+      "currentPrice": 217000.0,
+      "current_price": 217000.0,
+      "currentPriceText": "217,000",
+      "signal": "BUY",
+      "sentiment": "BUY",
+      "summary": "Hermes DATS 실시간 조건 관찰 결과입니다.",
+      "updated_at": "2026-08-29T10:05:02.810943Z",
+      "source": "toss_dats_scanner",
+      "evidence": {
+        "title": "Hermes DATS 근거",
+        "clues": [
+          "OPEN BREAKOUT",
+          "당일 변동 0.46%",
+          "거래량 비율 1.08배"
+        ],
+        "confirmations": [
+          "가상·자문 스캐너 결과이며 주문 권한은 없습니다."
+        ],
+        "stance": "독립 리스크·무결성 게이트 확인 전에는 관찰 우선"
+      }
+    },
+    {
+      "rank": 4,
+      "symbol": "196170",
+      "name": "196170",
+      "market": "KR",
+      "currentPrice": 318500.0,
+      "current_price": 318500.0,
+      "currentPriceText": "318,500",
+      "signal": "BUY",
+      "sentiment": "BUY",
+      "summary": "Hermes DATS 실시간 조건 관찰 결과입니다.",
+      "updated_at": "2026-08-29T10:05:02.810943Z",
+      "source": "toss_dats_scanner",
+      "evidence": {
+        "title": "Hermes DATS 근거",
+        "clues": [
+          "OPENING SUPPLY+OPEN BREAKOUT",
+          "당일 변동 2.25%",
+          "거래량 비율 1.62배"
+        ],
+        "confirmations": [
+          "가상·자문 스캐너 결과이며 주문 권한은 없습니다."
+        ],
+        "stance": "독립 리스크·무결성 게이트 확인 전에는 관찰 우선"
+      }
+    },
+    {
+      "rank": 5,
+      "symbol": "028300",
+      "name": "028300",
+      "market": "KR",
+      "currentPrice": 35950.0,
+      "current_price": 35950.0,
+      "currentPriceText": "35,950",
+      "signal": "BUY",
+      "sentiment": "BUY",
+      "summary": "Hermes DATS 실시간 조건 관찰 결과입니다.",
+      "updated_at": "2026-08-29T10:05:02.810943Z",
+      "source": "toss_dats_scanner",
+      "evidence": {
+        "title": "Hermes DATS 근거",
+        "clues": [
+          "MAC POINT+OPEN BREAKOUT",
+          "당일 변동 1.41%",
+          "거래량 비율 0.64배"
+        ],
+        "confirmations": [
+          "가상·자문 스캐너 결과이며 주문 권한은 없습니다."
+        ],
+        "stance": "독립 리스크·무결성 게이트 확인 전에는 관찰 우선"
+      }
+    },
+    {
+      "rank": 6,
+      "symbol": "316140",
+      "name": "316140",
+      "market": "KR",
+      "currentPrice": 33750.0,
+      "current_price": 33750.0,
+      "currentPriceText": "33,750",
+      "signal": "BUY",
+      "sentiment": "BUY",
+      "summary": "Hermes DATS 실시간 조건 관찰 결과입니다.",
+      "updated_at": "2026-08-29T10:05:02.810943Z",
+      "source": "toss_dats_scanner",
+      "evidence": {
+        "title": "Hermes DATS 근거",
+        "clues": [
+          "OPENING SUPPLY+OPEN BREAKOUT",
+          "당일 변동 2.43%",
+          "거래량 비율 1.05배"
+        ],
+        "confirmations": [
+          "가상·자문 스캐너 결과이며 주문 권한은 없습니다."
+        ],
+        "stance": "독립 리스크·무결성 게이트 확인 전에는 관찰 우선"
+      }
+    }
+  ],
   "scanner_status": {
     "source": "S:\\HamburgerTrader\\stock_data\\HamburgerTrader\\dats\\kis_condition_events.jsonl",
     "state_path": "S:\\HamburgerTrader\\stock_data\\HamburgerTrader\\dats\\toss_dats_scanner_state.json",
-    "updated_at": "2026-08-28T13:02:28.540051Z",
-    "fresh": false,
+    "updated_at": "2026-08-29T10:05:02.810943Z",
+    "fresh": true,
     "max_age_minutes": 180,
-    "event_count": 0,
-    "dats_event_count": 0,
+    "event_count": 6,
+    "dats_event_count": 6,
     "breakout_count": 0,
     "breakout_path": "S:\\HamburgerTrader\\stock_data\\HamburgerTrader\\market_data\\candidates\\breakout_candidates.json",
     "order_authority": false
   },
-  "scanner_updated_at": "2026-08-28T13:02:28.540051Z",
-  "status_updated_at": "2026-08-29T15:41:01+09:00",
+  "scanner_updated_at": "2026-08-29T10:05:02.810943Z",
+  "status_updated_at": "2026-08-29T19:01:02+09:00",
   "widget_updated_at": null,
   "macro_updated_at": "2026-08-27T10:07:31+09:00",
   "market_focus": null,
@@ -630,7 +787,7 @@
     "this_week": 0,
     "this_month": 0,
     "all_time": 0,
-    "last_updated": "2026-08-29T06:42:51.552229Z"
+    "last_updated": "2026-08-29T10:05:03.440167Z"
   },
   "market_session": {
     "focus_market": null,
@@ -717,23 +874,180 @@
   },
   "all_market_candidate_selection": {},
   "payload_json": {
-    "updated_at": "2026-08-29T06:42:51.552229Z",
+    "updated_at": "2026-08-29T10:05:03.439146Z",
     "source": "dotoristock_dotoriweb_live_bridge",
-    "scanner": [],
+    "scanner": [
+      {
+        "rank": 1,
+        "symbol": "035420",
+        "name": "035420",
+        "market": "KR",
+        "currentPrice": 219000.0,
+        "current_price": 219000.0,
+        "currentPriceText": "219,000",
+        "signal": "BUY",
+        "sentiment": "BUY",
+        "summary": "Hermes DATS 실시간 조건 관찰 결과입니다.",
+        "updated_at": "2026-08-29T10:05:02.810943Z",
+        "source": "toss_dats_scanner",
+        "evidence": {
+          "title": "Hermes DATS 근거",
+          "clues": [
+            "OPENING SUPPLY+OPEN BREAKOUT",
+            "당일 변동 1.15%",
+            "거래량 비율 1.39배"
+          ],
+          "confirmations": [
+            "가상·자문 스캐너 결과이며 주문 권한은 없습니다."
+          ],
+          "stance": "독립 리스크·무결성 게이트 확인 전에는 관찰 우선"
+        }
+      },
+      {
+        "rank": 2,
+        "symbol": "003550",
+        "name": "003550",
+        "market": "KR",
+        "currentPrice": 114700.0,
+        "current_price": 114700.0,
+        "currentPriceText": "114,700",
+        "signal": "BUY",
+        "sentiment": "BUY",
+        "summary": "Hermes DATS 실시간 조건 관찰 결과입니다.",
+        "updated_at": "2026-08-29T10:05:02.810943Z",
+        "source": "toss_dats_scanner",
+        "evidence": {
+          "title": "Hermes DATS 근거",
+          "clues": [
+            "OPEN BREAKOUT",
+            "당일 변동 0.17%",
+            "거래량 비율 0.94배"
+          ],
+          "confirmations": [
+            "가상·자문 스캐너 결과이며 주문 권한은 없습니다."
+          ],
+          "stance": "독립 리스크·무결성 게이트 확인 전에는 관찰 우선"
+        }
+      },
+      {
+        "rank": 3,
+        "symbol": "267250",
+        "name": "267250",
+        "market": "KR",
+        "currentPrice": 217000.0,
+        "current_price": 217000.0,
+        "currentPriceText": "217,000",
+        "signal": "BUY",
+        "sentiment": "BUY",
+        "summary": "Hermes DATS 실시간 조건 관찰 결과입니다.",
+        "updated_at": "2026-08-29T10:05:02.810943Z",
+        "source": "toss_dats_scanner",
+        "evidence": {
+          "title": "Hermes DATS 근거",
+          "clues": [
+            "OPEN BREAKOUT",
+            "당일 변동 0.46%",
+            "거래량 비율 1.08배"
+          ],
+          "confirmations": [
+            "가상·자문 스캐너 결과이며 주문 권한은 없습니다."
+          ],
+          "stance": "독립 리스크·무결성 게이트 확인 전에는 관찰 우선"
+        }
+      },
+      {
+        "rank": 4,
+        "symbol": "196170",
+        "name": "196170",
+        "market": "KR",
+        "currentPrice": 318500.0,
+        "current_price": 318500.0,
+        "currentPriceText": "318,500",
+        "signal": "BUY",
+        "sentiment": "BUY",
+        "summary": "Hermes DATS 실시간 조건 관찰 결과입니다.",
+        "updated_at": "2026-08-29T10:05:02.810943Z",
+        "source": "toss_dats_scanner",
+        "evidence": {
+          "title": "Hermes DATS 근거",
+          "clues": [
+            "OPENING SUPPLY+OPEN BREAKOUT",
+            "당일 변동 2.25%",
+            "거래량 비율 1.62배"
+          ],
+          "confirmations": [
+            "가상·자문 스캐너 결과이며 주문 권한은 없습니다."
+          ],
+          "stance": "독립 리스크·무결성 게이트 확인 전에는 관찰 우선"
+        }
+      },
+      {
+        "rank": 5,
+        "symbol": "028300",
+        "name": "028300",
+        "market": "KR",
+        "currentPrice": 35950.0,
+        "current_price": 35950.0,
+        "currentPriceText": "35,950",
+        "signal": "BUY",
+        "sentiment": "BUY",
+        "summary": "Hermes DATS 실시간 조건 관찰 결과입니다.",
+        "updated_at": "2026-08-29T10:05:02.810943Z",
+        "source": "toss_dats_scanner",
+        "evidence": {
+          "title": "Hermes DATS 근거",
+          "clues": [
+            "MAC POINT+OPEN BREAKOUT",
+            "당일 변동 1.41%",
+            "거래량 비율 0.64배"
+          ],
+          "confirmations": [
+            "가상·자문 스캐너 결과이며 주문 권한은 없습니다."
+          ],
+          "stance": "독립 리스크·무결성 게이트 확인 전에는 관찰 우선"
+        }
+      },
+      {
+        "rank": 6,
+        "symbol": "316140",
+        "name": "316140",
+        "market": "KR",
+        "currentPrice": 33750.0,
+        "current_price": 33750.0,
+        "currentPriceText": "33,750",
+        "signal": "BUY",
+        "sentiment": "BUY",
+        "summary": "Hermes DATS 실시간 조건 관찰 결과입니다.",
+        "updated_at": "2026-08-29T10:05:02.810943Z",
+        "source": "toss_dats_scanner",
+        "evidence": {
+          "title": "Hermes DATS 근거",
+          "clues": [
+            "OPENING SUPPLY+OPEN BREAKOUT",
+            "당일 변동 2.43%",
+            "거래량 비율 1.05배"
+          ],
+          "confirmations": [
+            "가상·자문 스캐너 결과이며 주문 권한은 없습니다."
+          ],
+          "stance": "독립 리스크·무결성 게이트 확인 전에는 관찰 우선"
+        }
+      }
+    ],
     "scanner_status": {
       "source": "S:\\HamburgerTrader\\stock_data\\HamburgerTrader\\dats\\kis_condition_events.jsonl",
       "state_path": "S:\\HamburgerTrader\\stock_data\\HamburgerTrader\\dats\\toss_dats_scanner_state.json",
-      "updated_at": "2026-08-28T13:02:28.540051Z",
-      "fresh": false,
+      "updated_at": "2026-08-29T10:05:02.810943Z",
+      "fresh": true,
       "max_age_minutes": 180,
-      "event_count": 0,
-      "dats_event_count": 0,
+      "event_count": 6,
+      "dats_event_count": 6,
       "breakout_count": 0,
       "breakout_path": "S:\\HamburgerTrader\\stock_data\\HamburgerTrader\\market_data\\candidates\\breakout_candidates.json",
       "order_authority": false
     },
-    "scanner_updated_at": "2026-08-28T13:02:28.540051Z",
-    "status_updated_at": "2026-08-29T15:41:01+09:00",
+    "scanner_updated_at": "2026-08-29T10:05:02.810943Z",
+    "status_updated_at": "2026-08-29T19:01:02+09:00",
     "widget_updated_at": null,
     "macro_updated_at": "2026-08-27T10:07:31+09:00",
     "market_focus": null,
@@ -1348,7 +1662,7 @@
       "this_week": 0,
       "this_month": 0,
       "all_time": 0,
-      "last_updated": "2026-08-29T06:42:51.552229Z"
+      "last_updated": "2026-08-29T10:05:03.440167Z"
     },
     "market_session": {
       "focus_market": null,
@@ -1438,7 +1752,7 @@
   "market_evidence": {
     "summary": {
       "generated_at": null,
-      "status_updated_at": "2026-08-29T15:41:01+09:00",
+      "status_updated_at": "2026-08-29T19:01:02+09:00",
       "macro_updated_at": "2026-08-27T10:07:31+09:00",
       "symbol_count": 7,
       "display_symbol_count": 7,
