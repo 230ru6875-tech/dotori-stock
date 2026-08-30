@@ -1,6 +1,6 @@
 {
   "market": "US",
-  "as_of": "2026-08-29T21:00:07+09:00",
+  "as_of": "2026-08-30T21:00:10+09:00",
   "status": "READY",
   "summary": "밤사이 지표와 뉴스의 핵심만 확인하는 읽기 전용 아침 점검입니다.",
   "news": [
@@ -10,8 +10,8 @@
       "published_at": "Wed, 08 Jul 2026 07:00:00 GMT"
     },
     {
-      "title": "A reversal in oil prices helps stock markets worldwide to steady - Spectrum News",
-      "source": "Spectrum News",
+      "title": "A reversal in oil prices helps stock markets worldwide to steady - Spectrum News NY1",
+      "source": "Spectrum News NY1",
       "published_at": "Mon, 18 May 2026 07:00:00 GMT"
     },
     {
@@ -48,7 +48,7 @@
     {
       "symbol": "^DJI",
       "name": "Dow",
-      "price": 53560.0,
+      "price": 53559.99,
       "change_pct": 0.18,
       "source": "Yahoo Finance"
     },
@@ -93,19 +93,19 @@
   "after_close_materials": {
     "market": "US",
     "window_start": "2026-08-28T16:00-04:00",
-    "window_end": "2026-08-29T08:00-04:00",
+    "window_end": "2026-08-30T08:00-04:00",
     "disclosures": [],
     "disclosure_count": 0,
     "state_updates": [
       {
         "label": "시장 타이밍",
-        "updated_at": "2026-08-29T07:56-04:00",
+        "updated_at": "2026-08-30T07:56-04:00",
         "path": "S:\\HamburgerTrader\\state\\market_timing_signal.json",
         "summary": "상태 확인"
       },
       {
         "label": "후보 브리지",
-        "updated_at": "2026-08-29T07:56-04:00",
+        "updated_at": "2026-08-30T07:56-04:00",
         "path": "S:\\HamburgerTrader\\state\\hermes_candidate_bridge_latest.json",
         "summary": "갱신 확인"
       }
@@ -115,7 +115,7 @@
     "fresh": true
   },
   "after_close_summary": [
-    "수집범위 2026-08-28T16:00-04:00~2026-08-29T08:00-04:00",
+    "수집범위 2026-08-28T16:00-04:00~2026-08-30T08:00-04:00",
     "공시: 해당 시간 범위 내 새 중요공시 없음",
     "시장자료 시장 타이밍 상태 확인 / 후보 브리지 갱신 확인"
   ],
