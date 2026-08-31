@@ -1,6 +1,6 @@
 ﻿{
     "schema_version":  "hamburgertrader-toss-holdings-public-v1",
-    "generated_at":  "2026-08-31T14:00:03.680671+00:00",
+    "generated_at":  "2026-08-31T23:17:02.712778+00:00",
     "source":  "toss_openapi_read_only",
     "positions":  [
                       {
@@ -10,10 +10,22 @@
                           "currency":  "KRW",
                           "quantity":  1,
                           "avg_price":  187250,
-                          "current_price":  168100,
-                          "market_value":  168100,
-                          "pnl":  -19150,
-                          "pnl_pct":  -10.226969292389851
+                          "current_price":  169000,
+                          "market_value":  169000,
+                          "pnl":  -18250,
+                          "pnl_pct":  -9.7463284379172155
+                      },
+                      {
+                          "symbol":  "466100",
+                          "name":  "클로봇",
+                          "market":  "KR",
+                          "currency":  "KRW",
+                          "quantity":  12,
+                          "avg_price":  26550,
+                          "current_price":  26650,
+                          "market_value":  319800,
+                          "pnl":  1200,
+                          "pnl_pct":  0.37664783427495691
                       },
                       {
                           "symbol":  "DIVO",
@@ -22,10 +34,10 @@
                           "currency":  "USD",
                           "quantity":  22,
                           "avg_price":  49.306904,
-                          "current_price":  48.28,
-                          "market_value":  1062.16,
-                          "pnl":  -22.59188800000004,
-                          "pnl_pct":  -2.0826779146384866
+                          "current_price":  48.32,
+                          "market_value":  1063.04,
+                          "pnl":  -21.711888000000059,
+                          "pnl_pct":  -2.0015533727284929
                       },
                       {
                           "symbol":  "QDVO",
@@ -34,10 +46,10 @@
                           "currency":  "USD",
                           "quantity":  60,
                           "avg_price":  29.487333,
-                          "current_price":  29.49,
-                          "market_value":  1769.4,
-                          "pnl":  0.16001999999993188,
-                          "pnl_pct":  0.0090445616088841163
+                          "current_price":  29.57,
+                          "market_value":  1774.2,
+                          "pnl":  4.9600200000000427,
+                          "pnl_pct":  0.28034749700829309
                       },
                       {
                           "symbol":  "QLD",
@@ -46,10 +58,10 @@
                           "currency":  "USD",
                           "quantity":  22,
                           "avg_price":  90.256329,
-                          "current_price":  89.84,
-                          "market_value":  1976.48,
-                          "pnl":  -9.1592379999997888,
-                          "pnl_pct":  -0.4612740232321943
+                          "current_price":  90.16,
+                          "market_value":  1983.52,
+                          "pnl":  -2.1192379999999389,
+                          "pnl_pct":  -0.10672824949483628
                       },
                       {
                           "symbol":  "TQQQ",
@@ -58,10 +70,10 @@
                           "currency":  "USD",
                           "quantity":  18,
                           "avg_price":  72.207766,
-                          "current_price":  71.44,
-                          "market_value":  1285.92,
-                          "pnl":  -13.819788000000161,
-                          "pnl_pct":  -1.0632734434686819
+                          "current_price":  71.81,
+                          "market_value":  1292.58,
+                          "pnl":  -7.1597880000000771,
+                          "pnl_pct":  -0.55086318554711244
                       }
                   ]
 }
