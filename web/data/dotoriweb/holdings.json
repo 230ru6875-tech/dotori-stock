@@ -1,6 +1,6 @@
 ﻿{
     "schema_version":  "hamburgertrader-toss-holdings-public-v1",
-    "generated_at":  "2026-08-29T00:19:35.039889+00:00",
+    "generated_at":  "2026-08-31T04:44:03.163089+00:00",
     "source":  "toss_openapi_read_only",
     "positions":  [
                       {
@@ -10,10 +10,22 @@
                           "currency":  "KRW",
                           "quantity":  10,
                           "avg_price":  127830,
-                          "current_price":  127600,
-                          "market_value":  1276000,
-                          "pnl":  -2300,
-                          "pnl_pct":  -0.17992646483611097
+                          "current_price":  130100,
+                          "market_value":  1301000,
+                          "pnl":  22700,
+                          "pnl_pct":  1.7757959790346556
+                      },
+                      {
+                          "symbol":  "005930",
+                          "name":  "삼성전자",
+                          "market":  "KR",
+                          "currency":  "KRW",
+                          "quantity":  1,
+                          "avg_price":  253500,
+                          "current_price":  253750,
+                          "market_value":  253750,
+                          "pnl":  250,
+                          "pnl_pct":  0.098619329388549559
                       },
                       {
                           "symbol":  "000250",
@@ -22,10 +34,10 @@
                           "currency":  "KRW",
                           "quantity":  1,
                           "avg_price":  187250,
-                          "current_price":  170000,
-                          "market_value":  170000,
-                          "pnl":  -17250,
-                          "pnl_pct":  -9.2122830440587435
+                          "current_price":  165300,
+                          "market_value":  165300,
+                          "pnl":  -21950,
+                          "pnl_pct":  -11.722296395193588
                       },
                       {
                           "symbol":  "SNDK",
@@ -34,10 +46,10 @@
                           "currency":  "USD",
                           "quantity":  1,
                           "avg_price":  1447.67,
-                          "current_price":  1485.47,
-                          "market_value":  1485.47,
-                          "pnl":  37.799999999999955,
-                          "pnl_pct":  2.6110923069484042
+                          "current_price":  1461,
+                          "market_value":  1461,
+                          "pnl":  13.329999999999927,
+                          "pnl_pct":  0.92078995903761562
                       },
                       {
                           "symbol":  "DIVO",
@@ -58,10 +70,10 @@
                           "currency":  "USD",
                           "quantity":  2,
                           "avg_price":  29.7,
-                          "current_price":  29.61,
-                          "market_value":  59.22,
-                          "pnl":  -0.17999999999999972,
-                          "pnl_pct":  -0.303030303030305
+                          "current_price":  29.59,
+                          "market_value":  59.18,
+                          "pnl":  -0.21999999999999889,
+                          "pnl_pct":  -0.37037037037036535
                       },
                       {
                           "symbol":  "QLD",
@@ -70,10 +82,10 @@
                           "currency":  "USD",
                           "quantity":  22,
                           "avg_price":  90.256329,
-                          "current_price":  90.17,
-                          "market_value":  1983.74,
-                          "pnl":  -1.8992379999998263,
-                          "pnl_pct":  -0.095648694065531
+                          "current_price":  89.42,
+                          "market_value":  1967.24,
+                          "pnl":  -18.399237999999823,
+                          "pnl_pct":  -0.92661535126250516
                       },
                       {
                           "symbol":  "TQQQ",
@@ -82,10 +94,10 @@
                           "currency":  "USD",
                           "quantity":  18,
                           "avg_price":  72.207766,
-                          "current_price":  71.85,
-                          "market_value":  1293.3,
-                          "pnl":  -6.43978800000022,
-                          "pnl_pct":  -0.49546748198803225
+                          "current_price":  70.95,
+                          "market_value":  1277.1,
+                          "pnl":  -22.639788000000067,
+                          "pnl_pct":  -1.741870812067503
                       }
                   ]
 }
