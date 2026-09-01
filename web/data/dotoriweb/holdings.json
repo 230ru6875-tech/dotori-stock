@@ -1,6 +1,6 @@
 ﻿{
     "schema_version":  "hamburgertrader-toss-holdings-public-v1",
-    "generated_at":  "2026-09-01T00:15:04.167091+00:00",
+    "generated_at":  "2026-09-01T00:26:03.521495+00:00",
     "source":  "toss_openapi_read_only",
     "positions":  [
                       {
@@ -10,22 +10,10 @@
                           "currency":  "KRW",
                           "quantity":  1,
                           "avg_price":  187250,
-                          "current_price":  166600,
-                          "market_value":  166600,
-                          "pnl":  -20650,
-                          "pnl_pct":  -11.028037383177567
-                      },
-                      {
-                          "symbol":  "DIVO",
-                          "name":  "DIVO",
-                          "market":  "US",
-                          "currency":  "USD",
-                          "quantity":  22,
-                          "avg_price":  49.306904,
-                          "current_price":  48.29,
-                          "market_value":  1062.38,
-                          "pnl":  -22.371888000000084,
-                          "pnl_pct":  -2.062396779160991
+                          "current_price":  165900,
+                          "market_value":  165900,
+                          "pnl":  -21350,
+                          "pnl_pct":  -11.401869158878508
                       },
                       {
                           "symbol":  "QDVO",
@@ -46,10 +34,10 @@
                           "currency":  "USD",
                           "quantity":  22,
                           "avg_price":  90.256329,
-                          "current_price":  90.13,
-                          "market_value":  1982.86,
-                          "pnl":  -2.7792379999999639,
-                          "pnl_pct":  -0.1399669157827077
+                          "current_price":  90.24,
+                          "market_value":  1985.28,
+                          "pnl":  -0.35923799999997641,
+                          "pnl_pct":  -0.018091806060493987
                       },
                       {
                           "symbol":  "TQQQ",
@@ -58,10 +46,10 @@
                           "currency":  "USD",
                           "quantity":  18,
                           "avg_price":  72.207766,
-                          "current_price":  71.79,
-                          "market_value":  1292.22,
-                          "pnl":  -7.5197880000000046,
-                          "pnl_pct":  -0.57856103732665254
+                          "current_price":  71.92,
+                          "market_value":  1294.56,
+                          "pnl":  -5.1797880000000873,
+                          "pnl_pct":  -0.39852500075961972
                       }
                   ]
 }
