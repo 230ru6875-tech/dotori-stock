@@ -1,6 +1,6 @@
 ﻿{
     "schema_version":  "hamburgertrader-toss-holdings-public-v1",
-    "generated_at":  "2026-09-01T00:29:03.474608+00:00",
+    "generated_at":  "2026-09-01T04:56:03.898921+00:00",
     "source":  "toss_openapi_read_only",
     "positions":  [
                       {
@@ -10,10 +10,10 @@
                           "currency":  "KRW",
                           "quantity":  1,
                           "avg_price":  187250,
-                          "current_price":  166100,
-                          "market_value":  166100,
-                          "pnl":  -21150,
-                          "pnl_pct":  -11.295060080106811
+                          "current_price":  164000,
+                          "market_value":  164000,
+                          "pnl":  -23250,
+                          "pnl_pct":  -12.416555407209618
                       },
                       {
                           "symbol":  "QDVO",
@@ -22,10 +22,10 @@
                           "currency":  "USD",
                           "quantity":  60,
                           "avg_price":  29.487333,
-                          "current_price":  29.53,
-                          "market_value":  1771.8000000000002,
-                          "pnl":  2.5600200000000939,
-                          "pnl_pct":  0.14469602930859971
+                          "current_price":  29.62,
+                          "market_value":  1777.2,
+                          "pnl":  7.9600200000000854,
+                          "pnl_pct":  0.44991183163292092
                       },
                       {
                           "symbol":  "QLD",
@@ -34,22 +34,10 @@
                           "currency":  "USD",
                           "quantity":  33,
                           "avg_price":  90.237553,
-                          "current_price":  90.22,
-                          "market_value":  2977.26,
-                          "pnl":  -0.57924900000021751,
-                          "pnl_pct":  -0.01945199023737354
-                      },
-                      {
-                          "symbol":  "TQQQ",
-                          "name":  "TQQQ",
-                          "market":  "US",
-                          "currency":  "USD",
-                          "quantity":  18,
-                          "avg_price":  72.207766,
-                          "current_price":  71.87,
-                          "market_value":  1293.66,
-                          "pnl":  -6.0797880000000362,
-                          "pnl_pct":  -0.46776963020848106
+                          "current_price":  90.05,
+                          "market_value":  2971.65,
+                          "pnl":  -6.1892490000002738,
+                          "pnl_pct":  -0.20784362359649311
                       }
                   ]
 }
