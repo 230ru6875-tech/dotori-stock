@@ -1,6 +1,6 @@
 ﻿{
     "schema_version":  "hamburgertrader-toss-holdings-public-v1",
-    "generated_at":  "2026-09-01T04:56:03.898921+00:00",
+    "generated_at":  "2026-09-01T08:33:03.607315+00:00",
     "source":  "toss_openapi_read_only",
     "positions":  [
                       {
@@ -10,10 +10,22 @@
                           "currency":  "KRW",
                           "quantity":  1,
                           "avg_price":  187250,
-                          "current_price":  164000,
-                          "market_value":  164000,
-                          "pnl":  -23250,
-                          "pnl_pct":  -12.416555407209618
+                          "current_price":  164600,
+                          "market_value":  164600,
+                          "pnl":  -22650,
+                          "pnl_pct":  -12.096128170894527
+                      },
+                      {
+                          "symbol":  "AVGO",
+                          "name":  "브로드컴",
+                          "market":  "US",
+                          "currency":  "USD",
+                          "quantity":  3,
+                          "avg_price":  367.29,
+                          "current_price":  367.3,
+                          "market_value":  1101.9,
+                          "pnl":  0.029999999999972715,
+                          "pnl_pct":  0.0027226442320671396
                       },
                       {
                           "symbol":  "QDVO",
@@ -22,10 +34,10 @@
                           "currency":  "USD",
                           "quantity":  60,
                           "avg_price":  29.487333,
-                          "current_price":  29.62,
-                          "market_value":  1777.2,
-                          "pnl":  7.9600200000000854,
-                          "pnl_pct":  0.44991183163292092
+                          "current_price":  29.53,
+                          "market_value":  1771.8000000000002,
+                          "pnl":  2.5600200000000939,
+                          "pnl_pct":  0.14469602930859971
                       },
                       {
                           "symbol":  "QLD",
@@ -34,10 +46,10 @@
                           "currency":  "USD",
                           "quantity":  33,
                           "avg_price":  90.237553,
-                          "current_price":  90.05,
-                          "market_value":  2971.65,
-                          "pnl":  -6.1892490000002738,
-                          "pnl_pct":  -0.20784362359649311
+                          "current_price":  88.95,
+                          "market_value":  2935.35,
+                          "pnl":  -42.489249000000086,
+                          "pnl_pct":  -1.4268483100378426
                       }
                   ]
 }
