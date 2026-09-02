@@ -1,26 +1,78 @@
 {
-  "updated_at": "2026-09-01T10:05:04.102925Z",
+  "updated_at": "2026-09-02T10:05:03.960336Z",
   "source": "dotoristock_dotoriweb_live_bridge",
   "scanner": [
     {
       "rank": 1,
-      "symbol": "316140",
-      "name": "316140",
+      "symbol": "082740",
+      "name": "082740",
       "market": "KR",
-      "currentPrice": 34300.0,
-      "current_price": 34300.0,
-      "currentPriceText": "34,300",
+      "currentPrice": 44500.0,
+      "current_price": 44500.0,
+      "currentPriceText": "44,500",
+      "signal": "WATCH",
+      "sentiment": "WATCH",
+      "summary": "Hermes DATS 실시간 조건 관찰 결과입니다.",
+      "updated_at": "2026-09-02T10:05:03.206917Z",
+      "source": "toss_dats_scanner",
+      "evidence": {
+        "title": "Hermes DATS 근거",
+        "clues": [
+          "OVERSOLD",
+          "당일 변동 -7.00%",
+          "거래량 비율 0.50배"
+        ],
+        "confirmations": [
+          "가상·자문 스캐너 결과이며 주문 권한은 없습니다."
+        ],
+        "stance": "독립 리스크·무결성 게이트 확인 전에는 관찰 우선"
+      }
+    },
+    {
+      "rank": 2,
+      "symbol": "042700",
+      "name": "042700",
+      "market": "KR",
+      "currentPrice": 208500.0,
+      "current_price": 208500.0,
+      "currentPriceText": "208,500",
       "signal": "BUY",
       "sentiment": "BUY",
       "summary": "Hermes DATS 실시간 조건 관찰 결과입니다.",
-      "updated_at": "2026-09-01T10:05:03.375259Z",
+      "updated_at": "2026-09-02T10:05:03.206917Z",
       "source": "toss_dats_scanner",
       "evidence": {
         "title": "Hermes DATS 근거",
         "clues": [
           "OPEN BREAKOUT",
-          "당일 변동 1.48%",
-          "거래량 비율 0.67배"
+          "당일 변동 -3.02%",
+          "거래량 비율 0.77배"
+        ],
+        "confirmations": [
+          "가상·자문 스캐너 결과이며 주문 권한은 없습니다."
+        ],
+        "stance": "독립 리스크·무결성 게이트 확인 전에는 관찰 우선"
+      }
+    },
+    {
+      "rank": 3,
+      "symbol": "353200",
+      "name": "353200",
+      "market": "KR",
+      "currentPrice": 108900.0,
+      "current_price": 108900.0,
+      "currentPriceText": "108,900",
+      "signal": "BUY",
+      "sentiment": "BUY",
+      "summary": "Hermes DATS 실시간 조건 관찰 결과입니다.",
+      "updated_at": "2026-09-02T10:05:03.206917Z",
+      "source": "toss_dats_scanner",
+      "evidence": {
+        "title": "Hermes DATS 근거",
+        "clues": [
+          "OPEN BREAKOUT",
+          "당일 변동 -2.33%",
+          "거래량 비율 0.97배"
         ],
         "confirmations": [
           "가상·자문 스캐너 결과이며 주문 권한은 없습니다."
@@ -32,19 +84,19 @@
   "scanner_status": {
     "source": "S:\\stock_data\\dats\\kis_condition_events.jsonl",
     "state_path": "S:\\stock_data\\dats\\toss_dats_scanner_state.json",
-    "updated_at": "2026-09-01T10:05:03.375259Z",
+    "updated_at": "2026-09-02T10:05:03.206917Z",
     "fresh": true,
     "max_age_minutes": 180,
-    "event_count": 1,
-    "dats_event_count": 1,
+    "event_count": 3,
+    "dats_event_count": 3,
     "breakout_count": 0,
     "breakout_path": "S:\\stock_data\\market_data\\candidates\\breakout_candidates.json",
     "order_authority": false
   },
-  "scanner_updated_at": "2026-09-01T10:05:03.375259Z",
-  "status_updated_at": "2026-09-01T19:01:01+09:00",
+  "scanner_updated_at": "2026-09-02T10:05:03.206917Z",
+  "status_updated_at": "2026-09-02T19:01:02+09:00",
   "widget_updated_at": null,
-  "macro_updated_at": "2026-08-27T10:07:31+09:00",
+  "macro_updated_at": "2026-09-02T18:55:22+09:00",
   "market_focus": null,
   "market_limits": null,
   "virtual_market_priority": null,
@@ -108,7 +160,7 @@
       "display_name": "000250(삼천당제약)",
       "market": "KR",
       "sector": null,
-      "latest_price": 162600.0,
+      "latest_price": 158300.0,
       "score": null,
       "profit_selection_rank": null,
       "strategy_id": null,
@@ -129,7 +181,7 @@
         "name": "삼천당제약",
         "display_name": "000250(삼천당제약)",
         "market": "KR",
-        "latest_price": 162600.0,
+        "latest_price": 158300.0,
         "score": null,
         "raw_score": null,
         "direction": "",
@@ -173,7 +225,7 @@
       "display_name": "AVGO(브로드컴)",
       "market": "US",
       "sector": null,
-      "latest_price": 366.42,
+      "latest_price": 368.23,
       "score": null,
       "profit_selection_rank": null,
       "strategy_id": null,
@@ -194,7 +246,7 @@
         "name": "브로드컴",
         "display_name": "AVGO(브로드컴)",
         "market": "US",
-        "latest_price": 366.42,
+        "latest_price": 368.23,
         "score": null,
         "raw_score": null,
         "direction": "",
@@ -238,7 +290,7 @@
       "display_name": "QDVO",
       "market": "US",
       "sector": null,
-      "latest_price": 29.5,
+      "latest_price": 29.3,
       "score": null,
       "profit_selection_rank": null,
       "strategy_id": null,
@@ -259,7 +311,7 @@
         "name": "QDVO",
         "display_name": "QDVO",
         "market": "US",
-        "latest_price": 29.5,
+        "latest_price": 29.3,
         "score": null,
         "raw_score": null,
         "direction": "",
@@ -303,7 +355,7 @@
       "display_name": "QLD",
       "market": "US",
       "sector": null,
-      "latest_price": 88.47,
+      "latest_price": 86.88,
       "score": null,
       "profit_selection_rank": null,
       "strategy_id": null,
@@ -324,7 +376,7 @@
         "name": "QLD",
         "display_name": "QLD",
         "market": "US",
-        "latest_price": 88.47,
+        "latest_price": 86.88,
         "score": null,
         "raw_score": null,
         "direction": "",
@@ -370,10 +422,10 @@
       "currency": "KRW",
       "quantity": 1.0,
       "avg_price": 187250.0,
-      "current_price": 162600.0,
-      "market_value": 162600.0,
-      "pnl": -24650.0,
-      "pnl_pct": -13.164218958611485
+      "current_price": 158300.0,
+      "market_value": 158300.0,
+      "pnl": -28950.0,
+      "pnl_pct": -15.460614152202934
     },
     {
       "symbol": "AVGO",
@@ -381,10 +433,10 @@
       "currency": "USD",
       "quantity": 3.0,
       "avg_price": 367.29,
-      "current_price": 366.42,
-      "market_value": 1099.26,
-      "pnl": -2.6100000000000136,
-      "pnl_pct": -0.23687004819080704
+      "current_price": 368.23,
+      "market_value": 1104.69,
+      "pnl": 2.819999999999993,
+      "pnl_pct": 0.25592855781535473
     },
     {
       "symbol": "QDVO",
@@ -392,10 +444,10 @@
       "currency": "USD",
       "quantity": 62.0,
       "avg_price": 29.489677,
-      "current_price": 29.5,
-      "market_value": 1829.0,
-      "pnl": 0.6400259999999776,
-      "pnl_pct": 0.035005469880178275
+      "current_price": 29.3,
+      "market_value": 1816.6000000000001,
+      "pnl": -11.759973999999978,
+      "pnl_pct": -0.6431979570342472
     },
     {
       "symbol": "QLD",
@@ -403,10 +455,10 @@
       "currency": "USD",
       "quantity": 35.0,
       "avg_price": 90.151972,
-      "current_price": 88.47,
-      "market_value": 3096.45,
-      "pnl": -58.86902000000006,
-      "pnl_pct": -1.8657073857463735
+      "current_price": 86.88,
+      "market_value": 3040.7999999999997,
+      "pnl": -114.51902000000018,
+      "pnl_pct": -3.6293959271351373
     }
   ],
   "state_mode": "hermes_stock",
@@ -423,7 +475,7 @@
     "this_week": 0,
     "this_month": 0,
     "all_time": 0,
-    "last_updated": "2026-09-01T10:05:04.102925Z"
+    "last_updated": "2026-09-02T10:05:03.961331Z"
   },
   "market_session": {
     "focus_market": null,
@@ -504,28 +556,80 @@
   },
   "all_market_candidate_selection": {},
   "payload_json": {
-    "updated_at": "2026-09-01T10:05:04.102925Z",
+    "updated_at": "2026-09-02T10:05:03.960336Z",
     "source": "dotoristock_dotoriweb_live_bridge",
     "scanner": [
       {
         "rank": 1,
-        "symbol": "316140",
-        "name": "316140",
+        "symbol": "082740",
+        "name": "082740",
         "market": "KR",
-        "currentPrice": 34300.0,
-        "current_price": 34300.0,
-        "currentPriceText": "34,300",
+        "currentPrice": 44500.0,
+        "current_price": 44500.0,
+        "currentPriceText": "44,500",
+        "signal": "WATCH",
+        "sentiment": "WATCH",
+        "summary": "Hermes DATS 실시간 조건 관찰 결과입니다.",
+        "updated_at": "2026-09-02T10:05:03.206917Z",
+        "source": "toss_dats_scanner",
+        "evidence": {
+          "title": "Hermes DATS 근거",
+          "clues": [
+            "OVERSOLD",
+            "당일 변동 -7.00%",
+            "거래량 비율 0.50배"
+          ],
+          "confirmations": [
+            "가상·자문 스캐너 결과이며 주문 권한은 없습니다."
+          ],
+          "stance": "독립 리스크·무결성 게이트 확인 전에는 관찰 우선"
+        }
+      },
+      {
+        "rank": 2,
+        "symbol": "042700",
+        "name": "042700",
+        "market": "KR",
+        "currentPrice": 208500.0,
+        "current_price": 208500.0,
+        "currentPriceText": "208,500",
         "signal": "BUY",
         "sentiment": "BUY",
         "summary": "Hermes DATS 실시간 조건 관찰 결과입니다.",
-        "updated_at": "2026-09-01T10:05:03.375259Z",
+        "updated_at": "2026-09-02T10:05:03.206917Z",
         "source": "toss_dats_scanner",
         "evidence": {
           "title": "Hermes DATS 근거",
           "clues": [
             "OPEN BREAKOUT",
-            "당일 변동 1.48%",
-            "거래량 비율 0.67배"
+            "당일 변동 -3.02%",
+            "거래량 비율 0.77배"
+          ],
+          "confirmations": [
+            "가상·자문 스캐너 결과이며 주문 권한은 없습니다."
+          ],
+          "stance": "독립 리스크·무결성 게이트 확인 전에는 관찰 우선"
+        }
+      },
+      {
+        "rank": 3,
+        "symbol": "353200",
+        "name": "353200",
+        "market": "KR",
+        "currentPrice": 108900.0,
+        "current_price": 108900.0,
+        "currentPriceText": "108,900",
+        "signal": "BUY",
+        "sentiment": "BUY",
+        "summary": "Hermes DATS 실시간 조건 관찰 결과입니다.",
+        "updated_at": "2026-09-02T10:05:03.206917Z",
+        "source": "toss_dats_scanner",
+        "evidence": {
+          "title": "Hermes DATS 근거",
+          "clues": [
+            "OPEN BREAKOUT",
+            "당일 변동 -2.33%",
+            "거래량 비율 0.97배"
           ],
           "confirmations": [
             "가상·자문 스캐너 결과이며 주문 권한은 없습니다."
@@ -537,19 +641,19 @@
     "scanner_status": {
       "source": "S:\\stock_data\\dats\\kis_condition_events.jsonl",
       "state_path": "S:\\stock_data\\dats\\toss_dats_scanner_state.json",
-      "updated_at": "2026-09-01T10:05:03.375259Z",
+      "updated_at": "2026-09-02T10:05:03.206917Z",
       "fresh": true,
       "max_age_minutes": 180,
-      "event_count": 1,
-      "dats_event_count": 1,
+      "event_count": 3,
+      "dats_event_count": 3,
       "breakout_count": 0,
       "breakout_path": "S:\\stock_data\\market_data\\candidates\\breakout_candidates.json",
       "order_authority": false
     },
-    "scanner_updated_at": "2026-09-01T10:05:03.375259Z",
-    "status_updated_at": "2026-09-01T19:01:01+09:00",
+    "scanner_updated_at": "2026-09-02T10:05:03.206917Z",
+    "status_updated_at": "2026-09-02T19:01:02+09:00",
     "widget_updated_at": null,
-    "macro_updated_at": "2026-08-27T10:07:31+09:00",
+    "macro_updated_at": "2026-09-02T18:55:22+09:00",
     "market_focus": null,
     "market_limits": null,
     "virtual_market_priority": null,
@@ -613,7 +717,7 @@
         "display_name": "000250(삼천당제약)",
         "market": "KR",
         "sector": null,
-        "latest_price": 162600.0,
+        "latest_price": 158300.0,
         "score": null,
         "profit_selection_rank": null,
         "strategy_id": null,
@@ -634,7 +738,7 @@
           "name": "삼천당제약",
           "display_name": "000250(삼천당제약)",
           "market": "KR",
-          "latest_price": 162600.0,
+          "latest_price": 158300.0,
           "score": null,
           "raw_score": null,
           "direction": "",
@@ -678,7 +782,7 @@
         "display_name": "AVGO(브로드컴)",
         "market": "US",
         "sector": null,
-        "latest_price": 366.42,
+        "latest_price": 368.23,
         "score": null,
         "profit_selection_rank": null,
         "strategy_id": null,
@@ -699,7 +803,7 @@
           "name": "브로드컴",
           "display_name": "AVGO(브로드컴)",
           "market": "US",
-          "latest_price": 366.42,
+          "latest_price": 368.23,
           "score": null,
           "raw_score": null,
           "direction": "",
@@ -743,7 +847,7 @@
         "display_name": "QDVO",
         "market": "US",
         "sector": null,
-        "latest_price": 29.5,
+        "latest_price": 29.3,
         "score": null,
         "profit_selection_rank": null,
         "strategy_id": null,
@@ -764,7 +868,7 @@
           "name": "QDVO",
           "display_name": "QDVO",
           "market": "US",
-          "latest_price": 29.5,
+          "latest_price": 29.3,
           "score": null,
           "raw_score": null,
           "direction": "",
@@ -808,7 +912,7 @@
         "display_name": "QLD",
         "market": "US",
         "sector": null,
-        "latest_price": 88.47,
+        "latest_price": 86.88,
         "score": null,
         "profit_selection_rank": null,
         "strategy_id": null,
@@ -829,7 +933,7 @@
           "name": "QLD",
           "display_name": "QLD",
           "market": "US",
-          "latest_price": 88.47,
+          "latest_price": 86.88,
           "score": null,
           "raw_score": null,
           "direction": "",
@@ -875,10 +979,10 @@
         "currency": "KRW",
         "quantity": 1.0,
         "avg_price": 187250.0,
-        "current_price": 162600.0,
-        "market_value": 162600.0,
-        "pnl": -24650.0,
-        "pnl_pct": -13.164218958611485
+        "current_price": 158300.0,
+        "market_value": 158300.0,
+        "pnl": -28950.0,
+        "pnl_pct": -15.460614152202934
       },
       {
         "symbol": "AVGO",
@@ -886,10 +990,10 @@
         "currency": "USD",
         "quantity": 3.0,
         "avg_price": 367.29,
-        "current_price": 366.42,
-        "market_value": 1099.26,
-        "pnl": -2.6100000000000136,
-        "pnl_pct": -0.23687004819080704
+        "current_price": 368.23,
+        "market_value": 1104.69,
+        "pnl": 2.819999999999993,
+        "pnl_pct": 0.25592855781535473
       },
       {
         "symbol": "QDVO",
@@ -897,10 +1001,10 @@
         "currency": "USD",
         "quantity": 62.0,
         "avg_price": 29.489677,
-        "current_price": 29.5,
-        "market_value": 1829.0,
-        "pnl": 0.6400259999999776,
-        "pnl_pct": 0.035005469880178275
+        "current_price": 29.3,
+        "market_value": 1816.6000000000001,
+        "pnl": -11.759973999999978,
+        "pnl_pct": -0.6431979570342472
       },
       {
         "symbol": "QLD",
@@ -908,10 +1012,10 @@
         "currency": "USD",
         "quantity": 35.0,
         "avg_price": 90.151972,
-        "current_price": 88.47,
-        "market_value": 3096.45,
-        "pnl": -58.86902000000006,
-        "pnl_pct": -1.8657073857463735
+        "current_price": 86.88,
+        "market_value": 3040.7999999999997,
+        "pnl": -114.51902000000018,
+        "pnl_pct": -3.6293959271351373
       }
     ],
     "state_mode": "hermes_stock",
@@ -928,7 +1032,7 @@
       "this_week": 0,
       "this_month": 0,
       "all_time": 0,
-      "last_updated": "2026-09-01T10:05:04.102925Z"
+      "last_updated": "2026-09-02T10:05:03.961331Z"
     },
     "market_session": {
       "focus_market": null,
@@ -1012,8 +1116,8 @@
   "market_evidence": {
     "summary": {
       "generated_at": null,
-      "status_updated_at": "2026-09-01T19:01:01+09:00",
-      "macro_updated_at": "2026-08-27T10:07:31+09:00",
+      "status_updated_at": "2026-09-02T19:01:02+09:00",
+      "macro_updated_at": "2026-09-02T18:55:22+09:00",
       "symbol_count": 4,
       "display_symbol_count": 4,
       "breakout_symbol_count": 0
@@ -1080,7 +1184,7 @@
         "display_name": "000250(삼천당제약)",
         "market": "KR",
         "score": null,
-        "latest_price": 162600.0,
+        "latest_price": 158300.0,
         "profit_selection_rank": null,
         "strategy_id": null,
         "strategy_name": "portfolio_holding",
@@ -1098,7 +1202,7 @@
         "display_name": "AVGO(브로드컴)",
         "market": "US",
         "score": null,
-        "latest_price": 366.42,
+        "latest_price": 368.23,
         "profit_selection_rank": null,
         "strategy_id": null,
         "strategy_name": "portfolio_holding",
@@ -1116,7 +1220,7 @@
         "display_name": "QDVO",
         "market": "US",
         "score": null,
-        "latest_price": 29.5,
+        "latest_price": 29.3,
         "profit_selection_rank": null,
         "strategy_id": null,
         "strategy_name": "portfolio_holding",
@@ -1134,7 +1238,7 @@
         "display_name": "QLD",
         "market": "US",
         "score": null,
-        "latest_price": 88.47,
+        "latest_price": 86.88,
         "profit_selection_rank": null,
         "strategy_id": null,
         "strategy_name": "portfolio_holding",
@@ -1153,7 +1257,7 @@
         "name": "삼천당제약",
         "display_name": "000250(삼천당제약)",
         "market": "KR",
-        "latest_price": 162600.0,
+        "latest_price": 158300.0,
         "score": null,
         "raw_score": null,
         "direction": "",
@@ -1195,7 +1299,7 @@
         "name": "브로드컴",
         "display_name": "AVGO(브로드컴)",
         "market": "US",
-        "latest_price": 366.42,
+        "latest_price": 368.23,
         "score": null,
         "raw_score": null,
         "direction": "",
@@ -1237,7 +1341,7 @@
         "name": "QDVO",
         "display_name": "QDVO",
         "market": "US",
-        "latest_price": 29.5,
+        "latest_price": 29.3,
         "score": null,
         "raw_score": null,
         "direction": "",
@@ -1279,7 +1383,7 @@
         "name": "QLD",
         "display_name": "QLD",
         "market": "US",
-        "latest_price": 88.47,
+        "latest_price": 86.88,
         "score": null,
         "raw_score": null,
         "direction": "",
