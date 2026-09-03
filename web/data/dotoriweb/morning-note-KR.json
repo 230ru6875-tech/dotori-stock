@@ -1,48 +1,48 @@
 {
   "market": "KR",
-  "as_of": "2026-09-03T08:20:06+09:00",
+  "as_of": "2026-09-04T08:20:06+09:00",
   "status": "READY",
   "summary": "밤사이 지표와 뉴스의 핵심만 확인하는 읽기 전용 아침 점검입니다.",
   "news": [
+    {
+      "title": "The World’s Craziest Stock Market Has Turned Into a Fright Ride - WSJ",
+      "source": "WSJ",
+      "published_at": "Wed, 26 Aug 2026 07:00:00 GMT"
+    },
+    {
+      "title": "Japan and South Korea Stocks Crash at Open: Kospi Plunges Nearly 3%, Nikkei Tumbles 1,500 Points as Samsung, SK Hynix, SoftBank Dive - TradingKey",
+      "source": "TradingKey",
+      "published_at": "Wed, 02 Sep 2026 00:34:12 GMT"
+    },
     {
       "title": "South Korean shares tumble as yield spike, Middle East tensions hit Samsung, SK Hynix - KED Global",
       "source": "KED Global",
       "published_at": "Wed, 19 Aug 2026 07:00:00 GMT"
     },
     {
-      "title": "Korean Stocks Tumble on Doubts Over AI, Leading Asian Equities Lower - WSJ",
-      "source": "WSJ",
-      "published_at": "Tue, 28 Jul 2026 07:00:00 GMT"
-    },
-    {
-      "title": "Korean Stocks Sink as Chipmakers Drop on Middle East, China IPO - Bloomberg.com",
-      "source": "Bloomberg.com",
-      "published_at": "Thu, 23 Jul 2026 07:00:00 GMT"
+      "title": "Inside one of the wildest months in South Korea's stock market history - Business Insider",
+      "source": "Business Insider",
+      "published_at": "Fri, 31 Jul 2026 07:00:00 GMT"
     },
     {
       "title": "Why everybody is talking about stocks in Korea, and why it's worrisome - The Korea Herald",
       "source": "The Korea Herald",
       "published_at": "Wed, 20 May 2026 07:00:00 GMT"
-    },
-    {
-      "title": "South Korean Stocks W-Shaped Rebound to Gains Amid Finance Minister’s Market Support – Is the Rally Sustainable? - 36Kr",
-      "source": "36Kr",
-      "published_at": "Tue, 04 Aug 2026 07:00:00 GMT"
     }
   ],
   "indices": [
     {
       "symbol": "^KS11",
       "name": "KOSPI",
-      "price": 6562.72,
-      "change_pct": -3.77,
+      "price": 6579.48,
+      "change_pct": -3.75,
       "source": "Yahoo Finance"
     },
     {
       "symbol": "^KQ11",
       "name": "KOSDAQ",
-      "price": 803.98,
-      "change_pct": -3.63,
+      "price": 790.21,
+      "change_pct": -3.78,
       "source": "Yahoo Finance"
     }
   ],
@@ -50,150 +50,150 @@
     {
       "symbol": "091160.KS",
       "name": "반도체",
-      "price": 121100.0,
-      "change_pct": -2.9,
+      "price": 119330.0,
+      "change_pct": -1.46,
       "source": "Yahoo Finance"
     },
     {
       "symbol": "091170.KS",
       "name": "은행",
-      "price": 16465.0,
-      "change_pct": -0.48,
+      "price": 16915.0,
+      "change_pct": 2.73,
       "source": "Yahoo Finance"
     },
     {
       "symbol": "117700.KS",
       "name": "건설",
-      "price": 6335.0,
-      "change_pct": -4.81,
+      "price": 6585.0,
+      "change_pct": 3.95,
       "source": "Yahoo Finance"
     }
   ],
   "after_close_materials": {
     "market": "KR",
-    "window_start": "2026-09-02T15:30+09:00",
-    "window_end": "2026-09-03T08:20+09:00",
+    "window_start": "2026-09-03T15:30+09:00",
+    "window_end": "2026-09-04T08:20+09:00",
     "disclosures": [
       {
-        "observed_at": "2026-09-03T07:40+09:00",
-        "company": "한화오션",
-        "title": "단일판매ㆍ공급계약체결",
-        "negative": false,
-        "positive": true,
-        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260903800002"
-      },
-      {
-        "observed_at": "2026-09-03T05:01+09:00",
-        "company": "일신석재",
-        "title": "단일판매ㆍ공급계약체결",
-        "negative": false,
-        "positive": true,
-        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260902800661"
-      },
-      {
-        "observed_at": "2026-09-03T05:01+09:00",
-        "company": "수성웹툰",
-        "title": "기타시장안내 (시가총액 미달에 따른 상장폐지 우려 관련 안내)",
+        "observed_at": "2026-09-04T05:01+09:00",
+        "company": "비케이홀딩스",
+        "title": "주요사항보고서(유상증자결정)",
         "negative": true,
         "positive": false,
-        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260902900638"
+        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260903000395"
       },
       {
-        "observed_at": "2026-09-03T05:01+09:00",
-        "company": "교보15호스팩",
-        "title": "주권매매거래정지 (상장폐지 사유발생)",
+        "observed_at": "2026-09-04T05:01+09:00",
+        "company": "애드바이오텍",
+        "title": "[기재정정]주요사항보고서(전환사채권발행결정)",
         "negative": true,
         "positive": false,
-        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260902900620"
+        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260903000385"
       },
       {
-        "observed_at": "2026-09-03T05:01+09:00",
-        "company": "골드앤에스",
-        "title": "기타시장안내 (시가총액 미달에 따른 상장폐지 우려 관련 안내)",
+        "observed_at": "2026-09-04T05:01+09:00",
+        "company": "애드바이오텍",
+        "title": "[기재정정]주요사항보고서(전환사채권발행결정)",
         "negative": true,
         "positive": false,
-        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260902900619"
+        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260903000379"
       },
       {
-        "observed_at": "2026-09-03T05:01+09:00",
-        "company": "에임드바이오",
-        "title": "[기재정정]투자판단관련주요경영사항(임상시험계획승인신청등결정) (BI 4060107 (ODS025)의 제 1상 임상시험계획 승인)",
-        "negative": false,
-        "positive": true,
-        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260902900615"
-      },
-      {
-        "observed_at": "2026-09-03T05:01+09:00",
-        "company": "씨씨에스",
-        "title": "투자판단관련주요경영사항 (최대주주 보유주식 압류명령)",
-        "negative": false,
-        "positive": false,
-        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260902900591"
-      },
-      {
-        "observed_at": "2026-09-03T05:01+09:00",
-        "company": "온코닉테라퓨틱스",
-        "title": "투자판단관련주요경영사항(임상시험계획변경승인) (자큐보정(JP1366)(자스타프라잔시트르산염) 기반 삼제요법의 헬리코박터 파일로리 양성 환자 대상 유효성 및 안전성 평가를 위한 제3상 임상시험계획승인(변경승인))",
-        "negative": false,
-        "positive": true,
-        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260902900609"
-      },
-      {
-        "observed_at": "2026-09-03T05:01+09:00",
-        "company": "덕산네오룩스",
-        "title": "타법인주식및출자증권취득결정",
-        "negative": false,
-        "positive": false,
-        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260902900577"
-      },
-      {
-        "observed_at": "2026-09-03T05:01+09:00",
-        "company": "서울전자통신",
+        "observed_at": "2026-09-04T05:01+09:00",
+        "company": "신테카바이오",
         "title": "[기재정정]주요사항보고서(유상증자결정)",
         "negative": true,
         "positive": false,
-        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260902000336"
+        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260903000374"
       },
       {
-        "observed_at": "2026-09-03T05:01+09:00",
-        "company": "엑시온그룹",
-        "title": "증권발행결과(자율공시) (제3자배정 유상증자)",
+        "observed_at": "2026-09-04T05:01+09:00",
+        "company": "에넥스",
+        "title": "[기재정정]주요사항보고서(유상증자결정)",
         "negative": true,
         "positive": false,
-        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260902900551"
+        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260903000384"
       },
       {
-        "observed_at": "2026-09-03T05:01+09:00",
-        "company": "부산주공",
-        "title": "[기재정정]주요사항보고서(유형자산양도결정)",
+        "observed_at": "2026-09-04T05:01+09:00",
+        "company": "엔시트론",
+        "title": "최대주주변경",
         "negative": false,
         "positive": false,
-        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260902000337"
+        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260903900607"
+      },
+      {
+        "observed_at": "2026-09-04T05:01+09:00",
+        "company": "모아데이타",
+        "title": "[기재정정]최대주주변경을수반하는주식담보제공계약체결",
+        "negative": false,
+        "positive": false,
+        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260903900635"
+      },
+      {
+        "observed_at": "2026-09-04T05:01+09:00",
+        "company": "젠큐릭스",
+        "title": "[첨부정정]주요사항보고서(전환사채권발행결정)",
+        "negative": true,
+        "positive": false,
+        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260903000365"
+      },
+      {
+        "observed_at": "2026-09-04T05:01+09:00",
+        "company": "대양금속",
+        "title": "유상증자또는주식관련사채등의청약결과(자율공시)",
+        "negative": true,
+        "positive": false,
+        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260903800625"
+      },
+      {
+        "observed_at": "2026-09-04T05:01+09:00",
+        "company": "HD현대",
+        "title": "최대주주등소유주식변동신고서",
+        "negative": false,
+        "positive": false,
+        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260903800626"
+      },
+      {
+        "observed_at": "2026-09-04T05:01+09:00",
+        "company": "LIG아큐버",
+        "title": "단일판매ㆍ공급계약체결",
+        "negative": false,
+        "positive": true,
+        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260903900613"
+      },
+      {
+        "observed_at": "2026-09-04T05:01+09:00",
+        "company": "애드바이오텍",
+        "title": "[기재정정]주요사항보고서(자기전환사채매도결정)",
+        "negative": true,
+        "positive": false,
+        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260903000352"
       }
     ],
-    "disclosure_count": 21,
+    "disclosure_count": 19,
     "state_updates": [
       {
         "label": "거시·AI 시장 컨텍스트",
-        "updated_at": "2026-09-03T07:30+09:00",
+        "updated_at": "2026-09-04T07:31+09:00",
         "path": "S:\\HamburgerTrader\\state\\macro_market_context.json",
-        "summary": "us10y 4.79 / us30y 5.27 / fed_funds 3.63 / cpi_all_items 332.813 / core_pce 130.658 / high_yield_spread 2.65 / corporate_bond_spot_rate_5y 4.88"
+        "summary": "us10y 4.79 / us30y 5.27 / fed_funds 3.63 / cpi_all_items 332.813 / core_pce 130.658 / high_yield_spread 2.66 / corporate_bond_spot_rate_5y 4.88"
       },
       {
         "label": "금리 컨텍스트",
-        "updated_at": "2026-09-03T07:30+09:00",
+        "updated_at": "2026-09-04T07:30+09:00",
         "path": "S:\\HamburgerTrader\\state\\macro_rate_context.json",
         "summary": "NORMAL_OR_UNCONFIRMED / "
       },
       {
         "label": "시장 타이밍",
-        "updated_at": "2026-09-03T08:16+09:00",
+        "updated_at": "2026-09-04T08:16+09:00",
         "path": "S:\\HamburgerTrader\\state\\market_timing_signal.json",
         "summary": "상태 확인"
       },
       {
         "label": "후보 브리지",
-        "updated_at": "2026-09-03T08:16+09:00",
+        "updated_at": "2026-09-04T08:16+09:00",
         "path": "S:\\HamburgerTrader\\state\\hermes_candidate_bridge_latest.json",
         "summary": "갱신 확인"
       }
@@ -203,9 +203,9 @@
     "fresh": true
   },
   "after_close_summary": [
-    "수집범위 2026-09-02T15:30+09:00~2026-09-03T08:20+09:00",
-    "공시 호재 한화오션 단일판매ㆍ공급계약체결 / 호재 일신석재 단일판매ㆍ공급계약체결 / 주의 수성웹툰 기타시장안내 (시가총액 미달에 따른 상장폐지 우려 관련 안내) / 주의 교보15호스팩 주권매매거래정지 (상장폐지 사유발생) / 주의 골드앤에스 기타시장안내 (시가총액 미달에 따른 상장폐지 우려 관련 안내) / 호재 에임드바이오 [기재정정]투자판단관련주요경영사항(임상시험계획승인신청등결정) (BI 4060107 (ODS025)의 제 1상 임상시험계획 승인)",
-    "시장자료 거시·AI 시장 컨텍스트 us10y 4.79 / us30y 5.27 / fed_funds 3.63 / cpi_all_items 332.813 / core_pce 130.658 / high_yield_spread 2.65 / corporate_bond_spot_rate_5y 4.88 / 금리 컨텍스트 NORMAL_OR_UNCONFIRMED /  / 시장 타이밍 상태 확인 / 후보 브리지 갱신 확인"
+    "수집범위 2026-09-03T15:30+09:00~2026-09-04T08:20+09:00",
+    "공시 주의 비케이홀딩스 주요사항보고서(유상증자결정) / 주의 애드바이오텍 [기재정정]주요사항보고서(전환사채권발행결정) / 주의 애드바이오텍 [기재정정]주요사항보고서(전환사채권발행결정) / 주의 신테카바이오 [기재정정]주요사항보고서(유상증자결정) / 주의 에넥스 [기재정정]주요사항보고서(유상증자결정) / 중립 엔시트론 최대주주변경",
+    "시장자료 거시·AI 시장 컨텍스트 us10y 4.79 / us30y 5.27 / fed_funds 3.63 / cpi_all_items 332.813 / core_pce 130.658 / high_yield_spread 2.66 / corporate_bond_spot_rate_5y 4.88 / 금리 컨텍스트 NORMAL_OR_UNCONFIRMED /  / 시장 타이밍 상태 확인 / 후보 브리지 갱신 확인"
   ],
   "paper_only": true,
   "live_order_allowed": false,
