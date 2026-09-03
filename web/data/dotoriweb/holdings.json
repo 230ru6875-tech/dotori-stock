@@ -1,6 +1,6 @@
 ﻿{
     "schema_version":  "hamburgertrader-toss-holdings-public-v1",
-    "generated_at":  "2026-09-03T20:54:03.039849+00:00",
+    "generated_at":  "2026-09-03T20:55:02.896809+00:00",
     "source":  "toss_openapi_read_only",
     "positions":  [
                       {
@@ -22,10 +22,10 @@
                           "currency":  "USD",
                           "quantity":  3,
                           "avg_price":  367.29,
-                          "current_price":  356.69,
-                          "market_value":  1070.07,
-                          "pnl":  -31.800000000000068,
-                          "pnl_pct":  -2.8860028860028919
+                          "current_price":  356.71,
+                          "market_value":  1070.13,
+                          "pnl":  -31.740000000000123,
+                          "pnl_pct":  -2.8805575975387354
                       },
                       {
                           "symbol":  "QDVO",
@@ -46,10 +46,22 @@
                           "currency":  "USD",
                           "quantity":  35,
                           "avg_price":  90.151972,
-                          "current_price":  90.22,
-                          "market_value":  3157.7,
-                          "pnl":  2.380979999999937,
-                          "pnl_pct":  0.075459247857612155
+                          "current_price":  90.2,
+                          "market_value":  3157,
+                          "pnl":  1.6809800000000763,
+                          "pnl_pct":  0.053274486330701087
+                      },
+                      {
+                          "symbol":  "TDAQ",
+                          "name":  "TDAQ",
+                          "market":  "US",
+                          "currency":  "USD",
+                          "quantity":  2,
+                          "avg_price":  27.0194,
+                          "current_price":  27.02,
+                          "market_value":  54.04,
+                          "pnl":  0.0011999999999972033,
+                          "pnl_pct":  0.0022206266608426617
                       }
                   ]
 }
