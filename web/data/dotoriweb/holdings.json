@@ -1,6 +1,6 @@
 ﻿{
     "schema_version":  "hamburgertrader-toss-holdings-public-v1",
-    "generated_at":  "2026-09-08T06:06:03.653670+00:00",
+    "generated_at":  "2026-09-08T06:07:04.175340+00:00",
     "source":  "toss_openapi_read_only",
     "positions":  [
                       {
@@ -10,10 +10,22 @@
                           "currency":  "USD",
                           "quantity":  7,
                           "avg_price":  361.587142,
-                          "current_price":  360.85,
-                          "market_value":  2525.9500000000003,
-                          "pnl":  -5.1599939999996423,
-                          "pnl_pct":  -0.20386289067766403
+                          "current_price":  361,
+                          "market_value":  2527,
+                          "pnl":  -4.1099939999998014,
+                          "pnl_pct":  -0.16237911468653943
+                      },
+                      {
+                          "symbol":  "GPIQ",
+                          "name":  "GPIQ",
+                          "market":  "US",
+                          "currency":  "USD",
+                          "quantity":  1,
+                          "avg_price":  56.73,
+                          "current_price":  56.73,
+                          "market_value":  56.73,
+                          "pnl":  0,
+                          "pnl_pct":  0
                       },
                       {
                           "symbol":  "JEPQ",
