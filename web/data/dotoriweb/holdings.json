@@ -1,6 +1,6 @@
 ﻿{
     "schema_version":  "hamburgertrader-toss-holdings-public-v1",
-    "generated_at":  "2026-09-08T11:52:03.433135+00:00",
+    "generated_at":  "2026-09-08T20:50:03.435694+00:00",
     "source":  "toss_openapi_read_only",
     "positions":  [
                       {
@@ -8,12 +8,12 @@
                           "name":  "브로드컴",
                           "market":  "US",
                           "currency":  "USD",
-                          "quantity":  7,
+                          "quantity":  5,
                           "avg_price":  361.587142,
-                          "current_price":  360.82,
-                          "market_value":  2525.74,
-                          "pnl":  -5.3699939999998492,
-                          "pnl_pct":  -0.21215964587589783
+                          "current_price":  367.8,
+                          "market_value":  1839,
+                          "pnl":  31.0642900000002,
+                          "pnl_pct":  1.7182187302445806
                       },
                       {
                           "symbol":  "SNDK",
@@ -22,10 +22,10 @@
                           "currency":  "USD",
                           "quantity":  1,
                           "avg_price":  1748,
-                          "current_price":  1747.01,
-                          "market_value":  1747.01,
-                          "pnl":  -0.99000000000000921,
-                          "pnl_pct":  -0.056636155606404337
+                          "current_price":  1741.97,
+                          "market_value":  1741.97,
+                          "pnl":  -6.0299999999999727,
+                          "pnl_pct":  -0.34496567505720721
                       },
                       {
                           "symbol":  "QDVO",
@@ -34,10 +34,10 @@
                           "currency":  "USD",
                           "quantity":  60,
                           "avg_price":  29.489677,
-                          "current_price":  29.88,
-                          "market_value":  1792.8,
-                          "pnl":  23.419379999999919,
-                          "pnl_pct":  1.3235919810176131
+                          "current_price":  29.65,
+                          "market_value":  1779,
+                          "pnl":  9.6193799999998912,
+                          "pnl_pct":  0.54365804006601959
                       },
                       {
                           "symbol":  "TDAQ",
@@ -46,10 +46,10 @@
                           "currency":  "USD",
                           "quantity":  2,
                           "avg_price":  27.0194,
-                          "current_price":  27.1,
-                          "market_value":  54.2,
-                          "pnl":  0.1612000000000009,
-                          "pnl_pct":  0.29830418144001225
+                          "current_price":  26.95,
+                          "market_value":  53.9,
+                          "pnl":  -0.13880000000000337,
+                          "pnl_pct":  -0.25685248377093073
                       }
                   ]
 }
