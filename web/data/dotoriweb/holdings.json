@@ -1,8 +1,20 @@
 ﻿{
     "schema_version":  "hamburgertrader-toss-holdings-public-v1",
-    "generated_at":  "2026-09-08T22:17:02.884019+00:00",
+    "generated_at":  "2026-09-08T23:30:04.230713+00:00",
     "source":  "toss_openapi_read_only",
     "positions":  [
+                      {
+                          "symbol":  "336260",
+                          "name":  "두산퓨얼셀",
+                          "market":  "KR",
+                          "currency":  "KRW",
+                          "quantity":  1,
+                          "avg_price":  53800,
+                          "current_price":  53500,
+                          "market_value":  53500,
+                          "pnl":  -300,
+                          "pnl_pct":  -0.55762081784386242
+                      },
                       {
                           "symbol":  "AVGO",
                           "name":  "브로드컴",
@@ -10,10 +22,10 @@
                           "currency":  "USD",
                           "quantity":  1,
                           "avg_price":  361.587143,
-                          "current_price":  367.64,
-                          "market_value":  367.64,
-                          "pnl":  6.05285699999996,
-                          "pnl_pct":  1.6739690879993274
+                          "current_price":  367.2,
+                          "market_value":  367.2,
+                          "pnl":  5.6128569999999627,
+                          "pnl_pct":  1.5522833454285625
                       },
                       {
                           "symbol":  "SNDK",
@@ -22,10 +34,10 @@
                           "currency":  "USD",
                           "quantity":  2,
                           "avg_price":  1745.94,
-                          "current_price":  1743.63,
-                          "market_value":  3487.26,
-                          "pnl":  -4.6199999999998909,
-                          "pnl_pct":  -0.13230695212893551
+                          "current_price":  1750.26,
+                          "market_value":  3500.52,
+                          "pnl":  8.6399999999998727,
+                          "pnl_pct":  0.24743118320216251
                       },
                       {
                           "symbol":  "QDVO",
@@ -46,10 +58,10 @@
                           "currency":  "USD",
                           "quantity":  2,
                           "avg_price":  27.0194,
-                          "current_price":  26.96,
-                          "market_value":  53.92,
-                          "pnl":  -0.11880000000000024,
-                          "pnl_pct":  -0.21984203942352343
+                          "current_price":  27.17,
+                          "market_value":  54.34,
+                          "pnl":  0.30120000000000147,
+                          "pnl_pct":  0.55737729187177454
                       }
                   ]
 }
