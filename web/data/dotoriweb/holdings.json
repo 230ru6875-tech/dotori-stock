@@ -1,6 +1,6 @@
 ﻿{
     "schema_version":  "hamburgertrader-toss-holdings-public-v1",
-    "generated_at":  "2026-09-08T04:19:07.178394+00:00",
+    "generated_at":  "2026-09-08T06:06:03.653670+00:00",
     "source":  "toss_openapi_read_only",
     "positions":  [
                       {
@@ -10,10 +10,22 @@
                           "currency":  "USD",
                           "quantity":  7,
                           "avg_price":  361.587142,
-                          "current_price":  362.87,
-                          "market_value":  2540.09,
-                          "pnl":  8.98000600000023,
-                          "pnl_pct":  0.35478529266952386
+                          "current_price":  360.85,
+                          "market_value":  2525.9500000000003,
+                          "pnl":  -5.1599939999996423,
+                          "pnl_pct":  -0.20386289067766403
+                      },
+                      {
+                          "symbol":  "JEPQ",
+                          "name":  "JEPQ",
+                          "market":  "US",
+                          "currency":  "USD",
+                          "quantity":  1,
+                          "avg_price":  59.92,
+                          "current_price":  59.92,
+                          "market_value":  59.92,
+                          "pnl":  0,
+                          "pnl_pct":  0
                       },
                       {
                           "symbol":  "QDVO",
@@ -34,10 +46,10 @@
                           "currency":  "USD",
                           "quantity":  2,
                           "avg_price":  27.0194,
-                          "current_price":  27.24,
-                          "market_value":  54.48,
-                          "pnl":  0.441199999999995,
-                          "pnl_pct":  0.81645040230351462
+                          "current_price":  27.25,
+                          "market_value":  54.5,
+                          "pnl":  0.46119999999999806,
+                          "pnl_pct":  0.85346084665092192
                       }
                   ]
 }
