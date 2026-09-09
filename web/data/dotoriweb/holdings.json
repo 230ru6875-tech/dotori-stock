@@ -1,6 +1,6 @@
 ﻿{
     "schema_version":  "hamburgertrader-toss-holdings-public-v1",
-    "generated_at":  "2026-09-09T14:01:03.728487+00:00",
+    "generated_at":  "2026-09-09T23:47:02.762553+00:00",
     "source":  "toss_openapi_read_only",
     "positions":  [
                       {
@@ -10,10 +10,22 @@
                           "currency":  "USD",
                           "quantity":  1,
                           "avg_price":  361.587143,
-                          "current_price":  362.43,
-                          "market_value":  362.43,
-                          "pnl":  0.84285699999998087,
-                          "pnl_pct":  0.23309927255903415
+                          "current_price":  363.29,
+                          "market_value":  363.29,
+                          "pnl":  1.7028569999999943,
+                          "pnl_pct":  0.47093958758372967
+                      },
+                      {
+                          "symbol":  "ORCL",
+                          "name":  "오라클",
+                          "market":  "US",
+                          "currency":  "USD",
+                          "quantity":  1,
+                          "avg_price":  161.87,
+                          "current_price":  161.87,
+                          "market_value":  161.87,
+                          "pnl":  0,
+                          "pnl_pct":  0
                       },
                       {
                           "symbol":  "QDVO",
@@ -22,10 +34,10 @@
                           "currency":  "USD",
                           "quantity":  60,
                           "avg_price":  29.489677,
-                          "current_price":  29.61,
-                          "market_value":  1776.6,
-                          "pnl":  7.2193799999999442,
-                          "pnl_pct":  0.40801735468312123
+                          "current_price":  29.58,
+                          "market_value":  1774.8,
+                          "pnl":  5.419379999999876,
+                          "pnl_pct":  0.30628684064595291
                       },
                       {
                           "symbol":  "TDAQ",
@@ -34,10 +46,10 @@
                           "currency":  "USD",
                           "quantity":  19,
                           "avg_price":  27.073621,
-                          "current_price":  26.99,
-                          "market_value":  512.81,
-                          "pnl":  -1.5887990000000158,
-                          "pnl_pct":  -0.30886522345866529
+                          "current_price":  26.95,
+                          "market_value":  512.05,
+                          "pnl":  -2.3487989999999996,
+                          "pnl_pct":  -0.45661051397595243
                       }
                   ]
 }
