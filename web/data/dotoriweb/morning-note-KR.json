@@ -1,18 +1,18 @@
 {
   "market": "KR",
-  "as_of": "2026-09-09T08:20:06+09:00",
+  "as_of": "2026-09-10T08:20:08+09:00",
   "status": "READY",
   "summary": "밤사이 지표와 뉴스의 핵심만 확인하는 읽기 전용 아침 점검입니다.",
   "news": [
     {
-      "title": "Fed hold bets lift South Korea stocks as Kospi opens above 6600 - CHOSUNBIZ - Chosunbiz",
-      "source": "Chosunbiz",
-      "published_at": "Fri, 04 Sep 2026 00:10:00 GMT"
-    },
-    {
       "title": "The Korean Stock Market Crashes Overnight. Will it Be Another Brutal Nasdaq Sell-Off on Tuesday? - Yahoo Finance",
       "source": "Yahoo Finance",
       "published_at": "Tue, 28 Jul 2026 07:00:00 GMT"
+    },
+    {
+      "title": "South Korea’s stock market suffers biggest drop in history amid US-Iran war - Al Jazeera",
+      "source": "Al Jazeera",
+      "published_at": "Wed, 04 Mar 2026 08:00:00 GMT"
     },
     {
       "title": "Inside one of the wildest months in South Korea's stock market history - Business Insider",
@@ -20,29 +20,29 @@
       "published_at": "Fri, 31 Jul 2026 07:00:00 GMT"
     },
     {
-      "title": "Japan and South Korea Stocks Crash at Open: Kospi Plunges Nearly 3%, Nikkei Tumbles 1,500 Points as Samsung, SK Hynix, SoftBank Dive - tradingkey.com",
-      "source": "tradingkey.com",
-      "published_at": "Wed, 02 Sep 2026 00:34:12 GMT"
-    },
-    {
       "title": "Why everybody is talking about stocks in Korea, and why it's worrisome - The Korea Herald",
       "source": "The Korea Herald",
       "published_at": "Wed, 20 May 2026 07:00:00 GMT"
+    },
+    {
+      "title": "Korean stocks record worst day, won sinks on Iran conflict - Reuters",
+      "source": "Reuters",
+      "published_at": "Wed, 04 Mar 2026 08:00:00 GMT"
     }
   ],
   "indices": [
     {
       "symbol": "^KS11",
       "name": "KOSPI",
-      "price": 6954.52,
-      "change_pct": 4.0,
+      "price": 7051.64,
+      "change_pct": 0.8,
       "source": "Yahoo Finance"
     },
     {
       "symbol": "^KQ11",
       "name": "KOSDAQ",
-      "price": 811.88,
-      "change_pct": -0.2,
+      "price": 830.37,
+      "change_pct": 0.99,
       "source": "Yahoo Finance"
     }
   ],
@@ -50,150 +50,150 @@
     {
       "symbol": "091160.KS",
       "name": "반도체",
-      "price": 131535.0,
-      "change_pct": 0.26,
+      "price": 135600.0,
+      "change_pct": 3.09,
       "source": "Yahoo Finance"
     },
     {
       "symbol": "091170.KS",
       "name": "은행",
-      "price": 16650.0,
-      "change_pct": -0.48,
+      "price": 16410.0,
+      "change_pct": -1.44,
       "source": "Yahoo Finance"
     },
     {
       "symbol": "117700.KS",
       "name": "건설",
-      "price": 7230.0,
-      "change_pct": 3.29,
+      "price": 7305.0,
+      "change_pct": 1.04,
       "source": "Yahoo Finance"
     }
   ],
   "after_close_materials": {
     "market": "KR",
-    "window_start": "2026-09-08T15:30+09:00",
-    "window_end": "2026-09-09T08:20+09:00",
+    "window_start": "2026-09-09T15:30+09:00",
+    "window_end": "2026-09-10T08:20+09:00",
     "disclosures": [
       {
-        "observed_at": "2026-09-09T07:49+09:00",
-        "company": "일양약품",
-        "title": "단일판매ㆍ공급계약해지",
+        "observed_at": "2026-09-10T07:31+09:00",
+        "company": "메디오젠",
+        "title": "주요사항보고서(유형자산양도결정)",
         "negative": false,
-        "positive": true,
-        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260909800012"
-      },
-      {
-        "observed_at": "2026-09-09T07:43+09:00",
-        "company": "더코디",
-        "title": "[기재정정]주요사항보고서(자기전환사채매도결정)",
-        "negative": true,
         "positive": false,
-        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260909000003"
+        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260909000545"
       },
       {
-        "observed_at": "2026-09-09T07:43+09:00",
-        "company": "넥사다이내믹스",
+        "observed_at": "2026-09-10T05:01+09:00",
+        "company": "엠젠솔루션",
         "title": "주요사항보고서(유상증자결정)",
         "negative": true,
         "positive": false,
-        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260909000002"
+        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260909000543"
       },
       {
-        "observed_at": "2026-09-09T07:40+09:00",
-        "company": "더코디",
-        "title": "[기재정정]주요사항보고서(전환사채권발행결정)",
+        "observed_at": "2026-09-10T05:01+09:00",
+        "company": "엠젠솔루션",
+        "title": "주요사항보고서(유상증자결정)",
         "negative": true,
         "positive": false,
-        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260909000001"
+        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260909000544"
       },
       {
-        "observed_at": "2026-09-09T05:01+09:00",
-        "company": "원풍물산",
-        "title": "주권매매거래정지 (상장폐지사유 발생)",
+        "observed_at": "2026-09-10T05:01+09:00",
+        "company": "본느",
+        "title": "[첨부정정]주요사항보고서(유상증자결정)",
         "negative": true,
         "positive": false,
-        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260908900687"
+        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260909000542"
       },
       {
-        "observed_at": "2026-09-09T05:01+09:00",
-        "company": "엑시온그룹",
+        "observed_at": "2026-09-10T05:01+09:00",
+        "company": "육일씨엔에쓰",
         "title": "기타시장안내 (시가총액 미달에 따른 상장폐지 우려 관련 안내)",
         "negative": true,
         "positive": false,
-        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260908900685"
+        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260909900732"
       },
       {
-        "observed_at": "2026-09-09T05:01+09:00",
-        "company": "로지스몬",
+        "observed_at": "2026-09-10T05:01+09:00",
+        "company": "수성웹툰",
+        "title": "기타시장안내 (시가총액 미달에 따른 상장폐지 우려 관련 안내)",
+        "negative": true,
+        "positive": false,
+        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260909900737"
+      },
+      {
+        "observed_at": "2026-09-10T05:01+09:00",
+        "company": "골드앤에스",
+        "title": "기타시장안내 (시가총액 미달에 따른 상장폐지 우려 관련 안내)",
+        "negative": true,
+        "positive": false,
+        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260909900730"
+      },
+      {
+        "observed_at": "2026-09-10T05:01+09:00",
+        "company": "세진티에스",
+        "title": "기타시장안내 (시가총액 미달에 따른 상장폐지 우려 관련 안내)",
+        "negative": true,
+        "positive": false,
+        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260909900701"
+      },
+      {
+        "observed_at": "2026-09-10T05:01+09:00",
+        "company": "모아데이타",
         "title": "[기재정정]주요사항보고서(유상증자결정)",
         "negative": true,
         "positive": false,
-        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260908000434"
+        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260909000532"
       },
       {
-        "observed_at": "2026-09-09T05:01+09:00",
-        "company": "코다코",
-        "title": "주권매매거래정지해제 (상장폐지에 따른 정리매매 개시)",
-        "negative": true,
-        "positive": false,
-        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260908900677"
-      },
-      {
-        "observed_at": "2026-09-09T05:01+09:00",
-        "company": "코다코",
-        "title": "기타시장안내 (상장폐지결정 등 효력정지 가처분 신청 기각에 따른 정리매매절차 재개)",
-        "negative": true,
-        "positive": false,
-        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260908900674"
-      },
-      {
-        "observed_at": "2026-09-09T05:01+09:00",
-        "company": "에이비온",
-        "title": "주권매매거래정지기간변경 (주식의 병합, 분할 등 전자등록 변경, 말소)",
+        "observed_at": "2026-09-10T05:01+09:00",
+        "company": "시너지이노베이션",
+        "title": "[기재정정]주요사항보고서(타법인주식및출자증권양도결정)",
         "negative": false,
         "positive": false,
-        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260908900662"
+        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260909000500"
       },
       {
-        "observed_at": "2026-09-09T05:01+09:00",
-        "company": "HLB펩",
-        "title": "주요사항보고서(자기전환사채만기전취득결정)",
+        "observed_at": "2026-09-10T05:01+09:00",
+        "company": "바른손이앤에이",
+        "title": "주요사항보고서(유상증자결정)",
         "negative": true,
         "positive": false,
-        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260908000431"
+        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260909000531"
       },
       {
-        "observed_at": "2026-09-09T05:01+09:00",
-        "company": "삼부토건",
-        "title": "[기재정정]주요사항보고서(영업정지)",
+        "observed_at": "2026-09-10T05:01+09:00",
+        "company": "우성",
+        "title": "[첨부정정]주요사항보고서(회사합병결정)",
         "negative": false,
-        "positive": false,
-        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260908000427"
+        "positive": true,
+        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260909000530"
       }
     ],
-    "disclosure_count": 30,
+    "disclosure_count": 23,
     "state_updates": [
       {
         "label": "거시·AI 시장 컨텍스트",
-        "updated_at": "2026-09-09T08:07+09:00",
+        "updated_at": "2026-09-10T08:18+09:00",
         "path": "S:\\HamburgerTrader\\state\\macro_market_context.json",
-        "summary": "us10y 4.78 / us30y 5.24 / fed_funds 3.63 / cpi_all_items 332.813 / core_pce 130.658 / high_yield_spread 2.68 / corporate_bond_spot_rate_5y 4.97"
+        "summary": "us10y 4.8 / us30y 5.25 / fed_funds 3.63 / cpi_all_items 332.813 / core_pce 130.658 / high_yield_spread 2.67 / corporate_bond_spot_rate_5y 4.97"
       },
       {
         "label": "금리 컨텍스트",
-        "updated_at": "2026-09-09T08:07+09:00",
+        "updated_at": "2026-09-10T08:17+09:00",
         "path": "S:\\HamburgerTrader\\state\\macro_rate_context.json",
         "summary": "NORMAL_OR_UNCONFIRMED / "
       },
       {
         "label": "시장 타이밍",
-        "updated_at": "2026-09-09T08:16+09:00",
+        "updated_at": "2026-09-10T08:16+09:00",
         "path": "S:\\HamburgerTrader\\state\\market_timing_signal.json",
         "summary": "상태 확인"
       },
       {
         "label": "후보 브리지",
-        "updated_at": "2026-09-09T08:16+09:00",
+        "updated_at": "2026-09-10T08:16+09:00",
         "path": "S:\\HamburgerTrader\\state\\hermes_candidate_bridge_latest.json",
         "summary": "갱신 확인"
       }
@@ -203,9 +203,9 @@
     "fresh": true
   },
   "after_close_summary": [
-    "수집범위 2026-09-08T15:30+09:00~2026-09-09T08:20+09:00",
-    "공시 호재 일양약품 단일판매ㆍ공급계약해지 / 주의 더코디 [기재정정]주요사항보고서(자기전환사채매도결정) / 주의 넥사다이내믹스 주요사항보고서(유상증자결정) / 주의 더코디 [기재정정]주요사항보고서(전환사채권발행결정) / 주의 원풍물산 주권매매거래정지 (상장폐지사유 발생) / 주의 엑시온그룹 기타시장안내 (시가총액 미달에 따른 상장폐지 우려 관련 안내)",
-    "시장자료 거시·AI 시장 컨텍스트 us10y 4.78 / us30y 5.24 / fed_funds 3.63 / cpi_all_items 332.813 / core_pce 130.658 / high_yield_spread 2.68 / corporate_bond_spot_rate_5y 4.97 / 금리 컨텍스트 NORMAL_OR_UNCONFIRMED /  / 시장 타이밍 상태 확인 / 후보 브리지 갱신 확인"
+    "수집범위 2026-09-09T15:30+09:00~2026-09-10T08:20+09:00",
+    "공시 중립 메디오젠 주요사항보고서(유형자산양도결정) / 주의 엠젠솔루션 주요사항보고서(유상증자결정) / 주의 엠젠솔루션 주요사항보고서(유상증자결정) / 주의 본느 [첨부정정]주요사항보고서(유상증자결정) / 주의 육일씨엔에쓰 기타시장안내 (시가총액 미달에 따른 상장폐지 우려 관련 안내) / 주의 수성웹툰 기타시장안내 (시가총액 미달에 따른 상장폐지 우려 관련 안내)",
+    "시장자료 거시·AI 시장 컨텍스트 us10y 4.8 / us30y 5.25 / fed_funds 3.63 / cpi_all_items 332.813 / core_pce 130.658 / high_yield_spread 2.67 / corporate_bond_spot_rate_5y 4.97 / 금리 컨텍스트 NORMAL_OR_UNCONFIRMED /  / 시장 타이밍 상태 확인 / 후보 브리지 갱신 확인"
   ],
   "paper_only": true,
   "live_order_allowed": false,
