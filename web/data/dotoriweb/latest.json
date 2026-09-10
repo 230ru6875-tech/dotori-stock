@@ -1,26 +1,26 @@
 {
-  "updated_at": "2026-09-09T10:05:03.516924Z",
+  "updated_at": "2026-09-10T10:05:03.615850Z",
   "source": "dotoristock_dotoriweb_live_bridge",
   "scanner": [
     {
       "rank": 1,
-      "symbol": "000660",
-      "name": "000660",
+      "symbol": "028300",
+      "name": "028300",
       "market": "KR",
-      "currentPrice": 1830000.0,
-      "current_price": 1830000.0,
-      "currentPriceText": "1,830,000",
+      "currentPrice": 32000.0,
+      "current_price": 32000.0,
+      "currentPriceText": "32,000",
       "signal": "BUY",
       "sentiment": "BUY",
       "summary": "Hermes DATS 실시간 조건 관찰 결과입니다.",
-      "updated_at": "2026-09-09T10:05:02.837904Z",
+      "updated_at": "2026-09-10T10:05:02.974228Z",
       "source": "toss_dats_scanner",
       "evidence": {
         "title": "Hermes DATS 근거",
         "clues": [
-          "OPEN BREAKOUT",
-          "당일 변동 2.06%",
-          "거래량 비율 0.77배"
+          "OPENING SUPPLY+OPEN BREAKOUT",
+          "당일 변동 1.59%",
+          "거래량 비율 1.44배"
         ],
         "confirmations": [
           "가상·자문 스캐너 결과이며 주문 권한은 없습니다."
@@ -30,101 +30,23 @@
     },
     {
       "rank": 2,
-      "symbol": "267250",
-      "name": "267250",
+      "symbol": "316140",
+      "name": "316140",
       "market": "KR",
-      "currentPrice": 252000.0,
-      "current_price": 252000.0,
-      "currentPriceText": "252,000",
+      "currentPrice": 33850.0,
+      "current_price": 33850.0,
+      "currentPriceText": "33,850",
       "signal": "BUY",
       "sentiment": "BUY",
       "summary": "Hermes DATS 실시간 조건 관찰 결과입니다.",
-      "updated_at": "2026-09-09T10:05:02.837904Z",
+      "updated_at": "2026-09-10T10:05:02.974228Z",
       "source": "toss_dats_scanner",
       "evidence": {
         "title": "Hermes DATS 근거",
         "clues": [
           "OPENING SUPPLY+OPEN BREAKOUT",
-          "당일 변동 2.23%",
-          "거래량 비율 1.33배"
-        ],
-        "confirmations": [
-          "가상·자문 스캐너 결과이며 주문 권한은 없습니다."
-        ],
-        "stance": "독립 리스크·무결성 게이트 확인 전에는 관찰 우선"
-      }
-    },
-    {
-      "rank": 3,
-      "symbol": "196170",
-      "name": "196170",
-      "market": "KR",
-      "currentPrice": 278000.0,
-      "current_price": 278000.0,
-      "currentPriceText": "278,000",
-      "signal": "BUY",
-      "sentiment": "BUY",
-      "summary": "Hermes DATS 실시간 조건 관찰 결과입니다.",
-      "updated_at": "2026-09-09T10:05:02.837904Z",
-      "source": "toss_dats_scanner",
-      "evidence": {
-        "title": "Hermes DATS 근거",
-        "clues": [
-          "OPEN BREAKOUT",
-          "당일 변동 0.36%",
-          "거래량 비율 1.01배"
-        ],
-        "confirmations": [
-          "가상·자문 스캐너 결과이며 주문 권한은 없습니다."
-        ],
-        "stance": "독립 리스크·무결성 게이트 확인 전에는 관찰 우선"
-      }
-    },
-    {
-      "rank": 4,
-      "symbol": "082740",
-      "name": "082740",
-      "market": "KR",
-      "currentPrice": 48850.0,
-      "current_price": 48850.0,
-      "currentPriceText": "48,850",
-      "signal": "BUY",
-      "sentiment": "BUY",
-      "summary": "Hermes DATS 실시간 조건 관찰 결과입니다.",
-      "updated_at": "2026-09-09T10:05:02.837904Z",
-      "source": "toss_dats_scanner",
-      "evidence": {
-        "title": "Hermes DATS 근거",
-        "clues": [
-          "OPENING SUPPLY+OPEN BREAKOUT",
-          "당일 변동 7.01%",
-          "거래량 비율 2.73배"
-        ],
-        "confirmations": [
-          "가상·자문 스캐너 결과이며 주문 권한은 없습니다."
-        ],
-        "stance": "독립 리스크·무결성 게이트 확인 전에는 관찰 우선"
-      }
-    },
-    {
-      "rank": 5,
-      "symbol": "353200",
-      "name": "353200",
-      "market": "KR",
-      "currentPrice": 106100.0,
-      "current_price": 106100.0,
-      "currentPriceText": "106,100",
-      "signal": "BUY",
-      "sentiment": "BUY",
-      "summary": "Hermes DATS 실시간 조건 관찰 결과입니다.",
-      "updated_at": "2026-09-09T10:05:02.837904Z",
-      "source": "toss_dats_scanner",
-      "evidence": {
-        "title": "Hermes DATS 근거",
-        "clues": [
-          "OPENING SUPPLY+OPEN BREAKOUT",
-          "당일 변동 6.21%",
-          "거래량 비율 1.67배"
+          "당일 변동 1.04%",
+          "거래량 비율 1.52배"
         ],
         "confirmations": [
           "가상·자문 스캐너 결과이며 주문 권한은 없습니다."
@@ -136,19 +58,19 @@
   "scanner_status": {
     "source": "S:\\stock_data\\dats\\kis_condition_events.jsonl",
     "state_path": "S:\\stock_data\\dats\\toss_dats_scanner_state.json",
-    "updated_at": "2026-09-09T10:05:02.837904Z",
+    "updated_at": "2026-09-10T10:05:02.974228Z",
     "fresh": true,
     "max_age_minutes": 180,
-    "event_count": 5,
-    "dats_event_count": 5,
+    "event_count": 2,
+    "dats_event_count": 2,
     "breakout_count": 0,
     "breakout_path": "S:\\stock_data\\market_data\\candidates\\breakout_candidates.json",
     "order_authority": false
   },
-  "scanner_updated_at": "2026-09-09T10:05:02.837904Z",
-  "status_updated_at": "2026-09-09T19:01:01+09:00",
+  "scanner_updated_at": "2026-09-10T10:05:02.974228Z",
+  "status_updated_at": "2026-09-10T19:01:02+09:00",
   "widget_updated_at": null,
-  "macro_updated_at": "2026-09-09T18:53:36+09:00",
+  "macro_updated_at": "2026-09-10T19:00:13+09:00",
   "market_focus": null,
   "market_limits": null,
   "virtual_market_priority": null,
@@ -158,12 +80,16 @@
   "active_symbols": [
     "AVGO",
     "SNDK",
+    "IONQ",
+    "ORCL",
     "QDVO",
     "TDAQ"
   ],
   "display_symbols": [
     "AVGO",
     "SNDK",
+    "IONQ",
+    "ORCL",
     "QDVO",
     "TDAQ"
   ],
@@ -212,7 +138,7 @@
       "display_name": "AVGO(브로드컴)",
       "market": "US",
       "sector": null,
-      "latest_price": 365.42,
+      "latest_price": 362.4,
       "score": null,
       "profit_selection_rank": null,
       "strategy_id": null,
@@ -233,7 +159,7 @@
         "name": "브로드컴",
         "display_name": "AVGO(브로드컴)",
         "market": "US",
-        "latest_price": 365.42,
+        "latest_price": 362.4,
         "score": null,
         "raw_score": null,
         "direction": "",
@@ -277,7 +203,7 @@
       "display_name": "SNDK(샌디스크)",
       "market": "US",
       "sector": null,
-      "latest_price": 1732.59,
+      "latest_price": 1748.0,
       "score": null,
       "profit_selection_rank": null,
       "strategy_id": null,
@@ -298,7 +224,137 @@
         "name": "샌디스크",
         "display_name": "SNDK(샌디스크)",
         "market": "US",
-        "latest_price": 1732.59,
+        "latest_price": 1748.0,
+        "score": null,
+        "raw_score": null,
+        "direction": "",
+        "market_session_focus": null,
+        "market_context": {
+          "vix": null,
+          "nasdaq_pct": null,
+          "nasdaq100_pct": null,
+          "sox_pct": null,
+          "sp500_pct": null,
+          "russell2000_pct": null,
+          "wti_pct": null,
+          "cpi_mom_pct": null,
+          "ppi_mom_pct": null,
+          "core_ppi_mom_pct": null
+        },
+        "issue_context": {
+          "sentiment_bias": null,
+          "research_sources_bias": null,
+          "headlines": []
+        },
+        "research_sources": {
+          "combined_sentiment_bias": null,
+          "dataroma": {},
+          "valueinvestorsclub": {},
+          "macrolens": {}
+        },
+        "news_research": {
+          "headline_count": 0,
+          "headlines": [],
+          "market_note": null
+        },
+        "holding_market_evidence": {},
+        "breakout_evidence": null,
+        "selected_plan": {}
+      }
+    },
+    "IONQ": {
+      "symbol": "IONQ",
+      "name": "아이온큐",
+      "display_name": "IONQ(아이온큐)",
+      "market": "US",
+      "sector": null,
+      "latest_price": 38.4,
+      "score": null,
+      "profit_selection_rank": null,
+      "strategy_id": null,
+      "strategy_name": "portfolio_holding",
+      "regime": null,
+      "predicted_buy_low": null,
+      "predicted_sell_high": null,
+      "predicted_price_source": null,
+      "current_price_signal": null,
+      "prediction_cooldown": null,
+      "indicator_2026": {},
+      "indicator_2026_signal": null,
+      "indicator_2026_description": null,
+      "hermes_widget_forecast": {},
+      "breakout_evidence": null,
+      "market_evidence": {
+        "symbol": "IONQ",
+        "name": "아이온큐",
+        "display_name": "IONQ(아이온큐)",
+        "market": "US",
+        "latest_price": 38.4,
+        "score": null,
+        "raw_score": null,
+        "direction": "",
+        "market_session_focus": null,
+        "market_context": {
+          "vix": null,
+          "nasdaq_pct": null,
+          "nasdaq100_pct": null,
+          "sox_pct": null,
+          "sp500_pct": null,
+          "russell2000_pct": null,
+          "wti_pct": null,
+          "cpi_mom_pct": null,
+          "ppi_mom_pct": null,
+          "core_ppi_mom_pct": null
+        },
+        "issue_context": {
+          "sentiment_bias": null,
+          "research_sources_bias": null,
+          "headlines": []
+        },
+        "research_sources": {
+          "combined_sentiment_bias": null,
+          "dataroma": {},
+          "valueinvestorsclub": {},
+          "macrolens": {}
+        },
+        "news_research": {
+          "headline_count": 0,
+          "headlines": [],
+          "market_note": null
+        },
+        "holding_market_evidence": {},
+        "breakout_evidence": null,
+        "selected_plan": {}
+      }
+    },
+    "ORCL": {
+      "symbol": "ORCL",
+      "name": "오라클",
+      "display_name": "ORCL(오라클)",
+      "market": "US",
+      "sector": null,
+      "latest_price": 161.14,
+      "score": null,
+      "profit_selection_rank": null,
+      "strategy_id": null,
+      "strategy_name": "portfolio_holding",
+      "regime": null,
+      "predicted_buy_low": null,
+      "predicted_sell_high": null,
+      "predicted_price_source": null,
+      "current_price_signal": null,
+      "prediction_cooldown": null,
+      "indicator_2026": {},
+      "indicator_2026_signal": null,
+      "indicator_2026_description": null,
+      "hermes_widget_forecast": {},
+      "breakout_evidence": null,
+      "market_evidence": {
+        "symbol": "ORCL",
+        "name": "오라클",
+        "display_name": "ORCL(오라클)",
+        "market": "US",
+        "latest_price": 161.14,
         "score": null,
         "raw_score": null,
         "direction": "",
@@ -342,7 +398,7 @@
       "display_name": "QDVO",
       "market": "US",
       "sector": null,
-      "latest_price": 29.57,
+      "latest_price": 29.61,
       "score": null,
       "profit_selection_rank": null,
       "strategy_id": null,
@@ -363,7 +419,7 @@
         "name": "QDVO",
         "display_name": "QDVO",
         "market": "US",
-        "latest_price": 29.57,
+        "latest_price": 29.61,
         "score": null,
         "raw_score": null,
         "direction": "",
@@ -407,7 +463,7 @@
       "display_name": "TDAQ",
       "market": "US",
       "sector": null,
-      "latest_price": 27.14,
+      "latest_price": 27.09,
       "score": null,
       "profit_selection_rank": null,
       "strategy_id": null,
@@ -428,7 +484,7 @@
         "name": "TDAQ",
         "display_name": "TDAQ",
         "market": "US",
-        "latest_price": 27.14,
+        "latest_price": 27.09,
         "score": null,
         "raw_score": null,
         "direction": "",
@@ -474,21 +530,43 @@
       "currency": "USD",
       "quantity": 1.0,
       "avg_price": 361.587143,
-      "current_price": 365.42,
-      "market_value": 365.42,
-      "pnl": 3.83285699999999,
-      "pnl_pct": 1.0600092050286225
+      "current_price": 362.4,
+      "market_value": 362.4,
+      "pnl": 0.8128569999999513,
+      "pnl_pct": 0.22480251738374868
     },
     {
       "symbol": "SNDK",
       "name": "샌디스크",
       "currency": "USD",
-      "quantity": 2.0,
-      "avg_price": 1745.94,
-      "current_price": 1732.59,
-      "market_value": 3465.18,
-      "pnl": -26.700000000000273,
-      "pnl_pct": -0.7646310869789397
+      "quantity": 1.0,
+      "avg_price": 1757.49,
+      "current_price": 1748.0,
+      "market_value": 1748.0,
+      "pnl": -9.490000000000009,
+      "pnl_pct": -0.5399746228997082
+    },
+    {
+      "symbol": "IONQ",
+      "name": "아이온큐",
+      "currency": "USD",
+      "quantity": 43.0,
+      "avg_price": 38.28,
+      "current_price": 38.4,
+      "market_value": 1651.2,
+      "pnl": 5.15999999999989,
+      "pnl_pct": 0.31347962382444194
+    },
+    {
+      "symbol": "ORCL",
+      "name": "오라클",
+      "currency": "USD",
+      "quantity": 1.0,
+      "avg_price": 161.87,
+      "current_price": 161.14,
+      "market_value": 161.14,
+      "pnl": -0.7300000000000182,
+      "pnl_pct": -0.45097918082412924
     },
     {
       "symbol": "QDVO",
@@ -496,10 +574,10 @@
       "currency": "USD",
       "quantity": 60.0,
       "avg_price": 29.489677,
-      "current_price": 29.57,
-      "market_value": 1774.2,
-      "pnl": 4.819379999999995,
-      "pnl_pct": 0.27237666930024496
+      "current_price": 29.61,
+      "market_value": 1776.6,
+      "pnl": 7.219379999999944,
+      "pnl_pct": 0.40801735468312117
     },
     {
       "symbol": "TDAQ",
@@ -507,10 +585,10 @@
       "currency": "USD",
       "quantity": 19.0,
       "avg_price": 27.073621,
-      "current_price": 27.14,
-      "market_value": 515.66,
-      "pnl": 1.2612010000000247,
-      "pnl_pct": 0.24517961598118365
+      "current_price": 27.09,
+      "market_value": 514.71,
+      "pnl": 0.31120100000001116,
+      "pnl_pct": 0.060498002834563636
     }
   ],
   "state_mode": "hermes_stock",
@@ -527,7 +605,7 @@
     "this_week": 0,
     "this_month": 0,
     "all_time": 0,
-    "last_updated": "2026-09-09T10:05:03.516924Z"
+    "last_updated": "2026-09-10T10:05:03.616842Z"
   },
   "market_session": {
     "focus_market": null,
@@ -537,12 +615,16 @@
     "active_symbols": [
       "AVGO",
       "SNDK",
+      "IONQ",
+      "ORCL",
       "QDVO",
       "TDAQ"
     ],
     "display_symbols": [
       "AVGO",
       "SNDK",
+      "IONQ",
+      "ORCL",
       "QDVO",
       "TDAQ"
     ]
@@ -608,28 +690,28 @@
   },
   "all_market_candidate_selection": {},
   "payload_json": {
-    "updated_at": "2026-09-09T10:05:03.516924Z",
+    "updated_at": "2026-09-10T10:05:03.615850Z",
     "source": "dotoristock_dotoriweb_live_bridge",
     "scanner": [
       {
         "rank": 1,
-        "symbol": "000660",
-        "name": "000660",
+        "symbol": "028300",
+        "name": "028300",
         "market": "KR",
-        "currentPrice": 1830000.0,
-        "current_price": 1830000.0,
-        "currentPriceText": "1,830,000",
+        "currentPrice": 32000.0,
+        "current_price": 32000.0,
+        "currentPriceText": "32,000",
         "signal": "BUY",
         "sentiment": "BUY",
         "summary": "Hermes DATS 실시간 조건 관찰 결과입니다.",
-        "updated_at": "2026-09-09T10:05:02.837904Z",
+        "updated_at": "2026-09-10T10:05:02.974228Z",
         "source": "toss_dats_scanner",
         "evidence": {
           "title": "Hermes DATS 근거",
           "clues": [
-            "OPEN BREAKOUT",
-            "당일 변동 2.06%",
-            "거래량 비율 0.77배"
+            "OPENING SUPPLY+OPEN BREAKOUT",
+            "당일 변동 1.59%",
+            "거래량 비율 1.44배"
           ],
           "confirmations": [
             "가상·자문 스캐너 결과이며 주문 권한은 없습니다."
@@ -639,101 +721,23 @@
       },
       {
         "rank": 2,
-        "symbol": "267250",
-        "name": "267250",
+        "symbol": "316140",
+        "name": "316140",
         "market": "KR",
-        "currentPrice": 252000.0,
-        "current_price": 252000.0,
-        "currentPriceText": "252,000",
+        "currentPrice": 33850.0,
+        "current_price": 33850.0,
+        "currentPriceText": "33,850",
         "signal": "BUY",
         "sentiment": "BUY",
         "summary": "Hermes DATS 실시간 조건 관찰 결과입니다.",
-        "updated_at": "2026-09-09T10:05:02.837904Z",
+        "updated_at": "2026-09-10T10:05:02.974228Z",
         "source": "toss_dats_scanner",
         "evidence": {
           "title": "Hermes DATS 근거",
           "clues": [
             "OPENING SUPPLY+OPEN BREAKOUT",
-            "당일 변동 2.23%",
-            "거래량 비율 1.33배"
-          ],
-          "confirmations": [
-            "가상·자문 스캐너 결과이며 주문 권한은 없습니다."
-          ],
-          "stance": "독립 리스크·무결성 게이트 확인 전에는 관찰 우선"
-        }
-      },
-      {
-        "rank": 3,
-        "symbol": "196170",
-        "name": "196170",
-        "market": "KR",
-        "currentPrice": 278000.0,
-        "current_price": 278000.0,
-        "currentPriceText": "278,000",
-        "signal": "BUY",
-        "sentiment": "BUY",
-        "summary": "Hermes DATS 실시간 조건 관찰 결과입니다.",
-        "updated_at": "2026-09-09T10:05:02.837904Z",
-        "source": "toss_dats_scanner",
-        "evidence": {
-          "title": "Hermes DATS 근거",
-          "clues": [
-            "OPEN BREAKOUT",
-            "당일 변동 0.36%",
-            "거래량 비율 1.01배"
-          ],
-          "confirmations": [
-            "가상·자문 스캐너 결과이며 주문 권한은 없습니다."
-          ],
-          "stance": "독립 리스크·무결성 게이트 확인 전에는 관찰 우선"
-        }
-      },
-      {
-        "rank": 4,
-        "symbol": "082740",
-        "name": "082740",
-        "market": "KR",
-        "currentPrice": 48850.0,
-        "current_price": 48850.0,
-        "currentPriceText": "48,850",
-        "signal": "BUY",
-        "sentiment": "BUY",
-        "summary": "Hermes DATS 실시간 조건 관찰 결과입니다.",
-        "updated_at": "2026-09-09T10:05:02.837904Z",
-        "source": "toss_dats_scanner",
-        "evidence": {
-          "title": "Hermes DATS 근거",
-          "clues": [
-            "OPENING SUPPLY+OPEN BREAKOUT",
-            "당일 변동 7.01%",
-            "거래량 비율 2.73배"
-          ],
-          "confirmations": [
-            "가상·자문 스캐너 결과이며 주문 권한은 없습니다."
-          ],
-          "stance": "독립 리스크·무결성 게이트 확인 전에는 관찰 우선"
-        }
-      },
-      {
-        "rank": 5,
-        "symbol": "353200",
-        "name": "353200",
-        "market": "KR",
-        "currentPrice": 106100.0,
-        "current_price": 106100.0,
-        "currentPriceText": "106,100",
-        "signal": "BUY",
-        "sentiment": "BUY",
-        "summary": "Hermes DATS 실시간 조건 관찰 결과입니다.",
-        "updated_at": "2026-09-09T10:05:02.837904Z",
-        "source": "toss_dats_scanner",
-        "evidence": {
-          "title": "Hermes DATS 근거",
-          "clues": [
-            "OPENING SUPPLY+OPEN BREAKOUT",
-            "당일 변동 6.21%",
-            "거래량 비율 1.67배"
+            "당일 변동 1.04%",
+            "거래량 비율 1.52배"
           ],
           "confirmations": [
             "가상·자문 스캐너 결과이며 주문 권한은 없습니다."
@@ -745,19 +749,19 @@
     "scanner_status": {
       "source": "S:\\stock_data\\dats\\kis_condition_events.jsonl",
       "state_path": "S:\\stock_data\\dats\\toss_dats_scanner_state.json",
-      "updated_at": "2026-09-09T10:05:02.837904Z",
+      "updated_at": "2026-09-10T10:05:02.974228Z",
       "fresh": true,
       "max_age_minutes": 180,
-      "event_count": 5,
-      "dats_event_count": 5,
+      "event_count": 2,
+      "dats_event_count": 2,
       "breakout_count": 0,
       "breakout_path": "S:\\stock_data\\market_data\\candidates\\breakout_candidates.json",
       "order_authority": false
     },
-    "scanner_updated_at": "2026-09-09T10:05:02.837904Z",
-    "status_updated_at": "2026-09-09T19:01:01+09:00",
+    "scanner_updated_at": "2026-09-10T10:05:02.974228Z",
+    "status_updated_at": "2026-09-10T19:01:02+09:00",
     "widget_updated_at": null,
-    "macro_updated_at": "2026-09-09T18:53:36+09:00",
+    "macro_updated_at": "2026-09-10T19:00:13+09:00",
     "market_focus": null,
     "market_limits": null,
     "virtual_market_priority": null,
@@ -767,12 +771,16 @@
     "active_symbols": [
       "AVGO",
       "SNDK",
+      "IONQ",
+      "ORCL",
       "QDVO",
       "TDAQ"
     ],
     "display_symbols": [
       "AVGO",
       "SNDK",
+      "IONQ",
+      "ORCL",
       "QDVO",
       "TDAQ"
     ],
@@ -821,7 +829,7 @@
         "display_name": "AVGO(브로드컴)",
         "market": "US",
         "sector": null,
-        "latest_price": 365.42,
+        "latest_price": 362.4,
         "score": null,
         "profit_selection_rank": null,
         "strategy_id": null,
@@ -842,7 +850,7 @@
           "name": "브로드컴",
           "display_name": "AVGO(브로드컴)",
           "market": "US",
-          "latest_price": 365.42,
+          "latest_price": 362.4,
           "score": null,
           "raw_score": null,
           "direction": "",
@@ -886,7 +894,7 @@
         "display_name": "SNDK(샌디스크)",
         "market": "US",
         "sector": null,
-        "latest_price": 1732.59,
+        "latest_price": 1748.0,
         "score": null,
         "profit_selection_rank": null,
         "strategy_id": null,
@@ -907,7 +915,137 @@
           "name": "샌디스크",
           "display_name": "SNDK(샌디스크)",
           "market": "US",
-          "latest_price": 1732.59,
+          "latest_price": 1748.0,
+          "score": null,
+          "raw_score": null,
+          "direction": "",
+          "market_session_focus": null,
+          "market_context": {
+            "vix": null,
+            "nasdaq_pct": null,
+            "nasdaq100_pct": null,
+            "sox_pct": null,
+            "sp500_pct": null,
+            "russell2000_pct": null,
+            "wti_pct": null,
+            "cpi_mom_pct": null,
+            "ppi_mom_pct": null,
+            "core_ppi_mom_pct": null
+          },
+          "issue_context": {
+            "sentiment_bias": null,
+            "research_sources_bias": null,
+            "headlines": []
+          },
+          "research_sources": {
+            "combined_sentiment_bias": null,
+            "dataroma": {},
+            "valueinvestorsclub": {},
+            "macrolens": {}
+          },
+          "news_research": {
+            "headline_count": 0,
+            "headlines": [],
+            "market_note": null
+          },
+          "holding_market_evidence": {},
+          "breakout_evidence": null,
+          "selected_plan": {}
+        }
+      },
+      "IONQ": {
+        "symbol": "IONQ",
+        "name": "아이온큐",
+        "display_name": "IONQ(아이온큐)",
+        "market": "US",
+        "sector": null,
+        "latest_price": 38.4,
+        "score": null,
+        "profit_selection_rank": null,
+        "strategy_id": null,
+        "strategy_name": "portfolio_holding",
+        "regime": null,
+        "predicted_buy_low": null,
+        "predicted_sell_high": null,
+        "predicted_price_source": null,
+        "current_price_signal": null,
+        "prediction_cooldown": null,
+        "indicator_2026": {},
+        "indicator_2026_signal": null,
+        "indicator_2026_description": null,
+        "hermes_widget_forecast": {},
+        "breakout_evidence": null,
+        "market_evidence": {
+          "symbol": "IONQ",
+          "name": "아이온큐",
+          "display_name": "IONQ(아이온큐)",
+          "market": "US",
+          "latest_price": 38.4,
+          "score": null,
+          "raw_score": null,
+          "direction": "",
+          "market_session_focus": null,
+          "market_context": {
+            "vix": null,
+            "nasdaq_pct": null,
+            "nasdaq100_pct": null,
+            "sox_pct": null,
+            "sp500_pct": null,
+            "russell2000_pct": null,
+            "wti_pct": null,
+            "cpi_mom_pct": null,
+            "ppi_mom_pct": null,
+            "core_ppi_mom_pct": null
+          },
+          "issue_context": {
+            "sentiment_bias": null,
+            "research_sources_bias": null,
+            "headlines": []
+          },
+          "research_sources": {
+            "combined_sentiment_bias": null,
+            "dataroma": {},
+            "valueinvestorsclub": {},
+            "macrolens": {}
+          },
+          "news_research": {
+            "headline_count": 0,
+            "headlines": [],
+            "market_note": null
+          },
+          "holding_market_evidence": {},
+          "breakout_evidence": null,
+          "selected_plan": {}
+        }
+      },
+      "ORCL": {
+        "symbol": "ORCL",
+        "name": "오라클",
+        "display_name": "ORCL(오라클)",
+        "market": "US",
+        "sector": null,
+        "latest_price": 161.14,
+        "score": null,
+        "profit_selection_rank": null,
+        "strategy_id": null,
+        "strategy_name": "portfolio_holding",
+        "regime": null,
+        "predicted_buy_low": null,
+        "predicted_sell_high": null,
+        "predicted_price_source": null,
+        "current_price_signal": null,
+        "prediction_cooldown": null,
+        "indicator_2026": {},
+        "indicator_2026_signal": null,
+        "indicator_2026_description": null,
+        "hermes_widget_forecast": {},
+        "breakout_evidence": null,
+        "market_evidence": {
+          "symbol": "ORCL",
+          "name": "오라클",
+          "display_name": "ORCL(오라클)",
+          "market": "US",
+          "latest_price": 161.14,
           "score": null,
           "raw_score": null,
           "direction": "",
@@ -951,7 +1089,7 @@
         "display_name": "QDVO",
         "market": "US",
         "sector": null,
-        "latest_price": 29.57,
+        "latest_price": 29.61,
         "score": null,
         "profit_selection_rank": null,
         "strategy_id": null,
@@ -972,7 +1110,7 @@
           "name": "QDVO",
           "display_name": "QDVO",
           "market": "US",
-          "latest_price": 29.57,
+          "latest_price": 29.61,
           "score": null,
           "raw_score": null,
           "direction": "",
@@ -1016,7 +1154,7 @@
         "display_name": "TDAQ",
         "market": "US",
         "sector": null,
-        "latest_price": 27.14,
+        "latest_price": 27.09,
         "score": null,
         "profit_selection_rank": null,
         "strategy_id": null,
@@ -1037,7 +1175,7 @@
           "name": "TDAQ",
           "display_name": "TDAQ",
           "market": "US",
-          "latest_price": 27.14,
+          "latest_price": 27.09,
           "score": null,
           "raw_score": null,
           "direction": "",
@@ -1083,21 +1221,43 @@
         "currency": "USD",
         "quantity": 1.0,
         "avg_price": 361.587143,
-        "current_price": 365.42,
-        "market_value": 365.42,
-        "pnl": 3.83285699999999,
-        "pnl_pct": 1.0600092050286225
+        "current_price": 362.4,
+        "market_value": 362.4,
+        "pnl": 0.8128569999999513,
+        "pnl_pct": 0.22480251738374868
       },
       {
         "symbol": "SNDK",
         "name": "샌디스크",
         "currency": "USD",
-        "quantity": 2.0,
-        "avg_price": 1745.94,
-        "current_price": 1732.59,
-        "market_value": 3465.18,
-        "pnl": -26.700000000000273,
-        "pnl_pct": -0.7646310869789397
+        "quantity": 1.0,
+        "avg_price": 1757.49,
+        "current_price": 1748.0,
+        "market_value": 1748.0,
+        "pnl": -9.490000000000009,
+        "pnl_pct": -0.5399746228997082
+      },
+      {
+        "symbol": "IONQ",
+        "name": "아이온큐",
+        "currency": "USD",
+        "quantity": 43.0,
+        "avg_price": 38.28,
+        "current_price": 38.4,
+        "market_value": 1651.2,
+        "pnl": 5.15999999999989,
+        "pnl_pct": 0.31347962382444194
+      },
+      {
+        "symbol": "ORCL",
+        "name": "오라클",
+        "currency": "USD",
+        "quantity": 1.0,
+        "avg_price": 161.87,
+        "current_price": 161.14,
+        "market_value": 161.14,
+        "pnl": -0.7300000000000182,
+        "pnl_pct": -0.45097918082412924
       },
       {
         "symbol": "QDVO",
@@ -1105,10 +1265,10 @@
         "currency": "USD",
         "quantity": 60.0,
         "avg_price": 29.489677,
-        "current_price": 29.57,
-        "market_value": 1774.2,
-        "pnl": 4.819379999999995,
-        "pnl_pct": 0.27237666930024496
+        "current_price": 29.61,
+        "market_value": 1776.6,
+        "pnl": 7.219379999999944,
+        "pnl_pct": 0.40801735468312117
       },
       {
         "symbol": "TDAQ",
@@ -1116,10 +1276,10 @@
         "currency": "USD",
         "quantity": 19.0,
         "avg_price": 27.073621,
-        "current_price": 27.14,
-        "market_value": 515.66,
-        "pnl": 1.2612010000000247,
-        "pnl_pct": 0.24517961598118365
+        "current_price": 27.09,
+        "market_value": 514.71,
+        "pnl": 0.31120100000001116,
+        "pnl_pct": 0.060498002834563636
       }
     ],
     "state_mode": "hermes_stock",
@@ -1136,7 +1296,7 @@
       "this_week": 0,
       "this_month": 0,
       "all_time": 0,
-      "last_updated": "2026-09-09T10:05:03.516924Z"
+      "last_updated": "2026-09-10T10:05:03.616842Z"
     },
     "market_session": {
       "focus_market": null,
@@ -1146,12 +1306,16 @@
       "active_symbols": [
         "AVGO",
         "SNDK",
+        "IONQ",
+        "ORCL",
         "QDVO",
         "TDAQ"
       ],
       "display_symbols": [
         "AVGO",
         "SNDK",
+        "IONQ",
+        "ORCL",
         "QDVO",
         "TDAQ"
       ]
@@ -1220,10 +1384,10 @@
   "market_evidence": {
     "summary": {
       "generated_at": null,
-      "status_updated_at": "2026-09-09T19:01:01+09:00",
-      "macro_updated_at": "2026-09-09T18:53:36+09:00",
-      "symbol_count": 4,
-      "display_symbol_count": 4,
+      "status_updated_at": "2026-09-10T19:01:02+09:00",
+      "macro_updated_at": "2026-09-10T19:00:13+09:00",
+      "symbol_count": 6,
+      "display_symbol_count": 6,
       "breakout_symbol_count": 0
     },
     "market_session": {
@@ -1234,12 +1398,16 @@
       "active_symbols": [
         "AVGO",
         "SNDK",
+        "IONQ",
+        "ORCL",
         "QDVO",
         "TDAQ"
       ],
       "display_symbols": [
         "AVGO",
         "SNDK",
+        "IONQ",
+        "ORCL",
         "QDVO",
         "TDAQ"
       ]
@@ -1288,7 +1456,7 @@
         "display_name": "AVGO(브로드컴)",
         "market": "US",
         "score": null,
-        "latest_price": 365.42,
+        "latest_price": 362.4,
         "profit_selection_rank": null,
         "strategy_id": null,
         "strategy_name": "portfolio_holding",
@@ -1306,7 +1474,43 @@
         "display_name": "SNDK(샌디스크)",
         "market": "US",
         "score": null,
-        "latest_price": 1732.59,
+        "latest_price": 1748.0,
+        "profit_selection_rank": null,
+        "strategy_id": null,
+        "strategy_name": "portfolio_holding",
+        "predicted_buy_low": null,
+        "predicted_sell_high": null,
+        "predicted_price_source": null,
+        "current_price_signal": null,
+        "indicator_2026_signal": null,
+        "indicator_2026_description": null,
+        "breakout_evidence": null
+      },
+      {
+        "symbol": "IONQ",
+        "name": "아이온큐",
+        "display_name": "IONQ(아이온큐)",
+        "market": "US",
+        "score": null,
+        "latest_price": 38.4,
+        "profit_selection_rank": null,
+        "strategy_id": null,
+        "strategy_name": "portfolio_holding",
+        "predicted_buy_low": null,
+        "predicted_sell_high": null,
+        "predicted_price_source": null,
+        "current_price_signal": null,
+        "indicator_2026_signal": null,
+        "indicator_2026_description": null,
+        "breakout_evidence": null
+      },
+      {
+        "symbol": "ORCL",
+        "name": "오라클",
+        "display_name": "ORCL(오라클)",
+        "market": "US",
+        "score": null,
+        "latest_price": 161.14,
         "profit_selection_rank": null,
         "strategy_id": null,
         "strategy_name": "portfolio_holding",
@@ -1324,7 +1528,7 @@
         "display_name": "QDVO",
         "market": "US",
         "score": null,
-        "latest_price": 29.57,
+        "latest_price": 29.61,
         "profit_selection_rank": null,
         "strategy_id": null,
         "strategy_name": "portfolio_holding",
@@ -1342,7 +1546,7 @@
         "display_name": "TDAQ",
         "market": "US",
         "score": null,
-        "latest_price": 27.14,
+        "latest_price": 27.09,
         "profit_selection_rank": null,
         "strategy_id": null,
         "strategy_name": "portfolio_holding",
@@ -1361,7 +1565,7 @@
         "name": "브로드컴",
         "display_name": "AVGO(브로드컴)",
         "market": "US",
-        "latest_price": 365.42,
+        "latest_price": 362.4,
         "score": null,
         "raw_score": null,
         "direction": "",
@@ -1403,7 +1607,91 @@
         "name": "샌디스크",
         "display_name": "SNDK(샌디스크)",
         "market": "US",
-        "latest_price": 1732.59,
+        "latest_price": 1748.0,
+        "score": null,
+        "raw_score": null,
+        "direction": "",
+        "market_session_focus": null,
+        "market_context": {
+          "vix": null,
+          "nasdaq_pct": null,
+          "nasdaq100_pct": null,
+          "sox_pct": null,
+          "sp500_pct": null,
+          "russell2000_pct": null,
+          "wti_pct": null,
+          "cpi_mom_pct": null,
+          "ppi_mom_pct": null,
+          "core_ppi_mom_pct": null
+        },
+        "issue_context": {
+          "sentiment_bias": null,
+          "research_sources_bias": null,
+          "headlines": []
+        },
+        "research_sources": {
+          "combined_sentiment_bias": null,
+          "dataroma": {},
+          "valueinvestorsclub": {},
+          "macrolens": {}
+        },
+        "news_research": {
+          "headline_count": 0,
+          "headlines": [],
+          "market_note": null
+        },
+        "holding_market_evidence": {},
+        "breakout_evidence": null,
+        "selected_plan": {}
+      },
+      "IONQ": {
+        "symbol": "IONQ",
+        "name": "아이온큐",
+        "display_name": "IONQ(아이온큐)",
+        "market": "US",
+        "latest_price": 38.4,
+        "score": null,
+        "raw_score": null,
+        "direction": "",
+        "market_session_focus": null,
+        "market_context": {
+          "vix": null,
+          "nasdaq_pct": null,
+          "nasdaq100_pct": null,
+          "sox_pct": null,
+          "sp500_pct": null,
+          "russell2000_pct": null,
+          "wti_pct": null,
+          "cpi_mom_pct": null,
+          "ppi_mom_pct": null,
+          "core_ppi_mom_pct": null
+        },
+        "issue_context": {
+          "sentiment_bias": null,
+          "research_sources_bias": null,
+          "headlines": []
+        },
+        "research_sources": {
+          "combined_sentiment_bias": null,
+          "dataroma": {},
+          "valueinvestorsclub": {},
+          "macrolens": {}
+        },
+        "news_research": {
+          "headline_count": 0,
+          "headlines": [],
+          "market_note": null
+        },
+        "holding_market_evidence": {},
+        "breakout_evidence": null,
+        "selected_plan": {}
+      },
+      "ORCL": {
+        "symbol": "ORCL",
+        "name": "오라클",
+        "display_name": "ORCL(오라클)",
+        "market": "US",
+        "latest_price": 161.14,
         "score": null,
         "raw_score": null,
         "direction": "",
@@ -1445,7 +1733,7 @@
         "name": "QDVO",
         "display_name": "QDVO",
         "market": "US",
-        "latest_price": 29.57,
+        "latest_price": 29.61,
         "score": null,
         "raw_score": null,
         "direction": "",
@@ -1487,7 +1775,7 @@
         "name": "TDAQ",
         "display_name": "TDAQ",
         "market": "US",
-        "latest_price": 27.14,
+        "latest_price": 27.09,
         "score": null,
         "raw_score": null,
         "direction": "",
