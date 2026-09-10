@@ -1,6 +1,6 @@
 ﻿{
     "schema_version":  "hamburgertrader-toss-holdings-public-v1",
-    "generated_at":  "2026-09-10T07:40:04.641063+00:00",
+    "generated_at":  "2026-09-10T08:30:03.327957+00:00",
     "source":  "toss_openapi_read_only",
     "positions":  [
                       {
@@ -10,10 +10,10 @@
                           "currency":  "USD",
                           "quantity":  1,
                           "avg_price":  361.587143,
-                          "current_price":  362.82,
-                          "market_value":  362.82,
-                          "pnl":  1.2328569999999672,
-                          "pnl_pct":  0.34095708983767903
+                          "current_price":  363.3,
+                          "market_value":  363.3,
+                          "pnl":  1.7128569999999854,
+                          "pnl_pct":  0.47370517264215817
                       },
                       {
                           "symbol":  "SNDK",
@@ -22,10 +22,22 @@
                           "currency":  "USD",
                           "quantity":  1,
                           "avg_price":  1757.49,
-                          "current_price":  1754.75,
-                          "market_value":  1754.75,
-                          "pnl":  -2.7400000000000091,
-                          "pnl_pct":  -0.15590415877188013
+                          "current_price":  1756.2,
+                          "market_value":  1756.2,
+                          "pnl":  -1.2899999999999636,
+                          "pnl_pct":  -0.073400133144430058
+                      },
+                      {
+                          "symbol":  "IONQ",
+                          "name":  "아이온큐",
+                          "market":  "US",
+                          "currency":  "USD",
+                          "quantity":  43,
+                          "avg_price":  38.28,
+                          "current_price":  38.28,
+                          "market_value":  1646.04,
+                          "pnl":  0,
+                          "pnl_pct":  0
                       },
                       {
                           "symbol":  "ORCL",
@@ -34,10 +46,10 @@
                           "currency":  "USD",
                           "quantity":  1,
                           "avg_price":  161.87,
-                          "current_price":  161.16,
-                          "market_value":  161.16,
-                          "pnl":  -0.710000000000008,
-                          "pnl_pct":  -0.43862358682894559
+                          "current_price":  161.07,
+                          "market_value":  161.07,
+                          "pnl":  -0.80000000000001137,
+                          "pnl_pct":  -0.49422375980725519
                       },
                       {
                           "symbol":  "QDVO",
@@ -46,10 +58,10 @@
                           "currency":  "USD",
                           "quantity":  60,
                           "avg_price":  29.489677,
-                          "current_price":  29.61,
-                          "market_value":  1776.6,
-                          "pnl":  7.2193799999999442,
-                          "pnl_pct":  0.40801735468312123
+                          "current_price":  29.63,
+                          "market_value":  1777.8,
+                          "pnl":  8.4193799999999186,
+                          "pnl_pct":  0.47583769737458148
                       },
                       {
                           "symbol":  "TDAQ",
@@ -58,10 +70,10 @@
                           "currency":  "USD",
                           "quantity":  19,
                           "avg_price":  27.073621,
-                          "current_price":  26.99,
-                          "market_value":  512.81,
-                          "pnl":  -1.5887990000000158,
-                          "pnl_pct":  -0.30886522345866529
+                          "current_price":  27.15,
+                          "market_value":  515.85,
+                          "pnl":  1.4512009999999869,
+                          "pnl_pct":  0.28211593861049433
                       }
                   ]
 }
