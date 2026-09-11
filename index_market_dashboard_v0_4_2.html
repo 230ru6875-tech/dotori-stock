@@ -138,7 +138,7 @@ const continuationGroups=[
  ]]
 ];
 const rightGroups=[['핵심 ETF',[['SPY',766.64,.09],['QQQ',719.79,.20],['SCHD',34.42,.03],['DIA',527.82,-.04],['SMH',392.20,.54],['SOXX',328.14,.47]]]];
-const market=[['NASDAQ100','29,568.2','0.24%'],['S&P 500','7,688.80','0.11%'],['SOX','11,887.87','1.30%'],['VIX','15.68','-0.19%'],['미국 10Y','4.804','0.25%'],['DXY','98.692','-0.15%'],['WTI','94.50','0.25%'],['USD/KRW','1,335.68','-0.32%']];
+const market=[['나스닥 100 지수','29,568.2','0.24%'],['S&P 500 지수','7,688.80','0.11%'],['필라델피아 반도체 지수','11,887.87','1.30%'],['변동성 지수(VIX)','15.68','-0.19%'],['미국 10년 국채금리','4.804','0.25%'],['달러 인덱스','98.692','-0.15%'],['WTI 원유 선물','94.50','0.25%'],['원/달러 환율','1,335.68','-0.32%']];
 function pctClass(v){return v>0?'up':v<0?'down':'flat'}
 function signalClass(text){const t=String(text||'');if(/매수금지|신규매수금지|위험|회피|손절/.test(t))return 'danger';if(/주의|경계|대기|관찰/.test(t))return 'warn';if(/매수가능|매수우세|강한매수|눌림매수/.test(t))return 'buy';return 'neutral'}
 function normalizeSignal(x,fallback='관찰'){if(!x)return fallback;if(typeof x.strategy_signal==='string'&&x.strategy_signal.trim())return x.strategy_signal.trim();if(typeof x.signal==='string'&&x.signal.trim())return x.signal.trim();const parts=[x.risk_condition,x.action,x.strategy_score_text].filter(v=>typeof v==='string'&&v.trim());return parts.length?parts.join('-'):fallback}
