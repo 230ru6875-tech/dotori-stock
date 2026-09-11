@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-11T11:25:23.365082Z",
+  "updated_at": "2026-09-11T11:30:38.955902Z",
   "source": "dotoristock_dotoriweb_live_bridge",
   "scanner": [
     {
@@ -224,7 +224,7 @@
     "order_authority": false
   },
   "scanner_updated_at": "2026-09-11T10:05:03.532521Z",
-  "status_updated_at": "2026-09-11T20:21:02+09:00",
+  "status_updated_at": "2026-09-11T20:26:01+09:00",
   "widget_updated_at": null,
   "macro_updated_at": "2026-09-11T19:46:02+09:00",
   "market_focus": null,
@@ -294,7 +294,7 @@
       "display_name": "AVGO(브로드컴)",
       "market": "US",
       "sector": null,
-      "latest_price": 363.23,
+      "latest_price": 363.2,
       "score": null,
       "profit_selection_rank": null,
       "strategy_id": null,
@@ -315,7 +315,7 @@
         "name": "브로드컴",
         "display_name": "AVGO(브로드컴)",
         "market": "US",
-        "latest_price": 363.23,
+        "latest_price": 363.2,
         "score": null,
         "raw_score": null,
         "direction": "",
@@ -359,7 +359,7 @@
       "display_name": "SNDK(샌디스크)",
       "market": "US",
       "sector": null,
-      "latest_price": 1698.52,
+      "latest_price": 1697.5,
       "score": null,
       "profit_selection_rank": null,
       "strategy_id": null,
@@ -380,7 +380,7 @@
         "name": "샌디스크",
         "display_name": "SNDK(샌디스크)",
         "market": "US",
-        "latest_price": 1698.52,
+        "latest_price": 1697.5,
         "score": null,
         "raw_score": null,
         "direction": "",
@@ -424,7 +424,7 @@
       "display_name": "IONQ(아이온큐)",
       "market": "US",
       "sector": null,
-      "latest_price": 37.3,
+      "latest_price": 37.31,
       "score": null,
       "profit_selection_rank": null,
       "strategy_id": null,
@@ -445,7 +445,7 @@
         "name": "아이온큐",
         "display_name": "IONQ(아이온큐)",
         "market": "US",
-        "latest_price": 37.3,
+        "latest_price": 37.31,
         "score": null,
         "raw_score": null,
         "direction": "",
@@ -489,7 +489,7 @@
       "display_name": "ORCL(오라클)",
       "market": "US",
       "sector": null,
-      "latest_price": 162.11,
+      "latest_price": 162.86,
       "score": null,
       "profit_selection_rank": null,
       "strategy_id": null,
@@ -510,7 +510,7 @@
         "name": "오라클",
         "display_name": "ORCL(오라클)",
         "market": "US",
-        "latest_price": 162.11,
+        "latest_price": 162.86,
         "score": null,
         "raw_score": null,
         "direction": "",
@@ -686,10 +686,10 @@
       "currency": "USD",
       "quantity": 1.0,
       "avg_price": 361.587143,
-      "current_price": 363.23,
-      "market_value": 363.23,
-      "pnl": 1.6428569999999922,
-      "pnl_pct": 0.4543460772331809
+      "current_price": 363.2,
+      "market_value": 363.2,
+      "pnl": 1.6128569999999627,
+      "pnl_pct": 0.4460493220578732
     },
     {
       "symbol": "SNDK",
@@ -697,10 +697,10 @@
       "currency": "USD",
       "quantity": 1.0,
       "avg_price": 1757.49,
-      "current_price": 1698.52,
-      "market_value": 1698.52,
-      "pnl": -58.97000000000003,
-      "pnl_pct": -3.3553533732766594
+      "current_price": 1697.5,
+      "market_value": 1697.5,
+      "pnl": -59.99000000000001,
+      "pnl_pct": -3.413390687855977
     },
     {
       "symbol": "IONQ",
@@ -708,10 +708,10 @@
       "currency": "USD",
       "quantity": 43.0,
       "avg_price": 38.28,
-      "current_price": 37.3,
-      "market_value": 1603.8999999999999,
-      "pnl": -42.14000000000017,
-      "pnl_pct": -2.5600835945663647
+      "current_price": 37.31,
+      "market_value": 1604.3300000000002,
+      "pnl": -41.70999999999995,
+      "pnl_pct": -2.5339602925809834
     },
     {
       "symbol": "ORCL",
@@ -719,10 +719,10 @@
       "currency": "USD",
       "quantity": 1.0,
       "avg_price": 161.87,
-      "current_price": 162.11,
-      "market_value": 162.11,
-      "pnl": 0.2400000000000091,
-      "pnl_pct": 0.148267127942181
+      "current_price": 162.86,
+      "market_value": 162.86,
+      "pnl": 0.9900000000000091,
+      "pnl_pct": 0.6116019027614827
     },
     {
       "symbol": "QDVO",
@@ -761,7 +761,7 @@
     "this_week": 0,
     "this_month": 0,
     "all_time": 0,
-    "last_updated": "2026-09-11T11:25:23.365082Z"
+    "last_updated": "2026-09-11T11:30:38.955902Z"
   },
   "market_session": {
     "focus_market": null,
@@ -846,7 +846,7 @@
   },
   "all_market_candidate_selection": {},
   "payload_json": {
-    "updated_at": "2026-09-11T11:25:23.365082Z",
+    "updated_at": "2026-09-11T11:30:38.955902Z",
     "source": "dotoristock_dotoriweb_live_bridge",
     "scanner": [
       {
@@ -1071,7 +1071,7 @@
       "order_authority": false
     },
     "scanner_updated_at": "2026-09-11T10:05:03.532521Z",
-    "status_updated_at": "2026-09-11T20:21:02+09:00",
+    "status_updated_at": "2026-09-11T20:26:01+09:00",
     "widget_updated_at": null,
     "macro_updated_at": "2026-09-11T19:46:02+09:00",
     "market_focus": null,
@@ -1141,7 +1141,7 @@
         "display_name": "AVGO(브로드컴)",
         "market": "US",
         "sector": null,
-        "latest_price": 363.23,
+        "latest_price": 363.2,
         "score": null,
         "profit_selection_rank": null,
         "strategy_id": null,
@@ -1162,7 +1162,7 @@
           "name": "브로드컴",
           "display_name": "AVGO(브로드컴)",
           "market": "US",
-          "latest_price": 363.23,
+          "latest_price": 363.2,
           "score": null,
           "raw_score": null,
           "direction": "",
@@ -1206,7 +1206,7 @@
         "display_name": "SNDK(샌디스크)",
         "market": "US",
         "sector": null,
-        "latest_price": 1698.52,
+        "latest_price": 1697.5,
         "score": null,
         "profit_selection_rank": null,
         "strategy_id": null,
@@ -1227,7 +1227,7 @@
           "name": "샌디스크",
           "display_name": "SNDK(샌디스크)",
           "market": "US",
-          "latest_price": 1698.52,
+          "latest_price": 1697.5,
           "score": null,
           "raw_score": null,
           "direction": "",
@@ -1271,7 +1271,7 @@
         "display_name": "IONQ(아이온큐)",
         "market": "US",
         "sector": null,
-        "latest_price": 37.3,
+        "latest_price": 37.31,
         "score": null,
         "profit_selection_rank": null,
         "strategy_id": null,
@@ -1292,7 +1292,7 @@
           "name": "아이온큐",
           "display_name": "IONQ(아이온큐)",
           "market": "US",
-          "latest_price": 37.3,
+          "latest_price": 37.31,
           "score": null,
           "raw_score": null,
           "direction": "",
@@ -1336,7 +1336,7 @@
         "display_name": "ORCL(오라클)",
         "market": "US",
         "sector": null,
-        "latest_price": 162.11,
+        "latest_price": 162.86,
         "score": null,
         "profit_selection_rank": null,
         "strategy_id": null,
@@ -1357,7 +1357,7 @@
           "name": "오라클",
           "display_name": "ORCL(오라클)",
           "market": "US",
-          "latest_price": 162.11,
+          "latest_price": 162.86,
           "score": null,
           "raw_score": null,
           "direction": "",
@@ -1533,10 +1533,10 @@
         "currency": "USD",
         "quantity": 1.0,
         "avg_price": 361.587143,
-        "current_price": 363.23,
-        "market_value": 363.23,
-        "pnl": 1.6428569999999922,
-        "pnl_pct": 0.4543460772331809
+        "current_price": 363.2,
+        "market_value": 363.2,
+        "pnl": 1.6128569999999627,
+        "pnl_pct": 0.4460493220578732
       },
       {
         "symbol": "SNDK",
@@ -1544,10 +1544,10 @@
         "currency": "USD",
         "quantity": 1.0,
         "avg_price": 1757.49,
-        "current_price": 1698.52,
-        "market_value": 1698.52,
-        "pnl": -58.97000000000003,
-        "pnl_pct": -3.3553533732766594
+        "current_price": 1697.5,
+        "market_value": 1697.5,
+        "pnl": -59.99000000000001,
+        "pnl_pct": -3.413390687855977
       },
       {
         "symbol": "IONQ",
@@ -1555,10 +1555,10 @@
         "currency": "USD",
         "quantity": 43.0,
         "avg_price": 38.28,
-        "current_price": 37.3,
-        "market_value": 1603.8999999999999,
-        "pnl": -42.14000000000017,
-        "pnl_pct": -2.5600835945663647
+        "current_price": 37.31,
+        "market_value": 1604.3300000000002,
+        "pnl": -41.70999999999995,
+        "pnl_pct": -2.5339602925809834
       },
       {
         "symbol": "ORCL",
@@ -1566,10 +1566,10 @@
         "currency": "USD",
         "quantity": 1.0,
         "avg_price": 161.87,
-        "current_price": 162.11,
-        "market_value": 162.11,
-        "pnl": 0.2400000000000091,
-        "pnl_pct": 0.148267127942181
+        "current_price": 162.86,
+        "market_value": 162.86,
+        "pnl": 0.9900000000000091,
+        "pnl_pct": 0.6116019027614827
       },
       {
         "symbol": "QDVO",
@@ -1608,7 +1608,7 @@
       "this_week": 0,
       "this_month": 0,
       "all_time": 0,
-      "last_updated": "2026-09-11T11:25:23.365082Z"
+      "last_updated": "2026-09-11T11:30:38.955902Z"
     },
     "market_session": {
       "focus_market": null,
@@ -1696,7 +1696,7 @@
   "market_evidence": {
     "summary": {
       "generated_at": null,
-      "status_updated_at": "2026-09-11T20:21:02+09:00",
+      "status_updated_at": "2026-09-11T20:26:01+09:00",
       "macro_updated_at": "2026-09-11T19:46:02+09:00",
       "symbol_count": 6,
       "display_symbol_count": 6,
@@ -1768,7 +1768,7 @@
         "display_name": "AVGO(브로드컴)",
         "market": "US",
         "score": null,
-        "latest_price": 363.23,
+        "latest_price": 363.2,
         "profit_selection_rank": null,
         "strategy_id": null,
         "strategy_name": "portfolio_holding",
@@ -1786,7 +1786,7 @@
         "display_name": "SNDK(샌디스크)",
         "market": "US",
         "score": null,
-        "latest_price": 1698.52,
+        "latest_price": 1697.5,
         "profit_selection_rank": null,
         "strategy_id": null,
         "strategy_name": "portfolio_holding",
@@ -1804,7 +1804,7 @@
         "display_name": "IONQ(아이온큐)",
         "market": "US",
         "score": null,
-        "latest_price": 37.3,
+        "latest_price": 37.31,
         "profit_selection_rank": null,
         "strategy_id": null,
         "strategy_name": "portfolio_holding",
@@ -1822,7 +1822,7 @@
         "display_name": "ORCL(오라클)",
         "market": "US",
         "score": null,
-        "latest_price": 162.11,
+        "latest_price": 162.86,
         "profit_selection_rank": null,
         "strategy_id": null,
         "strategy_name": "portfolio_holding",
@@ -1877,7 +1877,7 @@
         "name": "브로드컴",
         "display_name": "AVGO(브로드컴)",
         "market": "US",
-        "latest_price": 363.23,
+        "latest_price": 363.2,
         "score": null,
         "raw_score": null,
         "direction": "",
@@ -1919,7 +1919,7 @@
         "name": "샌디스크",
         "display_name": "SNDK(샌디스크)",
         "market": "US",
-        "latest_price": 1698.52,
+        "latest_price": 1697.5,
         "score": null,
         "raw_score": null,
         "direction": "",
@@ -1961,7 +1961,7 @@
         "name": "아이온큐",
         "display_name": "IONQ(아이온큐)",
         "market": "US",
-        "latest_price": 37.3,
+        "latest_price": 37.31,
         "score": null,
         "raw_score": null,
         "direction": "",
@@ -2003,7 +2003,7 @@
         "name": "오라클",
         "display_name": "ORCL(오라클)",
         "market": "US",
-        "latest_price": 162.11,
+        "latest_price": 162.86,
         "score": null,
         "raw_score": null,
         "direction": "",
