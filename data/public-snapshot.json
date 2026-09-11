@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-11T20:25:20+09:00",
+  "updatedAt": "2026-09-11T20:25:56+09:00",
   "exchangeRate": {
     "label": "오늘의 환율",
     "value": "1,501.33원",
@@ -4902,7 +4902,7 @@
       "title": "KR 모닝노트",
       "kind": "morning-note",
       "market": "KR",
-      "updatedAt": "2026-09-11T20:25:14+09:00",
+      "updatedAt": "2026-09-11T20:25:51+09:00",
       "summary": "밤사이 지표와 뉴스의 핵심만 확인하는 읽기 전용 아침 점검입니다.",
       "sections": [
         {
@@ -5058,7 +5058,7 @@
       "title": "US 모닝노트",
       "kind": "morning-note",
       "market": "US",
-      "updatedAt": "2026-09-11T20:25:19+09:00",
+      "updatedAt": "2026-09-11T20:25:55+09:00",
       "summary": "밤사이 지표와 뉴스의 핵심만 확인하는 읽기 전용 아침 점검입니다.",
       "sections": [
         {
@@ -5500,7 +5500,7 @@
     }
   ],
   "webDataStatus": {
-    "generatedAt": "2026-09-11T20:25:20+09:00",
+    "generatedAt": "2026-09-11T20:25:56+09:00",
     "sourceRoot": "S:\\HamburgerTrader\\state",
     "paperOnly": true,
     "liveOrderAllowed": false,
@@ -5540,7 +5540,7 @@
           "S:\\HamburgerTrader\\state\\long_term_growth_candidates_latest.json"
         ],
         "count": 4,
-        "ageMinutes": 114.53793555
+        "ageMinutes": 115.10948213333333
       },
       "sectorOverview_KR": {
         "status": "READY",
@@ -5550,17 +5550,17 @@
           "S:\\HamburgerTrader\\state\\sector_parallel_sample_KR.json"
         ],
         "count": 10,
-        "ageMinutes": 36.73795261666667
+        "ageMinutes": 37.30949885
       },
       "sectorOverview_US": {
         "status": "READY",
-        "reason": "원천 산출물 4분 전 갱신",
+        "reason": "원천 산출물 5분 전 갱신",
         "source": [
           "S:\\HamburgerTrader\\state\\money_flow_US.json",
           "S:\\HamburgerTrader\\state\\sector_parallel_sample_US.json"
         ],
         "count": 2,
-        "ageMinutes": 4.371302333333333
+        "ageMinutes": 4.942848783333333
       },
       "newsList": {
         "status": "READY",
@@ -5573,14 +5573,14 @@
       },
       "morningNote": {
         "status": "READY",
-        "reason": "원천 산출물 4분 전 갱신",
+        "reason": "원천 산출물 5분 전 갱신",
         "source": [
           "S:\\HamburgerTrader\\state\\market_timing_signal.json",
           "S:\\HamburgerTrader\\WEB\\publish_repo\\web\\data\\dotoriweb\\morning-note-KR.json",
           "S:\\HamburgerTrader\\WEB\\publish_repo\\web\\data\\dotoriweb\\morning-note-US.json"
         ],
         "count": 2,
-        "ageMinutes": 4.3382845
+        "ageMinutes": 4.9098278833333335
       },
       "dailyHistory": {
         "status": "READY",
