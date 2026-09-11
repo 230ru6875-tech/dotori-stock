@@ -1,6 +1,6 @@
 {
   "market": "KR",
-  "as_of": "2026-09-11T08:20:06+09:00",
+  "as_of": "2026-09-11T20:25:14+09:00",
   "status": "READY",
   "summary": "밤사이 지표와 뉴스의 핵심만 확인하는 읽기 전용 아침 점검입니다.",
   "news": [
@@ -10,39 +10,39 @@
       "published_at": "Tue, 28 Jul 2026 07:00:00 GMT"
     },
     {
-      "title": "Inside one of the wildest months in South Korea's stock market history - Business Insider",
-      "source": "Business Insider",
+      "title": "Inside one of the wildest months in South Korea's stock market history - businessinsider.com",
+      "source": "businessinsider.com",
       "published_at": "Fri, 31 Jul 2026 07:00:00 GMT"
     },
     {
-      "title": "Fed hold bets lift South Korea stocks as Kospi opens above 6600 - CHOSUNBIZ - Chosunbiz",
-      "source": "Chosunbiz",
-      "published_at": "Fri, 04 Sep 2026 00:10:00 GMT"
-    },
-    {
-      "title": "Japan and South Korea Stocks Crash at Open: Kospi Plunges Nearly 3%, Nikkei Tumbles 1,500 Points as Samsung, SK Hynix, SoftBank Dive - tradingkey.com",
-      "source": "tradingkey.com",
-      "published_at": "Wed, 02 Sep 2026 00:34:12 GMT"
+      "title": "Japan and South Korea Stocks Crash at Open: Kospi Plunges Nearly 3%, Nikkei Tumbles 1,500 Points as Samsung, SK Hynix, SoftBank Dive - TradingKey",
+      "source": "TradingKey",
+      "published_at": "Tue, 01 Sep 2026 07:00:00 GMT"
     },
     {
       "title": "Why everybody is talking about stocks in Korea, and why it's worrisome - The Korea Herald",
       "source": "The Korea Herald",
       "published_at": "Wed, 20 May 2026 07:00:00 GMT"
+    },
+    {
+      "title": "Micron stock falls 6.6% as South Korea’s KOSPI plunges 10.8% overnight - eciks.org",
+      "source": "eciks.org",
+      "published_at": "Tue, 28 Jul 2026 07:00:00 GMT"
     }
   ],
   "indices": [
     {
       "symbol": "^KS11",
       "name": "KOSPI",
-      "price": 7033.92,
-      "change_pct": 1.14,
+      "price": 6909.91,
+      "change_pct": -1.76,
       "source": "Yahoo Finance"
     },
     {
       "symbol": "^KQ11",
       "name": "KOSDAQ",
-      "price": 836.92,
-      "change_pct": 3.08,
+      "price": 820.64,
+      "change_pct": -1.95,
       "source": "Yahoo Finance"
     }
   ],
@@ -50,150 +50,150 @@
     {
       "symbol": "091160.KS",
       "name": "반도체",
-      "price": 136920.0,
-      "change_pct": 0.97,
+      "price": 128900.0,
+      "change_pct": -5.86,
       "source": "Yahoo Finance"
     },
     {
       "symbol": "091170.KS",
       "name": "은행",
-      "price": 16500.0,
-      "change_pct": 0.55,
+      "price": 16795.0,
+      "change_pct": 1.79,
       "source": "Yahoo Finance"
     },
     {
       "symbol": "117700.KS",
       "name": "건설",
-      "price": 7370.0,
-      "change_pct": 0.89,
+      "price": 7505.0,
+      "change_pct": 1.83,
       "source": "Yahoo Finance"
     }
   ],
   "after_close_materials": {
     "market": "KR",
     "window_start": "2026-09-10T15:30+09:00",
-    "window_end": "2026-09-11T08:20+09:00",
+    "window_end": "2026-09-11T20:25+09:00",
     "disclosures": [
       {
-        "observed_at": "2026-09-11T08:01+09:00",
-        "company": "엔투텍",
-        "title": "[기재정정]주요사항보고서(전환사채권발행결정)",
-        "negative": true,
-        "positive": false,
-        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260911000004"
-      },
-      {
-        "observed_at": "2026-09-11T07:37+09:00",
-        "company": "한화에어로스페이스",
-        "title": "단일판매ㆍ공급계약체결(자율공시)",
-        "negative": false,
-        "positive": true,
-        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260911800004"
-      },
-      {
-        "observed_at": "2026-09-11T07:37+09:00",
-        "company": "엔투텍",
-        "title": "[기재정정]주요사항보고서(전환사채권발행결정)",
-        "negative": true,
-        "positive": false,
-        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260911000001"
-      },
-      {
-        "observed_at": "2026-09-11T07:34+09:00",
-        "company": "삼성E&A",
+        "observed_at": "2026-09-11T14:28+09:00",
+        "company": "신테카바이오",
         "title": "단일판매ㆍ공급계약체결",
         "negative": false,
         "positive": true,
-        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260911800002"
+        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260911900264"
       },
       {
-        "observed_at": "2026-09-11T05:01+09:00",
-        "company": "엔투텍",
-        "title": "[기재정정]주요사항보고서(전환사채권발행결정)",
-        "negative": true,
-        "positive": false,
-        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260910000592"
-      },
-      {
-        "observed_at": "2026-09-11T05:01+09:00",
-        "company": "타임폴리오자산운용",
-        "title": "증권발행실적보고서(집합투자증권)(타임폴리오TIME미국배당다우존스액티브증권상장지수투자신탁(주식))",
+        "observed_at": "2026-09-11T14:20+09:00",
+        "company": "일성건설",
+        "title": "[기재정정]단일판매ㆍ공급계약체결",
         "negative": false,
         "positive": true,
-        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260910000295"
+        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260911800248"
       },
       {
-        "observed_at": "2026-09-11T05:01+09:00",
-        "company": "대신자산운용",
-        "title": "증권발행실적보고서(집합투자증권)(대신대표기업과고배당목표전환형증권투자신탁4호[채권혼합](운용전환일이후)대신대표기업과고배당목표전환형증권투자신탁4호[채권])",
+        "observed_at": "2026-09-11T14:17+09:00",
+        "company": "풍산홀딩스",
+        "title": "자기주식취득결과보고서",
         "negative": false,
         "positive": true,
-        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260910000374"
+        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260911000248"
       },
       {
-        "observed_at": "2026-09-11T05:01+09:00",
-        "company": "우성머티리얼스",
-        "title": "주요사항보고서(유상증자결정)",
+        "observed_at": "2026-09-11T14:14+09:00",
+        "company": "육일씨엔에쓰",
+        "title": "자기주식취득결과보고서",
+        "negative": false,
+        "positive": true,
+        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260911000240"
+      },
+      {
+        "observed_at": "2026-09-11T14:11+09:00",
+        "company": "에코프로에이치엔",
+        "title": "단일판매ㆍ공급계약체결",
+        "negative": false,
+        "positive": true,
+        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260911900215"
+      },
+      {
+        "observed_at": "2026-09-11T14:09+09:00",
+        "company": "한국종합기술",
+        "title": "[기재정정]단일판매ㆍ공급계약체결",
+        "negative": false,
+        "positive": true,
+        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260911800243"
+      },
+      {
+        "observed_at": "2026-09-11T14:07+09:00",
+        "company": "옵티코어",
+        "title": "[기재정정]주요사항보고서(자기전환사채만기전취득결정)",
         "negative": true,
         "positive": false,
-        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260910000580"
+        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260911000224"
       },
       {
-        "observed_at": "2026-09-11T05:01+09:00",
-        "company": "동구바이오제약",
-        "title": "[기재정정]주요사항보고서(영업정지)",
-        "negative": false,
-        "positive": false,
-        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260910000570"
-      },
-      {
-        "observed_at": "2026-09-11T05:01+09:00",
-        "company": "KG케미칼",
-        "title": "자기주식처분결과보고서",
-        "negative": false,
-        "positive": false,
-        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260910000578"
-      },
-      {
-        "observed_at": "2026-09-11T05:01+09:00",
-        "company": "MDS스피어",
-        "title": "주요사항보고서(자기전환사채만기전취득결정)",
+        "observed_at": "2026-09-11T14:05+09:00",
+        "company": "케스피온",
+        "title": "[기재정정]주요사항보고서(유상증자결정)",
         "negative": true,
         "positive": false,
-        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260910000568"
+        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260911000215"
       },
       {
-        "observed_at": "2026-09-11T05:01+09:00",
-        "company": "KG케미칼",
-        "title": "최대주주등소유주식변동신고서",
+        "observed_at": "2026-09-11T14:02+09:00",
+        "company": "아세아제지",
+        "title": "현금ㆍ현물배당을위한주주명부폐쇄(기준일)결정",
         "negative": false,
-        "positive": false,
-        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260910800700"
+        "positive": true,
+        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260911800240"
+      },
+      {
+        "observed_at": "2026-09-11T13:46+09:00",
+        "company": "베어링자산운용",
+        "title": "[기재정정]투자설명서(집합투자증권)(베어링고배당플러스증권투자신탁(주식))",
+        "negative": false,
+        "positive": true,
+        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260911000107"
+      },
+      {
+        "observed_at": "2026-09-11T13:44+09:00",
+        "company": "인티큐브",
+        "title": "단일판매ㆍ공급계약체결",
+        "negative": false,
+        "positive": true,
+        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260911900221"
+      },
+      {
+        "observed_at": "2026-09-11T13:42+09:00",
+        "company": "보령",
+        "title": "자기주식취득결과보고서",
+        "negative": false,
+        "positive": true,
+        "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260911000201"
       }
     ],
-    "disclosure_count": 12,
+    "disclosure_count": 16,
     "state_updates": [
       {
         "label": "거시·AI 시장 컨텍스트",
-        "updated_at": "2026-09-11T08:18+09:00",
+        "updated_at": "2026-09-11T19:46+09:00",
         "path": "S:\\HamburgerTrader\\state\\macro_market_context.json",
         "summary": "us10y 4.83 / us30y 5.28 / fed_funds 3.63 / cpi_all_items 332.813 / core_pce 130.658 / high_yield_spread 2.71 / corporate_bond_spot_rate_5y 4.97"
       },
       {
         "label": "금리 컨텍스트",
-        "updated_at": "2026-09-11T08:17+09:00",
+        "updated_at": "2026-09-11T19:45+09:00",
         "path": "S:\\HamburgerTrader\\state\\macro_rate_context.json",
         "summary": "NORMAL_OR_UNCONFIRMED / "
       },
       {
         "label": "시장 타이밍",
-        "updated_at": "2026-09-11T08:16+09:00",
+        "updated_at": "2026-09-11T20:21+09:00",
         "path": "S:\\HamburgerTrader\\state\\market_timing_signal.json",
         "summary": "상태 확인"
       },
       {
         "label": "후보 브리지",
-        "updated_at": "2026-09-11T08:16+09:00",
+        "updated_at": "2026-09-11T20:21+09:00",
         "path": "S:\\HamburgerTrader\\state\\hermes_candidate_bridge_latest.json",
         "summary": "갱신 확인"
       }
@@ -203,8 +203,8 @@
     "fresh": true
   },
   "after_close_summary": [
-    "수집범위 2026-09-10T15:30+09:00~2026-09-11T08:20+09:00",
-    "공시 주의 엔투텍 [기재정정]주요사항보고서(전환사채권발행결정) / 호재 한화에어로스페이스 단일판매ㆍ공급계약체결(자율공시) / 주의 엔투텍 [기재정정]주요사항보고서(전환사채권발행결정) / 호재 삼성E&A 단일판매ㆍ공급계약체결 / 주의 엔투텍 [기재정정]주요사항보고서(전환사채권발행결정) / 호재 타임폴리오자산운용 증권발행실적보고서(집합투자증권)(타임폴리오TIME미국배당다우존스액티브증권상장지수투자신탁(주식))",
+    "수집범위 2026-09-10T15:30+09:00~2026-09-11T20:25+09:00",
+    "공시 호재 신테카바이오 단일판매ㆍ공급계약체결 / 호재 일성건설 [기재정정]단일판매ㆍ공급계약체결 / 호재 풍산홀딩스 자기주식취득결과보고서 / 호재 육일씨엔에쓰 자기주식취득결과보고서 / 호재 에코프로에이치엔 단일판매ㆍ공급계약체결 / 호재 한국종합기술 [기재정정]단일판매ㆍ공급계약체결",
     "시장자료 거시·AI 시장 컨텍스트 us10y 4.83 / us30y 5.28 / fed_funds 3.63 / cpi_all_items 332.813 / core_pce 130.658 / high_yield_spread 2.71 / corporate_bond_spot_rate_5y 4.97 / 금리 컨텍스트 NORMAL_OR_UNCONFIRMED /  / 시장 타이밍 상태 확인 / 후보 브리지 갱신 확인"
   ],
   "paper_only": true,
