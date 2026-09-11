@@ -87,8 +87,8 @@ const DEFAULT_WATCH=[
   {s:'ORCL',name:'오라클',p:164.31,pct:1.10,signal:'관찰-눌림대기-중립55'},
   {s:'SNDK',name:'샌디스크',p:226.20,pct:0.21,signal:'보유유지-추격매수금지-주의48'},
   {s:'AVGO',name:'브로드컴',p:369.57,pct:0.27,signal:'보유유지-분할매수대기-중립62'},
-  {s:'QLD',name:'QLD',p:143.84,pct:0.64,signal:'추세우세-눌림매수가능-매수72'},
-  {s:'NVDA',name:'엔비디아',p:226.20,pct:0.21,signal:'상승추세-신규매수대기-관찰60'}
+  {s:'QDVO',name:'QDVO',p:29.49,pct:0.44,signal:'보유유지'},
+  {s:'TDAQ',name:'TDAQ',p:27.07,pct:-0.36,signal:'보유유지'}
 ];
 let watch=JSON.parse(localStorage.getItem('marketWatch')||'null')||DEFAULT_WATCH;
 while(watch.length<6) watch.push(DEFAULT_WATCH[watch.length%DEFAULT_WATCH.length]);
