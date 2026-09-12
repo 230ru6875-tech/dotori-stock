@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-12T12:17:20+09:00",
+  "updatedAt": "2026-09-12T20:45:11+09:00",
   "exchangeRate": {
     "label": "오늘의 환율",
     "value": "1,501.33원",
@@ -4902,7 +4902,7 @@
       "title": "KR 모닝노트",
       "kind": "morning-note",
       "market": "KR",
-      "updatedAt": "2026-09-12T12:17:14+09:00",
+      "updatedAt": "2026-09-12T20:45:06+09:00",
       "summary": "밤사이 지표와 뉴스의 핵심만 확인하는 읽기 전용 아침 점검입니다.",
       "sections": [
         {
@@ -4911,7 +4911,7 @@
         },
         {
           "heading": "전일 장마감 이후 수집자료",
-          "items": "수집범위 2026-09-11T15:30+09:00~2026-09-12T12:17+09:00 / 공시: 해당 시간 범위 내 새 중요공시 없음 / 시장자료 거시·AI 시장 컨텍스트 us10y 4.95 / us30y 5.37 / fed_funds 3.63 / cpi_all_items 334.131 / core_pce 130.658 / high_yield_spread 2.7 / corporate_bond_spot_rate_5y 4.97 / 금리 컨텍스트 RATE_SHOCK / US10Y_DAILY_RISE / 시장 타이밍 상태 확인 / 후보 브리지 갱신 확인"
+          "items": "수집범위 2026-09-11T15:30+09:00~2026-09-12T20:45+09:00 / 공시: 해당 시간 범위 내 새 중요공시 없음 / 시장자료 거시·AI 시장 컨텍스트 us10y 4.95 / us30y 5.37 / fed_funds 3.63 / cpi_all_items 334.131 / core_pce 130.658 / high_yield_spread 2.7 / corporate_bond_spot_rate_5y 4.97 / 금리 컨텍스트 RATE_SHOCK / US10Y_DAILY_RISE / 시장 타이밍 상태 확인 / 후보 브리지 갱신 확인"
         },
         {
           "heading": "확인할 흐름",
@@ -4921,7 +4921,7 @@
       "afterCloseMaterials": {
         "market": "KR",
         "window_start": "2026-09-11T15:30+09:00",
-        "window_end": "2026-09-12T12:17+09:00",
+        "window_end": "2026-09-12T20:45+09:00",
         "disclosures": [],
         "disclosure_count": 0,
         "state_updates": [
@@ -4939,13 +4939,13 @@
           },
           {
             "label": "시장 타이밍",
-            "updated_at": "2026-09-12T12:16+09:00",
+            "updated_at": "2026-09-12T20:41+09:00",
             "path": "S:\\HamburgerTrader\\state\\market_timing_signal.json",
             "summary": "상태 확인"
           },
           {
             "label": "후보 브리지",
-            "updated_at": "2026-09-12T12:16+09:00",
+            "updated_at": "2026-09-12T20:41+09:00",
             "path": "S:\\HamburgerTrader\\state\\hermes_candidate_bridge_latest.json",
             "summary": "갱신 확인"
           }
@@ -4961,7 +4961,7 @@
       "title": "US 모닝노트",
       "kind": "morning-note",
       "market": "US",
-      "updatedAt": "2026-09-12T12:17:19+09:00",
+      "updatedAt": "2026-09-12T20:45:10+09:00",
       "summary": "밤사이 지표와 뉴스의 핵심만 확인하는 읽기 전용 아침 점검입니다.",
       "sections": [
         {
@@ -4970,7 +4970,7 @@
         },
         {
           "heading": "전일 장마감 이후 수집자료",
-          "items": "수집범위 2026-09-10T16:00-04:00~2026-09-11T23:17-04:00 / 공시: 해당 시간 범위 내 새 중요공시 없음 / 시장자료 거시·AI 시장 컨텍스트 us10y 4.95 / us30y 5.37 / fed_funds 3.63 / cpi_all_items 334.131 / core_pce 130.658 / high_yield_spread 2.7 / corporate_bond_spot_rate_5y 4.97 / 금리 컨텍스트 RATE_SHOCK / US10Y_DAILY_RISE / 시장 타이밍 상태 확인 / 후보 브리지 갱신 확인"
+          "items": "수집범위 2026-09-11T16:00-04:00~2026-09-12T07:45-04:00 / 공시: 해당 시간 범위 내 새 중요공시 없음 / 시장자료 거시·AI 시장 컨텍스트 us10y 4.95 / us30y 5.37 / fed_funds 3.63 / cpi_all_items 334.131 / core_pce 130.658 / high_yield_spread 2.7 / corporate_bond_spot_rate_5y 4.97 / 금리 컨텍스트 RATE_SHOCK / US10Y_DAILY_RISE / 시장 타이밍 상태 확인 / 후보 브리지 갱신 확인"
         },
         {
           "heading": "확인할 흐름",
@@ -4979,8 +4979,8 @@
       ],
       "afterCloseMaterials": {
         "market": "US",
-        "window_start": "2026-09-10T16:00-04:00",
-        "window_end": "2026-09-11T23:17-04:00",
+        "window_start": "2026-09-11T16:00-04:00",
+        "window_end": "2026-09-12T07:45-04:00",
         "disclosures": [],
         "disclosure_count": 0,
         "state_updates": [
@@ -4998,13 +4998,13 @@
           },
           {
             "label": "시장 타이밍",
-            "updated_at": "2026-09-11T23:16-04:00",
+            "updated_at": "2026-09-12T07:41-04:00",
             "path": "S:\\HamburgerTrader\\state\\market_timing_signal.json",
             "summary": "상태 확인"
           },
           {
             "label": "후보 브리지",
-            "updated_at": "2026-09-11T23:16-04:00",
+            "updated_at": "2026-09-12T07:41-04:00",
             "path": "S:\\HamburgerTrader\\state\\hermes_candidate_bridge_latest.json",
             "summary": "갱신 확인"
           }
@@ -5115,7 +5115,7 @@
       "eventType": "OTHER",
       "newsScore": 0.0,
       "importance": 20,
-      "freshness": 0.75
+      "freshness": 0.3
     },
     {
       "title": "[외환] 끈적한 美 물가에 1,340원 중반대",
@@ -5129,7 +5129,7 @@
       "eventType": "OTHER",
       "newsScore": 0.0,
       "importance": 50,
-      "freshness": 0.55
+      "freshness": 0.3
     },
     {
       "title": "\"AI 도입 빠른 韓, 생산국 수혜까지…성장 기회 커진다\"",
@@ -5143,7 +5143,7 @@
       "eventType": "OTHER",
       "newsScore": 0.0,
       "importance": 20,
-      "freshness": 0.55
+      "freshness": 0.3
     },
     {
       "title": "[다음주 한국은행 및 금융위·금감원 일정]",
@@ -5159,7 +5159,7 @@
       "eventType": "OTHER",
       "newsScore": 0.0,
       "importance": 24,
-      "freshness": 0.55
+      "freshness": 0.3
     },
     {
       "title": "[다음주 재정경제부 등 경제부처 일정]",
@@ -5173,7 +5173,7 @@
       "eventType": "OTHER",
       "newsScore": 0.0,
       "importance": 20,
-      "freshness": 0.55
+      "freshness": 0.3
     },
     {
       "title": "[뉴욕환시] 달러 강보합…'高유가 + 물가 부담'에 연준 인상론 탄력",
@@ -5187,7 +5187,7 @@
       "eventType": "COMMODITY_MOVE",
       "newsScore": 0.0,
       "importance": 32,
-      "freshness": 0.55
+      "freshness": 0.3
     },
     {
       "title": "美 디젤 가격, 사상 최고치 경신…선거 앞둔 트럼프에 '경고음'",
@@ -5201,7 +5201,7 @@
       "eventType": "OTHER",
       "newsScore": 0.0,
       "importance": 20,
-      "freshness": 0.55
+      "freshness": 0.3
     },
     {
       "title": "운동화 사러 한옥 골목 간다…서촌·북촌에 무슨 일이",
@@ -5215,7 +5215,7 @@
       "eventType": "OTHER",
       "newsScore": 0.0,
       "importance": 20,
-      "freshness": 0.55
+      "freshness": 0.3
     },
     {
       "title": "'질주하는 트레이더스'…이마트, 8월 매출 성장세 확대",
@@ -5233,9 +5233,9 @@
         "종합 소매업"
       ],
       "eventType": "EARNINGS",
-      "newsScore": 2.968812000000001,
+      "newsScore": 1.6193520000000001,
       "importance": 56,
-      "freshness": 0.55
+      "freshness": 0.3
     },
     {
       "title": "美 8월 CPI 미스터리…시장 뒤흔든 '휴대전화 요금'",
@@ -5249,7 +5249,7 @@
       "eventType": "OTHER",
       "newsScore": 0.0,
       "importance": 20,
-      "freshness": 0.55
+      "freshness": 0.3
     },
     {
       "title": "LH 총파업 가능성에 국토부도 '화들짝'…불투명해진 개혁",
@@ -5263,7 +5263,7 @@
       "eventType": "OTHER",
       "newsScore": 0.0,
       "importance": 20,
-      "freshness": 0.75
+      "freshness": 0.3
     },
     {
       "title": "[외환] 끈적한 美 물가에 1,340원 중반대",
@@ -5277,7 +5277,7 @@
       "eventType": "OTHER",
       "newsScore": 0.0,
       "importance": 50,
-      "freshness": 0.55
+      "freshness": 0.3
     },
     {
       "title": "\"AI 도입 빠른 韓, 생산국 수혜까지…성장 기회 커진다\"",
@@ -5291,7 +5291,7 @@
       "eventType": "OTHER",
       "newsScore": 0.0,
       "importance": 20,
-      "freshness": 0.55
+      "freshness": 0.3
     },
     {
       "title": "[다음주 한국은행 및 금융위·금감원 일정]",
@@ -5307,7 +5307,7 @@
       "eventType": "OTHER",
       "newsScore": 0.0,
       "importance": 24,
-      "freshness": 0.55
+      "freshness": 0.3
     },
     {
       "title": "[다음주 재정경제부 등 경제부처 일정]",
@@ -5321,7 +5321,7 @@
       "eventType": "OTHER",
       "newsScore": 0.0,
       "importance": 20,
-      "freshness": 0.55
+      "freshness": 0.3
     },
     {
       "title": "[뉴욕환시] 달러 강보합…'高유가 + 물가 부담'에 연준 인상론 탄력",
@@ -5335,7 +5335,7 @@
       "eventType": "COMMODITY_MOVE",
       "newsScore": 0.0,
       "importance": 32,
-      "freshness": 0.55
+      "freshness": 0.3
     },
     {
       "title": "美 디젤 가격, 사상 최고치 경신…선거 앞둔 트럼프에 '경고음'",
@@ -5349,7 +5349,7 @@
       "eventType": "OTHER",
       "newsScore": 0.0,
       "importance": 20,
-      "freshness": 0.55
+      "freshness": 0.3
     },
     {
       "title": "운동화 사러 한옥 골목 간다…서촌·북촌에 무슨 일이",
@@ -5363,7 +5363,7 @@
       "eventType": "OTHER",
       "newsScore": 0.0,
       "importance": 20,
-      "freshness": 0.55
+      "freshness": 0.3
     },
     {
       "title": "美 8월 CPI 미스터리…시장 뒤흔든 '휴대전화 요금'",
@@ -5377,7 +5377,7 @@
       "eventType": "OTHER",
       "newsScore": 0.0,
       "importance": 20,
-      "freshness": 0.55
+      "freshness": 0.3
     },
     {
       "title": "[뉴욕증시] CPI, 뜨겁지만 안 뜨거운 척…5일 만에 반등",
@@ -5395,7 +5395,7 @@
     }
   ],
   "webDataStatus": {
-    "generatedAt": "2026-09-12T12:17:20+09:00",
+    "generatedAt": "2026-09-12T20:45:11+09:00",
     "sourceRoot": "S:\\HamburgerTrader\\state",
     "paperOnly": true,
     "liveOrderAllowed": false,
@@ -5430,32 +5430,32 @@
       },
       "growthDiscovery": {
         "status": "READY",
-        "reason": "원천 산출물 96분 전 갱신",
+        "reason": "원천 산출물 134분 전 갱신",
         "source": [
           "S:\\HamburgerTrader\\state\\long_term_growth_candidates_latest.json"
         ],
         "count": 4,
-        "ageMinutes": 95.94397049999999
+        "ageMinutes": 134.40050491666665
       },
       "sectorOverview_KR": {
         "status": "READY",
-        "reason": "원천 산출물 989분 전 갱신",
+        "reason": "원천 산출물 1497분 전 갱신",
         "source": [
           "S:\\HamburgerTrader\\state\\money_flow_KR.json",
           "S:\\HamburgerTrader\\state\\sector_parallel_sample_KR.json"
         ],
         "count": 10,
-        "ageMinutes": 988.7108040999999
+        "ageMinutes": 1496.5671882333334
       },
       "sectorOverview_US": {
         "status": "READY",
-        "reason": "원천 산출물 645분 전 갱신",
+        "reason": "원천 산출물 1153분 전 갱신",
         "source": [
           "S:\\HamburgerTrader\\state\\money_flow_US.json",
           "S:\\HamburgerTrader\\state\\sector_parallel_sample_US.json"
         ],
         "count": 2,
-        "ageMinutes": 645.2276293333333
+        "ageMinutes": 1153.0838715333334
       },
       "newsList": {
         "status": "READY",
@@ -5468,14 +5468,14 @@
       },
       "morningNote": {
         "status": "READY",
-        "reason": "원천 산출물 1분 전 갱신",
+        "reason": "원천 산출물 4분 전 갱신",
         "source": [
           "S:\\HamburgerTrader\\state\\market_timing_signal.json",
           "S:\\HamburgerTrader\\WEB\\publish_repo\\web\\data\\dotoriweb\\morning-note-KR.json",
           "S:\\HamburgerTrader\\WEB\\publish_repo\\web\\data\\dotoriweb\\morning-note-US.json"
         ],
         "count": 2,
-        "ageMinutes": 1.3279225333333333
+        "ageMinutes": 4.167497066666667
       },
       "dailyHistory": {
         "status": "READY",
@@ -5531,7 +5531,7 @@
       "price": 252.23,
       "market_cap": 100261421056,
       "forward_pe": 9.11529,
-      "trailing_pe": 14.075335,
+      "trailing_pe": 13.8893175,
       "peg": 0.62,
       "price_to_sales": 3.9789436,
       "ev_to_ebitda": 10.316,
@@ -5544,7 +5544,7 @@
       "total_debt": 7077000192,
       "total_cash": 5625999872,
       "data_source": "Yahoo Finance quoteSummary",
-      "data_as_of": "2026-09-12T01:41:09+00:00",
+      "data_as_of": "2026-09-12T09:30:33+00:00",
       "growth_score": 66.65,
       "quality_score": 100.0,
       "valuation_score": 73.44,
@@ -5570,7 +5570,7 @@
       "price": 126.81,
       "market_cap": 133618712576,
       "forward_pe": 12.574593,
-      "trailing_pe": 15.991173,
+      "trailing_pe": 15.890977,
       "peg": 2.78,
       "price_to_sales": 5.1856527,
       "ev_to_ebitda": 7.643,
@@ -5583,7 +5583,7 @@
       "total_debt": 5598000128,
       "total_cash": 9009000448,
       "data_source": "Yahoo Finance quoteSummary",
-      "data_as_of": "2026-09-12T01:40:43+00:00",
+      "data_as_of": "2026-09-12T09:30:08+00:00",
       "growth_score": 70.8,
       "quality_score": 100.0,
       "valuation_score": 52.94,
@@ -5609,7 +5609,7 @@
       "price": 99.96,
       "market_cap": 162570878976,
       "forward_pe": 11.555895,
-      "trailing_pe": 13.544715,
+      "trailing_pe": 13.453567,
       "peg": 5.69,
       "price_to_sales": 2.6308947,
       "ev_to_ebitda": 7.948,
@@ -5622,7 +5622,7 @@
       "total_debt": 22851999744,
       "total_cash": 9507000320,
       "data_source": "Yahoo Finance quoteSummary",
-      "data_as_of": "2026-09-12T01:40:41+00:00",
+      "data_as_of": "2026-09-12T09:30:07+00:00",
       "growth_score": 88.95,
       "quality_score": 84.87,
       "valuation_score": 58.54,
@@ -5648,7 +5648,7 @@
       "price": 87.15,
       "market_cap": 221489709056,
       "forward_pe": 18.608116,
-      "trailing_pe": 22.57772,
+      "trailing_pe": 22.636364,
       "peg": 5.95,
       "price_to_sales": 3.769396,
       "ev_to_ebitda": 7.913,
@@ -5661,7 +5661,7 @@
       "total_debt": 28426999808,
       "total_cash": 18560999424,
       "data_source": "Yahoo Finance quoteSummary",
-      "data_as_of": "2026-09-12T01:40:40+00:00",
+      "data_as_of": "2026-09-12T09:30:06+00:00",
       "growth_score": 63.8,
       "quality_score": 99.06,
       "valuation_score": 51.87,
@@ -6340,7 +6340,7 @@
   },
   "dailyDigest": [],
   "eventCalendar": {
-    "generatedAt": "2026-09-12T12:17:20+09:00",
+    "generatedAt": "2026-09-12T20:45:11+09:00",
     "window": "2026-09-12 ~ 2026-09-19",
     "events": [
       {
@@ -6361,7 +6361,7 @@
     ]
   },
   "candidateCards": {
-    "generatedAt": "2026-09-12T12:17:20+09:00",
+    "generatedAt": "2026-09-12T20:45:11+09:00",
     "buy": [
       {
         "symbol": "SNDK",
