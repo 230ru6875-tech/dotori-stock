@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-13T20:45:13+09:00",
+  "updatedAt": "2026-09-14T08:00:12+09:00",
   "exchangeRate": {
     "label": "오늘의 환율",
     "value": "1,501.33원",
@@ -4902,7 +4902,7 @@
       "title": "KR 모닝노트",
       "kind": "morning-note",
       "market": "KR",
-      "updatedAt": "2026-09-13T20:45:07+09:00",
+      "updatedAt": "2026-09-14T08:00:07+09:00",
       "summary": "밤사이 지표와 뉴스의 핵심만 확인하는 읽기 전용 아침 점검입니다.",
       "sections": [
         {
@@ -4911,7 +4911,7 @@
         },
         {
           "heading": "전일 장마감 이후 수집자료",
-          "items": "수집범위 2026-09-11T15:30+09:00~2026-09-13T20:45+09:00 / 공시: 해당 시간 범위 내 새 중요공시 없음 / 시장자료 거시·AI 시장 컨텍스트 us10y 4.95 / us30y 5.37 / fed_funds 3.63 / cpi_all_items 334.131 / core_pce 130.658 / high_yield_spread 2.7 / corporate_bond_spot_rate_5y 4.97 / 금리 컨텍스트 RATE_SHOCK / US10Y_DAILY_RISE / 시장 타이밍 상태 확인 / 후보 브리지 갱신 확인"
+          "items": "수집범위 2026-09-11T15:30+09:00~2026-09-14T08:00+09:00 / 공시 주의 KS인더스트리 주요사항보고서(전환사채권발행결정) / 시장자료 거시·AI 시장 컨텍스트 us10y 4.95 / us2y 4.56 / us30y 5.37 / wti 97.26 / brent 109.51 / usd_krw 1346.51 / fed_funds 3.63 / cpi_all_items 334.131 / core_pce 130.658 / high_yield_spread 2.7 / corporate_bond_spot_rate_5y 4.97 / 금리 컨텍스트 RATE_SHOCK / US10Y_DAILY_RISE / 시장 타이밍 상태 확인 / 후보 브리지 갱신 확인"
         },
         {
           "heading": "확인할 흐름",
@@ -4921,31 +4921,40 @@
       "afterCloseMaterials": {
         "market": "KR",
         "window_start": "2026-09-11T15:30+09:00",
-        "window_end": "2026-09-13T20:45+09:00",
-        "disclosures": [],
-        "disclosure_count": 0,
+        "window_end": "2026-09-14T08:00+09:00",
+        "disclosures": [
+          {
+            "observed_at": "2026-09-14T05:01+09:00",
+            "company": "KS인더스트리",
+            "title": "주요사항보고서(전환사채권발행결정)",
+            "negative": true,
+            "positive": false,
+            "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260911000607"
+          }
+        ],
+        "disclosure_count": 1,
         "state_updates": [
           {
             "label": "거시·AI 시장 컨텍스트",
-            "updated_at": "2026-09-12T10:47+09:00",
+            "updated_at": "2026-09-14T07:30+09:00",
             "path": "S:\\HamburgerTrader\\state\\macro_market_context.json",
-            "summary": "us10y 4.95 / us30y 5.37 / fed_funds 3.63 / cpi_all_items 334.131 / core_pce 130.658 / high_yield_spread 2.7 / corporate_bond_spot_rate_5y 4.97"
+            "summary": "us10y 4.95 / us2y 4.56 / us30y 5.37 / wti 97.26 / brent 109.51 / usd_krw 1346.51 / fed_funds 3.63 / cpi_all_items 334.131 / core_pce 130.658 / high_yield_spread 2.7 / corporate_bond_spot_rate_5y 4.97"
           },
           {
             "label": "금리 컨텍스트",
-            "updated_at": "2026-09-12T10:47+09:00",
+            "updated_at": "2026-09-14T07:30+09:00",
             "path": "S:\\HamburgerTrader\\state\\macro_rate_context.json",
             "summary": "RATE_SHOCK / US10Y_DAILY_RISE"
           },
           {
             "label": "시장 타이밍",
-            "updated_at": "2026-09-13T20:41+09:00",
+            "updated_at": "2026-09-14T07:56+09:00",
             "path": "S:\\HamburgerTrader\\state\\market_timing_signal.json",
             "summary": "상태 확인"
           },
           {
             "label": "후보 브리지",
-            "updated_at": "2026-09-13T20:41+09:00",
+            "updated_at": "2026-09-14T07:56+09:00",
             "path": "S:\\HamburgerTrader\\state\\hermes_candidate_bridge_latest.json",
             "summary": "갱신 확인"
           }
@@ -4961,7 +4970,7 @@
       "title": "US 모닝노트",
       "kind": "morning-note",
       "market": "US",
-      "updatedAt": "2026-09-13T20:45:11+09:00",
+      "updatedAt": "2026-09-14T08:00:11+09:00",
       "summary": "밤사이 지표와 뉴스의 핵심만 확인하는 읽기 전용 아침 점검입니다.",
       "sections": [
         {
@@ -4970,7 +4979,7 @@
         },
         {
           "heading": "전일 장마감 이후 수집자료",
-          "items": "수집범위 2026-09-11T16:00-04:00~2026-09-13T07:45-04:00 / 공시: 해당 시간 범위 내 새 중요공시 없음 / 시장자료 거시·AI 시장 컨텍스트 us10y 4.95 / us30y 5.37 / fed_funds 3.63 / cpi_all_items 334.131 / core_pce 130.658 / high_yield_spread 2.7 / corporate_bond_spot_rate_5y 4.97 / 금리 컨텍스트 RATE_SHOCK / US10Y_DAILY_RISE / 시장 타이밍 상태 확인 / 후보 브리지 갱신 확인"
+          "items": "수집범위 2026-09-11T16:00-04:00~2026-09-13T19:00-04:00 / 공시: 해당 시간 범위 내 새 중요공시 없음 / 시장자료 거시·AI 시장 컨텍스트 us10y 4.95 / us2y 4.56 / us30y 5.37 / wti 97.26 / brent 109.51 / usd_krw 1346.51 / fed_funds 3.63 / cpi_all_items 334.131 / core_pce 130.658 / high_yield_spread 2.7 / corporate_bond_spot_rate_5y 4.97 / 금리 컨텍스트 RATE_SHOCK / US10Y_DAILY_RISE / 시장 타이밍 상태 확인 / 후보 브리지 갱신 확인"
         },
         {
           "heading": "확인할 흐름",
@@ -4980,31 +4989,31 @@
       "afterCloseMaterials": {
         "market": "US",
         "window_start": "2026-09-11T16:00-04:00",
-        "window_end": "2026-09-13T07:45-04:00",
+        "window_end": "2026-09-13T19:00-04:00",
         "disclosures": [],
         "disclosure_count": 0,
         "state_updates": [
           {
             "label": "거시·AI 시장 컨텍스트",
-            "updated_at": "2026-09-11T21:47-04:00",
+            "updated_at": "2026-09-13T18:30-04:00",
             "path": "S:\\HamburgerTrader\\state\\macro_market_context.json",
-            "summary": "us10y 4.95 / us30y 5.37 / fed_funds 3.63 / cpi_all_items 334.131 / core_pce 130.658 / high_yield_spread 2.7 / corporate_bond_spot_rate_5y 4.97"
+            "summary": "us10y 4.95 / us2y 4.56 / us30y 5.37 / wti 97.26 / brent 109.51 / usd_krw 1346.51 / fed_funds 3.63 / cpi_all_items 334.131 / core_pce 130.658 / high_yield_spread 2.7 / corporate_bond_spot_rate_5y 4.97"
           },
           {
             "label": "금리 컨텍스트",
-            "updated_at": "2026-09-11T21:47-04:00",
+            "updated_at": "2026-09-13T18:30-04:00",
             "path": "S:\\HamburgerTrader\\state\\macro_rate_context.json",
             "summary": "RATE_SHOCK / US10Y_DAILY_RISE"
           },
           {
             "label": "시장 타이밍",
-            "updated_at": "2026-09-13T07:41-04:00",
+            "updated_at": "2026-09-13T18:56-04:00",
             "path": "S:\\HamburgerTrader\\state\\market_timing_signal.json",
             "summary": "상태 확인"
           },
           {
             "label": "후보 브리지",
-            "updated_at": "2026-09-13T07:41-04:00",
+            "updated_at": "2026-09-13T18:56-04:00",
             "path": "S:\\HamburgerTrader\\state\\hermes_candidate_bridge_latest.json",
             "summary": "갱신 확인"
           }
@@ -5022,20 +5031,20 @@
       "title": "KR 섹터오버뷰",
       "kind": "sector-overview",
       "market": "KR",
-      "updatedAt": "2026-09-11T19:48:38+09:00",
+      "updatedAt": null,
       "summary": "최신 자금흐름과 업종 표본을 연결한 KR 시장 위치 요약입니다.",
       "sections": [
         {
           "heading": "자금 유입 상위 업종",
-          "items": "반도체 제조업 (자금유입 24,297,443,500) / 통신 및 방송 장비 제조업 (자금유입 11,910,681,700) / 건축기술, 엔지니어링 및 관련 기술 서비스업 (자금유입 8,077,928,500) / 일반 목적용 기계 제조업 (자금유입 5,131,985,600) / 특수 목적용 기계 제조업 (자금유입 3,115,701,740) / 기타 금융업 (자금유입 2,574,031,750) / 자연과학 및 공학 연구개발업 (자금유입 1,716,543,300) / 석유 정제품 제조업 (자금유입 1,455,988,500)"
+          "items": "자료 없음"
         },
         {
           "heading": "관찰 종목",
-          "items": "SK하이닉스(000660) / 삼성전자(005930) / 한전기술(052690) / 두산에너빌리티(034020) / SK스퀘어(402340) / 비에이치아이(083650) / 로보티즈(108490) / 알테오젠(196170) / SK이노베이션(096770) / 영풍(000670)"
+          "items": "자료 없음"
         },
         {
           "heading": "업종 표본",
-          "items": "145개 종목 표본"
+          "items": "0개 종목 표본"
         }
       ],
       "source": [
@@ -5048,20 +5057,20 @@
       "title": "US 섹터오버뷰",
       "kind": "sector-overview",
       "market": "US",
-      "updatedAt": "2026-09-12T01:32:07+09:00",
+      "updatedAt": null,
       "summary": "최신 자금흐름과 업종 표본을 연결한 US 시장 위치 요약입니다.",
       "sections": [
         {
           "heading": "자금 유입 상위 업종",
-          "items": "기타 (자금유입 496,824,257,007) / ETF/지수 (자금유입 147,267,670,861)"
+          "items": "자료 없음"
         },
         {
           "heading": "관찰 종목",
-          "items": "QQQ(QQQ) / SPY(SPY) / 인텔(INTC) / TQQQ(TQQQ) / SQQQ(SQQQ) / GLD(GLD) / VOO(VOO) / HYG(HYG) / IVV(IVV) / IWM(IWM)"
+          "items": "자료 없음"
         },
         {
           "heading": "업종 표본",
-          "items": "120개 종목 표본"
+          "items": "0개 종목 표본"
         }
       ],
       "source": [
@@ -5104,150 +5113,284 @@
   ],
   "newsList": [
     {
-      "title": "당정 \"경찰에 실종수사 전담 조직 설치…실종 성인법 제정\"",
-      "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4434606",
+      "title": "'버핏의 실수가 잭팟으로'…10년 전 인수한 기업 가치 급상승",
+      "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4434620",
       "summary": "",
-      "asOf": "2026-09-13T10:25:00+00:00",
+      "asOf": "2026-09-13T22:51:00+00:00",
       "source": "INFOMAX",
       "market": "KR",
       "symbols": [],
       "sectors": [],
-      "eventType": "INVESTIGATION",
-      "newsScore": -4.6656,
-      "importance": 32,
-      "freshness": 0.75
-    },
-    {
-      "title": "韓총리 \"국민 평가 엄중할수록 할 일 분명히 해야\"",
-      "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4434605",
-      "summary": "",
-      "asOf": "2026-09-13T08:34:00+00:00",
-      "source": "INFOMAX",
-      "market": "KR",
-      "symbols": [],
-      "sectors": [],
-      "eventType": "OTHER",
+      "eventType": "ACQUISITION",
       "newsScore": 0.0,
-      "importance": 20,
-      "freshness": 0.55
+      "importance": 45,
+      "freshness": 1.0
     },
     {
-      "title": "[뉴욕환시-주간] 함께 금리 올리는 美·日…어느 쪽이 더 매파적일까",
-      "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4434604",
+      "title": "이재근 \"회장 중심 경영 지양…KB금융, 시스템·프로세스로 운영\"",
+      "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4434618",
       "summary": "",
-      "asOf": "2026-09-13T08:09:00+00:00",
-      "source": "INFOMAX",
-      "market": "KR",
-      "symbols": [],
-      "sectors": [],
-      "eventType": "OTHER",
-      "newsScore": 0.0,
-      "importance": 20,
-      "freshness": 0.55
-    },
-    {
-      "title": "김민석 \"진보세력과 연대 박차…한동훈 게이트 파헤칠 것\"",
-      "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4434602",
-      "summary": "",
-      "asOf": "2026-09-13T07:48:00+00:00",
-      "source": "INFOMAX",
-      "market": "KR",
-      "symbols": [],
-      "sectors": [],
-      "eventType": "OTHER",
-      "newsScore": 0.0,
-      "importance": 20,
-      "freshness": 0.55
-    },
-    {
-      "title": "앤트로픽 CEO \"AI 모델 개발 속도 늦춰야\"…업계 인사들도 동조",
-      "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4434600",
-      "summary": "",
-      "asOf": "2026-09-13T06:57:00+00:00",
-      "source": "INFOMAX",
-      "market": "KR",
-      "symbols": [],
-      "sectors": [],
-      "eventType": "OTHER",
-      "newsScore": 0.0,
-      "importance": 20,
-      "freshness": 0.55
-    },
-    {
-      "title": "올트먼 \"오픈AI IPO, 2026년은 아닐 것…안전성 추가 연구 필요\"",
-      "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4434599",
-      "summary": "",
-      "asOf": "2026-09-13T06:19:00+00:00",
-      "source": "INFOMAX",
-      "market": "KR",
-      "symbols": [],
-      "sectors": [],
-      "eventType": "IPO",
-      "newsScore": 0.0,
-      "importance": 32,
-      "freshness": 0.55
-    },
-    {
-      "title": "MLCC 1위 무라타, 저마진 제품 단종…수혜주 찾는 증권가",
-      "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4434598",
-      "summary": "",
-      "asOf": "2026-09-13T06:07:00+00:00",
-      "source": "INFOMAX",
-      "market": "KR",
-      "symbols": [],
-      "sectors": [
-        "금융"
-      ],
-      "eventType": "OTHER",
-      "newsScore": 0.0,
-      "importance": 24,
-      "freshness": 0.55
-    },
-    {
-      "title": "美 CPI 발표 후 커지는 연준 인상론…\"동결하려면 설득력 있는 명분 있어야\"",
-      "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4434597",
-      "summary": "",
-      "asOf": "2026-09-13T05:48:00+00:00",
-      "source": "INFOMAX",
-      "market": "KR",
-      "symbols": [],
-      "sectors": [],
-      "eventType": "OTHER",
-      "newsScore": 0.0,
-      "importance": 20,
-      "freshness": 0.55
-    },
-    {
-      "title": "비례대표 못 버린 용혜인, 與 '결단' 요구에 결국 자진 사퇴",
-      "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4434595",
-      "summary": "",
-      "asOf": "2026-09-13T04:47:00+00:00",
+      "asOf": "2026-09-13T22:49:00+00:00",
       "source": "INFOMAX",
       "market": "KR",
       "symbols": [
-        "003010"
+        "105560"
       ],
       "sectors": [
-        "기계장비 및 관련 물품 도매업"
+        "기타 금융업"
       ],
       "eventType": "OTHER",
       "newsScore": 0.0,
       "importance": 32,
-      "freshness": 0.3
+      "freshness": 1.0
     },
     {
-      "title": "이번주 IPO 청약 5곳 몰린다…코넥스 진코스텍은 이전상장 수요예측 나서",
-      "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4434592",
+      "title": "[시사금융용어] 매수 파업",
+      "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4434615",
       "summary": "",
-      "asOf": "2026-09-13T04:00:00+00:00",
+      "asOf": "2026-09-13T22:30:00+00:00",
       "source": "INFOMAX",
       "market": "KR",
       "symbols": [],
       "sectors": [],
-      "eventType": "IPO",
+      "eventType": "OTHER",
       "newsScore": 0.0,
+      "importance": 20,
+      "freshness": 0.9
+    },
+    {
+      "title": "[이번주 한국은행 및 금융위·금감원 일정]",
+      "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4434613",
+      "summary": "",
+      "asOf": "2026-09-13T22:00:00+00:00",
+      "source": "INFOMAX",
+      "market": "KR",
+      "symbols": [],
+      "sectors": [
+        "금융"
+      ],
+      "eventType": "OTHER",
+      "newsScore": 0.0,
+      "importance": 24,
+      "freshness": 0.75
+    },
+    {
+      "title": "[이번주 재정경제부 등 경제부처 일정]",
+      "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4434614",
+      "summary": "",
+      "asOf": "2026-09-13T22:00:00+00:00",
+      "source": "INFOMAX",
+      "market": "KR",
+      "symbols": [],
+      "sectors": [],
+      "eventType": "OTHER",
+      "newsScore": 0.0,
+      "importance": 20,
+      "freshness": 0.75
+    },
+    {
+      "title": "트럼프 \"일부 무역 적자국과 교역 끊을 것…적어도 균형 수지 원해\"",
+      "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4434612",
+      "summary": "",
+      "asOf": "2026-09-13T21:32:00+00:00",
+      "source": "INFOMAX",
+      "market": "KR",
+      "symbols": [],
+      "sectors": [],
+      "eventType": "OTHER",
+      "newsScore": 0.0,
+      "importance": 20,
+      "freshness": 0.75
+    },
+    {
+      "title": "오만 외무 \"내일 열릴 이란·걸프국 회의 연기\"",
+      "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4434611",
+      "summary": "",
+      "asOf": "2026-09-13T21:26:00+00:00",
+      "source": "INFOMAX",
+      "market": "KR",
+      "symbols": [],
+      "sectors": [],
+      "eventType": "OTHER",
+      "newsScore": 0.0,
+      "importance": 20,
+      "freshness": 0.75
+    },
+    {
+      "title": "앤트로픽 CEO \"업계, AI 위험 오래 숨겨와…'킬 스위치' 좋은 아이디어\"",
+      "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4434610",
+      "summary": "",
+      "asOf": "2026-09-13T17:58:00+00:00",
+      "source": "INFOMAX",
+      "market": "KR",
+      "symbols": [],
+      "sectors": [
+        "AI"
+      ],
+      "eventType": "OTHER",
+      "newsScore": 0.0,
+      "importance": 24,
+      "freshness": 0.55
+    },
+    {
+      "title": "백악관, 연준 인상 가능성에 \"100% 존중하지만, 선거 전 건드리지 말아야\"",
+      "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4434609",
+      "summary": "",
+      "asOf": "2026-09-13T17:29:00+00:00",
+      "source": "INFOMAX",
+      "market": "KR",
+      "symbols": [],
+      "sectors": [],
+      "eventType": "OTHER",
+      "newsScore": 0.0,
+      "importance": 20,
+      "freshness": 0.55
+    },
+    {
+      "title": "당정 \"경찰에 실종수사 전담 조직 설치…실종 성인법 제정\"",
+      "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4434606",
+      "summary": "",
+      "asOf": "2026-09-13T10:25:00+00:00",
+      "source": "INFOMAX",
+      "market": "KR",
+      "symbols": [],
+      "sectors": [],
+      "eventType": "INVESTIGATION",
+      "newsScore": -1.8662400000000003,
       "importance": 32,
       "freshness": 0.3
+    },
+    {
+      "title": "'버핏의 실수가 잭팟으로'…10년 전 인수한 기업 가치 급상승",
+      "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4434620",
+      "summary": "",
+      "asOf": "2026-09-13T22:51:00+00:00",
+      "source": "INFOMAX",
+      "market": "US",
+      "symbols": [],
+      "sectors": [],
+      "eventType": "ACQUISITION",
+      "newsScore": 0.0,
+      "importance": 45,
+      "freshness": 1.0
+    },
+    {
+      "title": "래리 엘리슨 오라클 창업자, 75억 달러 규모 자사주 매각 계획 철회",
+      "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4434617",
+      "summary": "",
+      "asOf": "2026-09-13T22:43:00+00:00",
+      "source": "INFOMAX",
+      "market": "US",
+      "symbols": [
+        "ORCL"
+      ],
+      "sectors": [],
+      "eventType": "OTHER",
+      "newsScore": 0.0,
+      "importance": 28,
+      "freshness": 1.0
+    },
+    {
+      "title": "[시사금융용어] 매수 파업",
+      "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4434615",
+      "summary": "",
+      "asOf": "2026-09-13T22:30:00+00:00",
+      "source": "INFOMAX",
+      "market": "US",
+      "symbols": [],
+      "sectors": [],
+      "eventType": "OTHER",
+      "newsScore": 0.0,
+      "importance": 20,
+      "freshness": 0.9
+    },
+    {
+      "title": "[이번주 한국은행 및 금융위·금감원 일정]",
+      "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4434613",
+      "summary": "",
+      "asOf": "2026-09-13T22:00:00+00:00",
+      "source": "INFOMAX",
+      "market": "US",
+      "symbols": [],
+      "sectors": [
+        "금융"
+      ],
+      "eventType": "OTHER",
+      "newsScore": 0.0,
+      "importance": 24,
+      "freshness": 0.75
+    },
+    {
+      "title": "[이번주 재정경제부 등 경제부처 일정]",
+      "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4434614",
+      "summary": "",
+      "asOf": "2026-09-13T22:00:00+00:00",
+      "source": "INFOMAX",
+      "market": "US",
+      "symbols": [],
+      "sectors": [],
+      "eventType": "OTHER",
+      "newsScore": 0.0,
+      "importance": 20,
+      "freshness": 0.75
+    },
+    {
+      "title": "트럼프 \"일부 무역 적자국과 교역 끊을 것…적어도 균형 수지 원해\"",
+      "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4434612",
+      "summary": "",
+      "asOf": "2026-09-13T21:32:00+00:00",
+      "source": "INFOMAX",
+      "market": "US",
+      "symbols": [],
+      "sectors": [],
+      "eventType": "OTHER",
+      "newsScore": 0.0,
+      "importance": 20,
+      "freshness": 0.75
+    },
+    {
+      "title": "오만 외무 \"내일 열릴 이란·걸프국 회의 연기\"",
+      "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4434611",
+      "summary": "",
+      "asOf": "2026-09-13T21:26:00+00:00",
+      "source": "INFOMAX",
+      "market": "US",
+      "symbols": [],
+      "sectors": [],
+      "eventType": "OTHER",
+      "newsScore": 0.0,
+      "importance": 20,
+      "freshness": 0.75
+    },
+    {
+      "title": "앤트로픽 CEO \"업계, AI 위험 오래 숨겨와…'킬 스위치' 좋은 아이디어\"",
+      "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4434610",
+      "summary": "",
+      "asOf": "2026-09-13T17:58:00+00:00",
+      "source": "INFOMAX",
+      "market": "US",
+      "symbols": [],
+      "sectors": [
+        "AI"
+      ],
+      "eventType": "OTHER",
+      "newsScore": 0.0,
+      "importance": 24,
+      "freshness": 0.55
+    },
+    {
+      "title": "백악관, 연준 인상 가능성에 \"100% 존중하지만, 선거 전 건드리지 말아야\"",
+      "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4434609",
+      "summary": "",
+      "asOf": "2026-09-13T17:29:00+00:00",
+      "source": "INFOMAX",
+      "market": "US",
+      "symbols": [],
+      "sectors": [],
+      "eventType": "OTHER",
+      "newsScore": 0.0,
+      "importance": 20,
+      "freshness": 0.55
     },
     {
       "title": "당정 \"경찰에 실종수사 전담 조직 설치…실종 성인법 제정\"",
@@ -5259,141 +5402,13 @@
       "symbols": [],
       "sectors": [],
       "eventType": "INVESTIGATION",
-      "newsScore": -4.6656,
+      "newsScore": -1.8662400000000003,
       "importance": 32,
-      "freshness": 0.75
-    },
-    {
-      "title": "韓총리 \"국민 평가 엄중할수록 할 일 분명히 해야\"",
-      "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4434605",
-      "summary": "",
-      "asOf": "2026-09-13T08:34:00+00:00",
-      "source": "INFOMAX",
-      "market": "US",
-      "symbols": [],
-      "sectors": [],
-      "eventType": "OTHER",
-      "newsScore": 0.0,
-      "importance": 20,
-      "freshness": 0.55
-    },
-    {
-      "title": "[뉴욕환시-주간] 함께 금리 올리는 美·日…어느 쪽이 더 매파적일까",
-      "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4434604",
-      "summary": "",
-      "asOf": "2026-09-13T08:09:00+00:00",
-      "source": "INFOMAX",
-      "market": "US",
-      "symbols": [],
-      "sectors": [],
-      "eventType": "OTHER",
-      "newsScore": 0.0,
-      "importance": 20,
-      "freshness": 0.55
-    },
-    {
-      "title": "김민석 \"진보세력과 연대 박차…한동훈 게이트 파헤칠 것\"",
-      "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4434602",
-      "summary": "",
-      "asOf": "2026-09-13T07:48:00+00:00",
-      "source": "INFOMAX",
-      "market": "US",
-      "symbols": [],
-      "sectors": [],
-      "eventType": "OTHER",
-      "newsScore": 0.0,
-      "importance": 20,
-      "freshness": 0.55
-    },
-    {
-      "title": "앤트로픽 CEO \"AI 모델 개발 속도 늦춰야\"…업계 인사들도 동조",
-      "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4434600",
-      "summary": "",
-      "asOf": "2026-09-13T06:57:00+00:00",
-      "source": "INFOMAX",
-      "market": "US",
-      "symbols": [],
-      "sectors": [],
-      "eventType": "OTHER",
-      "newsScore": 0.0,
-      "importance": 20,
-      "freshness": 0.55
-    },
-    {
-      "title": "올트먼 \"오픈AI IPO, 2026년은 아닐 것…안전성 추가 연구 필요\"",
-      "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4434599",
-      "summary": "",
-      "asOf": "2026-09-13T06:19:00+00:00",
-      "source": "INFOMAX",
-      "market": "US",
-      "symbols": [],
-      "sectors": [],
-      "eventType": "IPO",
-      "newsScore": 0.0,
-      "importance": 32,
-      "freshness": 0.55
-    },
-    {
-      "title": "MLCC 1위 무라타, 저마진 제품 단종…수혜주 찾는 증권가",
-      "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4434598",
-      "summary": "",
-      "asOf": "2026-09-13T06:07:00+00:00",
-      "source": "INFOMAX",
-      "market": "US",
-      "symbols": [],
-      "sectors": [
-        "금융"
-      ],
-      "eventType": "OTHER",
-      "newsScore": 0.0,
-      "importance": 24,
-      "freshness": 0.55
-    },
-    {
-      "title": "美 CPI 발표 후 커지는 연준 인상론…\"동결하려면 설득력 있는 명분 있어야\"",
-      "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4434597",
-      "summary": "",
-      "asOf": "2026-09-13T05:48:00+00:00",
-      "source": "INFOMAX",
-      "market": "US",
-      "symbols": [],
-      "sectors": [],
-      "eventType": "OTHER",
-      "newsScore": 0.0,
-      "importance": 20,
-      "freshness": 0.55
-    },
-    {
-      "title": "이번주 IPO 청약 5곳 몰린다…코넥스 진코스텍은 이전상장 수요예측 나서",
-      "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4434592",
-      "summary": "",
-      "asOf": "2026-09-13T04:00:00+00:00",
-      "source": "INFOMAX",
-      "market": "US",
-      "symbols": [],
-      "sectors": [],
-      "eventType": "IPO",
-      "newsScore": 0.0,
-      "importance": 32,
-      "freshness": 0.3
-    },
-    {
-      "title": "이형일 \"재정 적극 역할 필요…잠재성장률 반등·양극화 해소 최우선\"",
-      "url": "https://news.einfomax.co.kr/news/articleView.html?idxno=4434590",
-      "summary": "",
-      "asOf": "2026-09-13T03:05:00+00:00",
-      "source": "INFOMAX",
-      "market": "US",
-      "symbols": [],
-      "sectors": [],
-      "eventType": "OTHER",
-      "newsScore": 0.0,
-      "importance": 20,
       "freshness": 0.3
     }
   ],
   "webDataStatus": {
-    "generatedAt": "2026-09-13T20:45:13+09:00",
+    "generatedAt": "2026-09-14T08:00:12+09:00",
     "sourceRoot": "S:\\HamburgerTrader\\state",
     "paperOnly": true,
     "liveOrderAllowed": false,
@@ -5428,32 +5443,32 @@
       },
       "growthDiscovery": {
         "status": "READY",
-        "reason": "원천 산출물 134분 전 갱신",
+        "reason": "원천 산출물 39분 전 갱신",
         "source": [
           "S:\\HamburgerTrader\\state\\long_term_growth_candidates_latest.json"
         ],
         "count": 4,
-        "ageMinutes": 134.3748668
+        "ageMinutes": 39.35539681666667
       },
       "sectorOverview_KR": {
-        "status": "READY",
-        "reason": "원천 산출물 2937분 전 갱신",
+        "status": "STALE",
+        "reason": "원천 산출물이 3612분 경과하여 최신 자료로 사용하지 않습니다.",
         "source": [
           "S:\\HamburgerTrader\\state\\money_flow_KR.json",
           "S:\\HamburgerTrader\\state\\sector_parallel_sample_KR.json"
         ],
-        "count": 10,
-        "ageMinutes": 2936.59156675
+        "count": 0,
+        "ageMinutes": 3611.5889221499997
       },
       "sectorOverview_US": {
-        "status": "READY",
-        "reason": "원천 산출물 2593분 전 갱신",
+        "status": "STALE",
+        "reason": "원천 산출물이 3268분 경과하여 최신 자료로 사용하지 않습니다.",
         "source": [
           "S:\\HamburgerTrader\\state\\money_flow_US.json",
           "S:\\HamburgerTrader\\state\\sector_parallel_sample_US.json"
         ],
-        "count": 2,
-        "ageMinutes": 2593.1082500833336
+        "count": 0,
+        "ageMinutes": 3268.1057786
       },
       "newsList": {
         "status": "READY",
@@ -5473,7 +5488,7 @@
           "S:\\HamburgerTrader\\WEB\\publish_repo\\web\\data\\dotoriweb\\morning-note-US.json"
         ],
         "count": 2,
-        "ageMinutes": 4.208552
+        "ageMinutes": 4.2060494833333335
       },
       "dailyHistory": {
         "status": "READY",
@@ -5530,7 +5545,7 @@
       "market_cap": 100261421056,
       "forward_pe": 9.11529,
       "trailing_pe": 14.083194,
-      "peg": 0.62,
+      "peg": 0.61,
       "price_to_sales": 3.8606632,
       "ev_to_ebitda": 10.328,
       "revenue_growth": 0.129,
@@ -5542,12 +5557,12 @@
       "total_debt": 6761999872,
       "total_cash": 5639000064,
       "data_source": "Yahoo Finance quoteSummary",
-      "data_as_of": "2026-09-13T09:30:36+00:00",
+      "data_as_of": "2026-09-13T22:20:37+00:00",
       "growth_score": 68.15,
       "quality_score": 100.0,
-      "valuation_score": 73.66,
+      "valuation_score": 73.79,
       "balance_score": 95.02,
-      "long_term_score": 81.52,
+      "long_term_score": 81.55,
       "status": "QUALIFIED",
       "blockers": "",
       "research_only": true,
@@ -5581,7 +5596,7 @@
       "total_debt": 5598000128,
       "total_cash": 9009000448,
       "data_source": "Yahoo Finance quoteSummary",
-      "data_as_of": "2026-09-13T09:30:09+00:00",
+      "data_as_of": "2026-09-13T22:20:11+00:00",
       "growth_score": 70.8,
       "quality_score": 100.0,
       "valuation_score": 52.94,
@@ -5620,7 +5635,7 @@
       "total_debt": 22851999744,
       "total_cash": 9507000320,
       "data_source": "Yahoo Finance quoteSummary",
-      "data_as_of": "2026-09-13T09:30:08+00:00",
+      "data_as_of": "2026-09-13T22:20:10+00:00",
       "growth_score": 88.95,
       "quality_score": 84.87,
       "valuation_score": 58.54,
@@ -5659,7 +5674,7 @@
       "total_debt": 28426999808,
       "total_cash": 18560999424,
       "data_source": "Yahoo Finance quoteSummary",
-      "data_as_of": "2026-09-13T09:30:06+00:00",
+      "data_as_of": "2026-09-13T22:20:09+00:00",
       "growth_score": 63.8,
       "quality_score": 99.06,
       "valuation_score": 51.87,
@@ -6338,8 +6353,8 @@
   },
   "dailyDigest": [],
   "eventCalendar": {
-    "generatedAt": "2026-09-13T20:45:13+09:00",
-    "window": "2026-09-13 ~ 2026-09-20",
+    "generatedAt": "2026-09-14T08:00:12+09:00",
+    "window": "2026-09-14 ~ 2026-09-21",
     "events": [
       {
         "date": "2026-09-15",
@@ -6359,7 +6374,7 @@
     ]
   },
   "candidateCards": {
-    "generatedAt": "2026-09-13T20:45:13+09:00",
+    "generatedAt": "2026-09-14T08:00:12+09:00",
     "buy": [
       {
         "symbol": "SNDK",
