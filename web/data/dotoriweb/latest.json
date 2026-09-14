@@ -1,23 +1,76 @@
 {
-  "updated_at": "2026-09-13T23:00:15.037657Z",
+  "updated_at": "2026-09-14T10:05:04.817598Z",
   "source": "dotoristock_dotoriweb_live_bridge",
-  "scanner": [],
+  "scanner": [
+    {
+      "rank": 1,
+      "symbol": "000660",
+      "name": "000660",
+      "market": "KR",
+      "currentPrice": 1682000.0,
+      "current_price": 1682000.0,
+      "currentPriceText": "1,682,000",
+      "signal": "WATCH",
+      "sentiment": "WATCH",
+      "summary": "Hermes DATS 실시간 조건 관찰 결과입니다.",
+      "updated_at": "2026-09-14T10:05:04.233178Z",
+      "source": "toss_dats_scanner",
+      "evidence": {
+        "title": "Hermes DATS 근거",
+        "clues": [
+          "OVERSOLD",
+          "당일 변동 -7.17%",
+          "거래량 비율 1.38배"
+        ],
+        "confirmations": [
+          "가상·자문 스캐너 결과이며 주문 권한은 없습니다."
+        ],
+        "stance": "독립 리스크·무결성 게이트 확인 전에는 관찰 우선"
+      }
+    },
+    {
+      "rank": 2,
+      "symbol": "316140",
+      "name": "316140",
+      "market": "KR",
+      "currentPrice": 36700.0,
+      "current_price": 36700.0,
+      "currentPriceText": "36,700",
+      "signal": "BUY",
+      "sentiment": "BUY",
+      "summary": "Hermes DATS 실시간 조건 관찰 결과입니다.",
+      "updated_at": "2026-09-14T10:05:04.233178Z",
+      "source": "toss_dats_scanner",
+      "evidence": {
+        "title": "Hermes DATS 근거",
+        "clues": [
+          "OPENING SUPPLY+OPEN BREAKOUT",
+          "당일 변동 4.56%",
+          "거래량 비율 1.69배"
+        ],
+        "confirmations": [
+          "가상·자문 스캐너 결과이며 주문 권한은 없습니다."
+        ],
+        "stance": "독립 리스크·무결성 게이트 확인 전에는 관찰 우선"
+      }
+    }
+  ],
   "scanner_status": {
     "source": "S:\\stock_data\\dats\\kis_condition_events.jsonl",
     "state_path": "S:\\stock_data\\dats\\toss_dats_scanner_state.json",
-    "updated_at": "2026-09-13T10:05:04.919672Z",
-    "fresh": false,
+    "updated_at": "2026-09-14T10:05:04.233178Z",
+    "fresh": true,
     "max_age_minutes": 180,
-    "event_count": 0,
-    "dats_event_count": 0,
+    "event_count": 2,
+    "dats_event_count": 2,
     "breakout_count": 0,
     "breakout_path": "S:\\stock_data\\market_data\\candidates\\breakout_candidates.json",
     "order_authority": false
   },
-  "scanner_updated_at": "2026-09-13T10:05:04.919672Z",
-  "status_updated_at": "2026-09-14T07:56:01+09:00",
+  "scanner_updated_at": "2026-09-14T10:05:04.233178Z",
+  "status_updated_at": "2026-09-14T19:01:01+09:00",
   "widget_updated_at": null,
-  "macro_updated_at": "2026-09-14T07:30:36+09:00",
+  "macro_updated_at": "2026-09-14T19:01:46+09:00",
   "market_focus": null,
   "market_limits": null,
   "virtual_market_priority": null,
@@ -81,7 +134,7 @@
       "display_name": "SNDK(샌디스크)",
       "market": "US",
       "sector": null,
-      "latest_price": 1633.35,
+      "latest_price": 1546.86,
       "score": null,
       "profit_selection_rank": null,
       "strategy_id": null,
@@ -102,7 +155,7 @@
         "name": "샌디스크",
         "display_name": "SNDK(샌디스크)",
         "market": "US",
-        "latest_price": 1633.35,
+        "latest_price": 1546.86,
         "score": null,
         "raw_score": null,
         "direction": "",
@@ -146,7 +199,7 @@
       "display_name": "IONQ(아이온큐)",
       "market": "US",
       "sector": null,
-      "latest_price": 36.75,
+      "latest_price": 35.64,
       "score": null,
       "profit_selection_rank": null,
       "strategy_id": null,
@@ -167,7 +220,7 @@
         "name": "아이온큐",
         "display_name": "IONQ(아이온큐)",
         "market": "US",
-        "latest_price": 36.75,
+        "latest_price": 35.64,
         "score": null,
         "raw_score": null,
         "direction": "",
@@ -211,7 +264,7 @@
       "display_name": "ORCL(오라클)",
       "market": "US",
       "sector": null,
-      "latest_price": 150.28,
+      "latest_price": 145.35,
       "score": null,
       "profit_selection_rank": null,
       "strategy_id": null,
@@ -232,7 +285,7 @@
         "name": "오라클",
         "display_name": "ORCL(오라클)",
         "market": "US",
-        "latest_price": 150.28,
+        "latest_price": 145.35,
         "score": null,
         "raw_score": null,
         "direction": "",
@@ -276,7 +329,7 @@
       "display_name": "TDAQ",
       "market": "US",
       "sector": null,
-      "latest_price": 26.88,
+      "latest_price": 26.68,
       "score": null,
       "profit_selection_rank": null,
       "strategy_id": null,
@@ -297,7 +350,7 @@
         "name": "TDAQ",
         "display_name": "TDAQ",
         "market": "US",
-        "latest_price": 26.88,
+        "latest_price": 26.68,
         "score": null,
         "raw_score": null,
         "direction": "",
@@ -343,10 +396,10 @@
       "currency": "USD",
       "quantity": 2.0,
       "avg_price": 1713.59985,
-      "current_price": 1633.35,
-      "market_value": 3266.7,
-      "pnl": -160.4997000000003,
-      "pnl_pct": -4.683114905734853
+      "current_price": 1546.86,
+      "market_value": 3093.72,
+      "pnl": -333.4797000000003,
+      "pnl_pct": -9.73038425511068
     },
     {
       "symbol": "IONQ",
@@ -354,10 +407,10 @@
       "currency": "USD",
       "quantity": 46.0,
       "avg_price": 38.174073,
-      "current_price": 36.75,
-      "market_value": 1690.5,
-      "pnl": -65.507358,
-      "pnl_pct": -3.7304717261896547
+      "current_price": 35.64,
+      "market_value": 1639.44,
+      "pnl": -116.56735799999997,
+      "pnl_pct": -6.638204416908822
     },
     {
       "symbol": "ORCL",
@@ -365,10 +418,10 @@
       "currency": "USD",
       "quantity": 1.0,
       "avg_price": 161.87,
-      "current_price": 150.28,
-      "market_value": 150.28,
-      "pnl": -11.590000000000003,
-      "pnl_pct": -7.160066720207581
+      "current_price": 145.35,
+      "market_value": 145.35,
+      "pnl": -16.52000000000001,
+      "pnl_pct": -10.205720640019777
     },
     {
       "symbol": "TDAQ",
@@ -376,10 +429,10 @@
       "currency": "USD",
       "quantity": 33.0,
       "avg_price": 27.001175,
-      "current_price": 26.88,
-      "market_value": 887.04,
-      "pnl": -3.9987750000000304,
-      "pnl_pct": -0.4487767661962905
+      "current_price": 26.68,
+      "market_value": 880.4399999999999,
+      "pnl": -10.598775000000007,
+      "pnl_pct": -1.1894852724001814
     }
   ],
   "state_mode": "hermes_stock",
@@ -396,7 +449,7 @@
     "this_week": 0,
     "this_month": 0,
     "all_time": 0,
-    "last_updated": "2026-09-13T23:00:15.037657Z"
+    "last_updated": "2026-09-14T10:05:04.817598Z"
   },
   "market_session": {
     "focus_market": null,
@@ -477,25 +530,78 @@
   },
   "all_market_candidate_selection": {},
   "payload_json": {
-    "updated_at": "2026-09-13T23:00:15.037657Z",
+    "updated_at": "2026-09-14T10:05:04.817598Z",
     "source": "dotoristock_dotoriweb_live_bridge",
-    "scanner": [],
+    "scanner": [
+      {
+        "rank": 1,
+        "symbol": "000660",
+        "name": "000660",
+        "market": "KR",
+        "currentPrice": 1682000.0,
+        "current_price": 1682000.0,
+        "currentPriceText": "1,682,000",
+        "signal": "WATCH",
+        "sentiment": "WATCH",
+        "summary": "Hermes DATS 실시간 조건 관찰 결과입니다.",
+        "updated_at": "2026-09-14T10:05:04.233178Z",
+        "source": "toss_dats_scanner",
+        "evidence": {
+          "title": "Hermes DATS 근거",
+          "clues": [
+            "OVERSOLD",
+            "당일 변동 -7.17%",
+            "거래량 비율 1.38배"
+          ],
+          "confirmations": [
+            "가상·자문 스캐너 결과이며 주문 권한은 없습니다."
+          ],
+          "stance": "독립 리스크·무결성 게이트 확인 전에는 관찰 우선"
+        }
+      },
+      {
+        "rank": 2,
+        "symbol": "316140",
+        "name": "316140",
+        "market": "KR",
+        "currentPrice": 36700.0,
+        "current_price": 36700.0,
+        "currentPriceText": "36,700",
+        "signal": "BUY",
+        "sentiment": "BUY",
+        "summary": "Hermes DATS 실시간 조건 관찰 결과입니다.",
+        "updated_at": "2026-09-14T10:05:04.233178Z",
+        "source": "toss_dats_scanner",
+        "evidence": {
+          "title": "Hermes DATS 근거",
+          "clues": [
+            "OPENING SUPPLY+OPEN BREAKOUT",
+            "당일 변동 4.56%",
+            "거래량 비율 1.69배"
+          ],
+          "confirmations": [
+            "가상·자문 스캐너 결과이며 주문 권한은 없습니다."
+          ],
+          "stance": "독립 리스크·무결성 게이트 확인 전에는 관찰 우선"
+        }
+      }
+    ],
     "scanner_status": {
       "source": "S:\\stock_data\\dats\\kis_condition_events.jsonl",
       "state_path": "S:\\stock_data\\dats\\toss_dats_scanner_state.json",
-      "updated_at": "2026-09-13T10:05:04.919672Z",
-      "fresh": false,
+      "updated_at": "2026-09-14T10:05:04.233178Z",
+      "fresh": true,
       "max_age_minutes": 180,
-      "event_count": 0,
-      "dats_event_count": 0,
+      "event_count": 2,
+      "dats_event_count": 2,
       "breakout_count": 0,
       "breakout_path": "S:\\stock_data\\market_data\\candidates\\breakout_candidates.json",
       "order_authority": false
     },
-    "scanner_updated_at": "2026-09-13T10:05:04.919672Z",
-    "status_updated_at": "2026-09-14T07:56:01+09:00",
+    "scanner_updated_at": "2026-09-14T10:05:04.233178Z",
+    "status_updated_at": "2026-09-14T19:01:01+09:00",
     "widget_updated_at": null,
-    "macro_updated_at": "2026-09-14T07:30:36+09:00",
+    "macro_updated_at": "2026-09-14T19:01:46+09:00",
     "market_focus": null,
     "market_limits": null,
     "virtual_market_priority": null,
@@ -559,7 +665,7 @@
         "display_name": "SNDK(샌디스크)",
         "market": "US",
         "sector": null,
-        "latest_price": 1633.35,
+        "latest_price": 1546.86,
         "score": null,
         "profit_selection_rank": null,
         "strategy_id": null,
@@ -580,7 +686,7 @@
           "name": "샌디스크",
           "display_name": "SNDK(샌디스크)",
           "market": "US",
-          "latest_price": 1633.35,
+          "latest_price": 1546.86,
           "score": null,
           "raw_score": null,
           "direction": "",
@@ -624,7 +730,7 @@
         "display_name": "IONQ(아이온큐)",
         "market": "US",
         "sector": null,
-        "latest_price": 36.75,
+        "latest_price": 35.64,
         "score": null,
         "profit_selection_rank": null,
         "strategy_id": null,
@@ -645,7 +751,7 @@
           "name": "아이온큐",
           "display_name": "IONQ(아이온큐)",
           "market": "US",
-          "latest_price": 36.75,
+          "latest_price": 35.64,
           "score": null,
           "raw_score": null,
           "direction": "",
@@ -689,7 +795,7 @@
         "display_name": "ORCL(오라클)",
         "market": "US",
         "sector": null,
-        "latest_price": 150.28,
+        "latest_price": 145.35,
         "score": null,
         "profit_selection_rank": null,
         "strategy_id": null,
@@ -710,7 +816,7 @@
           "name": "오라클",
           "display_name": "ORCL(오라클)",
           "market": "US",
-          "latest_price": 150.28,
+          "latest_price": 145.35,
           "score": null,
           "raw_score": null,
           "direction": "",
@@ -754,7 +860,7 @@
         "display_name": "TDAQ",
         "market": "US",
         "sector": null,
-        "latest_price": 26.88,
+        "latest_price": 26.68,
         "score": null,
         "profit_selection_rank": null,
         "strategy_id": null,
@@ -775,7 +881,7 @@
           "name": "TDAQ",
           "display_name": "TDAQ",
           "market": "US",
-          "latest_price": 26.88,
+          "latest_price": 26.68,
           "score": null,
           "raw_score": null,
           "direction": "",
@@ -821,10 +927,10 @@
         "currency": "USD",
         "quantity": 2.0,
         "avg_price": 1713.59985,
-        "current_price": 1633.35,
-        "market_value": 3266.7,
-        "pnl": -160.4997000000003,
-        "pnl_pct": -4.683114905734853
+        "current_price": 1546.86,
+        "market_value": 3093.72,
+        "pnl": -333.4797000000003,
+        "pnl_pct": -9.73038425511068
       },
       {
         "symbol": "IONQ",
@@ -832,10 +938,10 @@
         "currency": "USD",
         "quantity": 46.0,
         "avg_price": 38.174073,
-        "current_price": 36.75,
-        "market_value": 1690.5,
-        "pnl": -65.507358,
-        "pnl_pct": -3.7304717261896547
+        "current_price": 35.64,
+        "market_value": 1639.44,
+        "pnl": -116.56735799999997,
+        "pnl_pct": -6.638204416908822
       },
       {
         "symbol": "ORCL",
@@ -843,10 +949,10 @@
         "currency": "USD",
         "quantity": 1.0,
         "avg_price": 161.87,
-        "current_price": 150.28,
-        "market_value": 150.28,
-        "pnl": -11.590000000000003,
-        "pnl_pct": -7.160066720207581
+        "current_price": 145.35,
+        "market_value": 145.35,
+        "pnl": -16.52000000000001,
+        "pnl_pct": -10.205720640019777
       },
       {
         "symbol": "TDAQ",
@@ -854,10 +960,10 @@
         "currency": "USD",
         "quantity": 33.0,
         "avg_price": 27.001175,
-        "current_price": 26.88,
-        "market_value": 887.04,
-        "pnl": -3.9987750000000304,
-        "pnl_pct": -0.4487767661962905
+        "current_price": 26.68,
+        "market_value": 880.4399999999999,
+        "pnl": -10.598775000000007,
+        "pnl_pct": -1.1894852724001814
       }
     ],
     "state_mode": "hermes_stock",
@@ -874,7 +980,7 @@
       "this_week": 0,
       "this_month": 0,
       "all_time": 0,
-      "last_updated": "2026-09-13T23:00:15.037657Z"
+      "last_updated": "2026-09-14T10:05:04.817598Z"
     },
     "market_session": {
       "focus_market": null,
@@ -958,8 +1064,8 @@
   "market_evidence": {
     "summary": {
       "generated_at": null,
-      "status_updated_at": "2026-09-14T07:56:01+09:00",
-      "macro_updated_at": "2026-09-14T07:30:36+09:00",
+      "status_updated_at": "2026-09-14T19:01:01+09:00",
+      "macro_updated_at": "2026-09-14T19:01:46+09:00",
       "symbol_count": 4,
       "display_symbol_count": 4,
       "breakout_symbol_count": 0
@@ -1026,7 +1132,7 @@
         "display_name": "SNDK(샌디스크)",
         "market": "US",
         "score": null,
-        "latest_price": 1633.35,
+        "latest_price": 1546.86,
         "profit_selection_rank": null,
         "strategy_id": null,
         "strategy_name": "portfolio_holding",
@@ -1044,7 +1150,7 @@
         "display_name": "IONQ(아이온큐)",
         "market": "US",
         "score": null,
-        "latest_price": 36.75,
+        "latest_price": 35.64,
         "profit_selection_rank": null,
         "strategy_id": null,
         "strategy_name": "portfolio_holding",
@@ -1062,7 +1168,7 @@
         "display_name": "ORCL(오라클)",
         "market": "US",
         "score": null,
-        "latest_price": 150.28,
+        "latest_price": 145.35,
         "profit_selection_rank": null,
         "strategy_id": null,
         "strategy_name": "portfolio_holding",
@@ -1080,7 +1186,7 @@
         "display_name": "TDAQ",
         "market": "US",
         "score": null,
-        "latest_price": 26.88,
+        "latest_price": 26.68,
         "profit_selection_rank": null,
         "strategy_id": null,
         "strategy_name": "portfolio_holding",
@@ -1099,7 +1205,7 @@
         "name": "샌디스크",
         "display_name": "SNDK(샌디스크)",
         "market": "US",
-        "latest_price": 1633.35,
+        "latest_price": 1546.86,
         "score": null,
         "raw_score": null,
         "direction": "",
@@ -1141,7 +1247,7 @@
         "name": "아이온큐",
         "display_name": "IONQ(아이온큐)",
         "market": "US",
-        "latest_price": 36.75,
+        "latest_price": 35.64,
         "score": null,
         "raw_score": null,
         "direction": "",
@@ -1183,7 +1289,7 @@
         "name": "오라클",
         "display_name": "ORCL(오라클)",
         "market": "US",
-        "latest_price": 150.28,
+        "latest_price": 145.35,
         "score": null,
         "raw_score": null,
         "direction": "",
@@ -1225,7 +1331,7 @@
         "name": "TDAQ",
         "display_name": "TDAQ",
         "market": "US",
-        "latest_price": 26.88,
+        "latest_price": 26.68,
         "score": null,
         "raw_score": null,
         "direction": "",
