@@ -1424,7 +1424,7 @@ function tossHoldingToWatchlist(item) {
     name,
     market: marketName(symbol),
     currentPrice,
-    purchasePrice: Number.isFinite(purchasePrice) ? purchasePrice : 0,
+    purchasePrice: Number.isFinite(purchasePrice) && purchasePrice > 0 ? purchasePrice : null,
     signal: "보유",
     movingAverage: "토스 보유종목",
     memo,
