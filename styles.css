@@ -669,6 +669,60 @@ button:hover {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.treasury-panel {
+  margin: 18px 0;
+}
+
+.treasury-panel-head {
+  align-items: end;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.treasury-panel-head h3 {
+  margin: 0;
+}
+
+.treasury-cards {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.treasury-card {
+  background: linear-gradient(145deg, #f8fbff, #eef5ff);
+  border: 1px solid #cbdcf2;
+  border-radius: 8px;
+  min-height: 136px;
+  padding: 16px;
+}
+
+.treasury-yield {
+  color: #0f3f73;
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin: 18px 0 8px;
+}
+
+.treasury-meta {
+  color: var(--muted);
+  font-size: 12px;
+  margin: 3px 0 0;
+}
+
+.treasury-card-empty {
+  color: var(--muted);
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 720px) {
+  .treasury-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
 .data-card,
 .info-card {
   background: var(--panel);

@@ -1,4 +1,4 @@
-const state = { data: null, dailyHistory: [], dotoriWeb: null, tossHoldings: null, sanghoe: null, todayCandidates: null, morningNotes: {}, activeSection: "watchlist", userStocks: [], selectedMovingSymbol: "", scannerMarketFirst: "domestic", scannerMarketFirstManual: false, scannerSectorFilter: "전체", growthSectorFilter: "전체", dailySearchQuery: "", dailyDateFrom: "", dailyDateTo: "", quotes: {}, liveQuoteCycle: 0, quoteRefreshInFlight: false, quoteRenderTimer: 0 };
+const state = { data: null, dailyHistory: [], dotoriWeb: null, tossHoldings: null, sanghoe: null, todayCandidates: null, morningNotes: {}, treasuryYields: null, activeSection: "watchlist", userStocks: [], selectedMovingSymbol: "", scannerMarketFirst: "domestic", scannerMarketFirstManual: false, scannerSectorFilter: "전체", growthSectorFilter: "전체", dailySearchQuery: "", dailyDateFrom: "", dailyDateTo: "", quotes: {}, liveQuoteCycle: 0, quoteRefreshInFlight: false, quoteRenderTimer: 0 };
 const USER_STOCKS_KEY = "dotori.userStocks.v1";
 const USER_KEY = "dotori.userKey.v1";
 const USER_KEEP_ASKED_KEY = "dotori.keepAsked.v1";
@@ -159,6 +159,23 @@ function setTabDebugState(section, count) {
 }
 function renderCards(items, mapper) { return items.map(mapper).join(""); }
 function renderMarketBrief() {}
+
+function renderTreasuryCards() {
+  const mount = el("#treasuryCards");
+  const updated = el("#treasuryUpdatedAt");
+  if (!mount) return;
+  const payload = state.treasuryYields;
+  if (!payload || !Array.isArray(payload.instruments)) {
+    mount.innerHTML = `<article class="treasury-card treasury-card-empty"><strong>미국채 데이터 대기</strong><p>공식 수익률을 불러오지 못했습니다.</p></article>`;
+    return;
+  }
+  if (updated) updated.textContent = `${payload.as_of || "기준일 확인 필요"} · ${payload.source_label || "공식 고시"}`;
+  mount.innerHTML = payload.instruments.map((item) => {
+    const value = Number(item.yield_pct);
+    const display = Number.isFinite(value) ? `${value.toFixed(2)}%` : "확인불가";
+    return `<article class="treasury-card"><div class="card-top"><strong>${escapeHtml(item.label || "미국채")}</strong><em>국채 수익률</em></div><div class="treasury-yield">${display}</div><p class="treasury-meta">기준일 ${escapeHtml(payload.as_of || "-")}</p><p class="treasury-meta">${escapeHtml(item.description || "미국 재무부 Par Yield")}</p></article>`;
+  }).join("");
+}
 function normalizeNewsText(value) {
   return String(value || "")
     .replace(/<[^>]*>/g, " ")
@@ -1978,6 +1995,7 @@ function renderDashboard() {
   setTabDebugState(state.activeSection, Array.isArray(active) ? active.length : 0);
   renderSignalFeed();
   renderMarketBrief();
+  renderTreasuryCards();
   renderDailyDigestShowcase();
   if (state.activeSection === "watchlist") {
     grid.innerHTML = renderCards(active, (item) => {
@@ -2286,7 +2304,7 @@ function drawChart(source = null) {
 
 async function loadData(options = {}) {
   try {
-    const [snapshotResponse, dailyResponse, dotoriWebResponse, holdingsResponse, sanghoeResponse, todayCandidatesResponse, morningKrResponse, morningUsResponse] = await Promise.all([
+    const [snapshotResponse, dailyResponse, dotoriWebResponse, holdingsResponse, sanghoeResponse, todayCandidatesResponse, morningKrResponse, morningUsResponse, treasuryResponse] = await Promise.all([
       fetch("./data/public-snapshot.json", { cache: "no-store" }),
       fetch("./data/daily-market-history.json", { cache: "no-store" }).catch(() => null),
       fetch("./web/data/dotoriweb/latest.json", { cache: "no-store" }).catch(() => null),
@@ -2294,7 +2312,8 @@ async function loadData(options = {}) {
       fetch("./data/dotori-sanghoe.json", { cache: "no-store" }).catch(() => null),
       fetch("./web/data/dotoriweb/today-candidates.json", { cache: "no-store" }).catch(() => null),
       fetch("./web/data/dotoriweb/morning-note-KR.json", { cache: "no-store" }).catch(() => null),
-      fetch("./web/data/dotoriweb/morning-note-US.json", { cache: "no-store" }).catch(() => null)
+      fetch("./web/data/dotoriweb/morning-note-US.json", { cache: "no-store" }).catch(() => null),
+      fetch("./web/data/dotoriweb/treasury-yields.json", { cache: "no-store" }).catch(() => null)
     ]);
     if (!snapshotResponse.ok) throw new Error(`HTTP ${snapshotResponse.status}`);
     state.data = normalizeSnapshotData(await snapshotResponse.json());
@@ -2320,6 +2339,7 @@ async function loadData(options = {}) {
     }
     if (morningKrResponse && morningKrResponse.ok) state.morningNotes.KR = await morningKrResponse.json();
     if (morningUsResponse && morningUsResponse.ok) state.morningNotes.US = await morningUsResponse.json();
+    if (treasuryResponse && treasuryResponse.ok) state.treasuryYields = await treasuryResponse.json();
     setStatus(T.connected);
     setBrandUpdatedAt(new Date().toISOString());
     renderHermesPlanLines();

@@ -1,0 +1,12 @@
+{
+  "schema_version": "us-treasury-par-yield-cards-v1",
+  "as_of": "2026-09-14",
+  "published_at": "2026-09-15T00:00:00Z",
+  "source_label": "미국 재무부 Daily Treasury Par Yield Curve",
+  "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?field_tdr_date_value_month=202609&type=daily_treasury_yield_curve",
+  "instruments": [
+    {"id": "us_treasury_30y", "label": "미국채 30년물", "yield_pct": 5.34, "description": "30 Yr par yield"},
+    {"id": "us_treasury_10y", "label": "미국채 10년물", "yield_pct": 4.97, "description": "10 Yr par yield"},
+    {"id": "us_treasury_2y", "label": "미국채 2년물", "yield_pct": 4.65, "description": "2 Yr par yield"}
+  ]
+}
