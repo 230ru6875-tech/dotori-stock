@@ -7,6 +7,13 @@ const US_FETCH_TIMEOUT_MS = 2200;
 const DOMESTIC_TOSS_TIMEOUT_MS = 1700;
 const US_TOSS_TIMEOUT_MS = 2400;
 const BATCH_SYMBOL_LIMIT = 30;
+const STRATEGYBAR_MARKET_URL = "https://strategybar.hnr2020.workers.dev/api/market";
+const STRATEGYBAR_INDEX_KEYS = Object.freeze({
+  NDX: "^NDX",
+  GSPC: "^GSPC",
+  SOX: "^SOX",
+  VIX: "^VIX"
+});
 
 function normalizeSymbol(value) {
   return String(value || "").trim().toUpperCase().replace(/[^A-Z0-9.]/g, "");
@@ -97,6 +104,59 @@ async function fetchJsonWithTimeout(url, options = {}, timeoutMs = US_FETCH_TIME
 
 function cleanPrice(value) {
   return String(value || "").replace(/,/g, "").trim();
+}
+
+async function fetchStrategyBarSnapshot() {
+  return await fetchJsonWithTimeout(
+    `${STRATEGYBAR_MARKET_URL}?force=1&t=${Date.now()}`,
+    {
+      headers: {
+        "accept": "application/json",
+        "user-agent": "DotoriStock/StrategyBarPriceBridge"
+      }
+    },
+    1800
+  );
+}
+
+function strategyBarQuote(snapshot, symbol) {
+  if (!snapshot || /^\d{6}$/.test(symbol)) return null;
+
+  const stock = snapshot?.symbols?.[symbol];
+  if (stock) {
+    const current = Number(stock.price);
+    if (!Number.isFinite(current) || current <= 0) return null;
+    const previousClose = Number(stock.previousClose || 0);
+    const changePct = Number(stock.changePct);
+    return {
+      symbol,
+      name: symbol,
+      market: "해외",
+      currentPrice: formatDollar(current),
+      previousClose: previousClose > 0 ? formatDollar(previousClose) : "",
+      changePct: Number.isFinite(changePct) ? `${changePct >= 0 ? "+" : ""}${changePct.toFixed(2)}%` : "",
+      source: `StrategyBar/${stock.provider || stock.source || "live"}`,
+      quotedAt: stock.asOf || snapshot.asOf || new Date().toISOString()
+    };
+  }
+
+  const marketKey = STRATEGYBAR_INDEX_KEYS[symbol];
+  if (!marketKey) return null;
+  const row = Array.isArray(snapshot?.market)
+    ? snapshot.market.find((item) => item?.key === marketKey)
+    : null;
+  const current = Number(row?.value);
+  if (!Number.isFinite(current) || current <= 0) return null;
+  const changePct = Number(row?.changePct);
+  return {
+    symbol,
+    name: symbol,
+    market: "지수",
+    currentPrice: formatDollar(current),
+    changePct: Number.isFinite(changePct) ? `${changePct >= 0 ? "+" : ""}${changePct.toFixed(2)}%` : "",
+    source: `StrategyBar/${row?.provider || row?.source || "market"}`,
+    quotedAt: row?.asOf || snapshot.asOf || new Date().toISOString()
+  };
 }
 
 function formatWon(value) {
@@ -393,7 +453,11 @@ export async function onRequestGet(context) {
   const url = new URL(context.request.url);
   const symbols = parseSymbolsParam(url);
   if (symbols.length) {
-    const settled = await Promise.allSettled(symbols.map(async (symbol) => [symbol, await quoteSingle(symbol, context.env)]));
+    const strategySnapshot = await fetchStrategyBarSnapshot().catch(() => null);
+    const settled = await Promise.allSettled(symbols.map(async (symbol) => {
+      const bridged = strategyBarQuote(strategySnapshot, symbol);
+      return [symbol, bridged || await quoteSingle(symbol, context.env)];
+    }));
     const quotes = {};
     const errors = {};
     settled.forEach((entry, index) => {
@@ -421,8 +485,9 @@ export async function onRequestGet(context) {
     return new Response(JSON.stringify({ ok: false, error: "symbol_required" }), { status: 400, headers: JSON_HEADERS });
   }
   try {
-    const quote = await quoteSingle(symbol, context.env);
-    return new Response(JSON.stringify({ ok: true, ...quote, quotedAt: new Date().toISOString() }), { headers: JSON_HEADERS });
+    const strategySnapshot = await fetchStrategyBarSnapshot().catch(() => null);
+    const quote = strategyBarQuote(strategySnapshot, symbol) || await quoteSingle(symbol, context.env);
+    return new Response(JSON.stringify({ ok: true, ...quote, quotedAt: quote.quotedAt || new Date().toISOString() }), { headers: JSON_HEADERS });
   } catch (error) {
     return new Response(JSON.stringify({ ok: false, symbol, error: String(error?.message || error) }), { status: 502, headers: JSON_HEADERS });
   }
